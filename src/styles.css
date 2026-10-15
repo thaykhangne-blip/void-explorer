@@ -301,3 +301,6 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 
 /* Small build label in the settings menu. */
 .version-note{margin:14px 0 0;text-align:center;font-size:.68rem;letter-spacing:.12em;color:var(--muted);opacity:.72}
+
+/* Compact version stamp on the main campaign screen. */
+.main-version-note{margin-top:6px;font-size:.62rem;letter-spacing:.14em}
