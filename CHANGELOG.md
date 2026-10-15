@@ -21,3 +21,6 @@
 - Moved campaign world and tutorial definitions, core and element definitions, and perk data into ES modules.
 - Switched the HTML entry point to module script loading.
 - Expanded JavaScript syntax checks and updated project documentation.
+
+- Extracted Ricochet Circuit bounce behavior into `src/systems/ricochet.js`.
+- Extracted the pure line-segment geometry helper into `src/utils/geometry.js`.
