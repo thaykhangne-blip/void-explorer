@@ -312,3 +312,10 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 /* v210: keep hovered/focused core selection cards above adjacent wrappers so the full frame remains visible. */
 .core-choice-wrap{position:relative;z-index:0}
 .core-choice-wrap:hover,.core-choice-wrap:focus-within{z-index:5}
+
+
+/* v211: keep core-selection hover frames above neighboring cards without scaling outside the card's box. */
+.core-choice-wrap{position:relative;z-index:0;isolation:isolate}
+.core-choice-wrap:hover,.core-choice-wrap:focus-within{z-index:20}
+.core-choice-wrap>.choice{position:relative;z-index:0}
+.core-choice-wrap:hover>.choice,.core-choice-wrap:focus-within>.choice{z-index:1;border-color:var(--cyan)!important;box-shadow:inset 0 0 0 1px #72f6ff66,0 0 12px #72f6ff22;transform:none!important}

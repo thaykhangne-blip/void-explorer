@@ -1,12 +1,16 @@
-# Void Explorer v210
+# Void Explorer v211
 
 Void Explorer is a browser-based cosmic action roguelike.
 
-## v210 fixes
-- Raised the hovered or keyboard-focused core-selection wrapper above adjacent wrappers so the whole selection-card frame stays visible.
+## v211 fixes
+- Updated both in-game version labels to v211.
+- Core-selection wrappers now use explicit hover/focus stacking order. The card's cyan hover frame stays inside its card box, preventing the scale transform from clipping or appearing under an adjacent wrapper.
+
+## Previous v210 fixes
+- Raised hovered/focused core-selection wrappers above neighboring wrappers.
 
 ## Previous v209 fixes
-- Removed duplicate canvas text behind the portal destination notification.
+- Removed duplicate portal instruction text behind the destination notification.
 - Expanded Orbital Build to include acquired run perks, including core-specific relics.
 - Preserved Nature drones between rooms and gated Verdant Ray behind two living drones.
 

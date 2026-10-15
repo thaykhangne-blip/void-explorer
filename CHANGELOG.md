@@ -38,3 +38,7 @@
 
 ## v210 — Core selection hover stacking
 - Raised the hovered or focused `.core-choice-wrap` above neighboring selection wrappers to prevent the card's frame from being covered.
+
+## v211 — Core-selection hover frame and visible version
+- Updated both in-game version labels to v211.
+- Increased the hovered/focused core-selection wrapper's stacking level and removed the outward hover scale from the card, keeping its frame visible within the card instead of letting it overlap or clip beneath neighboring wrappers.
