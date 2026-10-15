@@ -1,5 +1,12 @@
 # Changelog
 
+## v216 — Attack range and portal shard display
+- Capped targeted core attacks at 440px and chain/ricochet links at 160px.
+- Limited Nature's special ray, drone targeting, Auralis target strikes, Flash chain targets, Nova beams, and projectile/ricochet travel range.
+- Added a visible Void Shard total beneath the player during portal selection.
+- Updated visible game version to v216.
+
+
 ## v215 — Universal perks and Pulse Reactor
 - Pulse Reactor now damages nearby enemies every 2.25 seconds, with rank-scaled damage and radius, floating damage numbers, and an expanding ring effect.
 - Added ten universal perks to level-up rewards, portal upgrades, the Void Market, and the Perk Codex.
