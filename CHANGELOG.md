@@ -1,5 +1,11 @@
 # Changelog
 
+## v221 — Core-weighted upgrade rewards
+- Core-exclusive perks for the active core receive 4× selection weight in level-up and portal reward screens.
+- Weighted selection is without replacement, keeps general perks in the pool, and still filters maxed-out perks.
+- Updated the visible game version to v221.
+
+
 ## v220 — Auralis terminology and stack HUD
 - Renamed Luminize to Lumox and Voidflare(s) to Void Burst across player-facing text.
 - Added a persistent Auralis Void Burst buff chip displaying stored stacks with no cooldown timer.
