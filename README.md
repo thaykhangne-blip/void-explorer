@@ -1,6 +1,11 @@
-# Void Explorer v214
+# Void Explorer v215
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v215 features
+- Added ten universal perks to the Codex, level-up choices, portal upgrades, and Void Market.
+- Implemented Pulse Reactor's timed area damage, floating damage numbers, and expanding ring effect.
+- Added a one-time extra dash charge with diamond charge indicators.
 
 ## v214 fixes
 - Auralis ability notifications now remain visible instead of being overwritten by frequent Luminize/Voidflare passive notifications.
