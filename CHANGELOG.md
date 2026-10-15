@@ -1,5 +1,11 @@
 # Changelog
 
+## v218 — Mini ability indicators
+- Added compact Space, Q, and E indicators beneath the active core during gameplay.
+- Ready abilities glow; indicators show dash charges and recharge, ultimate charge, and E cooldown or Nature drone charges.
+- Updated the visible game version to v218.
+
+
 ## v217 — Out-of-range attack audio
 - Nature and Flash attack SFX now play only when a valid in-range target or visible Nature ray exists.
 - Remote targets no longer trigger attack sounds when the range-limited attack produces no visible effect.
