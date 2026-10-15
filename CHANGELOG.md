@@ -1,5 +1,11 @@
 # Changelog
 
+## v219 — Minimal dash-charge indicator
+- Removed the mini Space, Q, and E panels beneath the active core.
+- Kept only filled/outlined dash-charge diamonds beneath the core, with a glow on available charges.
+- Updated the visible game version to v219.
+
+
 ## v218 — Mini ability indicators
 - Added compact Space, Q, and E indicators beneath the active core during gameplay.
 - Ready abilities glow; indicators show dash charges and recharge, ultimate charge, and E cooldown or Nature drone charges.
