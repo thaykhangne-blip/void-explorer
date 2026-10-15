@@ -1,6 +1,9 @@
-# Void Explorer v212
+# Void Explorer v213
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v213 fixes
+- Centered perk names in level-up and portal evolution cards.
 
 ## v212 fixes
 - Updated both in-game version labels to v212.
