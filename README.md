@@ -1,6 +1,9 @@
-# Void Explorer v220
+# Void Explorer v221
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v221 update
+- Core-exclusive perks now have a 4× selection weight in level-up and portal upgrade screens; selection remains random and respects perk rank caps.
 
 ## v220 update
 - Renamed Luminize to Lumox and Voidflare(s) to Void Burst in player-facing text.
