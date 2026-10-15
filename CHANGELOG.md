@@ -35,3 +35,6 @@
 - Added acquisition-backed Orbital Build entries for perks not covered by rank summaries, including Nature's Worldtree Protocol and Evergreen Covenant.
 - Preserved Nature drones in memory across room transitions while continuing to clear temporary effects; drone sprites are hidden on non-playing screens.
 - Gated Nature's third-attack Verdant Ray behind two living summoned drones.
+
+## v210 — Core selection hover stacking
+- Raised the hovered or focused `.core-choice-wrap` above neighboring selection wrappers to prevent the card's frame from being covered.

@@ -1,12 +1,14 @@
-# Void Explorer v209
+# Void Explorer v210
 
 Void Explorer is a browser-based cosmic action roguelike.
 
-## v209 fixes
-- Removed duplicated canvas instruction text from the portal selection screen.
-- Orbital Build now supplements stat summaries from the run acquisition history, including rare/core-exclusive perks across cores. Nature's Worldtree Protocol and Evergreen Covenant also have explicit rank rows.
-- Nature's living drones persist between rooms. Their sprites are hidden on portal/clear screens and shown again when the next room is active; temporary vines and projectiles are still cleaned up.
-- Nature's every-third-attack Verdant Ray only charges and fires while both summoned drones are alive.
+## v210 fixes
+- Raised the hovered or keyboard-focused core-selection wrapper above adjacent wrappers so the whole selection-card frame stays visible.
+
+## Previous v209 fixes
+- Removed duplicate canvas text behind the portal destination notification.
+- Expanded Orbital Build to include acquired run perks, including core-specific relics.
+- Preserved Nature drones between rooms and gated Verdant Ray behind two living drones.
 
 ## Structure
 - `index.html` — page markup and ES-module entry point
