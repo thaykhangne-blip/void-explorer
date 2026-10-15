@@ -1,5 +1,12 @@
 # Changelog
 
+## v222 — Neo-Prism Core
+- Added the seven-color Neo-Prism Core; every auto-attack randomly selects Fire, Nova, Lightning, Nature, Frost, Lumine, or Aether.
+- Added E: Prism Overdrive, empowering elemental effects for 10 seconds, and Q: Prismatic Cataclysm, applying all seven elements to enemies and the singular core.
+- Added Neo-Prism evolution milestones, a Spectrum Mastery signature perk, rainbow projectiles/trails/core visuals, and core details.
+- Updated the visible game version to v222.
+
+
 ## v221 — Core-weighted upgrade rewards
 - Core-exclusive perks for the active core receive 4× selection weight in level-up and portal reward screens.
 - Weighted selection is without replacement, keeps general perks in the pool, and still filters maxed-out perks.
