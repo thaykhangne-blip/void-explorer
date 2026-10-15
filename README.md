@@ -1,6 +1,11 @@
-# Void Explorer v215
+# Void Explorer v216
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v216 fixes
+- Capped targeted core attacks at 440px; reduced chain/ricochet links to 160px and limited Nova beams and Nature's ray.
+- Limited Nature drone targeting and projectile/ricochet travel range.
+- Added the current Void Shard total beneath the player during portal selection.
 
 ## v215 features
 - Added ten universal perks to the Codex, level-up choices, portal upgrades, and Void Market.
