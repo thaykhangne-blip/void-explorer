@@ -1,6 +1,10 @@
-# Void Explorer v217
+# Void Explorer v218
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v218 updates
+- Added compact Space, Q, and E status indicators beneath the active core while playing.
+- Ready abilities glow; mini indicators show dash charges/recharge, ultimate energy, and E skill cooldown or Nature drone charges.
 
 ## v217 fixes
 - Nature and Flash no longer play normal attack SFX when no valid target is within range and no attack effect is produced.
