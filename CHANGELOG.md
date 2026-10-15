@@ -29,3 +29,9 @@
 - Removed Twin Comets and Split Orbit from level-up choices, portal upgrades, Void Market, rank logic, and Codex data.
 - Increased Side Cannons from one rank to two across all cores; rank 2 adds two more side attacks for up to four total.
 - Added a custom SVG favicon and updated the visible build label.
+
+## v209 — Portal UI, Orbital Build, Nature persistence
+- Removed duplicate canvas portal instruction text behind the destination notification.
+- Added acquisition-backed Orbital Build entries for perks not covered by rank summaries, including Nature's Worldtree Protocol and Evergreen Covenant.
+- Preserved Nature drones in memory across room transitions while continuing to clear temporary effects; drone sprites are hidden on non-playing screens.
+- Gated Nature's third-attack Verdant Ray behind two living summoned drones.
