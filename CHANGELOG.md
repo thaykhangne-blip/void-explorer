@@ -1,5 +1,11 @@
 # Changelog
 
+## v217 — Out-of-range attack audio
+- Nature and Flash attack SFX now play only when a valid in-range target or visible Nature ray exists.
+- Remote targets no longer trigger attack sounds when the range-limited attack produces no visible effect.
+- Updated the visible game version to v217.
+
+
 ## v216 — Attack range and portal shard display
 - Capped targeted core attacks at 440px and chain/ricochet links at 160px.
 - Limited Nature's special ray, drone targeting, Auralis target strikes, Flash chain targets, Nova beams, and projectile/ricochet travel range.
