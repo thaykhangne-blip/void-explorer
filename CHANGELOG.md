@@ -1,5 +1,11 @@
 # Changelog
 
+## v225 — Elemental Core attack and E overhaul
+- Replaced the thin prism attack visual with glowing, three-dimensional cube projectiles.
+- Reworked E into Elemental Convergence: apply 5 burn stacks and an instant freeze to the primary target, strike up to 3 additional enemies with lightning, bind the primary target for 5 seconds, and launch 4 homing Nova missiles with exactly 40% critical chance.
+- Retuned Level 10 Chromatic Tempest to reduce Elemental Convergence cooldown by 2 seconds.
+
+
 ## v224 — Elemental Core
 - Renamed Prism Core to Elemental Core across gameplay, preview visuals, and the Spectrum Mastery perk.
 - Evenly distributed the five elemental spokes using the active five-element count instead of the old seven-slot layout.
