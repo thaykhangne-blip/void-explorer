@@ -1,5 +1,11 @@
 # Changelog
 
+## v220 — Auralis terminology and stack HUD
+- Renamed Luminize to Lumox and Voidflare(s) to Void Burst across player-facing text.
+- Added a persistent Auralis Void Burst buff chip displaying stored stacks with no cooldown timer.
+- Updated the visible game version to v220.
+
+
 ## v219 — Minimal dash-charge indicator
 - Removed the mini Space, Q, and E panels beneath the active core.
 - Kept only filled/outlined dash-charge diamonds beneath the core, with a glow on available charges.
