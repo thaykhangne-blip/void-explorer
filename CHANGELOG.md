@@ -1,5 +1,10 @@
 # Changelog
 
+## v213 — Perk card alignment
+- Centered perk names in level-up and portal evolution cards.
+- Updated the visible game version to v213.
+
+
 ## v212 — Perk selection crash fix
 - Fixed the undefined perk-rank lookup that crashed level-up and portal upgrade selection.
 - Use the shared `PERK_MAX_RANK` table for all cores, with uncapped perks remaining available.
