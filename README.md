@@ -1,6 +1,10 @@
-# Void Explorer v219
+# Void Explorer v220
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v220 update
+- Renamed Luminize to Lumox and Voidflare(s) to Void Burst in player-facing text.
+- Added a persistent Auralis Void Burst buff showing stored stacks without a cooldown timer.
 
 ## v219 update
 - Removed the Space/Q/E mini panels; only dash-charge diamonds remain beneath the active core.
