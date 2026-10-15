@@ -1,6 +1,11 @@
-# Void Explorer v224
+# Void Explorer v225
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v225 update
+- Elemental Core fires chunkier, glowing cube projectiles for more impactful attacks.
+- E · Elemental Convergence now applies five effects in one cast: 5 burn stacks, instant freeze, lightning strikes against 3 additional enemies, a 5-second bind, and 4 homing Nova missiles with 40% critical chance.
+- Level 10 Chromatic Tempest reduces Elemental Convergence cooldown by 2 seconds.
 
 ## v224 update
 - Renamed Prism Core to Elemental Core across core selection, detail panels, visuals, and the exclusive Spectrum Mastery perk.
