@@ -1,5 +1,11 @@
 # Changelog
 
+## v224 — Elemental Core
+- Renamed Prism Core to Elemental Core across gameplay, preview visuals, and the Spectrum Mastery perk.
+- Evenly distributed the five elemental spokes using the active five-element count instead of the old seven-slot layout.
+- Aligned E activation particles with the same evenly spaced five-position ring.
+
+
 ## v223 — Prism Core and Auralis E fix
 - Renamed Neo-Prism Core to Prism Core and limited its random auto-attacks to Fire, Frost, Lightning, Nova, and Nature damage.
 - Prism E now visibly surrounds the core with an animated five-color aura throughout Prism Overdrive and empowers the five elemental effects for 10 seconds.
