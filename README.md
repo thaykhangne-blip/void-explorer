@@ -1,6 +1,10 @@
-# Void Explorer v213
+# Void Explorer v214
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v214 fixes
+- Auralis ability notifications now remain visible instead of being overwritten by frequent Luminize/Voidflare passive notifications.
+- Labeled the passive notification as Auralis and updated both visible version labels to v214.
 
 ## v213 fixes
 - Centered perk names in level-up and portal evolution cards.
