@@ -304,3 +304,6 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 
 /* Compact version stamp on the main campaign screen. */
 .main-version-note{margin-top:6px;font-size:.62rem;letter-spacing:.14em}
+
+/* Pause/menu control stays hidden on non-run screens; the game loop reveals it for active run states. */
+#pauseBtn{display:none}
