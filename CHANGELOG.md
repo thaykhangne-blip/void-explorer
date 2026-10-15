@@ -1,5 +1,12 @@
 # Changelog
 
+## v215 — Universal perks and Pulse Reactor
+- Pulse Reactor now damages nearby enemies every 2.25 seconds, with rank-scaled damage and radius, floating damage numbers, and an expanding ring effect.
+- Added ten universal perks to level-up rewards, portal upgrades, the Void Market, and the Perk Codex.
+- Added a one-time extra dash charge and diamond charge indicators; dash charges recharge one at a time.
+- Updated the visible game version to v215.
+
+
 ## v214 — Auralis ability notifications
 - Prioritized Auralis's Daybreak Waltz and Radiant Finale notifications so passive Luminize/Voidflare notifications cannot replace them immediately.
 - Added Auralis to the passive notification label and updated the visible version to v214.
