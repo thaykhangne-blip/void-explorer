@@ -1,6 +1,9 @@
-# Void Explorer v218
+# Void Explorer v219
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v219 update
+- Removed the Space/Q/E mini panels; only dash-charge diamonds remain beneath the active core.
 
 ## v218 updates
 - Added compact Space, Q, and E status indicators beneath the active core while playing.
