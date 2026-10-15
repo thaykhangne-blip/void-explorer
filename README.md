@@ -1,10 +1,15 @@
-# Void Explorer v211
+# Void Explorer v212
 
 Void Explorer is a browser-based cosmic action roguelike.
 
-## v211 fixes
-- Updated both in-game version labels to v211.
-- Core-selection wrappers now use explicit hover/focus stacking order. The card's cyan hover frame stays inside its card box, preventing the scale transform from clipping or appearing under an adjacent wrapper.
+## v212 fixes
+- Updated both in-game version labels to v212.
+- Fixed perk selection crashing because the rank-check helper was undefined.
+- Applied shared perk-rank handling to level-up choices and portal upgrades for all cores.
+- Added explicit rank caps for one-time core perks and capped Nature/Flash perks.
+
+## Previous v211 fixes
+- Core-selection wrappers use explicit hover/focus stacking order. The cyan hover frame stays inside the card instead of clipping under neighboring cards.
 
 ## Previous v210 fixes
 - Raised hovered/focused core-selection wrappers above neighboring wrappers.
