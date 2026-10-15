@@ -1,5 +1,13 @@
 # Changelog
 
+## v223 — Prism Core and Auralis E fix
+- Renamed Neo-Prism Core to Prism Core and limited its random auto-attacks to Fire, Frost, Lightning, Nova, and Nature damage.
+- Prism E now visibly surrounds the core with an animated five-color aura throughout Prism Overdrive and empowers the five elemental effects for 10 seconds.
+- Prism Q now applies the five supported element effects at once and reports the correct element count.
+- Fixed Auralis E to increase fire rate and flight speed by 25%, without modifying projectile speed.
+- Renamed the exclusive perk to Prism: Spectrum Mastery.
+
+
 ## v222 — Neo-Prism Core
 - Added the seven-color Neo-Prism Core; every auto-attack randomly selects Fire, Nova, Lightning, Nature, Frost, Lumine, or Aether.
 - Added E: Prism Overdrive, empowering elemental effects for 10 seconds, and Q: Prismatic Cataclysm, applying all seven elements to enemies and the singular core.
