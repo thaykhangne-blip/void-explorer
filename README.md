@@ -1,6 +1,11 @@
-# Void Explorer v221
+# Void Explorer v222
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v222 update
+- Added Neo-Prism Core with a randomized seven-element auto-attack.
+- E activates Prism Overdrive to empower elemental effects for 10 seconds; Q unleashes all seven elements against all enemies and the singular core.
+- Added Neo-Prism evolutions, a Spectrum Mastery signature perk, rainbow visuals, and core-detail documentation.
 
 ## v221 update
 - Core-exclusive perks now have a 4× selection weight in level-up and portal upgrade screens; selection remains random and respects perk rank caps.
