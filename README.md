@@ -23,7 +23,7 @@ Void Explorer is a browser-based cosmic action roguelike.
 - Added a one-time extra dash charge with diamond charge indicators.
 
 ## v214 fixes
-- Auralis ability notifications now remain visible instead of being overwritten by frequent Luminize/Voidflare passive notifications.
+- Auralis ability notifications now remain visible instead of being overwritten by frequent Lumox/Void Burst passive notifications.
 - Labeled the passive notification as Auralis and updated both visible version labels to v214.
 
 ## v213 fixes
