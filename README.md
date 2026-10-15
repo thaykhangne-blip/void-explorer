@@ -1,52 +1,33 @@
-# Void Explorer
+# Void Explorer v205
 
-A first-pass Git-ready source layout for Void Explorer, based on the v204 menu-close-transitions build. The game logic is preserved as a single JavaScript file for this initial migration; inline CSS has been extracted into a stylesheet. This reduces the size of the HTML entry point without risking a large behavioral rewrite.
+This repository contains the v205 browser-game source in a Git-friendly structure. The visible core/orb selection scrollbar is hidden while scroll behavior remains available for overflow content.
 
-## Files
+## Project structure
 
-- `index.html` — game entry point and UI markup.
-- `src/styles.css` — extracted stylesheets, kept in their original order.
-- `src/game.js` — current game logic, preserved as one script for a safe first migration.
+- `index.html` — game markup and entry point
+- `src/styles.css` — extracted visual styles, menus, and transitions
+- `src/game.js` — game runtime and gameplay logic
+- `CHANGELOG.md` — version notes
+- `package.json` — local validation and server commands
 
 ## Run locally
 
-You can open `index.html` directly in a browser. If your browser restricts local-file behavior, run a local static server from this folder, for example:
+From the project root:
 
 ```bash
-python -m http.server 8000
+npm run serve
 ```
 
-Then open `http://localhost:8000`.
+Open http://localhost:8000. Python 3 is required for the simple local server.
 
 ## Validate JavaScript
-
-Requires Node.js:
 
 ```bash
 npm run check
 ```
 
-This performs a syntax check only. It does not validate gameplay behavior.
+This checks JavaScript syntax. It does not replace in-browser gameplay testing.
 
-## Start a Git repository
+## Refactoring approach
 
-From this folder:
-
-```bash
-git init
-git add index.html src/styles.css src/game.js README.md .gitignore package.json
-git commit -m "Import Void Explorer v204 baseline"
-```
-
-Create an empty repository on your Git hosting service, then add its URL as `origin` and push the `main` branch. Do not commit generated exports or temporary test files.
-
-## Safe refactoring plan
-
-1. Preserve this import as the known-good baseline.
-2. Add a smoke-test checklist for core selection, combat, perks, room transitions, Nature drones, and menu open/close transitions.
-3. Extract data-only core and perk definitions first.
-4. Extract isolated UI helpers next.
-5. Separate combat and core-specific systems only after identifying their shared globals and call dependencies.
-6. Keep each change small, run `npm run check`, and compare behavior against the baseline.
-
-The JavaScript is intentionally not split into ES modules yet. The current code relies on shared top-level state and functions, so moving functions into modules without mapping dependencies would be a risky rewrite rather than a safe refactor.
+The first migration separates markup, styling, and game logic. The runtime is intentionally still a single JavaScript file for now; future changes should extract cohesive systems incrementally and be validated against this version.
