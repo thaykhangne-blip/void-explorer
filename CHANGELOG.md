@@ -1,5 +1,12 @@
 # Changelog
 
+## v212 — Perk selection crash fix
+- Fixed the undefined perk-rank lookup that crashed level-up and portal upgrade selection.
+- Use the shared `PERK_MAX_RANK` table for all cores, with uncapped perks remaining available.
+- Added explicit caps for one-time core perks and capped Nature/Flash perks.
+- Updated the in-game version labels to v212.
+
+
 ## v205 — Hide core selection scrollbar
 - Preserve the game runtime and core-selection UI.
 - Extract five embedded stylesheet blocks into `src/styles.css`.
