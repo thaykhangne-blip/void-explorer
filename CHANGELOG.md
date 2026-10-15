@@ -1,5 +1,10 @@
 # Changelog
 
+## v214 — Auralis ability notifications
+- Prioritized Auralis's Daybreak Waltz and Radiant Finale notifications so passive Luminize/Voidflare notifications cannot replace them immediately.
+- Added Auralis to the passive notification label and updated the visible version to v214.
+
+
 ## v213 — Perk card alignment
 - Centered perk names in level-up and portal evolution cards.
 - Updated the visible game version to v213.
