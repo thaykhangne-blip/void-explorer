@@ -66,7 +66,7 @@ function applyCoreEvolution(lv){
   if(lv===5){player.frostSlowDuration=2.4;name='PERMAFROST';desc='Ice hits slow enemies for 50% longer.'}
   if(lv===10){player.armor+=12;player.maxHp+=12;player.hp=Math.min(player.maxHp,player.hp+12);name='GLACIAL BASTION';desc='+12 armor, +12 maximum hull, and restore 12 hull.'}
   if(lv===15){player.shatterglass=true;name='SHATTERGLASS';desc='Deal 25% more damage to slowed enemies.'}
-  if(lv===20){player.absoluteZero=true;player.frostSlowDuration=3.2;player.critChance=Math.min(.6,player.critChance+.08);name='ABSOLUTE ZERO';desc='Chill lasts 3.2s; critical chance +8 points.'}
+  if(lv===20){player.absoluteZero=true;player.frostSlowDuration=3.2;player.critChance=Math.min(.6,player.critChance+.08);name='ABSOLUTE ZERO';desc='Slow lasts 3.2s; critical chance +8 points.'}
  }else if(id==='nova'){
   if(lv===5){player.laserDamageMult=(player.laserDamageMult||1)*1.18;name='PRISM FOCUS';desc='Laser damage increased by 18%.'}
   if(lv===10){player.fireRate*=1.18;name='OVERCLOCK';desc='Fire rate increased by 18%.'}
