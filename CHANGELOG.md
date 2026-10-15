@@ -16,3 +16,8 @@
 - Added Ricochet Circuit bounce chains to Nature vine attacks and Flash lightning attacks.
 - Added green ray visuals and room-clear cleanup for the new effect.
 - Updated Ricochet Circuit perk copy and visible build version.
+
+## v207 — Initial JavaScript modularization
+- Moved campaign world and tutorial definitions, core and element definitions, and perk data into ES modules.
+- Switched the HTML entry point to module script loading.
+- Expanded JavaScript syntax checks and updated project documentation.
