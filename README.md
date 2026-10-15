@@ -1,6 +1,9 @@
-# Void Explorer v216
+# Void Explorer v217
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v217 fixes
+- Nature and Flash no longer play normal attack SFX when no valid target is within range and no attack effect is produced.
 
 ## v216 fixes
 - Capped targeted core attacks at 440px; reduced chain/ricochet links to 160px and limited Nova beams and Nature's ray.
