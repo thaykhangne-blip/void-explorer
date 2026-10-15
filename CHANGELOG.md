@@ -24,3 +24,8 @@
 
 - Extracted Ricochet Circuit bounce behavior into `src/systems/ricochet.js`.
 - Extracted the pure line-segment geometry helper into `src/utils/geometry.js`.
+
+## v208 — Perk balance and browser icon
+- Removed Twin Comets and Split Orbit from level-up choices, portal upgrades, Void Market, rank logic, and Codex data.
+- Increased Side Cannons from one rank to two across all cores; rank 2 adds two more side attacks for up to four total.
+- Added a custom SVG favicon and updated the visible build label.
