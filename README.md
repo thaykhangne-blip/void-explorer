@@ -1,6 +1,13 @@
-# Void Explorer v205
+# Void Explorer v206
 
-This repository contains the browser-game source.
+This repository contains the browser-game source in a Git-friendly structure.
+
+## Current mechanics update
+
+- Nature Core fires a wide Verdant Ray every third normal attack. The ray follows the current aim direction, damages every enemy it intersects, and can damage the singular core when it lies in the path.
+- Ricochet Circuit now works with Nature's direct vine hits and Flash's instant lightning chain, while preserving existing projectile and laser ricochets.
+- The core-selection scrollbar remains hidden while overflow content can still scroll.
+- The build version is shown in the main menu and Settings rather than the browser tab title.
 
 ## Project structure
 
@@ -26,8 +33,4 @@ Open http://localhost:8000. Python 3 is required for the simple local server.
 npm run check
 ```
 
-This checks JavaScript syntax. It does not replace in-browser gameplay testing.
-
-## Refactoring approach
-
-The first migration separates markup, styling, and game logic. The runtime is intentionally still a single JavaScript file for now; future changes should extract cohesive systems incrementally and be validated against this version.
+This checks JavaScript syntax, not gameplay behavior. Test combat interactions in the browser after changes.

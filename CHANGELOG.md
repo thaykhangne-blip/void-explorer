@@ -10,3 +10,9 @@
 ## UI polish
 - Removed the version from the browser tab title.
 - Added a small `VERSION v205` label to the Settings menu.
+
+## v206 — Nature Verdant Ray and Ricochet fixes
+- Added Nature Core passive: a wide vine ray fires every third normal attack and damages every enemy in its path.
+- Added Ricochet Circuit bounce chains to Nature vine attacks and Flash lightning attacks.
+- Added green ray visuals and room-clear cleanup for the new effect.
+- Updated Ricochet Circuit perk copy and visible build version.
