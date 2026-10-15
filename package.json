@@ -1,0 +1,9 @@
+{
+  "name": "void-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Void Explorer game source",
+  "scripts": {
+    "check": "node --check src/game.js"
+  }
+}

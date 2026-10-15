@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Void Explorer v136 — Aspect-Safe Arena Rendering</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head><body><div class="wrap">
+<header><div><h1>VOID EXPLORER</h1><p>A tiny cosmic action roguelike. Consume the void. Become the void.</p></div><div class="chip" id="phase">RUN 01 · ROOM 01</div></header>
+<main><section class="screen"><canvas id="game" width="1600" height="1120" aria-label="Void Explorer game arena"></canvas><button class="skill-hud" id="skillHud" title="Core skill · E" aria-label="Use core skill"><span class="skill-core"><b>E</b><small id="skillStatus">READY</small></span></button><button class="dash-hud" id="dashHud" title="Dash · Space" aria-label="Dash toward mouse"><span class="dash-core"><b>SPACE</b><small id="dashStatus">READY</small></span></button><div class="status-hud" id="statusHud" aria-label="Active buffs and debuffs"></div><div class="tutorial-tip" id="tutorialTip" hidden role="status"><b id="tutorialTipTitle"></b><p id="tutorialTipBody"></p><button id="tutorialTipDismiss">GOT IT · CONTINUE</button></div><button class="ultimate-hud" id="ultimateHud" title="Ultimate · Q · consumes all stored energy" aria-label="Cast ultimate"><span class="ult-core"><b>Q</b><small id="ultimatePct">0%</small></span></button><div class="toast" id="toast"></div><div class="overlay" id="overlay"><div class="modal" id="modal"></div></div><section class="panel particle-panel" id="particlePanel"><h3>PARTICLE STATUS</h3><div class="stat shard-stat"><span>VOID SHARDS</span><b><span class="shard-glyph">⬡</span> <span id="shardCountHud">0</span></b></div><div class="stat"><span>HULL</span><b id="hptext">100 / 100</b></div><div class="bar health-bar" id="healthTrack"><i id="hpbar"></i><i id="shieldbar" aria-label="Shield" title="Active shield" style="position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,#43cfff,#e1ffff);width:0%;box-shadow:0 0 8px #8cecff;opacity:.96;z-index:2"></i></div><div class="stat"><span>ORB LEVEL</span><b id="levelText">LV 1 · 0 / 30 XP</b></div><div class="bar"><i id="xpbar" style="background:linear-gradient(90deg,#ff79b8,#ffd0e7)"></i></div></section></section>
+<aside class="side" aria-label="In-run panels"></aside></main>
+<div class="bottom"><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn" id="pauseBtn">Ⅱ PAUSE / MENU</button></div></div></div>
+<script src="src/game.js"></script>
+
+
+
+
+
+
+</body></html>
