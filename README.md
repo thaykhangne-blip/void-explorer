@@ -1,6 +1,6 @@
 # Void Explorer v205
 
-This repository contains the v205 browser-game source in a Git-friendly structure. The visible core/orb selection scrollbar is hidden while scroll behavior remains available for overflow content. The browser tab title stays clean, and the build version appears as a small label in Settings.
+This repository contains the browser-game source.
 
 ## Project structure
 
