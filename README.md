@@ -1,6 +1,10 @@
-# Void Explorer v223
+# Void Explorer v224
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v224 update
+- Renamed Prism Core to Elemental Core across core selection, detail panels, visuals, and the exclusive Spectrum Mastery perk.
+- Evenly distributed all five elemental spokes around the core at equal 72° intervals; the E activation effects now use the same five-position spacing.
 
 ## v223 update
 - Renamed Neo-Prism Core to Prism Core and limited its random auto-attacks to Fire, Frost, Lightning, Nova, and Nature damage.
