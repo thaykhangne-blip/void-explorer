@@ -1,5 +1,5 @@
 /* Reusable ricochet chains. Dependencies are passed in to avoid importing game state. */
-export function createRicochetSystem({getPlayer,getCore,getEnemies,getSkillFx,dist,applyDamage,addLightningArc,burst}){
+export function createRicochetSystem({getPlayer,getCore,getEnemies,getSkillFx,dist,applyDamage,addLightningArc,burst,maxLinkRange=160,maxTargetRange=440}){
  return function triggerRicochetChain(sourceTarget,damage,color,tag='RICOCHET',excludedTargets=new Set()){
   const player=getPlayer(),core=getCore(),enemies=getEnemies(),skillFx=getSkillFx();
   if(!player||!sourceTarget||(player.ricochet||0)<=0)return;
@@ -8,7 +8,7 @@ export function createRicochetSystem({getPlayer,getCore,getEnemies,getSkillFx,di
   let from=sourceTarget;
   const bounces=Math.min(3,Math.max(0,player.ricochet||0));
   for(let i=0;i<bounces;i++){
-   const next=enemies.filter(e=>e.hp>0&&!hit.has(e)).sort((a,b)=>dist(from,a)-dist(from,b))[0];
+   const next=enemies.filter(e=>e.hp>0&&!hit.has(e)&&dist(player,e)<=maxTargetRange&&dist(from,e)<=maxLinkRange).sort((a,b)=>dist(from,a)-dist(from,b))[0];
    if(!next)break;
    if(core?.id==='nature'){
     skillFx.push({type:'natureVine',x:from.x,y:from.y,tx:next.x,ty:next.y,life:.22,max:.22,radius:8,color:'#70e58a',ricochet:true});
