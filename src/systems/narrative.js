@@ -27,7 +27,11 @@ export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,on
   const {scene,index}=session,line=scene.lines[index];session.currentLine=line;
   overlay.classList.remove('hidden','closing');overlay.classList.add('story-overlay','dialogue-field-overlay');modal.className='modal narrative-modal dialogue-field-modal';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-label',scene.title||'Field dialogue');
   const frame=el('section','dialogue-field-frame');frame.style.setProperty('--story-accent',scene.accent||'#72f6ff');
-  const header=el('div','dialogue-field-header');header.append(el('span','dialogue-field-brand','V CORP // FIELD COMMS'),el('span','dialogue-field-room','ROOM '+String(scene.room??'--').padStart(2,'0')+' · '+String(index+1).padStart(2,'0')+'/'+String(scene.lines.length).padStart(2,'0')));frame.append(header);
+  const isCampaignScene=scene.room===undefined||scene.room===null;
+  const brand=isCampaignScene?(String(scene.id||'').endsWith('-intro')?'V CORP // CAMPAIGN BRIEFING':'V CORP // MISSION DEBRIEF'):'V CORP // FIELD COMMS';
+  const counter=isCampaignScene?'WORLD '+String((scene.worldIndex??0)+1).padStart(2,'0')+' · '+String(index+1).padStart(2,'0')+'/'+String(scene.lines.length).padStart(2,'0'):'ROOM '+String(scene.room).padStart(2,'0')+' · '+String(index+1).padStart(2,'0')+'/'+String(scene.lines.length).padStart(2,'0');
+  const header=el('div','dialogue-field-header');header.append(el('span','dialogue-field-brand',brand),el('span','dialogue-field-room',counter));frame.append(header);
+  if(isCampaignScene){const sceneHeading=el('div','dialogue-field-scene-heading');sceneHeading.append(el('div','dialogue-field-scene-kicker',scene.chapter||'MISSION TRANSMISSION'),el('div','dialogue-field-scene-title',(scene.symbol?scene.symbol+'  ':'')+(scene.title||'BRIEFING')),el('p','dialogue-field-scene-subtitle',scene.subtitle||''));frame.append(sceneHeading);}
   const speakerRow=el('div','dialogue-field-speaker-row');speakerRow.append(el('div','dialogue-field-speaker',line.speaker),el('div','dialogue-field-role',line.role||'INCOMING TRANSMISSION'));frame.append(speakerRow);
   const text=el('p','dialogue-field-line','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');frame.append(text);
   const footer=el('div','dialogue-field-footer'),hint=el('span','dialogue-field-hint','TEXT INCOMING · ENTER TO REVEAL'),actions=el('div','dialogue-field-actions');
