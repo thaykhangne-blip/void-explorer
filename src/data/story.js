@@ -2,6 +2,7 @@ export const worldIntroScenes = [
   {
     "id": "world-1-intro",
     "worldIndex": 0,
+    "presentation": "field",
     "chapter": "ASSIGNMENT 01 · EMERGENCY BRIEFING",
     "title": "ASHEN REACH",
     "symbol": "☄",
@@ -33,6 +34,7 @@ export const worldIntroScenes = [
   {
     "id": "world-2-intro",
     "worldIndex": 1,
+    "presentation": "field",
     "chapter": "ASSIGNMENT 02 · LIQUIDITY BRIEFING",
     "title": "CRYO ARCHIVE",
     "symbol": "❄",
@@ -64,6 +66,7 @@ export const worldIntroScenes = [
   {
     "id": "world-3-intro",
     "worldIndex": 2,
+    "presentation": "field",
     "chapter": "ASSIGNMENT 03 · OPERATING COST BRIEFING",
     "title": "VERDANT RUIN",
     "symbol": "✿",
@@ -95,6 +98,7 @@ export const worldIntroScenes = [
   {
     "id": "world-4-intro",
     "worldIndex": 3,
+    "presentation": "field",
     "chapter": "ASSIGNMENT 04 · FINAL INVESTMENT REVIEW",
     "title": "EVENT HORIZON",
     "symbol": "◉",
@@ -129,6 +133,7 @@ export const worldOutroScenes = [
   {
     "id": "world-1-outro",
     "worldIndex": 0,
+    "presentation": "field",
     "chapter": "CONTAINMENT REPORT · 01",
     "title": "THE CUTS DID THEIR JOB",
     "symbol": "☄",
@@ -161,6 +166,7 @@ export const worldOutroScenes = [
   {
     "id": "world-2-outro",
     "worldIndex": 1,
+    "presentation": "field",
     "chapter": "CONTAINMENT REPORT · 02",
     "title": "A SAVING THAT COSTS PEOPLE",
     "symbol": "❄",
@@ -198,6 +204,7 @@ export const worldOutroScenes = [
   {
     "id": "world-3-outro",
     "worldIndex": 2,
+    "presentation": "field",
     "chapter": "CONTAINMENT REPORT · 03",
     "title": "THE CHEAP OPTION",
     "symbol": "✿",
@@ -235,6 +242,7 @@ export const worldOutroScenes = [
   {
     "id": "world-4-outro",
     "worldIndex": 3,
+    "presentation": "field",
     "chapter": "FINAL REPORT · THE SINGULARITY INVESTMENT",
     "title": "THE COST OF NEVER ADMITTING IT",
     "symbol": "◉",
