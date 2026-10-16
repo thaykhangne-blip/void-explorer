@@ -44,7 +44,7 @@ export const inRunCommsScenes=[
 {speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Field Operations Manager, your deployment roster is empty. All personnel were removed under the workforce optimization plan.'},
 {speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'REASONABLE FOLLOW-UP',text:'You understand this is a spaceship that requires 4 crew members to maneuver right?'},
 {speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'There are no personnel left. Please demonstrate leadership by personally doing every job. Your title remains unchanged.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'INTERNAL THOUGHT',text:'this is some bullsh*#$%@#$#$#]},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'INTERNAL THOUGHT',text:'this is some bullsh*#$%@#$#$#$'}]},
 {id:'w1-comms-room-5',worldIndex:0,room:5,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 05',title:'DELEGATION DENIED',symbol:'▤',accent:'#ff9ed8',subtitle:'The approval queue is staffed by an unattended mailbox.',cta:'ACKNOWLEDGE DENIAL →',lines:[
 {speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting one operator to assist with containment while I keep the Core under control.'},
 {speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. Your request was received by the shared mailbox and has been marked as successfully delegated.'},
