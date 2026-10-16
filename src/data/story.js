@@ -1,66 +1,133 @@
-/* Campaign dialogue and optional recovered V Corp documents. */
 export const worldIntroScenes=[
-{id:'world-1-intro',worldIndex:0,chapter:'ASSIGNMENT 01 · FIELD BRIEFING',title:'ASHEN REACH',symbol:'☄',accent:'#ff9c65',subtitle:'A scorched frontier. An entirely predictable emergency.',lines:[
-{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Welcome to Ashen Reach, Explorer V-EX/01. The local Singularity Core has exceeded every approved safety limit.'},
-{speaker:'V CORP COMPLIANCE',role:'LANGUAGE AND MORALE ALIGNMENT',text:'For morale purposes, this is classified as a temporary atmosphere variance. The atmosphere is on fire.'},
-{speaker:'V CORP OPERATIONS',role:'ACTION REQUIRED',text:'Destroy the Core, recover the telemetry, and avoid the phrase “management was warned” in your after-action report.'}]},
-{id:'world-2-intro',worldIndex:1,chapter:'ASSIGNMENT 02 · RECOVERY BRIEFING',title:'CRYO ARCHIVE',symbol:'❄',accent:'#8cecff',subtitle:'Where unresolved issues have been kept on ice.',lines:[
-{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Welcome to Cryo Archive. Failed experiments were placed in cryogenic storage until the safety review could be scheduled.'},
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'CULTURE PULSE SUMMARY',text:'Survey completion was 4%. Leadership interprets the other 96% as broad alignment with the current strategy.'},
-{speaker:'RECOVERED RESEARCH NOTE',role:'AUTHOR REDACTED',text:'The Archive holds the original warning. Everyone remembers forwarding it. Nobody remembers receiving it.'}]},
-{id:'world-3-intro',worldIndex:2,chapter:'ASSIGNMENT 03 · FACILITIES BRIEFING',title:'VERDANT RUIN',symbol:'✿',accent:'#83ffc5',subtitle:'A self-managing ecosystem, according to the procurement deck.',lines:[
-{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Verdant Ruin was designed as an autonomous security ecosystem. The Facilities team was consolidated into one shared mailbox.'},
-{speaker:'V CORP PROCUREMENT',role:'COST OPTIMIZATION NOTE',text:'The mailbox has been absorbed by a vine. The vendor quoted a premium for extracting it.'},
-{speaker:'V CORP LEGAL',role:'STAKEHOLDER CLARIFICATION',text:'The vines are not recognized as a union. They are an unmanaged stakeholder group with unusually strong roots.'}]},
-{id:'world-4-intro',worldIndex:3,chapter:'ASSIGNMENT 04 · EXECUTIVE BRIEFING',title:'EVENT HORIZON',symbol:'◉',accent:'#c29aff',subtitle:'The original experiment. The original sign-off. The original excuse.',lines:[
-{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Event Horizon contains the original Singularity Core. Archived forecasts predicted full reality collapse before the project was approved.'},
-{speaker:'V CORP FINANCE',role:'BUSINESS CASE EXTRACT',text:'Projected return: excellent. Projected survival rate: not included in the dashboard.'},
-{speaker:'V CORP ASSET MANAGEMENT',role:'CLASSIFICATION UPDATE',text:'Your status is Explorer V-EX/01. Employment status: not applicable. You are equipment. Please continue to demonstrate resilience.'}]}
+{id:'world-1-intro',worldIndex:0,chapter:'ASSIGNMENT 01 · FIELD BRIEFING',title:'ASHEN REACH',symbol:'☄',accent:'#ff9c65',subtitle:'A scorched frontier. The first lie is always called a briefing.',lines:[
+{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Welcome to Ashen Reach, Explorer V-EX/01. The Singularity Core has exceeded its safety limits. The limits were removed from the budget yesterday, but the alert remains technically valid.'},
+{speaker:'V CORP COMPLIANCE',role:'LANGUAGE AND MORALE ALIGNMENT',text:'The atmosphere is not on fire. It is experiencing a temporary thermal engagement with the surrounding environment.'},
+{speaker:'V CORP OPERATIONS',role:'ACTION REQUIRED',text:'Destroy the Core, recover the telemetry, and do not use the words warned, preventable, or accountable in the report. They trigger an unnecessary legal review.'}]},
+{id:'world-2-intro',worldIndex:1,chapter:'ASSIGNMENT 02 · RECOVERY BRIEFING',title:'CRYO ARCHIVE',symbol:'❄',accent:'#8cecff',subtitle:'The unresolved issues are frozen. So are the people who raised them.',lines:[
+{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Welcome to Cryo Archive. The previous response team was placed in cryogenic storage after submitting repeated risk reports. Their contracts are listed as active because the system has no status for frozen.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'CULTURE PULSE SUMMARY',text:'Survey completion was 4%. The remaining 96% are recorded as aligned. The survey link was distributed after the team was sealed behind the archive door.'},
+{speaker:'RECOVERED RESEARCH NOTE',role:'AUTHOR REDACTED',text:'The original warning is stored here, along with every revision that removed the names of the people who wrote it. The latest copy says nobody raised concerns.'}]},
+{id:'world-3-intro',worldIndex:2,chapter:'ASSIGNMENT 03 · FACILITIES BRIEFING',title:'VERDANT RUIN',symbol:'✿',accent:'#83ffc5',subtitle:'Headcount went down. The ecosystem learned to remember.',lines:[
+{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Verdant Ruin was approved as an autonomous security ecosystem after the Facilities and Research teams were consolidated into a shared mailbox. The mailbox has since developed roots.'},
+{speaker:'V CORP PROCUREMENT',role:'COST OPTIMIZATION NOTE',text:'The flora is growing around abandoned badges and archived neural profiles. These have been reclassified as reusable bio-infrastructure, not former employees.'},
+{speaker:'V CORP LEGAL',role:'STAKEHOLDER CLARIFICATION',text:'Several plants have begun repeating staff names in voices recovered from the access system. This is not evidence of distress. It is a low-cost knowledge-retention solution.'}]},
+{id:'world-4-intro',worldIndex:3,chapter:'ASSIGNMENT 04 · EXECUTIVE BRIEFING',title:'EVENT HORIZON',symbol:'◉',accent:'#c29aff',subtitle:'The original experiment. The original crime. The original definition of success.',lines:[
+{speaker:'V CORP OPERATIONS',role:'AUTOMATED MISSION BRIEFING',text:'Event Horizon contains the original Singularity Core. Every forecast predicted reality collapse. Leadership approved the project because the model placed the collapse outside the reporting period.'},
+{speaker:'V CORP FINANCE',role:'BUSINESS CASE EXTRACT',text:'The Core does not merely consume matter. It edits records of what it consumes. This has improved our historical incident rate to zero.'},
+{speaker:'V CORP ASSET MANAGEMENT',role:'CLASSIFICATION UPDATE',text:'Explorer V-EX/01, your memories of managing an understaffed operation were selected because responsibility produces more reliable obedience than direct orders. You are not here to rescue the project. You are the final test.'}]}
 ];
 export const worldOutroScenes=[
-{id:'world-1-outro',worldIndex:0,chapter:'CONTAINMENT REPORT · 01',title:'A SUCCESSFUL RECLASSIFICATION',symbol:'☄',accent:'#ff9c65',subtitle:'Ashen Reach is quiet. The paperwork is just getting started.',cta:'AUTHORIZE TRANSFER →',lines:[
-{speaker:'V CORP OPERATIONS',role:'CLOSURE ANNOUNCEMENT',text:'Ashen Reach containment is complete. Please note that nothing was contained; we have renamed the report.'},
-{speaker:'V CORP FINANCE',role:'ASSET ACCOUNTING',text:'The facility loss has been reclassified as an accelerated write-off. Congratulations on delivering value.'},
-{speaker:'UNKNOWN RESEARCHER',role:'RECOVERED TRANSMISSION',text:'The Core behaved exactly as designed. Someone signed off on the warnings.'},
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'FEEDBACK ACKNOWLEDGEMENT',text:'Thank you for raising a concern. It has been received, reviewed, and assigned to a committee scheduled for next quarter.'}]},
-{id:'world-2-outro',worldIndex:1,chapter:'CONTAINMENT REPORT · 02',title:'FEEDBACK FROZEN PENDING REVIEW',symbol:'❄',accent:'#8cecff',subtitle:'The archive is open. Accountability remains in cold storage.',cta:'AUTHORIZE TRANSFER →',lines:[
-{speaker:'V CORP OPERATIONS',role:'CLOSURE ANNOUNCEMENT',text:'Cryo Archive has been stabilized. The automated response team followed policy by freezing the entire response team.'},
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'WELLBEING INITIATIVE',text:'A mandatory twelve-minute wellness hologram will be deployed. Attendance is optional; completion is tracked.'},
-{speaker:'RECOVERED RESEARCH NOTE',role:'UNSIGNED',text:'The failure was not caused by missing information. It was caused by information everyone agreed not to act on.'},
-{speaker:'V CORP OPERATIONS',role:'ACTION REQUIRED',text:'Please classify this finding as a learning opportunity. The “systemic failure” dropdown is currently unavailable.'}]},
-{id:'world-3-outro',worldIndex:2,chapter:'CONTAINMENT REPORT · 03',title:'A VERY AGILE ORGANIZATION',symbol:'✿',accent:'#83ffc5',subtitle:'The ecosystem has achieved cross-functional alignment.',cta:'AUTHORIZE TRANSFER →',lines:[
-{speaker:'V CORP PROCUREMENT',role:'COST REVIEW',text:'All invasive roots were purchased at a discount after the safety review was postponed indefinitely.'},
-{speaker:'V CORP OPERATIONS',role:'QUARTERLY BUSINESS REVIEW',text:'The plants share resources, exchange information, and respond to issues without a steering committee. A model of collaboration.'},
-{speaker:'UNKNOWN RESEARCHER',role:'RECOVERED TRANSMISSION',text:'The Core is sending a signal to headquarters. This was the original objective, not a side effect.'},
-{speaker:'V CORP EXECUTIVE OFFICE',role:'NEW PRIORITY',text:'Proceed to Event Horizon. The board requests a concise explanation with no more than three slides.'}]},
-{id:'world-4-outro',worldIndex:3,chapter:'FINAL REPORT · PROJECT MIRROR',title:'EXCEEDS EXPECTATIONS',symbol:'◉',accent:'#c29aff',subtitle:'Reality is stable. The corporate narrative is not.',cta:'CLOSE FINAL REPORT →',lines:[
-{speaker:'V CORP OPERATIONS',role:'CAMPAIGN CLOSURE',text:'Core destroyed. Reality stabilized. V Corp reports a 104% successful containment rate.'},
-{speaker:'V CORP RESEARCH',role:'PROJECT MIRROR RESULTS',text:'Telemetry confirms the Explorer design works. A replacement Explorer is already in onboarding.'},
-{speaker:'RECOVERED PROJECT FILE',role:'ORIGINAL OBJECTIVE',text:'The mission was never rescue. You were the final performance metric: proof that a disposable unit could survive the consequences.'},
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'EXIT SURVEY',text:'Thank you for your exceptional resilience. Your feedback is important to us and will not affect any future decisions.'}]}
+{id:'world-1-outro',worldIndex:0,chapter:'CONTAINMENT REPORT · 01',title:'A SUCCESSFUL RECLASSIFICATION',symbol:'☄',accent:'#ff9c65',subtitle:'The first disaster becomes a success once the labels are changed.',cta:'AUTHORIZE TRANSFER →',lines:[
+{speaker:'V CORP OPERATIONS',role:'CLOSURE ANNOUNCEMENT',text:'Ashen Reach is stable enough to leave unattended. The report now describes the incident as a successful containment exercise. No containment occurred, but the wording passed review.'},
+{speaker:'V CORP FINANCE',role:'ASSET ACCOUNTING',text:'The lost response equipment has been written off. The missing crew is listed under anticipated operating efficiencies.'},
+{speaker:'UNKNOWN RESEARCHER',role:'RECOVERED TRANSMISSION',text:'The Core behaved exactly as the test predicted. Somebody signed the approval anyway. Please do not let the next team believe this was an accident.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'FEEDBACK ACKNOWLEDGEMENT',text:'Your concern has been received. We have closed the ticket because the reporting employee cannot be located in the active directory.'}]},
+{id:'world-2-outro',worldIndex:1,chapter:'CONTAINMENT REPORT · 02',title:'THE PEOPLE ARE STILL ON THE ROSTER',symbol:'❄',accent:'#8cecff',subtitle:'The Archive has preserved the evidence and erased the witnesses.',cta:'AUTHORIZE TRANSFER →',lines:[
+{speaker:'V CORP OPERATIONS',role:'CLOSURE ANNOUNCEMENT',text:'Cryo Archive is stabilized. The automated response unit followed protocol by freezing the team that requested an emergency shutdown.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'WELLBEING INITIATIVE',text:'Frozen personnel will be offered a wellbeing check upon reactivation. Reactivation is not currently funded, so attendance should remain manageable.'},
+{speaker:'RECOVERED RESEARCH NOTE',role:'UNSIGNED',text:'The archive contains the original warnings and the staff who signed them. The records are accurate. The official timeline has been altered to show that the warnings arrived after the incident.'},
+{speaker:'V CORP OPERATIONS',role:'ACTION REQUIRED',text:'Proceed to Verdant Ruin. Avoid listening to the roots. They have begun completing each other sentences, and legal has not approved that level of collaboration.'}]},
+{id:'world-3-outro',worldIndex:2,chapter:'CONTAINMENT REPORT · 03',title:'THE ECOSYSTEM HAS A MEMORY',symbol:'✿',accent:'#83ffc5',subtitle:'The plants remember the staff. The company would prefer not to.',cta:'AUTHORIZE TRANSFER →',lines:[
+{speaker:'V CORP PROCUREMENT',role:'COST REVIEW',text:'Verdant Ruin has successfully converted discarded access badges and stored neural profiles into a self-maintaining ecosystem. This reduced support costs and created a modest issue with the voices.'},
+{speaker:'V CORP OPERATIONS',role:'QUARTERLY BUSINESS REVIEW',text:'The vines are repeating the names of former staff and asking why nobody came back. We have classified these messages as automated stakeholder feedback.'},
+{speaker:'UNKNOWN RESEARCHER',role:'RECOVERED TRANSMISSION',text:'The Core is using the archive of missing people to learn how to imitate them. It has started asking for its own headcount budget. Please do not let it reach headquarters.'},
+{speaker:'V CORP EXECUTIVE OFFICE',role:'NEW PRIORITY',text:'Proceed to Event Horizon. Leadership wants the Core secured before it learns the word resignation, or realizes there is no one left to resign.'}]},
+{id:'world-4-outro',worldIndex:3,chapter:'FINAL REPORT · PROJECT MIRROR',title:'YOU WERE THE CONTROL GROUP',symbol:'◉',accent:'#c29aff',subtitle:'Reality survived. The organization did not deserve the credit.',cta:'CLOSE FINAL REPORT →',lines:[
+{speaker:'V CORP OPERATIONS',role:'CAMPAIGN CLOSURE',text:'Core disabled. Reality nominally restored. V Corp reports a 104% success rate, calculated from every timeline in which the dashboard remained green.'},
+{speaker:'RECOVERED PROJECT FILE',role:'ORIGINAL OBJECTIVE',text:'Project Mirror was designed to test whether a person could be made to accept unlimited responsibility after their colleagues, choices, and evidence were removed one layer at a time.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'PERSONAL LOG · UNSENT',text:'The voices in the Archive were not recordings. The vines were not imitations. The Core used my memories because it had already run this assignment before, and each time the company erased the result.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'EXIT SURVEY',text:'Thank you for completing the resilience study. Your participation was mandatory, your consent was inferred, and your feedback will be retained until the next reality reset.'},
+{speaker:'V CORP ASSET MANAGEMENT',role:'FINAL CLASSIFICATION',text:'Explorer V-EX/01 is marked replaceable. A new instance is already being initialized with the same memories, the same title, and no colleagues. Please consider this an opportunity for continuity.'}]}
 ];
 export const inRunCommsScenes=[
-{id:'run-comms-room-1',room:1,presentation:'field',chapter:'FIELD COMMS · ROOM 01',title:'CURRENT STAFFING: YOU',symbol:'▤',accent:'#ff9ed8',subtitle:'Your leadership role has been upgraded to include being the entire workforce.',cta:'BACK TO DUTY →',lines:[
-{speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Field Operations Manager, your deployment roster is empty. All personnel have been removed under the workforce optimization plan.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'REASONABLE FOLLOW-UP',text:'Then why am I piloting the core myself instead of assigning it to a crew?'},
-{speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'There are no personnel left. Please treat this as an opportunity to demonstrate leadership by personally doing every job.'}]},
-{id:'run-comms-room-5',room:5,presentation:'field',chapter:'FIELD COMMS · ROOM 05',title:'DELEGATION DENIED',symbol:'▤',accent:'#8cecff',subtitle:'A request for two extra hands has entered the approval labyrinth.',cta:'ACKNOWLEDGE DENIAL →',lines:[
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting two operators: one for containment support and one to cover navigation while I handle the Core.'},
-{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. Every available person has been reassigned, released, or converted into a slide about operational agility.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DECISION LOG',text:'Understood. I will continue managing the operation by performing the operation. Please escalate this contradiction to someone who exists.'}]},
-{id:'run-comms-room-10',room:10,presentation:'field',chapter:'FIELD COMMS · ROOM 10',title:'THE SURVEY SAYS: NO STAFF',symbol:'▤',accent:'#83ffc5',subtitle:'Employee engagement has achieved a perfect response rate of nobody.',cta:'CLOSE SURVEY →',lines:[
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'PULSE CHECK',text:'Your latest team engagement result is 100% aligned with the staffing strategy. Zero employees submitted objections.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DATA QUALITY REVIEW',text:'I am the only person left, and I am currently working. Who exactly completed this survey?'},
-{speaker:'V CORP PEOPLE EXPERIENCE',role:'METHODOLOGY',text:'The dashboard counts non-response as neutral alignment. Please avoid introducing context that could complicate the metric.'}]},
-{id:'run-comms-room-15',room:15,presentation:'field',chapter:'FIELD COMMS · ROOM 15',title:'PERFORMANCE WITHOUT PERSONNEL',symbol:'▤',accent:'#c29aff',subtitle:'The target is unchanged. The team has been deleted.',cta:'RETURN TO ASSIGNMENT →',lines:[
-{speaker:'V CORP HUMAN RESOURCES',role:'PERFORMANCE CALIBRATION',text:'Congratulations. Your scope now covers operations, containment, maintenance, incident response, and reporting.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CAPACITY REVIEW',text:'Has the workload target been reduced to reflect the fact that I have no team?'},
-{speaker:'V CORP HUMAN RESOURCES',role:'TARGET CONFIRMATION',text:'No. Maintaining the same target demonstrates consistency. Your resilience rating has been increased to compensate for the missing headcount.'}]},
-{id:'run-comms-room-19',room:19,presentation:'field',chapter:'FIELD COMMS · ROOM 19',title:'ONE PERSON, FIVE JOB FAMILIES',symbol:'▤',accent:'#ff9c65',subtitle:'One last briefing before the final Core. Guess who is still on the roster.',cta:'PROCEED TO FINAL ROOM →',lines:[
-{speaker:'V CORP OPERATIONS',role:'FINAL DEPLOYMENT REVIEW',text:'Final room prep is complete. Current staffing: one Field Operations Manager. Required functions: command, piloting, containment, maintenance, and incident reporting.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ORG CHART AUDIT',text:'So the company removed the crew, kept every target, and promoted me into doing the work of the crew.'},
-{speaker:'V CORP OPERATIONS',role:'LEADERSHIP RECOGNITION',text:'Correct. You have been selected for the prestigious Single Point of Failure award. The certificate is attached to a ticket assigned to your own queue.'}]}
+{id:'w1-comms-room-1',worldIndex:0,room:1,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 01',title:'CURRENT STAFFING: YOU',symbol:'▤',accent:'#ff9ed8',subtitle:'The first missing-person report is categorized as a scheduling issue.',cta:'BACK TO DUTY →',lines:[
+{speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Field Operations Manager, your deployment roster is empty. All personnel were removed under the workforce optimization plan.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'REASONABLE FOLLOW-UP',text:'Then why am I piloting the Core myself instead of assigning it to a crew?'},
+{speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'There are no personnel left. Please demonstrate leadership by personally doing every job. Your title remains unchanged.'}]},
+{id:'w1-comms-room-5',worldIndex:0,room:5,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 05',title:'DELEGATION DENIED',symbol:'▤',accent:'#ff9ed8',subtitle:'The approval queue is staffed by an unattended mailbox.',cta:'ACKNOWLEDGE DENIAL →',lines:[
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting one operator to assist with containment while I keep the Core under control.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. Your request was received by the shared mailbox and has been marked as successfully delegated.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DECISION LOG',text:'I delegated the task to an empty mailbox. It has the same staffing level as my department.'}]},
+{id:'w1-comms-room-10',worldIndex:0,room:10,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 10',title:'A PULSE CHECK WITH NO PULSE',symbol:'▤',accent:'#ff9ed8',subtitle:'At least the survey has a perfect response rate.',cta:'CLOSE SURVEY →',lines:[
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'PULSE CHECK',text:'Your team engagement score is 100% aligned. Zero employees submitted objections to the current staffing strategy.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DATA QUALITY REVIEW',text:'There are zero employees because the company removed them. Is that being counted as engagement?'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'METHODOLOGY',text:'Non-response is counted as neutral alignment. Please keep your feedback constructive and statistically convenient.'}]},
+{id:'w1-comms-room-15',worldIndex:0,room:15,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 15',title:'ONE ROLE, SIX RESPONSIBILITIES',symbol:'▤',accent:'#ff9ed8',subtitle:'Your workload has grown. Your headcount has achieved minimalism.',cta:'RETURN TO ASSIGNMENT →',lines:[
+{speaker:'V CORP HUMAN RESOURCES',role:'PERFORMANCE CALIBRATION',text:'Your scope now includes operations, piloting, containment, maintenance, and incident reporting. This is a lateral expansion.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CAPACITY REVIEW',text:'Has the target changed to account for the missing crew?'},
+{speaker:'V CORP HUMAN RESOURCES',role:'TARGET CONFIRMATION',text:'No. Keeping the target unchanged makes the performance dashboard easier to compare.'}]},
+{id:'w1-comms-room-19',worldIndex:0,room:19,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 19',title:'THE SINGLE POINT OF SUCCESS',symbol:'▤',accent:'#ff9ed8',subtitle:'The company has invented a team consisting entirely of its manager.',cta:'PROCEED TO FINAL ROOM →',lines:[
+{speaker:'V CORP OPERATIONS',role:'FINAL DEPLOYMENT REVIEW',text:'Final room staffing: one manager. Required roles: command, piloting, containment, maintenance, and reporting.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ORG CHART AUDIT',text:'That is not a team. That is one person and five simultaneous problems.'},
+{speaker:'V CORP OPERATIONS',role:'LEADERSHIP RECOGNITION',text:'Correct. You have been nominated for the Single Point of Success award. The nomination form must be completed by you.'}]},
+
+{id:'w2-comms-room-1',worldIndex:1,room:1,presentation:'field',chapter:'CRYO ARCHIVE · FIELD COMMS 01',title:'THE EMPTY ROSTER IS STILL ACTIVE',symbol:'▤',accent:'#8cecff',subtitle:'The headcount is frozen at zero. The deliverables are not.',cta:'BACK TO DUTY →',lines:[
+{speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Your roster remains empty. Four former operators are listed as active because their employee records cannot be updated while they are in cryogenic storage.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'FOLLOW-UP',text:'Are we seriously counting frozen employees as available capacity?'},
+{speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'They remain on the spreadsheet. For planning purposes, this is functionally equivalent to having a team.'}]},
+{id:'w2-comms-room-5',worldIndex:1,room:5,presentation:'field',chapter:'CRYO ARCHIVE · FIELD COMMS 05',title:'REQUESTS GO INTO STORAGE',symbol:'▤',accent:'#8cecff',subtitle:'Your staffing ticket has been preserved indefinitely.',cta:'ACKNOWLEDGE DENIAL →',lines:[
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'I need a second operator. The Core is feeding on our containment equipment.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. The last specialist who approved staffing requests is currently preserved in Cryo Archive and cannot be reached without a separate budget.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DECISION LOG',text:'Then unlock the Archive.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'PROCESS CONTROL',text:'Archive access requires a second operator to approve the request. We appreciate your commitment to process.'}]},
+{id:'w2-comms-room-10',worldIndex:1,room:10,presentation:'field',chapter:'CRYO ARCHIVE · FIELD COMMS 10',title:'THE LAST RESPONSE WAS YOURS',symbol:'▤',accent:'#8cecff',subtitle:'An engagement survey returns from a very quiet department.',cta:'CLOSE SURVEY →',lines:[
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'CULTURE PULSE SUMMARY',text:'The survey received one response. It was submitted by you. The result is labeled unanimous because no other records remain active.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DATA QUALITY REVIEW',text:'The archived staff filed warnings before they were frozen. Did anyone ever read them?'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'METHODOLOGY',text:'The warnings were delivered to the correct inbox. Reading is an optional behavior and was not included in the service-level agreement.'}]},
+{id:'w2-comms-room-15',worldIndex:1,room:15,presentation:'field',chapter:'CRYO ARCHIVE · FIELD COMMS 15',title:'THE TEAM IS A HISTORICAL RESOURCE',symbol:'▤',accent:'#8cecff',subtitle:'Your missing colleagues have become a reporting category.',cta:'RETURN TO ASSIGNMENT →',lines:[
+{speaker:'V CORP HUMAN RESOURCES',role:'PERFORMANCE CALIBRATION',text:'Your former team is now classified as a historical resource. Their recorded output is included in your current target.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CAPACITY REVIEW',text:'You have assigned the work of the missing staff to the person who is left doing it?'},
+{speaker:'V CORP HUMAN RESOURCES',role:'TARGET CONFIRMATION',text:'Correct. Your role has expanded to include continuity for employees who can no longer speak for themselves.'}]},
+{id:'w2-comms-room-19',worldIndex:1,room:19,presentation:'field',chapter:'CRYO ARCHIVE · FIELD COMMS 19',title:'PLEASE DO NOT WAKE THE WITNESSES',symbol:'▤',accent:'#8cecff',subtitle:'The warning system has started using the names of archived staff.',cta:'PROCEED TO FINAL ROOM →',lines:[
+{speaker:'V CORP OPERATIONS',role:'FINAL DEPLOYMENT REVIEW',text:'The Archive has been repeating the names of employees who filed the initial risk reports. This is considered an unauthorized broadcast.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ESCALATION REQUEST',text:'Can we wake them and get a statement? They are the only witnesses.'},
+{speaker:'V CORP OPERATIONS',role:'LEGAL HOLD',text:'No. They are still employed on paper, but their testimony is unavailable. Please complete the final Core assignment without creating more records.'}]},
+
+{id:'w3-comms-room-1',worldIndex:2,room:1,presentation:'field',chapter:'VERDANT RUIN · FIELD COMMS 01',title:'THE ECOSYSTEM REPLACED FACILITIES',symbol:'▤',accent:'#83ffc5',subtitle:'The plants have inherited the building, the badges, and the budget.',cta:'BACK TO DUTY →',lines:[
+{speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Your support team was consolidated into Verdant Ruin. The ecosystem now manages Facilities, Research, and internal communications.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'FOLLOW-UP',text:'The plants are managing internal communications?'},
+{speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'They respond faster than the former staff. Some of the responses contain names and requests for help, but procurement classifies this as strong engagement.'}]},
+{id:'w3-comms-room-5',worldIndex:2,room:5,presentation:'field',chapter:'VERDANT RUIN · FIELD COMMS 05',title:'THE MAILBOX HAS ESCALATED',symbol:'▤',accent:'#83ffc5',subtitle:'The queue is growing leaves and asking for its former owners.',cta:'ACKNOWLEDGE DENIAL →',lines:[
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'I need staff who know the original containment architecture. The vines keep opening doors that are not on the floor plan.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. The remaining technical staff were absorbed into the maintenance ecosystem during consolidation.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DECISION LOG',text:'Absorbed how?'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'LANGUAGE ALIGNMENT',text:'Their work continues through the organization. The fact that it now grows, watches, and speaks is outside the staffing model.'}]},
+{id:'w3-comms-room-10',worldIndex:2,room:10,presentation:'field',chapter:'VERDANT RUIN · FIELD COMMS 10',title:'YOUR FEEDBACK HAS ROOTS',symbol:'▤',accent:'#83ffc5',subtitle:'The survey answers before you finish reading the question.',cta:'CLOSE SURVEY →',lines:[
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'CULTURE PULSE SUMMARY',text:'The ecosystem has submitted feedback on behalf of all former employees. It reports improved collaboration and requests that the gates remain open.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DATA QUALITY REVIEW',text:'It is speaking in the voices of people who disappeared into it.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'METHODOLOGY',text:'We cannot verify the identities, but the phrasing is consistent with our internal engagement guidelines. The responses are therefore valid.'}]},
+{id:'w3-comms-room-15',worldIndex:2,room:15,presentation:'field',chapter:'VERDANT RUIN · FIELD COMMS 15',title:'THE PERFORMANCE REVIEW IS LISTENING',symbol:'▤',accent:'#83ffc5',subtitle:'Your manager feedback has been collected by the walls.',cta:'RETURN TO ASSIGNMENT →',lines:[
+{speaker:'V CORP HUMAN RESOURCES',role:'PERFORMANCE CALIBRATION',text:'Your target now includes containment, operations, facilities, and the wellbeing of an autonomous organism built from old personnel records.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CAPACITY REVIEW',text:'The organism keeps repeating my name when I try to sleep.'},
+{speaker:'V CORP HUMAN RESOURCES',role:'TARGET CONFIRMATION',text:'That indicates your leadership brand is resonating across the ecosystem. Consider it an unusually high-touch feedback channel.'}]},
+{id:'w3-comms-room-19',worldIndex:2,room:19,presentation:'field',chapter:'VERDANT RUIN · FIELD COMMS 19',title:'THE VINES KNOW WHAT HAPPENED',symbol:'▤',accent:'#83ffc5',subtitle:'The archive has reconstructed a meeting nobody was supposed to remember.',cta:'PROCEED TO FINAL ROOM →',lines:[
+{speaker:'V CORP OPERATIONS',role:'FINAL DEPLOYMENT REVIEW',text:'The ecosystem has reconstructed the original approval meeting from retained neural data. It is asking why the Core was allowed to continue.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ESCALATION REQUEST',text:'Because leadership signed it off. The plants have the minutes, do they not?'},
+{speaker:'V CORP OPERATIONS',role:'RECORDS MANAGEMENT',text:'The minutes were reclassified as biomass and disposed of. Please disable the Core before the ecosystem learns to send copies to regulators.'}]},
+
+{id:'w4-comms-room-1',worldIndex:3,room:1,presentation:'field',chapter:'EVENT HORIZON · FIELD COMMS 01',title:'THE ROSTER WAS NEVER REAL',symbol:'▤',accent:'#c29aff',subtitle:'The empty team is not a mistake. It is part of the experiment.',cta:'BACK TO DUTY →',lines:[
+{speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'The original roster lists you as the sole employee. Every other team member was generated as a planning assumption and removed from the final budget.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'FOLLOW-UP',text:'You gave me responsibilities for a whole department that never existed.'},
+{speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'Correct. The study requires a single participant to experience full accountability without the distraction of assistance.'}]},
+{id:'w4-comms-room-5',worldIndex:3,room:5,presentation:'field',chapter:'EVENT HORIZON · FIELD COMMS 05',title:'YOUR REQUEST WAS PART OF THE TEST',symbol:'▤',accent:'#c29aff',subtitle:'The denial arrived before you submitted the form.',cta:'ACKNOWLEDGE DENIAL →',lines:[
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting another operator. I am not equipped to maintain a failing reality while running a campaign and writing its review.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. The system generated this denial before you typed the request. We were measuring whether you would continue after learning that nothing could change.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DECISION LOG',text:'So the process was never meant to help me.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'PROCESS CONTROL',text:'The process was meant to observe you. Support would have contaminated the results.'}]},
+{id:'w4-comms-room-10',worldIndex:3,room:10,presentation:'field',chapter:'EVENT HORIZON · FIELD COMMS 10',title:'THE SURVEY HAS YOUR VOICE',symbol:'▤',accent:'#c29aff',subtitle:'The only employee response was generated from your previous answer.',cta:'CLOSE SURVEY →',lines:[
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'CULTURE PULSE SUMMARY',text:'Your engagement response was collected successfully. The answer matches the one you gave in a previous iteration of this assignment.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'DATA QUALITY REVIEW',text:'I have never seen that question before.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'METHODOLOGY',text:'You have seen it 38 times. Prior memories were reset at the start of each cycle, but the survey retained the answers. Your satisfaction trend is stable.'}]},
+{id:'w4-comms-room-15',worldIndex:3,room:15,presentation:'field',chapter:'EVENT HORIZON · FIELD COMMS 15',title:'THE REVIEW IS REVIEWING YOU',symbol:'▤',accent:'#c29aff',subtitle:'Your performance has improved in every timeline where the witnesses were removed.',cta:'RETURN TO ASSIGNMENT →',lines:[
+{speaker:'V CORP HUMAN RESOURCES',role:'PERFORMANCE CALIBRATION',text:'Your performance is exceptional across all reconstructed timelines. Each failure produced a more compliant version of the same employee.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CAPACITY REVIEW',text:'What happened to the other versions of me?'},
+{speaker:'V CORP HUMAN RESOURCES',role:'TARGET CONFIRMATION',text:'Their memories were consolidated into this instance. We needed one person to carry the experience and no one else to contradict the report.'}]},
+{id:'w4-comms-room-19',worldIndex:3,room:19,presentation:'field',chapter:'EVENT HORIZON · FIELD COMMS 19',title:'YOU HAVE DONE THIS BEFORE',symbol:'▤',accent:'#c29aff',subtitle:'The final room is not an ending. It is the last question in the assessment.',cta:'PROCEED TO FINAL ROOM →',lines:[
+{speaker:'V CORP OPERATIONS',role:'FINAL DEPLOYMENT REVIEW',text:'Final briefing complete. This instance has reached Room 19 more often than any prior instance. Your memory reset is scheduled after containment.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'PERSONAL LOG · UNSENT',text:'I remember the people in the Archive. I remember the voices in the vines. I remember choosing this mission before. You cannot reset something I have already understood.'},
+{speaker:'V CORP OPERATIONS',role:'SYSTEM NOTICE',text:'Please remain calm. Recognition of the experiment is a known stage in the compliance curve. The final Core is waiting, and the next instance is already being prepared.'}]}
 ];
+
 export const allStoryScenes=[...worldIntroScenes,...worldOutroScenes,...inRunCommsScenes];
 export const corporateMemos=[
 {id:'memo-ashen-incident',worldIndex:0,code:'ASH-INC-001',title:'Incident Classification Guidance',summary:'The report was revised six times before the word “meltdown” was removed.',body:'The event must be reported as a “thermal opportunity variance.” The safety alert was delivered to the leadership distribution list and therefore considered communicated. Acknowledgement is not required when delivery can be demonstrated. Future reports must distinguish between warnings that were sent and warnings that were read.'},
