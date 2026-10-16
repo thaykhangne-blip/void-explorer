@@ -833,8 +833,39 @@ function perkExchangeInfo(name){
  'GLASS CANNON':'Attack damage +35%, but maximum hull -12.'
  };
  if(standard[key])return {desc:standard[key],rare:false};
- const rare=/^(EMBER:|FROST:|NOVA:|FLASH:|NATURE:|ELEMENTAL:|AURALIS:|PRISM FLIGHT:)/i.test(name)||/SPECTRUM MASTERY|INFERNAL CONFLUX|ABSOLUTE AEGIS|SUPERNOVA GUIDANCE|DAYBREAK CHORUS|WORLDtree PROTOCOL|EVERGREEN COVENANT/i.test(name);
- return {desc:rare?'Rare / core-exclusive perk. Its effect is shown in the perk description when offered.':'Previously acquired upgrade. Its effect is already active on your core.',rare};
+ const rare=/^(EMBER:|FROST:|NOVA:|FLASH:|NATURE:|ELEMENTAL:|AURALIS:|PRISM FLIGHT:)/i.test(name)||/SPECTRUM MASTERY|INFERNAL CONFLUX|ABSOLUTE AEGIS|SUPERNOVA GUIDANCE|DAYBREAK CHORUS|WORLDTREE PROTOCOL|EVERGREEN COVENANT/i.test(name);
+ const exclusive=[
+  [/CINDER MARK/,'Burning enemies take 18% more damage from your attacks.'],
+  [/SHATTER PROTOCOL/,'Deal 25% more damage to frozen enemies and 10% more damage to chilled enemies.'],
+  [/PRISM ECHO/,'Laser damage +15%; every fifth attack fires an echo beam.'],
+  [/SPECTRUM MASTERY/,'All five elemental damage types +15%; elemental ultimate damage +10%.'],
+  [/STORM CIRCUIT/,'Adds one chain jump and +15% chain damage per rank.'],
+  [/STATIC OVERLOAD/,'Stunned enemies take 10% more damage from all sources.'],
+  [/CAPACITOR CASCADE/,'Critical primary hits empower chain damage and add a chain jump per rank.'],
+  [/THUNDER GOD/,'Thunderfield strikes 30% faster and deals 20% more damage.'],
+  [/NERVOUS SYSTEM/,'Static Shock stuns last 25% longer; stunned enemies take 10% more damage.'],
+  [/LIVE WIRE/,'Critical chance +6 percentage points and fire rate +10%.'],
+  [/PYRE CASCADE/,'Burn potency +15% per rank.'],
+  [/CRYSTAL RESONANCE/,'Gain +2 armor and +3 percentage points critical chance per rank.'],
+  [/PRISMATIC OVERDRIVE/,'Attack damage +12% and fire rate +8% per rank.'],
+  [/CUBIC OVERLOAD/,'Elemental cube damage +10% and cube size +6% per rank.'],
+  [/CHAIN REACTION/,'Lightning chains hit one additional enemy and deal +15% chain damage per rank.'],
+  [/FROST LATTICE/,'Frost hits add one chill stack and freeze requires fewer stacks per rank.'],
+  [/NOVA SWARM/,'Nova cube salvos gain one homing missile and +5% missile damage per rank.'],
+  [/BURNING CONSTELLATION/,'Fire burn damage +20% per rank.'],
+  [/INFERNAL CONFLUX/,'Ring of Fire damage +22%, burn DPS +4, and radius +8 per rank.'],
+  [/ABSOLUTE AEGIS/,'Cryo Shield gains +14% max-hull capacity and +0.7 seconds duration per rank.'],
+  [/SUPERNOVA GUIDANCE/,'Homing Missiles launch two additional missiles and deal +18% damage per rank.'],
+  [/DAYBREAK CHORUS/,'Prism Flight strikes deal +22% damage and Daybreak Waltz lasts +0.7 seconds per rank.'],
+  [/WORLDTREE PROTOCOL/,'Verdant Overdrive lasts 3 seconds longer and boosts drone healing and damage by 20%.'],
+  [/EVERGREEN COVENANT/,'Each living drone grants +10% damage and 6% damage reduction.'],
+  [/SWIFT CURRENT/,'Prism Flight strikes 12% faster per rank.'],
+  [/LASTING RADIANCE/,'Daybreak Waltz lasts 0.8 seconds longer per rank.'],
+  [/MULTIPLICITY/,'Each Prism Flight pulse launches one additional strike per rank, up to four strikes.']
+ ];
+ const matched=exclusive.find(([pattern])=>pattern.test(name));
+ if(matched)return {desc:matched[1],rare};
+ return {desc:rare?'Core-exclusive upgrade. The effect is already active on your core.':'Previously acquired upgrade. Its effect is already active on your core.',rare};
 }
 function showPerkExchange(offer){
  const owned=(build||[]).map((name,index)=>({name,index,...perkExchangeInfo(name)})).filter(x=>x.name);
