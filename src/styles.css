@@ -350,3 +350,26 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 .story-memo-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.story-memo{min-width:0;border:1px solid #303b52;border-radius:6px;padding:12px;text-align:left;background:#0b1120}.story-memo-code{font-size:8px;letter-spacing:1px;color:#c29aff}.story-memo h3{margin:8px 0;color:#e5ecfa;font-size:12px}.story-memo-summary,.story-memo details p{font-size:11px;color:#9eabc5;line-height:1.65}.story-memo details{margin-top:10px;border-top:1px solid #263149;padding-top:8px}.story-memo summary{cursor:pointer;color:#72f6ff;font-size:9px;letter-spacing:.8px}.story-archive-empty{grid-column:1/-1;border:1px dashed #34415c;border-radius:6px;padding:16px!important;text-align:left!important;margin:0!important}
 @keyframes narrativeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:620px){.modal.story-modal,.story-archive-modal{width:100%;max-height:100%}.narrative-masthead{font-size:8px}.narrative-heading{align-items:flex-start;padding:16px 0 12px}.narrative-symbol{flex-basis:46px;width:46px;height:46px;font-size:27px}.narrative-line{font-size:13px!important}.narrative-dialogue{min-height:145px}.narrative-footer{align-items:flex-start}.narrative-hint{width:100%}.narrative-actions{width:100%;justify-content:space-between}.narrative-button{padding:10px 8px}.story-archive-grid,.story-memo-list{grid-template-columns:1fr}}
+
+/* v238: guaranteed post-room arcade dialogue, with typewriter cadence. */
+.overlay.dialogue-field-overlay{align-items:flex-end;justify-content:center;padding:clamp(12px,3vh,26px) clamp(10px,3vw,30px);background:linear-gradient(180deg,rgba(3,6,14,.12) 0%,rgba(3,6,14,.42) 46%,rgba(3,6,14,.9) 100%);backdrop-filter:blur(1px)}
+.modal.dialogue-field-modal{width:min(820px,100%);max-height:none;overflow:visible;text-align:left;margin:0 auto}
+.dialogue-field-frame{--story-accent:#72f6ff;position:relative;width:100%;box-sizing:border-box;padding:clamp(14px,2.6vw,22px);border:2px solid var(--story-accent);border-radius:5px;background:linear-gradient(150deg,#121b30f7,#070b16f8 76%);box-shadow:0 0 0 3px #02040ac9,0 12px 55px #000c,inset 0 0 24px color-mix(in srgb,var(--story-accent) 7%,transparent);animation:dialogueFieldIn .18s steps(3,end)}
+.dialogue-field-frame:before{content:"";position:absolute;inset:4px;border:1px solid color-mix(in srgb,var(--story-accent) 23%,#293754);pointer-events:none;border-radius:2px}
+.dialogue-field-header,.dialogue-field-speaker-row,.dialogue-field-footer{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.dialogue-field-header{padding-bottom:10px;border-bottom:1px solid #2d3a55;font:800 9px/1.4 monospace;letter-spacing:1.25px}
+.dialogue-field-brand{color:var(--story-accent);text-shadow:0 0 12px color-mix(in srgb,var(--story-accent) 45%,transparent)}
+.dialogue-field-room{color:#8291ad;text-align:right;white-space:nowrap}
+.dialogue-field-speaker-row{align-items:flex-start;flex-wrap:wrap;margin-top:15px}
+.dialogue-field-speaker{font:900 11px/1.5 monospace;letter-spacing:.75px;color:var(--story-accent)}
+.dialogue-field-role{font:8px/1.5 monospace;letter-spacing:.65px;color:#7e8ca8;text-align:right}
+.dialogue-field-line{position:relative;min-height:3.25em;margin:10px 0 18px!important;color:#f1f5ff!important;font:500 clamp(13px,1.65vw,16px)/1.75 monospace!important;letter-spacing:.1px;white-space:normal;overflow-wrap:anywhere;text-align:left;text-shadow:0 0 14px #91baff20}
+.dialogue-field-line.is-typing:after{content:"▌";display:inline-block;margin-left:3px;color:var(--story-accent);animation:dialogueCaret .65s steps(1,end) infinite}
+.dialogue-field-footer{align-items:center;flex-wrap:wrap;border-top:1px solid #27344e;padding-top:11px}
+.dialogue-field-hint{color:#7787a5;font:8px/1.5 monospace;letter-spacing:.85px}
+.dialogue-field-actions{display:flex;gap:8px;align-items:center}
+.dialogue-field-actions .narrative-button{font-size:9px;padding:9px 12px}
+@keyframes dialogueCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes dialogueFieldIn{from{opacity:.55;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.overlay.dialogue-field-overlay{padding:10px}.dialogue-field-frame{padding:14px 13px}.dialogue-field-header{font-size:8px;letter-spacing:.7px}.dialogue-field-speaker-row{gap:5px;flex-direction:column}.dialogue-field-role{text-align:left}.dialogue-field-line{min-height:4.2em;font-size:12px!important;line-height:1.7!important;margin:9px 0 13px!important}.dialogue-field-footer{align-items:flex-start;flex-direction:column;gap:9px}.dialogue-field-hint{font-size:7px}.dialogue-field-actions{width:100%;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.dialogue-field-frame{animation:none}.dialogue-field-line.is-typing:after{animation:none}}
