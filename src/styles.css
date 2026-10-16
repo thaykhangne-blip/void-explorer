@@ -392,3 +392,11 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 @media(max-width:620px){.dialogue-field-core-avatar{flex-basis:54px;width:54px;height:54px}.dialogue-field-core-avatar .orb-render{transform:translate(-50%,-50%) scale(.55)}.dialogue-field-message-row{gap:8px}.dialogue-field-message-row .dialogue-field-line{font-size:11px!important}}
 
 /* v249: portal travel and fade transitions are rendered directly on the game canvas. */
+
+
+/* v253: restore consistent title-menu alignment after returning from submenus. */
+.main-menu-modal{text-align:center!important}
+.main-menu-modal>.eyebrow{display:block;width:100%;text-align:center!important}
+.main-menu-modal>h2,.main-menu-modal>p{text-align:center!important}
+.main-menu-modal .main-menu-actions{display:flex!important;flex-direction:column;align-items:stretch;width:min(320px,100%);margin:18px auto 0}
+.main-menu-modal .main-menu-actions>.btn{display:block!important;width:100%;min-height:42px;text-align:center}
