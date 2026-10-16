@@ -32,7 +32,7 @@ function randomCargoDock(exclude){let pt={x:W/2,y:H/2};for(let i=0;i<40;i++){pt=
 
 function showModal(eyebrow,title,desc,choices){$('overlay').classList.remove('hidden','closing');let m=$('modal');m.classList.toggle('upgrade-modal',/EXPERIENCE THRESHOLD|EVOLVE YOUR ORB|EVOLUTION/i.test(eyebrow+' '+title));m.innerHTML=`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2><p>${desc}</p><div class="choices">${choices.map((x,i)=>`<button class="choice ${x.rarity==='rare'?'rare-choice':''}" data-i="${i}"><span class="orb" style="color:${x.color||'#72f6ff'}">${x.glyph||'✦'}</span><span class="choice-copy"><b>${x.title}${x.rarity==='rare'?'<em class="rare-tag">RARE</em>':''}</b><small>${x.desc}</small></span></button>`).join('')}</div>`;m.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{sfx('ui');choices[i].action()});}
 function showTutorialTip(){const tip=$('tutorialTip');if(currentWorld!==-1||!player||!tutorialTips[room]){tip.hidden=true;tutorialTipVisible=false;return}const data=tutorialTips[room];$('tutorialTipTitle').textContent=data.title;$('tutorialTipBody').textContent=data.body;tip.hidden=false;tutorialTipVisible=true;}function dismissTutorialTip(){tutorialTipVisible=false;$('tutorialTip').hidden=true;last=performance.now()}$('tutorialTipDismiss').onclick=dismissTutorialTip;
-function showMainMenu(){tutorialTipVisible=false;$('tutorialTip').hidden=true;state='start';$('phase').textContent='CAMPAIGN MENU';$('overlay').classList.remove('hidden','closing');$('modal').innerHTML=`<div class="eyebrow">A COSMIC ROGUELIKE</div><h2>VOID EXPLORER</h2><p>Choose a core, build your loadout, and fight through four worlds. Progress is saved in this browser.</p><div class="menu-actions main-menu-actions"><button class="btn" id="startCampaign" style="padding:12px 20px;font-weight:bold">▶ START CAMPAIGN</button><button class="btn" id="openCodex">✦ PERK CODEX</button><button class="btn" id="openStoryArchive">▤ STORY ARCHIVE</button><button class="btn" id="openSettings">⚙ SETTINGS</button></div><p class="save-note">WORLDS UNLOCKED: ${saveData.unlockedWorlds}/4 · TOTAL RUNS: ${saveData.totalRuns}</p><p class="version-note main-version-note">VERSION v250</p>`;$('startCampaign').onclick=showWorldSelect;$('openCodex').onclick=showPerkCodex;$('openStoryArchive').onclick=showStoryArchive;$('openSettings').onclick=()=>showSettings('start')}
+function showMainMenu(){tutorialTipVisible=false;$('tutorialTip').hidden=true;state='start';$('phase').textContent='CAMPAIGN MENU';$('overlay').classList.remove('hidden','closing');$('modal').innerHTML=`<div class="eyebrow">A COSMIC ROGUELIKE</div><h2>VOID EXPLORER</h2><p>Choose a core, build your loadout, and fight through four worlds. Progress is saved in this browser.</p><div class="menu-actions main-menu-actions"><button class="btn" id="startCampaign" style="padding:12px 20px;font-weight:bold">▶ START CAMPAIGN</button><button class="btn" id="openCodex">✦ PERK CODEX</button><button class="btn" id="openStoryArchive">▤ STORY ARCHIVE</button><button class="btn" id="openSettings">⚙ SETTINGS</button></div><p class="save-note">WORLDS UNLOCKED: ${saveData.unlockedWorlds}/4 · TOTAL RUNS: ${saveData.totalRuns}</p><p class="version-note main-version-note">VERSION v251</p>`;$('startCampaign').onclick=showWorldSelect;$('openCodex').onclick=showPerkCodex;$('openStoryArchive').onclick=showStoryArchive;$('openSettings').onclick=()=>showSettings('start')}
 function showStoryArchive(){
  state='storyarchive';const progress=saveData.storyProgress||{seenScenes:[],recoveredFiles:[]};
  const seen=new Set(progress.seenScenes||[]),files=new Set(progress.recoveredFiles||[]);
@@ -109,7 +109,7 @@ function showFlightManual(returnState='paused'){settingsReturn=returnState;state
  </div>
  <div class="setting-row"><div><b>FLIGHT MANUAL</b><br><span>View controls and gameplay tips.</span></div><button class="btn" id="manualOpen">OPEN</button></div>
  <div class="setting-row"><div><b>PAUSE KEY</b><br><span>Escape or P opens the pause menu.</span></div><b>ESC / P</b></div>
- <p class="version-note">VERSION v250</p><div class="menu-actions"><button class="btn" id="settingsBack">← BACK</button></div>`;
+ <p class="version-note">VERSION v251</p><div class="menu-actions"><button class="btn" id="settingsBack">← BACK</button></div>`;
  $('autoToggle').onclick=()=>{autoShoot=!autoShoot;saveData.autoShoot=autoShoot;persist();showSettings(returnState)};
  $('mouseToggle').onclick=()=>{mouseSteering=!mouseSteering;saveData.mouseSteering=mouseSteering;persist();showSettings(returnState)};
  $('sfxToggle').onclick=()=>{sfxEnabled=!sfxEnabled;saveData.sfxEnabled=sfxEnabled;persist();if(sfxEnabled)sfx('ui');showSettings(returnState)};
@@ -714,7 +714,7 @@ function beginCoreCollapse(){if(state!=='playing')return;clearFxType='singularit
 function beginPortalTransition(portal){
  if(state!=='portal'||portalTransition||roomTransition||!player||!portal)return;
  portals.forEach(candidate=>{candidate.selected=candidate===portal;});
- portalTransition={type:portal.type,x:portal.x,y:portal.y,startX:player.x,startY:player.y,color:portal.color||core?.color||'#72f6ff',glyph:portal.glyph||'◉',label:portal.label||'DESTINATION',elapsed:0,travelDuration:.82,duration:1.22,hold:0};
+ portalTransition={type:portal.type,x:portal.x,y:portal.y,startX:player.x,startY:player.y,color:portal.color||core?.color||'#72f6ff',glyph:portal.glyph||'◉',label:portal.label||'DESTINATION',elapsed:0,travelDuration:1.05,duration:1.62,hold:0,seed:Math.random()*Math.PI*2};
  state='portalTransition';sfx('portal');
 }
 function enterPortal(type){state='portal';environmentHazards=[];hazardSpawnTimer=Math.max(1.8,4.2-(Math.max(0,currentWorld)*.35));hazardHitCooldown=0;portals=[];burst(player.x,player.y,'#72f6ff',12);if(type==='upgrade'){chooseUpgrade();return}if(type==='cache'){let gain=Math.floor(rand(15,31));addShards(gain);updateUI();showModal('SHARD CACHE','SALVAGED CURRENCY',`You recover ${gain} Void Shards from a dormant supply pod.`,[{glyph:'⬡',color:'#ffe38a',title:'COLLECT & CONTINUE',desc:'Keep the shards and move onward.',action:finishPortalRoom}]);return}if(type==='event'){showEvent();return}if(type==='shop'){shopVisits++;shopStock=null;shopPurchased=[];showShop();return}}
@@ -920,10 +920,20 @@ for(const fx of skillFx){if(fx.type==='natureRay'){ctx.save();const fade=Math.ma
 if(core?.id==='nature'&&player&&state==='playing'){for(const d of natureDrones){ctx.save();ctx.strokeStyle=d.type==='support'?'rgba(112,229,138,.22)':'rgba(181,255,192,.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(player.x,player.y);ctx.lineTo(d.x,d.y);ctx.stroke();ctx.restore();ctx.save();ctx.translate(d.x,d.y);if((player.natureUltBuffTimer||0)>0){ctx.save();ctx.globalAlpha=.5+.25*Math.sin(performance.now()/100+d.angle);ctx.shadowBlur=24;ctx.shadowColor='#70ff91';ctx.strokeStyle='#9dffb0';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,15+2*Math.sin(performance.now()/130+d.angle),0,Math.PI*2);ctx.stroke();ctx.fillStyle='rgba(70,255,120,.14)';ctx.beginPath();ctx.arc(0,0,14,0,Math.PI*2);ctx.fill();ctx.restore();}ctx.rotate((d.angle||0)*.4);ctx.shadowBlur=(player.natureUltBuffTimer||0)>0?27:16;ctx.shadowColor=d.type==='support'?'#70e58a':'#b5ffc0';ctx.fillStyle=d.type==='support'?'#2e9d58':'#70e58a';ctx.strokeStyle='#d7ffe0';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(9,0);ctx.lineTo(0,10);ctx.lineTo(-9,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#effff0';ctx.beginPath();ctx.arc(0,0,2.5,0,Math.PI*2);ctx.fill();ctx.restore();ctx.save();ctx.translate(d.x,d.y);ctx.fillStyle='#10261b';ctx.fillRect(-11,-18,22,4);ctx.fillStyle='#83ff9e';ctx.fillRect(-10,-17,20*Math.max(0,d.hp/d.maxHp),2);ctx.strokeStyle='#d7ffe0';ctx.lineWidth=.7;ctx.strokeRect(-11,-18,22,4);ctx.restore();}}
 // Portal flight, warp streaks, and full-scene transition fades.
 if(portalTransition){
- const tr=portalTransition,travel=Math.max(0,Math.min(1,tr.elapsed/tr.travelDuration)),fade=Math.max(0,Math.min(1,(tr.elapsed-.70)/(tr.duration-.70)));
- ctx.save();ctx.globalAlpha=(1-fade)*(.35+travel*.45);ctx.strokeStyle=tr.color;ctx.shadowColor=tr.color;ctx.shadowBlur=15;ctx.lineWidth=1.5;
- for(let i=0;i<12;i++){const a=i*Math.PI*2/12+performance.now()*.00018,inner=20+travel*14,outer=38+travel*95;ctx.beginPath();ctx.moveTo(tr.x+Math.cos(a)*inner,tr.y+Math.sin(a)*inner);ctx.lineTo(tr.x+Math.cos(a)*outer,tr.y+Math.sin(a)*outer);ctx.stroke();}
- ctx.globalAlpha=(1-fade)*.9;ctx.lineWidth=2.2;ctx.beginPath();ctx.arc(tr.x,tr.y,10+travel*35+Math.sin(performance.now()*.018)*3,0,Math.PI*2);ctx.stroke();
+ const tr=portalTransition,travel=Math.max(0,Math.min(1,tr.elapsed/tr.travelDuration)),ease=travel*travel*(3-2*travel),fade=Math.max(0,Math.min(1,(tr.elapsed-1.02)/(tr.duration-1.02))),pulse=.5+.5*Math.sin(performance.now()*.018);
+ ctx.save();
+ // Warp streaks converge on the selected destination as the core accelerates.
+ ctx.globalAlpha=(1-fade)*(.12+ease*.58);ctx.strokeStyle=tr.color;ctx.shadowColor=tr.color;ctx.shadowBlur=10+ease*15;ctx.lineWidth=1;
+ for(let i=0;i<30;i++){
+  const a=i*Math.PI*2/30+(tr.seed||0)+performance.now()*.00012;
+  const inner=8+ease*24,outer=35+ease*Math.max(W,H)*.62;
+  ctx.beginPath();ctx.moveTo(tr.x+Math.cos(a)*inner,tr.y+Math.sin(a)*inner);ctx.lineTo(tr.x+Math.cos(a)*outer,tr.y+Math.sin(a)*outer);ctx.stroke();
+ }
+ // Bright event horizon and expanding destination rings.
+ ctx.globalAlpha=(1-fade)*(.65+ease*.3);ctx.strokeStyle=tr.color;ctx.shadowBlur=18+ease*20;ctx.lineWidth=2+ease*2;
+ for(let i=0;i<3;i++){const radius=12+ease*(34+i*16)+pulse*4;ctx.globalAlpha=(1-fade)*(.7-i*.16);ctx.beginPath();ctx.ellipse(tr.x,tr.y,radius,radius*(.68+i*.08),performance.now()*.0002*(i%2?1:-1),0,Math.PI*2);ctx.stroke();}
+ ctx.globalAlpha=(1-fade)*.9;ctx.fillStyle='#020207';ctx.beginPath();ctx.arc(tr.x,tr.y,5+ease*20,0,Math.PI*2);ctx.fill();
+ // The last part of the flight becomes a deliberate blackout before the next room loads.
  ctx.globalAlpha=fade;ctx.fillStyle='#020207';ctx.fillRect(0,0,W,H);ctx.restore();
 }
 if(roomTransition){
