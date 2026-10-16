@@ -390,3 +390,5 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 .orb-render.nature{--orb:#70e58a;--orb2:#e1ffe7}
 .dialogue-field-message-row .dialogue-field-line{flex:1;min-width:0}
 @media(max-width:620px){.dialogue-field-core-avatar{flex-basis:54px;width:54px;height:54px}.dialogue-field-core-avatar .orb-render{transform:translate(-50%,-50%) scale(.55)}.dialogue-field-message-row{gap:8px}.dialogue-field-message-row .dialogue-field-line{font-size:11px!important}}
+
+/* v249: portal travel and fade transitions are rendered directly on the game canvas. */
