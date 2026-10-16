@@ -1,9 +1,9 @@
-# Void Explorer v237
+# Void Explorer v238
 
-## v237 narrative update
-- Added four optional, multi-line V Corp comms exchanges featuring the Explorer as a Field Operations Manager who must pilot the core personally because the personnel roster has been emptied.
-- One transmission is selected in roughly 40% of campaign runs and plays at a safe transition between rooms, never during combat.
-- Heard comms join the Story Archive and remain replayable.
+## v238 narrative update
+- Replaced random in-run comms with five guaranteed dialogue checkpoints, triggered after Rooms 1, 5, 10, 15, and 19 are cleared and before portal choices appear.
+- Dialogue uses a compact arcade-style field with character-by-character reveal, a retro text SFX, speaker labels, and Enter/Space/click controls to reveal or advance.
+- The Field Operations Manager's staffing, delegation, engagement-survey, and performance-review exchanges play every run and can be revisited in the Story Archive.
 
 ## v236 narrative update
 - Added first-time, skippable opening and closing cutscenes for all four campaign worlds, including a final campaign reveal.
