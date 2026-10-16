@@ -39,7 +39,33 @@ export const worldOutroScenes=[
 {speaker:'RECOVERED PROJECT FILE',role:'ORIGINAL OBJECTIVE',text:'The mission was never rescue. You were the final performance metric: proof that a disposable unit could survive the consequences.'},
 {speaker:'V CORP PEOPLE EXPERIENCE',role:'EXIT SURVEY',text:'Thank you for your exceptional resilience. Your feedback is important to us and will not affect any future decisions.'}]}
 ];
-export const allStoryScenes=[...worldIntroScenes,...worldOutroScenes];
+export const inRunCommsScenes=[
+{id:'run-comms-empty-roster',chapter:'FIELD COMMS · STAFFING ESCALATION',title:'THE MANAGER IS THE ENTIRE DEPARTMENT',symbol:'▤',accent:'#ff9ed8',subtitle:'A leadership role with no remaining people to lead.',cta:'ACKNOWLEDGE REALITY →',lines:[
+{speaker:'V CORP STAFFING BOT',role:'WORKFORCE STATUS',text:'Field Operations Manager, your direct reports have been released to improve the staffing ratio. Your current team size is zero.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'FOLLOW-UP QUESTION',text:'I manage the operation. Why am I piloting the core myself instead of assigning this to a crew?'},
+{speaker:'V CORP STAFFING BOT',role:'RESOURCE FORECAST',text:'There are no personnel left. Your leadership score will now be measured against the output of the entire former team.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'STATUS UPDATE',text:'So I am the manager, the crew, maintenance, and incident response.'},
+{speaker:'V CORP STAFFING BOT',role:'WORDS MATTER',text:'Please call it a lean operating model. “We have nobody left” can sound unnecessarily negative.'}]},
+{id:'run-comms-delegation',chapter:'FIELD COMMS · RESOURCE REQUEST',title:'A DELEGATION OPPORTUNITY',symbol:'▤',accent:'#8cecff',subtitle:'The org chart has become a single point of failure. Guess who.',cta:'CLOSE TRANSMISSION →',lines:[
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting two operators: one for navigation and one for containment support.'},
+{speaker:'V CORP WORKFORCE OPTIMIZATION',role:'AUTOMATED RESPONSE',text:'Request denied. All available personnel have been reassigned, released, or converted into a quarterly efficiency slide.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'CLARIFICATION',text:'Then I will navigate, contain the singularity, and write the incident report?'}, 
+{speaker:'V CORP OPERATIONS',role:'LEADERSHIP DEVELOPMENT',text:'Exactly. Your job families have been consolidated into one highly empowered employee: you.'}]},
+{id:'run-comms-pulse-check',chapter:'FIELD COMMS · PEOPLE EXPERIENCE',title:'YOUR WELLBEING IS A KPI',symbol:'▤',accent:'#83ffc5',subtitle:'The survey is anonymous, except for the part where it is not.',cta:'END PULSE CHECK →',lines:[
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'MANDATORY PULSE CHECK',text:'Quick check-in for our Field Operations Manager. Is your current workload sustainable?'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'HONEST RESPONSE',text:'I am flying a core into a singularity because every support role is vacant. I am also expected to manage delivery and report the outcome.'},
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'RESPONSE RECORDED',text:'Thank you for your candour. We have reclassified “unsustainable” as “a resilience-building opportunity.”'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'FOLLOW-UP QUESTION',text:'Did the survey have an option to hire someone?'}, 
+{speaker:'V CORP PEOPLE EXPERIENCE',role:'SURVEY DESIGN',text:'That option was removed to reduce respondent confusion.'}]},
+{id:'run-comms-performance-review',chapter:'FIELD COMMS · PERFORMANCE ENABLEMENT',title:'EXCEEDING THE HEADCOUNT PLAN',symbol:'▤',accent:'#c29aff',subtitle:'The target is unchanged. The team is not technically present.',cta:'RETURN TO DUTY →',lines:[
+{speaker:'V CORP HUMAN RESOURCES',role:'ROLE CALIBRATION',text:'Congratulations. Your scope now covers every function in the deployment, and your performance target remains unchanged.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ORG CHART REVIEW',text:'Are there any people in this expanded team?'},
+{speaker:'V CORP HUMAN RESOURCES',role:'CAPACITY PLANNING',text:'No. Your personnel budget was redirected to a graphic celebrating operational agility.'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'ACTION LOG',text:'Then I will pilot the core, handle the operations, clean up after the incident, and attend the review about how efficiently I did it.'},
+{speaker:'V CORP HUMAN RESOURCES',role:'NEXT STEPS',text:'Correct. Please bring a concise list of synergies and avoid requesting additional headcount during the meeting.'}]}
+];
+
+export const allStoryScenes=[...worldIntroScenes,...worldOutroScenes,...inRunCommsScenes];
 export const corporateMemos=[
 {id:'memo-ashen-incident',worldIndex:0,code:'ASH-INC-001',title:'Incident Classification Guidance',summary:'The report was revised six times before the word “meltdown” was removed.',body:'The event must be reported as a “thermal opportunity variance.” The safety alert was delivered to the leadership distribution list and therefore considered communicated. Acknowledgement is not required when delivery can be demonstrated. Future reports must distinguish between warnings that were sent and warnings that were read.'},
 {id:'memo-cryo-wellbeing',worldIndex:1,code:'CRYO-PX-014',title:'Culture Pulse: Final Results',summary:'The response rate improved after the survey link was moved behind three approval steps.',body:'The team achieved a 4% response rate. The remaining 96% are recorded as “no actionable objection.” A mandatory hologram will remind staff to maintain work-life balance. It will run outside working hours to avoid interrupting productivity.'},
