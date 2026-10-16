@@ -1,4 +1,9 @@
-# Void Explorer v244
+# Void Explorer v245
+
+## v245 arcade cutscene update
+- Campaign intro briefings and world-end debriefs now use the compact arcade dialogue field instead of the cinematic text presentation.
+- Campaign scenes show their mission title, chapter, world number, and subtitle in the arcade frame.
+- Briefing lines use the existing typewriter reveal and text sound effect, with Enter, Space, or click to reveal/advance and Escape to skip.
 
 ## v244 combat readability update
 - Added a pulsing, core-colored segmented target ring with small crosshair ticks around the current primary auto-attack target.
@@ -12,7 +17,7 @@
 - Preserved the World 0 tutorial exclusion and the 5 dialogue checkpoints per campaign world.
 
 ## v242 dialogue update
-- Corrected the crew count to “4 crew members” and added the field operations manager’s censored internal thought after V Corp’s response.
+- Corrected the crew count to “4 crew members” and added the field operations manager's censored internal thought after V Corp's response.
 
 ## v241 dialogue update
 - Reworded the World 1 Room 1 Explorer dialogue to ask whether the spaceship requires four crew members to maneuver.
