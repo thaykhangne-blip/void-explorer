@@ -1,5 +1,16 @@
 # Changelog
 
+## v227 — Elemental Convergence buff and projectile range
+- Elemental Convergence now empowers Elemental Core auto-attacks for 10 seconds, with the aura and a distinct HUD buff icon/countdown visible for the full duration.
+- During the buff, all five elemental attacks gain stronger damage/status effects, including longer Nature binds; E's immediate five-effect combo remains intact.
+- Increased projectile travel and target-acquisition range by 50% for Ember, Frost, Elemental Core, and Auralis auto-attacks, while preserving beam-like attack range and Auralis light-lance proc range.
+- Added five Elemental Core-exclusive perks to the Codex, level-up/portal reward pool, and market, with rank caps and dedicated effects.
+
+## v226 — Elemental Core exclusive perks
+- Added Cubic Overload, Chain Reaction, Frost Lattice, Nova Swarm, and Burning Constellation.
+- Integrated perks with core-exclusive weighting, level-up and portal rewards, market purchases, and Codex listings.
+
+
 ## v225 — Elemental Core attack and E overhaul
 - Replaced the thin prism attack visual with glowing, three-dimensional cube projectiles.
 - Reworked E into Elemental Convergence: apply 5 burn stacks and an instant freeze to the primary target, strike up to 3 additional enemies with lightning, bind the primary target for 5 seconds, and launch 4 homing Nova missiles with exactly 40% critical chance.
