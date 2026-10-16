@@ -1,4 +1,9 @@
-# Void Explorer v243
+# Void Explorer v244
+
+## v244 combat readability update
+- Added a pulsing, core-colored segmented target ring with small crosshair ticks around the current primary auto-attack target.
+- Uses the same primary-target selection and range rules as auto-attacks, so it tracks the target for every core.
+- The indicator appears during active combat when Auto Shoot is enabled and is hidden when auto-shoot is disabled or the run is not active.
 
 ## v243 narrative overhaul
 - Recentered the campaign on V Corp's failed Singularity Core investment and the emergency budget cuts used to keep the company alive.
@@ -16,4 +21,3 @@
 - World 0 tutorial runs no longer show campaign cutscenes or in-run story dialogue.
 - Every campaign world has distinct start/end cutscenes and 5 unique in-run dialogue checkpoints.
 - Story escalates from budget cuts and cryogenic staffing to the Verdant ecosystem and Project Mirror.
-
