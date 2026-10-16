@@ -1,4 +1,11 @@
-# Void Explorer v234
+# Void Explorer v235
+
+## v235 balance update
+- Reduced Ember Cinderheart from +35% to +30% burn damage and Pyre Cascade from +18% to +15% per rank.
+- Reduced Frost's overlapping shatter multipliers and tuned Crystal Resonance to +2 armor and +3 critical points per rank.
+- Reworked Nova's level-10 Overclock into a +35% damage, +3-width overcharged attack every fourth laser attack. Prism Echo now fires every fifth attack with a +15% laser bonus.
+- Reduced Flash chain damage to 58% per hop, brought chain-helper damage into line, and lowered stun vulnerability from 35% to 25%. Static Overload and Nervous System were toned down; Capacitor Cascade now correctly applies only when the primary hit crits.
+- Implemented Flash's missing level 5/10/15/20 evolution path and synchronized core details and Codex descriptions.
 
 Void Explorer is a browser-based cosmic action roguelike.
 
