@@ -42,7 +42,7 @@ export const worldOutroScenes=[
 export const inRunCommsScenes=[
 {id:'w1-comms-room-1',worldIndex:0,room:1,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 01',title:'CURRENT STAFFING: YOU',symbol:'▤',accent:'#ff9ed8',subtitle:'The first missing-person report is categorized as a scheduling issue.',cta:'BACK TO DUTY →',lines:[
 {speaker:'V CORP OPERATIONS',role:'STAFFING STATUS',text:'Field Operations Manager, your deployment roster is empty. All personnel were removed under the workforce optimization plan.'},
-{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'REASONABLE FOLLOW-UP',text:'Then why am I piloting the Core myself instead of assigning it to a crew?'},
+{speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'REASONABLE FOLLOW-UP',text:'You understand this is a spaceship that requires 4 crew member to maneuver right?'},
 {speaker:'V CORP OPERATIONS',role:'RESOURCE ALLOCATION',text:'There are no personnel left. Please demonstrate leadership by personally doing every job. Your title remains unchanged.'}]},
 {id:'w1-comms-room-5',worldIndex:0,room:5,presentation:'field',chapter:'ASHEN REACH · FIELD COMMS 05',title:'DELEGATION DENIED',symbol:'▤',accent:'#ff9ed8',subtitle:'The approval queue is staffed by an unattended mailbox.',cta:'ACKNOWLEDGE DENIAL →',lines:[
 {speaker:'EXPLORER · FIELD OPERATIONS MANAGER',role:'RESOURCE REQUEST',text:'Requesting one operator to assist with containment while I keep the Core under control.'},
