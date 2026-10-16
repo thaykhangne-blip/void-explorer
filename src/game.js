@@ -469,6 +469,8 @@ function start(resumeSavedRun=false){
  }
  enterRoom();
  if(saved&&core){
+  // enterRoom initializes a fresh encounter and clears temporary effects, so reapply the exact saved player state afterward.
+  player=Object.assign(newPlayer(),saved.player);player.core=core;player.element=element;
   const ws=saved.worldState;
   if(ws&&typeof ws==='object'){
    roomTime=Number(ws.roomTime)||0;spawnTimer=Number(ws.spawnTimer)||.8;roomKills=Number(ws.roomKills)||0;
