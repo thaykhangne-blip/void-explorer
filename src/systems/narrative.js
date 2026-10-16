@@ -1,5 +1,5 @@
 /* Reusable cinematic and arcade-style dialogue player for campaign story scenes. */
-export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,onStart=()=>{},onEnd=()=>{},onSound=()=>{},onType=()=>{}}){
+export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,getCoreId=()=>null,onStart=()=>{},onEnd=()=>{},onSound=()=>{},onType=()=>{}}){
  let session=null,typingTimer=null;
  function progress(){const value=getProgress?.()||{};if(!Array.isArray(value.seenScenes))value.seenScenes=[];if(!Array.isArray(value.recoveredFiles))value.recoveredFiles=[];return value;}
  function hasSeen(id){return progress().seenScenes.includes(id);}
@@ -33,7 +33,17 @@ export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,on
   const header=el('div','dialogue-field-header');header.append(el('span','dialogue-field-brand',brand),el('span','dialogue-field-room',counter));frame.append(header);
   if(isCampaignScene){const sceneHeading=el('div','dialogue-field-scene-heading');sceneHeading.append(el('div','dialogue-field-scene-kicker',scene.chapter||'MISSION TRANSMISSION'),el('div','dialogue-field-scene-title',(scene.symbol?scene.symbol+'  ':'')+(scene.title||'BRIEFING')),el('p','dialogue-field-scene-subtitle',scene.subtitle||''));frame.append(sceneHeading);}
   const speakerRow=el('div','dialogue-field-speaker-row');speakerRow.append(el('div','dialogue-field-speaker',line.speaker),el('div','dialogue-field-role',line.role||'INCOMING TRANSMISSION'));frame.append(speakerRow);
-  const text=el('p','dialogue-field-line','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');frame.append(text);
+  const text=el('p','dialogue-field-line','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');
+  const isPlayerLine=/EXPLORER/i.test(line.speaker||'')||/INTERNAL THOUGHT/i.test(line.role||'');
+  if(isPlayerLine){
+   const availableCores=['ember','frost','nova','remielle','elemental','flash','nature'];
+   const requestedCore=getCoreId?.();
+   const coreId=availableCores.includes(requestedCore)?requestedCore:'ember';
+   const coreNames={ember:'Ember Core',frost:'Frost Core',nova:'Nova Core',remielle:'Auralis Core',elemental:'Elemental Core',flash:'Flash Core',nature:'Nature Core'};
+   const avatar=el('div','dialogue-field-core-avatar');avatar.setAttribute('role','img');avatar.setAttribute('aria-label',coreNames[coreId]+' avatar');avatar.title=coreNames[coreId];
+   const orb=el('div','orb-render '+coreId);orb.append(el('i','orb-aura'),el('i','orb-wing wing-left'),el('i','orb-wing wing-right'),el('i','orb-core'),el('i','orb-orbit orbit-one'),el('i','orb-orbit orbit-two'),el('i','orb-spark spark-one'),el('i','orb-spark spark-two'));avatar.append(orb);
+   const message=el('div','dialogue-field-message-row');message.append(avatar,text);frame.append(message);
+  }else frame.append(text);
   const footer=el('div','dialogue-field-footer'),hint=el('span','dialogue-field-hint','TEXT INCOMING · ENTER TO REVEAL'),actions=el('div','dialogue-field-actions');
   const skipButton=el('button','narrative-button narrative-skip','SKIP');skipButton.type='button';skipButton.addEventListener('click',skip);
   const nextButton=el('button','narrative-button narrative-next','REVEAL TEXT');nextButton.type='button';nextButton.addEventListener('click',advance);
