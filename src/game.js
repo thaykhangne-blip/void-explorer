@@ -450,7 +450,7 @@ function showCoreSelection(){
 }
 function saveRunCheckpoint(){
  if(currentWorld<0||!player||!core)return;
- saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[]))}};
+ saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[])),worldState:{roomTime,spawnTimer,roomKills,roomType,roomObjective:JSON.parse(JSON.stringify(roomObjective||{})),blackHole:blackHole?JSON.parse(JSON.stringify(blackHole)):null,enemies:JSON.parse(JSON.stringify(enemies||[])),enemyShots:JSON.parse(JSON.stringify(enemyShots||[])),bullets:JSON.parse(JSON.stringify(bullets||[])),lasers:JSON.parse(JSON.stringify(lasers||[])),xpDrops:JSON.parse(JSON.stringify(xpDrops||[])),portals:JSON.parse(JSON.stringify(portals||[])),environmentHazards:JSON.parse(JSON.stringify(environmentHazards||[])),defenseShip:defenseShip?JSON.parse(JSON.stringify(defenseShip)):null,cargoRoute:cargoRoute?JSON.parse(JSON.stringify(cargoRoute)):null,hazardSpawnTimer,hazardHitCooldown,objectiveClearing,collapseTimer,collapseAge,roomTypeName:roomType}}};
  saveData.lastWorld=currentWorld;persist();
 }
 function start(resumeSavedRun=false){
@@ -468,7 +468,26 @@ function start(resumeSavedRun=false){
   if(savedCore){core=savedCore;element=nativeElementForCore(savedCore.id);player=Object.assign(newPlayer(),saved.player);player.core=core;player.element=element;build=saved.build;level=Math.max(1,Number(saved.level)||1);xp=Math.max(0,Number(saved.xp)||0);xpNext=Math.max(30,Number(saved.xpNext)||30);shards=Math.max(0,Number(saved.shards)||0);energy=Math.max(0,Number(saved.energy)||0);kills=Math.max(0,Number(saved.kills)||0);ultLevel=Math.max(0,Number(saved.ultLevel)||0);shopVisits=Math.max(0,Number(saved.shopVisits)||0);stageXpEarned=Math.max(0,Number(saved.stageXpEarned)||0);stageXpCap=Math.max(1,Number(saved.stageXpCap)||24);}
  }
  enterRoom();
- if(saved&&core){state='playing';hideModal();updateUI();last=performance.now();notify('RUN RESTORED · CORE, STATS AND BUILD RECOVERED');}
+ if(saved&&core){
+  const ws=saved.worldState;
+  if(ws&&typeof ws==='object'){
+   roomTime=Number(ws.roomTime)||0;spawnTimer=Number(ws.spawnTimer)||.8;roomKills=Number(ws.roomKills)||0;
+   roomType=ws.roomType||roomType;roomObjective=ws.roomObjective||roomObjective;
+   blackHole=ws.blackHole?JSON.parse(JSON.stringify(ws.blackHole)):blackHole;
+   enemies=Array.isArray(ws.enemies)?JSON.parse(JSON.stringify(ws.enemies)):[];
+   enemyShots=Array.isArray(ws.enemyShots)?JSON.parse(JSON.stringify(ws.enemyShots)):[];
+   bullets=Array.isArray(ws.bullets)?JSON.parse(JSON.stringify(ws.bullets)):[];
+   lasers=Array.isArray(ws.lasers)?JSON.parse(JSON.stringify(ws.lasers)):[];
+   xpDrops=Array.isArray(ws.xpDrops)?JSON.parse(JSON.stringify(ws.xpDrops)):[];
+   portals=Array.isArray(ws.portals)?JSON.parse(JSON.stringify(ws.portals)):[];
+   environmentHazards=Array.isArray(ws.environmentHazards)?JSON.parse(JSON.stringify(ws.environmentHazards)):[];
+   defenseShip=ws.defenseShip?JSON.parse(JSON.stringify(ws.defenseShip)):null;
+   cargoRoute=ws.cargoRoute?JSON.parse(JSON.stringify(ws.cargoRoute)):null;
+   hazardSpawnTimer=Number(ws.hazardSpawnTimer)||3.5;hazardHitCooldown=Number(ws.hazardHitCooldown)||0;
+   objectiveClearing=!!ws.objectiveClearing;collapseTimer=Number(ws.collapseTimer)||0;collapseAge=Number(ws.collapseAge)||0;
+  }
+  state='playing';hideModal();updateUI();last=performance.now();notify(saved.worldState?'RUN RESTORED · ROOM STATE RECOVERED':'RUN RESTORED · CORE, STATS AND BUILD RECOVERED');
+ }
  else{showCoreSelection();state='menu'}
 }
 function makeRoomPlan(){if(currentWorld===-1)return [null,'singularity','horde','defense','cargo','survival','ambush'];const plan=Array(world().rooms+1).fill('singularity');const pool=['singularity','singularity','horde','horde','defense','cargo','survival','ambush'];for(let n=1;n<=world().rooms;n++){if([5,10,15].includes(n))plan[n]='miniboss';else if(n===20)plan[n]='finalboss';else plan[n]=pick(pool)}return plan}
