@@ -782,11 +782,15 @@ function showPortals(){
  if(dialogueScene&&!roomDialogueShown.has(room)){roomDialogueShown.add(room);narrative.play(dialogueScene,{force:true,markSeen:true,presentation:'field',onComplete:()=>showPortals()});return;}
  awardCoreCurrency();
  clearAuralisRoomEffects();clearNatureRoomEffects();featherTraps=[];state='portal';blackHole=null;bullets=[];lasers=[];enemyShots=[];enemies=[];
+ const perksInBuild=(build||[]).filter(Boolean);
+ const exchangeFrom=perksInBuild.length?pick(perksInBuild):'No existing perk';
+ const exchangeOptions=createGeneralPerks().filter(p=>perkAvailable(p));
+ const exchangeTo=exchangeOptions.length?pick(exchangeOptions):null;
  const pool=[
   {type:'heal',color:'#83ffc5',glyph:'✚',label:'REPAIR GATE',desc:'Restore 40% of your core hull'},
-  {type:'exchange',color:'#d2a0ff',glyph:'⇄',label:'PERK EXCHANGE',desc:'Trade one existing perk for a fixed general perk'},
-  {type:'event',color:'#ff79b8',glyph:'?',label:'ANOMALY',desc:'A strange cosmic event'},
-  {type:'shop',color:'#b28cff',glyph:'▣',label:'VOID MARKET',desc:'Spend Void Shards on supplies'}
+  {type:'exchange',color:'#d2a0ff',glyph:'⇄',label:'PERK EXCHANGE',desc:exchangeTo?'Exchange '+exchangeFrom+' for '+exchangeTo.title:'No available perk exchange',exchangeFrom,exchangeTo},
+  {type:'event',color:'#ff79b8',glyph:'?',label:'ANOMALY',desc:'Choose a cosmic reward'},
+  {type:'shop',color:'#b28cff',glyph:'▣',label:'VOID MARKET',desc:'Spend Void Shards on general perks'}
  ];
  const count=Math.floor(rand(2,5)),chosen=[];while(chosen.length<count){const i=Math.floor(Math.random()*pool.length);if(!chosen.includes(pool[i]))chosen.push(pool[i])}
  const spots=count===2?[{x:W*.32,y:H*.5},{x:W*.68,y:H*.5}]:count===3?[{x:W*.28,y:H*.38},{x:W*.72,y:H*.38},{x:W*.5,y:H*.72}]:[{x:125,y:125},{x:W-125,y:125},{x:125,y:H-125},{x:W-125,y:H-125}];
@@ -796,7 +800,7 @@ function beginCoreCollapse(){if(state!=='playing')return;clearFxType='singularit
 function beginPortalTransition(portal){
  if(state!=='portal'||portalTransition||roomTransition||!player||!portal)return;
  portals.forEach(candidate=>{candidate.selected=candidate===portal;});
- portalTransition={type:portal.type,x:portal.x,y:portal.y,startX:player.x,startY:player.y,color:portal.color||core?.color||'#72f6ff',glyph:portal.glyph||'◉',label:portal.label||'DESTINATION',elapsed:0,travelDuration:1.05,duration:1.62,hold:0,seed:Math.random()*Math.PI*2};
+ portalTransition={type:portal.type,portalData:{exchangeFrom:portal.exchangeFrom,exchangeTo:portal.exchangeTo},x:portal.x,y:portal.y,startX:player.x,startY:player.y,color:portal.color||core?.color||'#72f6ff',glyph:portal.glyph||'◉',label:portal.label||'DESTINATION',elapsed:0,travelDuration:1.05,duration:1.62,hold:0,seed:Math.random()*Math.PI*2};
  state='portalTransition';sfx('portal');
 }
 function enterPortal(type){state='portal';environmentHazards=[];hazardSpawnTimer=Math.max(1.8,4.2-(Math.max(0,currentWorld)*.35));hazardHitCooldown=0;portals=[];burst(player.x,player.y,'#72f6ff',12);if(type==='heal'){const healed=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.4));player.hp=Math.min(player.maxHp,player.hp+healed);updateUI();showModal('REPAIR GATE','CORE RESTORED',`The gate repairs ${healed} hull.`,[{glyph:'✚',color:'#83ffc5',title:'CONTINUE',desc:'Proceed with your repaired core.',action:finishPortalRoom}]);return}if(type==='exchange'){const from=(build||[]).filter(Boolean);const oldPerk=from.length?from[from.length-1]:'No existing perk';const available=createGeneralPerks().filter(p=>perkAvailable(p));const offer=available.length?available[0]:null;if(!offer){showModal('PERK EXCHANGE','NO VALID OFFER','No general perk is available. This portal cannot be refreshed.',[{glyph:'→',title:'CONTINUE',desc:'Leave the exchange untouched.',action:finishPortalRoom}]);return}showModal('FIXED PERK EXCHANGE','EXCHANGE PERKS?',`Do you want to exchange ${oldPerk} for ${offer.title}? This offer is fixed and cannot be refreshed.`,[{glyph:'⇄',color:offer.color,title:'ACCEPT · '+offer.title,desc:offer.desc,action:()=>{offer.action();build.push(offer.title);const idx=build.indexOf(oldPerk);if(idx>=0)build.splice(idx,1);updateUI();finishPortalRoom()}},{glyph:'↩',color:'#72f6ff',title:'DECLINE',desc:'Keep your current perks. The offer will not return.',action:finishPortalRoom}]);return}if(type==='event'){showEvent();return}if(type==='shop'){shopVisits++;shopStock=null;shopPurchased=[];showShop();return}}
@@ -926,7 +930,7 @@ function update(dt){
   player.y=transition.startY+(transition.y-transition.startY)*ease;
   if(transition.elapsed>=transition.duration){
    transition.hold+=dt;
-   if(transition.hold>=.12){const destination=transition.type;portalTransition=null;enterPortal(destination);last=performance.now();}
+   if(transition.hold>=.12){const destination=transition.type,portalData=transition.portalData;portalTransition=null;enterPortal(destination,portalData);last=performance.now();}
   }
   return;
  }
