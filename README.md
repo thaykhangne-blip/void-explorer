@@ -1,4 +1,9 @@
-# Void Explorer v236
+# Void Explorer v237
+
+## v237 narrative update
+- Added four optional, multi-line V Corp comms exchanges featuring the Explorer as a Field Operations Manager who must pilot the core personally because the personnel roster has been emptied.
+- One transmission is selected in roughly 40% of campaign runs and plays at a safe transition between rooms, never during combat.
+- Heard comms join the Story Archive and remain replayable.
 
 ## v236 narrative update
 - Added first-time, skippable opening and closing cutscenes for all four campaign worlds, including a final campaign reveal.
