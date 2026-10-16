@@ -1,30 +1,25 @@
-# Void Explorer v250
+# Void Explorer v251
 
-## v250 portal transition reliability fix
-- Ensured portal rewards and the shop's Continue action always pass through the room fade, even when their click handler supplies a browser event.
+## v251 portal flight transition
+- Made portal selection feel like physical travel instead of a quick scene swap.
+- The selected portal now draws an expanding event horizon and three animated rings while radial warp streaks intensify around the destination.
+- Extended the core's flight and fade timing so the orb visibly travels into the chosen portal, shrinks into it, and the screen fades to black before the selected reward or next room appears.
+- Existing portal choice logic, rewards, and destination handling remain unchanged.
 
-## v249 portal travel and room transitions
-- Clicking a portal locks controls, highlights the chosen gate, and animates the core flying into it before fading to the destination interaction.
-- Confirming a portal reward fades out of the reward screen, initializes the next room, then fades back into gameplay.
-- The core scales down as it enters the portal, with colored warp streaks and a circular gate pulse.
-- Keyboard controls and the pause button are disabled during travel to prevent duplicate or interrupted transitions.
-
-## v248 startup loading screen
+## v250 startup loading screen
 - Added a full-screen black startup loader with a circular event-horizon visual, animated void, percentage, and current resource status.
-- Preloads the game's local entry module, imported JavaScript modules, stylesheet, and favicon before game initialization.
-- No separate image/audio/font files are used by the current game visuals and sound system.
+- Preloads local game modules, CSS, and favicon before game initialization.
+- Failed file loads show a retry control.
 
 ## v247 core avatar alignment fix
 - Centered core avatar artwork explicitly with absolute positioning, 50% offsets, and a centered transform origin.
+- Applied the same centering transform to the compact mobile avatar size.
 
 ## v246 dialogue avatar update
-- Added the selected core's animated orb-detail artwork beside every Explorer speaking line and internal-thought line in arcade dialogue boxes.
+- Added selected core artwork beside Explorer speech and internal-thought lines in arcade dialogue boxes.
 
 ## v245 arcade cutscene update
-- Campaign briefings and world-end debriefs use the compact arcade dialogue field with typewriter reveal and text sound effects.
+- Campaign intro briefings and world-end debriefs use the compact arcade dialogue field with typewriter reveal and text sound effects.
 
 ## v244 combat readability update
-- Added a pulsing, core-colored segmented target ring around the current primary auto-attack target.
-
-## v243 narrative overhaul
-- Recentered the campaign on V Corp's failed Singularity Core investment and cascading budget cuts across four distinct worlds.
+- Added a pulsing, core-colored segmented target ring with small crosshair ticks around the current primary auto-attack target.
