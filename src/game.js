@@ -450,7 +450,7 @@ function showCoreSelection(){
 }
 function saveRunCheckpoint(){
  if(currentWorld<0||!player||!core)return;
- saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[])),worldState:{roomTime,spawnTimer,roomKills,roomType,roomObjective:JSON.parse(JSON.stringify(roomObjective||{})),blackHole:blackHole?JSON.parse(JSON.stringify(blackHole)):null,enemies:JSON.parse(JSON.stringify(enemies||[])),enemyShots:JSON.parse(JSON.stringify(enemyShots||[])),bullets:JSON.parse(JSON.stringify(bullets||[])),lasers:JSON.parse(JSON.stringify(lasers||[])),xpDrops:JSON.parse(JSON.stringify(xpDrops||[])),portals:JSON.parse(JSON.stringify(portals||[])),environmentHazards:JSON.parse(JSON.stringify(environmentHazards||[])),defenseShip:defenseShip?JSON.parse(JSON.stringify(defenseShip)):null,cargoRoute:cargoRoute?JSON.parse(JSON.stringify(cargoRoute)):null,hazardSpawnTimer,hazardHitCooldown,objectiveClearing,collapseTimer,collapseAge,roomTypeName:roomType,checkpointState:state,collapseTimer,collapseAge,objectiveClearing:false,pendingPortalReveal:false,pendingWorldComplete:false}}};
+ saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[])),worldState:{roomTime,spawnTimer,roomKills,roomType,roomObjective:JSON.parse(JSON.stringify(roomObjective||{})),blackHole:blackHole?(()=>{const savedHole=JSON.parse(JSON.stringify(blackHole));for(const key of ['hp','maxHp','fire','gravityTick'])if(savedHole[key]===null&&blackHole[key]===Infinity)savedHole[key]=Infinity;return savedHole})():null,enemies:JSON.parse(JSON.stringify(enemies||[])),enemyShots:JSON.parse(JSON.stringify(enemyShots||[])),bullets:JSON.parse(JSON.stringify(bullets||[])),lasers:JSON.parse(JSON.stringify(lasers||[])),xpDrops:JSON.parse(JSON.stringify(xpDrops||[])),portals:JSON.parse(JSON.stringify(portals||[])),environmentHazards:JSON.parse(JSON.stringify(environmentHazards||[])),defenseShip:defenseShip?JSON.parse(JSON.stringify(defenseShip)):null,cargoRoute:cargoRoute?JSON.parse(JSON.stringify(cargoRoute)):null,hazardSpawnTimer,hazardHitCooldown,objectiveClearing,collapseTimer,collapseAge,roomTypeName:roomType,checkpointState:state}}};
  saveData.lastWorld=currentWorld;persist();
 }
 function start(resumeSavedRun=false){
@@ -475,7 +475,7 @@ function start(resumeSavedRun=false){
   if(ws&&typeof ws==='object'){
    roomTime=Number(ws.roomTime)||0;spawnTimer=Number(ws.spawnTimer)||.8;roomKills=Number(ws.roomKills)||0;
    roomType=ws.roomType||roomType;roomObjective=ws.roomObjective||roomObjective;
-   blackHole=ws.blackHole?JSON.parse(JSON.stringify(ws.blackHole)):blackHole;
+   blackHole=ws.blackHole?JSON.parse(JSON.stringify(ws.blackHole)):blackHole;if(blackHole?.inactive){if(blackHole.hp==null)blackHole.hp=Infinity;if(blackHole.maxHp==null)blackHole.maxHp=Infinity;if(blackHole.fire==null)blackHole.fire=Infinity;if(blackHole.gravityTick==null)blackHole.gravityTick=Infinity;}
    enemies=Array.isArray(ws.enemies)?JSON.parse(JSON.stringify(ws.enemies)):[];
    enemyShots=Array.isArray(ws.enemyShots)?JSON.parse(JSON.stringify(ws.enemyShots)):[];
    bullets=Array.isArray(ws.bullets)?JSON.parse(JSON.stringify(ws.bullets)):[];
@@ -487,7 +487,7 @@ function start(resumeSavedRun=false){
    cargoRoute=ws.cargoRoute?JSON.parse(JSON.stringify(ws.cargoRoute)):null;
    hazardSpawnTimer=Number(ws.hazardSpawnTimer)||3.5;hazardHitCooldown=Number(ws.hazardHitCooldown)||0;
    // A campaign-menu save is taken from a paused active room. Never resume into a stale room-clear/collapse state.
-   objectiveClearing=false;collapseTimer=0;collapseAge=0;pendingPortalReveal=false;pendingWorldComplete=false;
+   objectiveClearing=!!ws.objectiveClearing;collapseTimer=Number(ws.collapseTimer)||0;collapseAge=Number(ws.collapseAge)||0;pendingPortalReveal=!!ws.pendingPortalReveal;pendingWorldComplete=!!ws.pendingWorldComplete;
   }
   state='playing';hideModal();updateUI();last=performance.now();notify(saved.worldState?'RUN RESTORED · ROOM STATE RECOVERED':'RUN RESTORED · CORE, STATS AND BUILD RECOVERED');
  }
