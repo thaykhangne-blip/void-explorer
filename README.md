@@ -1,10 +1,11 @@
-# Void Explorer v228
+# Void Explorer v229
 
 Void Explorer is a browser-based cosmic action roguelike.
 
-## v228 update
-- Reworked Elemental Core E (Elemental Convergence): for the full 10-second duration, each Fire hit applies 5 burn stacks, each Frost hit instantly freezes, each Nature hit binds for 3.5 seconds, each Nova hit launches additional homing missiles, and Lightning hits chain to more enemies for increased damage.
-- Removed the old one-time E burst effects; elemental effects now trigger repeatedly from attacks while the buff is active.
+## v229 update
+- Fixed Elemental Convergence Nova behavior: every Nova cube attack launched during E now fires a visible salvo of 3 homing missiles, with +1 missile per Nova Swarm rank and 40% critical chance.
+- Nova salvos trigger from each Nova attack rather than relying on that cube projectile first colliding with an enemy. E activation only starts the 10-second buff; it does not apply all elemental effects to enemies at once.
+- Clarified the on-hit effects: Fire applies 5 burn stacks, Frost instantly freezes, Nature binds for 3.5 seconds, and Lightning chains to more enemies for increased damage.
 
 ## v227 update
 - Elemental Convergence empowers Elemental Core auto-attacks and status effects for 10 seconds, with a persistent aura and a pulsing buff icon/countdown.
