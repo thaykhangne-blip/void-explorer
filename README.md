@@ -1,4 +1,8 @@
-# Void Explorer v250
+# Void Explorer v251 · Ember Pixel-Art Demo
+
+## v251 reversible Ember pixel-art demo
+- Added a palette-based pixel sprite for Ember, animated fire pixels, a blocky E-skill Ring of Fire, and a screen-wide pixel Solar Flare Q effect.
+- Combat damage, cooldowns, enemy behavior, and other cores are unchanged. The demo is isolated on `demo/ember-pixel-art` for easy rollback.
 
 ## v250 portal transition reliability fix
 - Ensured portal rewards and the shop's Continue action always pass through the room fade, even when their click handler supplies a browser event.
