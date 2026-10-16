@@ -1,25 +1,28 @@
-# Void Explorer v248
+# Void Explorer v249
+
+## v249 portal travel and room transitions
+- Clicking a portal locks controls, highlights the chosen gate, and animates the core flying into it before fading to the destination interaction.
+- Confirming a portal reward fades out of the reward screen, initializes the next room, then fades back into gameplay.
+- The core scales down as it enters the portal, with colored warp streaks and a circular gate pulse.
+- Keyboard controls and the pause button are disabled during travel to prevent duplicate or interrupted transitions.
 
 ## v248 startup loading screen
 - Added a full-screen black startup loader with a circular event-horizon visual, animated void, percentage, and current resource status.
-- Preloads the game's local entry module, imported JavaScript modules, CSS, and favicon before game initialization.
+- Preloads the game's local entry module, imported JavaScript modules, stylesheet, and favicon before game initialization.
 - The loader waits for preloading and game startup to finish before fading away; failed file loads show a retry control.
-- The game currently has no separate image, audio, or font files to preload: orb artwork is generated with CSS/canvas and sound effects use Web Audio.
+- No separate image/audio/font files are used by the current game visuals and sound system.
 
 ## v247 core avatar alignment fix
 - Centered core avatar artwork explicitly with absolute positioning, 50% offsets, and a centered transform origin.
-- Applied the same centering transform to the compact mobile avatar size to prevent the orbit artwork from clipping into the lower-right corner.
 
 ## v246 dialogue avatar update
-- Added the selected core's animated orb-detail artwork beside every Explorer speaking line and every internal-thought line in arcade dialogue boxes.
-- Reuses the same orb-render layers and core-specific artwork used in Core Details, including Ember, Frost, Nova, Auralis, Elemental, Flash, and Nature.
-- Other speakers keep the full-width dialogue layout.
+- Added the selected core's animated orb-detail artwork beside every Explorer speaking line and internal-thought line in arcade dialogue boxes.
 
 ## v245 arcade cutscene update
-- Campaign intro briefings and world-end debriefs use the compact arcade dialogue field.
-- Campaign scenes show their mission title, chapter, world number, and subtitle, with typewriter reveal and text sound effects.
+- Campaign briefings and world-end debriefs use the compact arcade dialogue field with typewriter reveal and text sound effects.
 
 ## v244 combat readability update
-- Added a pulsing, core-colored segmented target ring with small crosshair ticks around the current primary auto-attack target.
-- Uses the same primary-target selection and range rules as auto-attacks, so it tracks the target for every core.
-- The indicator appears during active combat when Auto Shoot is enabled.
+- Added a pulsing, core-colored segmented target ring around the current primary auto-attack target.
+
+## v243 narrative overhaul
+- Recentered the campaign on V Corp's failed Singularity Core investment and cascading budget cuts across four distinct worlds.
