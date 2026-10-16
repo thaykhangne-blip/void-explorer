@@ -450,7 +450,7 @@ function showCoreSelection(){
 }
 function saveRunCheckpoint(){
  if(currentWorld<0||!player||!core)return;
- saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[])),worldState:{roomTime,spawnTimer,roomKills,roomType,roomObjective:JSON.parse(JSON.stringify(roomObjective||{})),blackHole:blackHole?JSON.parse(JSON.stringify(blackHole)):null,enemies:JSON.parse(JSON.stringify(enemies||[])),enemyShots:JSON.parse(JSON.stringify(enemyShots||[])),bullets:JSON.parse(JSON.stringify(bullets||[])),lasers:JSON.parse(JSON.stringify(lasers||[])),xpDrops:JSON.parse(JSON.stringify(xpDrops||[])),portals:JSON.parse(JSON.stringify(portals||[])),environmentHazards:JSON.parse(JSON.stringify(environmentHazards||[])),defenseShip:defenseShip?JSON.parse(JSON.stringify(defenseShip)):null,cargoRoute:cargoRoute?JSON.parse(JSON.stringify(cargoRoute)):null,hazardSpawnTimer,hazardHitCooldown,objectiveClearing,collapseTimer,collapseAge,roomTypeName:roomType}}};
+ saveData.campaignCheckpoint={world:currentWorld,room:Math.max(1,Math.min(world().rooms,room||1)),cleared:cleared||0,updatedAt:Date.now(),runState:{coreId:core.id,player:JSON.parse(JSON.stringify(player)),build:JSON.parse(JSON.stringify(build||[])),level,xp,xpNext,shards,energy,kills,ultLevel,shopVisits,stageXpEarned,stageXpCap,roomPlan:JSON.parse(JSON.stringify(roomPlan||[])),worldState:{roomTime,spawnTimer,roomKills,roomType,roomObjective:JSON.parse(JSON.stringify(roomObjective||{})),blackHole:blackHole?JSON.parse(JSON.stringify(blackHole)):null,enemies:JSON.parse(JSON.stringify(enemies||[])),enemyShots:JSON.parse(JSON.stringify(enemyShots||[])),bullets:JSON.parse(JSON.stringify(bullets||[])),lasers:JSON.parse(JSON.stringify(lasers||[])),xpDrops:JSON.parse(JSON.stringify(xpDrops||[])),portals:JSON.parse(JSON.stringify(portals||[])),environmentHazards:JSON.parse(JSON.stringify(environmentHazards||[])),defenseShip:defenseShip?JSON.parse(JSON.stringify(defenseShip)):null,cargoRoute:cargoRoute?JSON.parse(JSON.stringify(cargoRoute)):null,hazardSpawnTimer,hazardHitCooldown,objectiveClearing,collapseTimer,collapseAge,roomTypeName:roomType,checkpointState:state,collapseTimer,collapseAge,objectiveClearing:false,pendingPortalReveal:false,pendingWorldComplete:false}}};
  saveData.lastWorld=currentWorld;persist();
 }
 function start(resumeSavedRun=false){
@@ -486,7 +486,8 @@ function start(resumeSavedRun=false){
    defenseShip=ws.defenseShip?JSON.parse(JSON.stringify(ws.defenseShip)):null;
    cargoRoute=ws.cargoRoute?JSON.parse(JSON.stringify(ws.cargoRoute)):null;
    hazardSpawnTimer=Number(ws.hazardSpawnTimer)||3.5;hazardHitCooldown=Number(ws.hazardHitCooldown)||0;
-   objectiveClearing=!!ws.objectiveClearing;collapseTimer=Number(ws.collapseTimer)||0;collapseAge=Number(ws.collapseAge)||0;
+   // A campaign-menu save is taken from a paused active room. Never resume into a stale room-clear/collapse state.
+   objectiveClearing=false;collapseTimer=0;collapseAge=0;pendingPortalReveal=false;pendingWorldComplete=false;
   }
   state='playing';hideModal();updateUI();last=performance.now();notify(saved.worldState?'RUN RESTORED · ROOM STATE RECOVERED':'RUN RESTORED · CORE, STATS AND BUILD RECOVERED');
  }
@@ -804,13 +805,44 @@ function beginPortalTransition(portal){
  state='portalTransition';sfx('portal');
 }
 function enterPortal(type,portalData=null){state='portal';environmentHazards=[];hazardSpawnTimer=Math.max(1.8,4.2-(Math.max(0,currentWorld)*.35));hazardHitCooldown=0;portals=[];burst(player.x,player.y,'#72f6ff',12);if(type==='heal'){const healed=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.4));player.hp=Math.min(player.maxHp,player.hp+healed);updateUI();showModal('REPAIR GATE','CORE RESTORED',`The gate repairs ${healed} hull.`,[{glyph:'✚',color:'#83ffc5',title:'CONTINUE',desc:'Proceed with your repaired core.',action:finishPortalRoom}]);return}if(type==='exchange'){const oldPerk=portalData?.exchangeFrom||'No existing perk';const offer=portalData?.exchangeTo||null;if(!offer){showModal('PERK EXCHANGE','NO VALID OFFER','No general perk is available. This portal cannot be refreshed.',[{glyph:'→',title:'CONTINUE',desc:'Leave the exchange untouched.',action:finishPortalRoom}]);return}showPerkExchange(offer);return}if(type==='event'){showAnomaly();return}if(type==='shop'){shopVisits++;shopStock=null;shopPurchased=[];showShop();return}}
+function perkExchangeInfo(name){
+ const key=String(name||'').toUpperCase();
+ const general=createGeneralPerks().find(p=>key===p.title.toUpperCase()||key.startsWith(p.title.toUpperCase()+' '));
+ if(general)return {desc:general.desc,rare:false};
+ const standard={
+ 'OVERCHARGED PHOTONS':'Attack damage +22%.',
+ 'PREDICTIVE TARGETING':'Critical chance +5 percentage points.',
+ 'REACTIVE PLATING':'+18 maximum hull and restore 18 hull.',
+ 'ACCELERATED CYCLE':'Fire rate +15%.',
+ 'KINETIC DRIVE':'Movement speed +10% and shot speed +8%.',
+ 'ULTIMATE MASTERY':'Ultimate damage +18% per mastery rank.',
+ 'PIERCING PHOTONS':'Shots pierce one additional enemy.',
+ 'VOID SIPHON':'Defeating enemies restores 2 hull.',
+ 'SIDE CANNONS':'Adds two side weapons per attack; rank 2 increases the total to four.',
+ 'MISSILE SALVO':'Launches homing missiles automatically. Higher ranks reduce the launch interval.',
+ 'RICOCHET CIRCUIT':'Attacks bounce to nearby enemies for 65% damage; ranks add bounces.',
+ 'CHAIN LIGHTNING':'Hits chain to nearby enemies for 55% damage; ranks add targets.',
+ 'CRITICAL PAYLOAD':'Critical damage multiplier +25%.',
+ 'SALVAGE PROTOCOL':'Gain +1 Void Shard per enemy kill.',
+ 'CAPACITOR KILLCHAIN':'Gain +2 ultimate energy whenever you defeat an enemy.',
+ 'MAGNETAR FIELD':'Collect XP shards from 45 pixels farther away.',
+ 'PULSE REACTOR':'Releases a damaging pulse every 2.25 seconds; ranks increase range and damage.',
+ 'LIGHT FIELD':'Damages nearby enemies every 0.3 seconds; ranks increase size and damage.',
+ 'TEMPORAL COMPRESSION':'Ability cooldowns reduced by 10% per rank.',
+ 'CORE SKILL MASTERY':'Upgrades your core E skill, improving its power or duration and reducing cooldown.',
+ 'GLASS CANNON':'Attack damage +35%, but maximum hull -12.'
+ };
+ if(standard[key])return {desc:standard[key],rare:false};
+ const rare=/^(EMBER:|FROST:|NOVA:|FLASH:|NATURE:|ELEMENTAL:|AURALIS:|PRISM FLIGHT:)/i.test(name)||/SPECTRUM MASTERY|INFERNAL CONFLUX|ABSOLUTE AEGIS|SUPERNOVA GUIDANCE|DAYBREAK CHORUS|WORLDtree PROTOCOL|EVERGREEN COVENANT/i.test(name);
+ return {desc:rare?'Rare / core-exclusive perk. Its effect is shown in the perk description when offered.':'Previously acquired upgrade. Its effect is already active on your core.',rare};
+}
 function showPerkExchange(offer){
- const owned=(build||[]).map((name,index)=>({name,index})).filter(x=>x.name);
+ const owned=(build||[]).map((name,index)=>({name,index,...perkExchangeInfo(name)})).filter(x=>x.name);
  if(!owned.length){showModal('PERK EXCHANGE','NO PERKS TO EXCHANGE','You need at least one owned perk to trade for this fixed offer.',[{glyph:'↩',color:'#72f6ff',title:'LEAVE EXCHANGE',desc:'Keep the fixed offer unused.',action:finishPortalRoom}]);return}
  $('overlay').classList.remove('hidden','closing');const m=$('modal');m.classList.remove('upgrade-modal');
  let selectedIndex=null;
  const render=()=>{
-  m.innerHTML=`<div class="eyebrow">FIXED PERK EXCHANGE</div><h2>CHOOSE A PERK TO TRADE</h2><p>Select one of your owned perks to exchange for the fixed offer on the right. The offer cannot be refreshed.</p><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:16px;align-items:stretch"><section style="border:1px solid #334565;background:#0c1425;border-radius:6px;padding:12px;min-width:0"><div style="font-size:10px;letter-spacing:1.5px;color:#9aabc8;margin-bottom:10px">YOUR PERKS · SELECT ONE</div><div style="display:grid;gap:7px;max-height:300px;overflow-y:auto">${owned.map(x=>`<button type="button" data-perk-index="${x.index}" class="choice" style="width:100%;border-color:${selectedIndex===x.index?'#72f6ff':'#334565'};background:${selectedIndex===x.index?'#153044':'#111a2d'}"><b style="margin:0 0 4px">${x.name}</b><small>${selectedIndex===x.index?'SELECTED FOR EXCHANGE':'Owned perk'}</small></button>`).join('')}</div></section><section style="border:1px solid ${offer.color||'#d2a0ff'};background:linear-gradient(145deg,#201b35,#101a2a);border-radius:6px;padding:14px;min-width:0"><div style="font-size:10px;letter-spacing:1.5px;color:#c7a9ff;margin-bottom:12px">FIXED OFFER · NO REFRESH</div><div style="font-size:28px;color:${offer.color||'#d2a0ff'}">${offer.glyph||'✦'}</div><h3 style="font-size:13px;color:${offer.color||'#d2a0ff'};margin:8px 0">${offer.title}</h3><p style="font-size:11px;line-height:1.5;color:#a9b8d2;margin:0">${offer.desc||'A general perk.'}</p><div style="font-size:10px;color:#ffe38a;margin-top:14px">THIS OFFER IS PREDETERMINED</div></section></div><div class="menu-actions" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="declineExchange">DECLINE</button><button class="btn primary" id="acceptExchange" ${selectedIndex===null?'disabled':''}>EXCHANGE SELECTED PERK</button></div>`;
+  m.innerHTML=`<div class="eyebrow">FIXED PERK EXCHANGE</div><h2>CHOOSE A PERK TO TRADE</h2><p>Select one of your owned perks to exchange for the fixed offer on the right. The offer cannot be refreshed.</p><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:16px;align-items:stretch"><section style="border:1px solid #334565;background:#0c1425;border-radius:6px;padding:12px;min-width:0"><div style="font-size:10px;letter-spacing:1.5px;color:#9aabc8;margin-bottom:10px">YOUR PERKS · SELECT ONE</div><div style="display:grid;gap:7px;max-height:300px;overflow-y:auto">${owned.map(x=>`<button type="button" data-perk-index="${x.index}" class="choice" style="width:100%;border-color:${selectedIndex===x.index?'#72f6ff':'#334565'};background:${selectedIndex===x.index?'#153044':'#111a2d'}"><b style="margin:0 0 4px;color:${x.rare?'#d5a5ff':'#e5eefc'}">${x.rare?'✧ RARE / EXCLUSIVE · ':''}${x.name}</b><small style="display:block;white-space:normal;line-height:1.4;margin-top:5px;color:#aebdd6">${x.desc}</small><small style="display:block;margin-top:5px;color:${selectedIndex===x.index?'#72f6ff':'#8498b8'}">${selectedIndex===x.index?'SELECTED FOR EXCHANGE':'SELECT TO TRADE'}</small></button>`).join('')}</div></section><section style="border:1px solid ${offer.color||'#d2a0ff'};background:linear-gradient(145deg,#201b35,#101a2a);border-radius:6px;padding:14px;min-width:0"><div style="font-size:10px;letter-spacing:1.5px;color:#c7a9ff;margin-bottom:12px">FIXED OFFER · NO REFRESH</div><div style="font-size:28px;color:${offer.color||'#d2a0ff'}">${offer.glyph||'✦'}</div><h3 style="font-size:13px;color:${offer.color||'#d2a0ff'};margin:8px 0">${offer.title}</h3><p style="font-size:11px;line-height:1.5;color:#a9b8d2;margin:0">${offer.desc||'A general perk.'}</p><div style="font-size:10px;color:#ffe38a;margin-top:14px">THIS OFFER IS PREDETERMINED</div></section></div><div class="menu-actions" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="declineExchange">DECLINE</button><button class="btn primary" id="acceptExchange" ${selectedIndex===null?'disabled':''}>EXCHANGE SELECTED PERK</button></div>`;
   m.querySelectorAll('[data-perk-index]').forEach(btn=>btn.onclick=()=>{selectedIndex=Number(btn.dataset.perkIndex);render()});
   m.querySelector('#declineExchange').onclick=finishPortalRoom;
   m.querySelector('#acceptExchange').onclick=()=>{if(selectedIndex===null)return;const idx=build.findIndex((name,i)=>i===selectedIndex);if(idx<0)return;build.splice(idx,1);offer.action();build.push(offer.title);updateUI();finishPortalRoom()};
