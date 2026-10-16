@@ -1,4 +1,8 @@
-# Void Explorer v246
+# Void Explorer v247
+
+## v247 core avatar alignment fix
+- Centered dialogue core artwork explicitly with absolute positioning, 50% offsets, and a centered transform origin.
+- Applied the same centering transform to the compact mobile avatar size to prevent the orbit artwork from clipping into the lower-right corner.
 
 ## v246 dialogue avatar update
 - Added the selected core's animated orb-detail artwork beside every Explorer speaking line and every internal-thought line in arcade dialogue boxes.
