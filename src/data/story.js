@@ -637,7 +637,7 @@ export const inRunCommsScenes = [
       {
         "speaker": "UNKNOWN VOICE",
         "role": "RECOVERED MAINTENANCE CHANNEL",
-        "text": "Khang? No, the original archive contains the names of every missing worker. A voice from the wall says, “We told them it wasn't ready.”"
+        "text": "Someone's voice crackles through the wall: “We told them it wasn't ready.” It sounds like the old maintenance lead."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
