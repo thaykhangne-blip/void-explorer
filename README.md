@@ -1,4 +1,9 @@
-# Void Explorer v245
+# Void Explorer v246
+
+## v246 dialogue avatar update
+- Added the selected core's animated orb-detail artwork beside every Explorer speaking line and every internal-thought line in arcade dialogue boxes.
+- Reuses the same orb-render layers and core-specific artwork used in Core Details, including Ember, Frost, Nova, Auralis, Elemental, Flash, and Nature.
+- Other speakers keep the full-width dialogue layout.
 
 ## v245 arcade cutscene update
 - Campaign intro briefings and world-end debriefs now use the compact arcade dialogue field instead of the cinematic text presentation.
@@ -13,16 +18,5 @@
 ## v243 narrative overhaul
 - Recentered the campaign on V Corp's failed Singularity Core investment and the emergency budget cuts used to keep the company alive.
 - Made the consequences build across all four worlds: understaffed operations, frozen employees, a cheap unsupported automation contract, and a board that keeps funding a failed investment rather than admitting the loss.
-- Rewrote all 8 campaign cutscenes, all 20 world-specific field dialogue scenes, and all 4 corporate memos in more natural language with occasional swearing and clearly labeled internal thoughts.
+- Rewrote all 8 campaign cutscenes, all 20 world-specific field dialogue scenes, and all 4 corporate memos in natural language with occasional swearing and clearly labeled internal thoughts.
 - Preserved the World 0 tutorial exclusion and the 5 dialogue checkpoints per campaign world.
-
-## v242 dialogue update
-- Corrected the crew count to “4 crew members” and added the field operations manager's censored internal thought after V Corp's response.
-
-## v241 dialogue update
-- Reworded the World 1 Room 1 Explorer dialogue to ask whether the spaceship requires four crew members to maneuver.
-
-## v240 narrative update
-- World 0 tutorial runs no longer show campaign cutscenes or in-run story dialogue.
-- Every campaign world has distinct start/end cutscenes and 5 unique in-run dialogue checkpoints.
-- Story escalates from budget cuts and cryogenic staffing to the Verdant ecosystem and Project Mirror.
