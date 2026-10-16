@@ -1,6 +1,11 @@
-# Void Explorer v229
+# Void Explorer v230
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v230 update
+- Moved Flash Core before Auralis in the core selection order.
+- Locked Auralis until World 1 is cleared, Nature until World 2 is cleared, and Elemental Core until World 3 is cleared.
+- Added a session-only Developer Mode toggle in Settings that unlocks all cores after password verification using a SHA-256 digest; the plaintext password is not stored in the source.
 
 ## v229 update
 - Fixed Elemental Convergence Nova behavior: every Nova cube attack launched during E now fires a visible salvo of 3 homing missiles, with +1 missile per Nova Swarm rank and 40% critical chance.
