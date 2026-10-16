@@ -5,6 +5,10 @@
 - Frost combat damage, cooldowns, freeze rules, and all other gameplay values are unchanged. Ember's earlier visual demo is preserved.
 - Both prototypes remain isolated on `demo/ember-pixel-art`; `main` is untouched.
 
+## v251 reversible Ember pixel-art demo
+- Added a palette-based pixel sprite for Ember, animated fire pixels, a blocky E-skill Ring of Fire, and a pixel Solar Flare Q effect.
+- Existing combat damage, cooldowns, and behavior were preserved.
+
 ## v250 portal transition reliability fix
 - Ensured portal rewards and the shop's Continue action always pass through the room fade, even when their click handler supplies a browser event.
 
