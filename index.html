@@ -3,14 +3,129 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Void Explorer</title>
+<style id="void-loader-critical">
+html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;background:#020207!important}
+#voidLoader{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#020207;color:#e8edff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;opacity:1;visibility:visible;transition:opacity .45s ease,visibility .45s ease}
+#voidLoader.is-hiding{opacity:0;visibility:hidden;pointer-events:none}
+#voidLoader *{box-sizing:border-box}
+.void-loader-content{width:min(360px,86vw);display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.void-loader-mark{font-size:clamp(19px,4vw,25px);font-weight:900;letter-spacing:.3em;margin-left:.3em;text-shadow:0 0 24px #8d83ff66}
+.void-loader-subtitle{font-size:9px;letter-spacing:.24em;color:#7885a8;margin-left:.24em}
+.void-loader-orbit{position:relative;width:clamp(150px,36vw,190px);aspect-ratio:1;display:grid;place-items:center;margin:8px 0}
+.void-loader-orbit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#voidLoaderProgressRing{transition:stroke-dashoffset .22s ease;filter:drop-shadow(0 0 5px #968bff99)}
+.void-loader-orbit .void-decor-ring{transform-origin:90px 90px;animation:voidOrbit 22s linear infinite}
+.void-loader-event-horizon{position:relative;width:48%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,#090a18 0 35%,#020207 57%);box-shadow:0 0 0 2px #232345,0 0 0 7px #817aff16,0 0 22px 6px #6a5dff42,inset 0 0 16px #000;animation:voidPulse 2.8s ease-in-out infinite}
+.void-loader-event-horizon:before{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid #7970ff70;box-shadow:0 0 14px #6659ff40;transform:rotate(-22deg) scaleX(.62)}
+.void-loader-event-horizon:after{content:"";position:absolute;width:9px;height:9px;left:16%;top:26%;border-radius:50%;background:#c2b8ff;box-shadow:0 0 9px #a9a0ff}
+.void-loader-progress{font-size:clamp(32px,7vw,42px);font-weight:800;line-height:1;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.void-loader-percent{font-size:15px;color:#a29aff;margin-left:3px}
+.void-loader-phase{margin-top:3px;font-size:9px;letter-spacing:.18em;color:#b5bfd9}
+.void-loader-details{min-height:12px;font-size:8px;letter-spacing:.08em;color:#667492}
+.void-loader-track{width:min(260px,78vw);height:2px;background:#1a2036;overflow:hidden;margin-top:4px}
+#voidLoaderBar{height:100%;width:0;background:linear-gradient(90deg,#6d5eff,#8cecff);box-shadow:0 0 10px #8c82ff;transition:width .22s ease}
+.void-loader-retry{display:none;margin-top:7px;padding:9px 14px;background:#0b1021;color:#e8edff;border:1px solid #6560bd;border-radius:3px;font:800 9px monospace;letter-spacing:.12em;cursor:pointer}
+#voidLoader.has-error .void-loader-retry{display:block}
+#voidLoader.has-error .void-loader-details{color:#ff9baf}
+@keyframes voidOrbit{to{transform:rotate(360deg)}}
+@keyframes voidPulse{0%,100%{transform:scale(.98);box-shadow:0 0 0 2px #232345,0 0 0 7px #817aff16,0 0 22px 6px #6a5dff42,inset 0 0 16px #000}50%{transform:scale(1.035);box-shadow:0 0 0 2px #37335e,0 0 0 10px #817aff14,0 0 30px 8px #6a5dff54,inset 0 0 19px #000}}
+@media(prefers-reduced-motion:reduce){.void-loader-orbit .void-decor-ring,.void-loader-event-horizon{animation:none}#voidLoader,#voidLoaderBar,#voidLoaderProgressRing{transition:none}}
+</style>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="src/styles.css">
-</head><body><div class="wrap">
+</head><body><div id="voidLoader" role="status" aria-live="polite" aria-label="Loading Void Explorer">
+ <div class="void-loader-content">
+  <div class="void-loader-mark">VOID EXPLORER</div>
+  <div class="void-loader-subtitle">CONTAINMENT BOOT SEQUENCE</div>
+  <div class="void-loader-orbit" aria-hidden="true">
+   <svg viewBox="0 0 180 180">
+    <circle cx="90" cy="90" r="70" fill="none" stroke="#20243d" stroke-width="1.5"/>
+    <circle class="void-decor-ring" cx="90" cy="90" r="61" fill="none" stroke="#6259a9" stroke-width="1" stroke-dasharray="2 8" opacity=".8"/>
+    <circle cx="90" cy="90" r="76" fill="none" stroke="#22223b" stroke-width="2"/>
+    <circle id="voidLoaderProgressRing" cx="90" cy="90" r="76" fill="none" stroke="#9b91ff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="477.52" stroke-dashoffset="477.52" transform="rotate(-90 90 90)"/>
+   </svg>
+   <div class="void-loader-event-horizon"></div>
+  </div>
+  <div class="void-loader-progress"><span id="voidLoaderPercent">0</span><span class="void-loader-percent">%</span></div>
+  <div id="voidLoaderPhase" class="void-loader-phase">PREPARING THE VOID</div>
+  <div id="voidLoaderDetails" class="void-loader-details">WAITING FOR LOCAL SYSTEMS</div>
+  <div class="void-loader-track" aria-hidden="true"><div id="voidLoaderBar"></div></div>
+  <button type="button" id="voidLoaderRetry" class="void-loader-retry">RETRY INITIALIZATION</button>
+ </div>
+</div>
+<div class="wrap">
 <header><div><h1>VOID EXPLORER</h1><p>A tiny cosmic action roguelike. Consume the void. Become the void.</p></div><div class="chip" id="phase">RUN 01 · ROOM 01</div></header>
 <main><section class="screen"><canvas id="game" width="1600" height="1120" aria-label="Void Explorer game arena"></canvas><button class="skill-hud" id="skillHud" title="Core skill · E" aria-label="Use core skill"><span class="skill-core"><b>E</b><small id="skillStatus">READY</small></span></button><button class="dash-hud" id="dashHud" title="Dash · Space" aria-label="Dash toward mouse"><span class="dash-core"><b>SPACE</b><small id="dashStatus">READY</small></span></button><div class="status-hud" id="statusHud" aria-label="Active buffs and debuffs"></div><div class="tutorial-tip" id="tutorialTip" hidden role="status"><b id="tutorialTipTitle"></b><p id="tutorialTipBody"></p><button id="tutorialTipDismiss">GOT IT · CONTINUE</button></div><button class="ultimate-hud" id="ultimateHud" title="Ultimate · Q · consumes all stored energy" aria-label="Cast ultimate"><span class="ult-core"><b>Q</b><small id="ultimatePct">0%</small></span></button><div class="toast" id="toast"></div><div class="overlay" id="overlay"><div class="modal" id="modal"></div></div><section class="panel particle-panel" id="particlePanel"><h3>PARTICLE STATUS</h3><div class="stat shard-stat"><span>VOID SHARDS</span><b><span class="shard-glyph">⬡</span> <span id="shardCountHud">0</span></b></div><div class="stat"><span>HULL</span><b id="hptext">100 / 100</b></div><div class="bar health-bar" id="healthTrack"><i id="hpbar"></i><i id="shieldbar" aria-label="Shield" title="Active shield" style="position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,#43cfff,#e1ffff);width:0%;box-shadow:0 0 8px #8cecff;opacity:.96;z-index:2"></i></div><div class="stat"><span>ORB LEVEL</span><b id="levelText">LV 1 · 0 / 30 XP</b></div><div class="bar"><i id="xpbar" style="background:linear-gradient(90deg,#ff79b8,#ffd0e7)"></i></div></section></section>
 <aside class="side" aria-label="In-run panels"></aside></main>
 <div class="bottom"><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn" id="pauseBtn">Ⅱ PAUSE / MENU</button></div></div></div>
+<script>
+(function(){
+ const loader=document.getElementById('voidLoader');
+ const percent=document.getElementById('voidLoaderPercent');
+ const ring=document.getElementById('voidLoaderProgressRing');
+ const bar=document.getElementById('voidLoaderBar');
+ const phase=document.getElementById('voidLoaderPhase');
+ const details=document.getElementById('voidLoaderDetails');
+ const retry=document.getElementById('voidLoaderRetry');
+ const circumference=2*Math.PI*76;
+ const resources=[
+  ['src/styles.css','INTERFACE STYLES'],
+  ['favicon.svg','VOID SIGNATURE'],
+  ['src/game.js','GAME SYSTEMS'],
+  ['src/data/worlds.js','WORLD DATABASE'],
+  ['src/data/cores.js','CORE DATABASE'],
+  ['src/data/perks.js','PERK DATABASE'],
+  ['src/utils/geometry.js','COMBAT GEOMETRY'],
+  ['src/systems/ricochet.js','PROJECTILE SYSTEM'],
+  ['src/data/story.js','STORY ARCHIVE'],
+  ['src/systems/narrative.js','NARRATIVE SYSTEM']
+ ];
+ let resolvePreload;
+ window.__voidPreloadPromise=new Promise(resolve=>{resolvePreload=resolve});
+ function setProgress(value,label,detail){
+  const safe=Math.max(0,Math.min(100,Math.round(value)));
+  percent.textContent=String(safe);
+  ring.style.strokeDashoffset=String(circumference*(1-safe/100));
+  bar.style.width=safe+'%';
+  if(label)phase.textContent=label;
+  if(detail)details.textContent=detail;
+ }
+ async function preload(){
+  loader.classList.remove('has-error');
+  retry.disabled=true;
+  setProgress(0,'PRELOADING LOCAL SYSTEMS','VERIFYING GAME FILES');
+  let complete=0;
+  const results=await Promise.allSettled(resources.map(async resource=>{
+   const [path,label]=resource;
+   const response=await fetch(new URL(path,document.baseURI).href,{cache:'force-cache'});
+   if(!response.ok)throw new Error(path+' · HTTP '+response.status);
+   await response.arrayBuffer();
+   complete++;
+   setProgress(complete/resources.length*100,'PRELOADING LOCAL SYSTEMS',String(complete).padStart(2,'0')+' / '+resources.length+' FILES · '+label);
+  }));
+  const failed=results.map((r,i)=>r.status==='rejected'?resources[i][0]+': '+String(r.reason?.message||r.reason):null).filter(Boolean);
+  retry.disabled=false;
+  if(failed.length){
+   loader.classList.add('has-error');
+   setProgress(complete/resources.length*100,'LOAD FAILURE',failed.slice(0,2).join(' · '));
+   details.textContent='ONE OR MORE FILES COULD NOT BE PRELOADED';
+   return;
+  }
+  setProgress(100,'SYSTEMS PRELOADED','INITIALIZING GAME');
+  try{if(document.fonts?.ready)await document.fonts.ready;}catch(e){}
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  resolvePreload(true);
+ }
+ window.__voidRetryPreload=preload;
+ window.__voidLoaderReady=function(){
+  setProgress(100,'SYSTEMS ONLINE','VOID STABILIZED · READY');
+  requestAnimationFrame(()=>{loader.classList.add('is-hiding');setTimeout(()=>loader.remove(),500);});
+ };
+ retry.addEventListener('click',()=>preload());
+ preload();
+})();
+</script>
 <script type="module" src="src/game.js"></script>
 
 </body></html>
