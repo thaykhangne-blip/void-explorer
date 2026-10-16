@@ -1,4 +1,8 @@
-# Void Explorer v238
+# Void Explorer v239
+
+## v239 narrative update
+- World intro and outro cutscenes now replay on every run, while remaining recorded in the Story Archive.
+- Preserved the five guaranteed post-clear arcade dialogue checkpoints at Rooms 1, 5, 10, 15, and 19.
 
 ## v238 narrative update
 - Replaced random in-run comms with five guaranteed dialogue checkpoints, triggered after Rooms 1, 5, 10, 15, and 19 are cleared and before portal choices appear.
