@@ -1,6 +1,10 @@
-# Void Explorer v232
+# Void Explorer v233
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v233 update
+- Restricted level-triggered stat growth to maximum HP, attack damage, and armor. Removed evolution stat bonuses to movement speed, fire rate, and critical chance; Nova's level-10 Overclock now increases laser damage instead.
+- Updated the evolution stat summary and core detail text to match the actual stat gains. Named core-specific evolution abilities remain.
 
 ## v232 update
 - Each standard player level-up now increases maximum HP by 3, restores up to 5 HP, increases attack damage by 3.5%, and adds 1 armor point.
