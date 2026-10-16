@@ -1,4 +1,11 @@
-# Void Explorer v235
+# Void Explorer v236
+
+## v236 narrative update
+- Added first-time, skippable opening and closing cutscenes for all four campaign worlds, including a final campaign reveal.
+- Added persistent scene tracking and a main-menu Story Archive for replaying transmissions.
+- Added four unlockable V Corp memos with workplace satire; each memo unlocks after its world is cleared.
+- Story scenes only run at safe world transitions. Escape skips a scene and Enter advances dialogue.
+
 
 ## v235 balance update
 - Reduced Ember Cinderheart from +35% to +30% burn damage and Pyre Cascade from +18% to +15% per rank.
