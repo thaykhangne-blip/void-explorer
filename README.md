@@ -1,6 +1,10 @@
-# Void Explorer v230
+# Void Explorer v231
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v231 update
+- Enemy contact now deals a distinct impact hit instead of tiny frame-by-frame damage ticks. Damage scales by enemy role: runners and shooters hit lighter, tanks and wardens hit harder, and charging rammers and mini-bosses hit hardest.
+- Contact damage uses the shared damage pipeline, so armor, Aegis Circuit damage reduction, invulnerability, and Frost/Auralis skill shields continue to mitigate or absorb impacts.
 
 ## v230 update
 - Moved Flash Core before Auralis in the core selection order.
