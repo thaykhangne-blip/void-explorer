@@ -1,4 +1,7 @@
-# Void Explorer v241
+# Void Explorer v242
+
+## v242 dialogue update
+- Corrected the crew count to “4 crew members” and added the field operations manager’s censored internal thought after V Corp’s response.
 
 ## v241 dialogue update
 - Reworded the World 1 Room 1 Explorer dialogue to ask whether the spaceship requires four crew members to maneuver.
