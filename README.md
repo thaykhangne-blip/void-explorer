@@ -1,8 +1,10 @@
-# Void Explorer v239
+# Void Explorer v240
 
-## v239 narrative update
-- World intro and outro cutscenes now replay on every run, while remaining recorded in the Story Archive.
-- Preserved the five guaranteed post-clear arcade dialogue checkpoints at Rooms 1, 5, 10, 15, and 19.
+## v240 narrative update
+- World 0 tutorial runs no longer show campaign cutscenes or in-run story dialogue.
+- Every campaign world has distinct start/end cutscenes and its own five checkpoint conversations at Rooms 1, 5, 10, 15, and 19.
+- Narrative tone now escalates from corporate cover-ups in Ashen Reach to frozen witnesses, a sentient ecosystem built from archived staff records, and the reality-reset Project Mirror experiment in Event Horizon.
+- Campaign start and end cutscenes replay on every run; the Story Archive keeps each world-specific scene available for replay.
 
 ## v238 narrative update
 - Replaced random in-run comms with five guaranteed dialogue checkpoints, triggered after Rooms 1, 5, 10, 15, and 19 are cleared and before portal choices appear.
