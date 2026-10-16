@@ -1,10 +1,19 @@
-# Void Explorer v225
+# Void Explorer v227
 
 Void Explorer is a browser-based cosmic action roguelike.
 
+## v227 update
+- Elemental Convergence now empowers Elemental Core auto-attacks and status effects for 10 seconds, with a persistent aura and a pulsing buff icon/countdown.
+- Extended projectile travel and target acquisition range by 50% for Ember, Frost, Elemental Core, and Auralis auto-attacks. Beam-like attacks and Auralis's light-lance proc retain their previous range.
+- Added five Elemental Core-exclusive perks to level-up/portal rewards, the Codex, and the market: Cubic Overload, Chain Reaction, Frost Lattice, Nova Swarm, and Burning Constellation.
+
+## v226 update
+- Added five Elemental Core-exclusive perks that improve cube attacks, lightning chains, frost buildup, Nova missiles, and burn damage.
+- Added matching perk rank caps and Elemental Core Codex entries.
+
 ## v225 update
 - Elemental Core fires chunkier, glowing cube projectiles for more impactful attacks.
-- E · Elemental Convergence now applies five effects in one cast: 5 burn stacks, instant freeze, lightning strikes against 3 additional enemies, a 5-second bind, and 4 homing Nova missiles with 40% critical chance.
+- E · Elemental Convergence applies five effects in one cast: 5 burn stacks, instant freeze, lightning strikes against 3 additional enemies, a 5-second bind, and 4 homing Nova missiles with 40% critical chance.
 - Level 10 Chromatic Tempest reduces Elemental Convergence cooldown by 2 seconds.
 
 ## v224 update
