@@ -1,4 +1,7 @@
-# Void Explorer v240
+# Void Explorer v241
+
+## v241 dialogue update
+- Reworded the World 1 Room 1 Explorer dialogue to ask whether the spaceship requires four crew members to maneuver.
 
 ## v240 narrative update
 - World 0 tutorial runs no longer show campaign cutscenes or in-run story dialogue.
