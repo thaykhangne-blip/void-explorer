@@ -328,3 +328,6 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 
 /* Elemental Convergence: visible, pulsing duration chip while E's ten-second empowerment is active. */
 .status-chip.elemental-convergence{border-color:#ff71cd;box-shadow:0 0 12px #ff71cd66,inset 0 0 10px #ff71cd22;animation:elementalBuffPulse .72s ease-in-out infinite alternate}.status-chip.elemental-convergence .status-icon{font-size:16px;text-shadow:0 0 9px #ff71cd,0 0 16px #b58cff}.status-chip.elemental-convergence .status-time{color:#ffe6fb;text-shadow:0 0 7px #ff71cd88}@keyframes elementalBuffPulse{from{filter:brightness(1);box-shadow:0 0 8px #ff71cd44,inset 0 0 5px #ff71cd15}to{filter:brightness(1.4);box-shadow:0 0 16px #ff71cd88,inset 0 0 12px #ff71cd33}}
+
+/* Locked core cards remain visible but cannot be selected until their world is cleared. */
+.core-choice-wrap>.choice.core-locked{opacity:.68;filter:grayscale(.72);border-style:dashed;cursor:not-allowed;background:#0d1422}.core-choice-wrap>.choice.core-locked:hover{transform:none;border-color:#334565;background:#0d1422}.core-choice-wrap>.choice.core-locked .choice-copy small{color:#f1c978}
