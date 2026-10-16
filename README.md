@@ -1,6 +1,10 @@
-# Void Explorer v231
+# Void Explorer v232
 
 Void Explorer is a browser-based cosmic action roguelike.
+
+## v232 update
+- Each standard player level-up now increases maximum HP by 3, restores up to 5 HP, increases attack damage by 3.5%, and adds 1 armor point.
+- Removed the generic level-up movement-speed increase. Standard level-ups no longer directly change movement speed, fire rate, or critical chance. Existing core evolution mechanics at levels 5, 10, 15, and 20 remain separate.
 
 ## v231 update
 - Enemy contact now deals a distinct impact hit instead of tiny frame-by-frame damage ticks. Damage scales by enemy role: runners and shooters hit lighter, tanks and wardens hit harder, and charging rammers and mini-bosses hit hardest.
