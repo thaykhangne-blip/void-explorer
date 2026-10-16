@@ -1,4 +1,7 @@
-# Void Explorer v249
+# Void Explorer v250
+
+## v250 portal transition reliability fix
+- Ensured portal rewards and the shop's Continue action always pass through the room fade, even when their click handler supplies a browser event.
 
 ## v249 portal travel and room transitions
 - Clicking a portal locks controls, highlights the chosen gate, and animates the core flying into it before fading to the destination interaction.
@@ -9,7 +12,6 @@
 ## v248 startup loading screen
 - Added a full-screen black startup loader with a circular event-horizon visual, animated void, percentage, and current resource status.
 - Preloads the game's local entry module, imported JavaScript modules, stylesheet, and favicon before game initialization.
-- The loader waits for preloading and game startup to finish before fading away; failed file loads show a retry control.
 - No separate image/audio/font files are used by the current game visuals and sound system.
 
 ## v247 core avatar alignment fix
