@@ -713,7 +713,7 @@ function castUltimate(){
  }
  updateUI();
 }
-function rainbowCoreColor(offset=0){return `hsl(${Math.round(((performance.now()*.12+offset)%360+360)%360)}, 100%, 65%)`;}
+function rainbowCoreColor(offset=0){const h=((performance.now()*.12+offset)%360+360)%360/60,c=.7,x=c*(1-Math.abs(h%2-1)),m=.3;let rgb=h<1?[c,x,0]:h<2?[x,c,0]:h<3?[0,c,x]:h<4?[0,x,c]:h<5?[x,0,c]:[c,0,x];return '#'+rgb.map(v=>Math.round((v+m)*255).toString(16).padStart(2,'0')).join('');}
 function coreTrail(){if(!player||!core)return;const color=core.id==='elemental'?rainbowCoreColor(rand(0,100)):(core.color||'#72f6ff');particles.push({x:player.x+rand(-3,3),y:player.y+rand(-3,3),vx:rand(-12,12),vy:rand(-12,12),life:core.id==='nova'?.32:core.id==='remielle'?.26:.22,max:core.id==='nova'?.32:core.id==='remielle'?.26:.22,color,size:core.id==='ember'?3:2});}
 function updateDamageTexts(dt){for(const d of damageTexts){d.x+=d.vx*dt;d.y+=d.vy*dt;d.vy-=7*dt;d.life-=dt;}damageTexts=damageTexts.filter(d=>d.life>0); }
 function enemyContactDamage(e){
