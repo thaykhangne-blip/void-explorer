@@ -537,3 +537,8 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 
 /* v293: compensate the fullscreen arena for wrapper zoom so HUD anchors remain visible at every UI scale */
 .screen{width:calc(100vw / var(--ui-scale,1))!important;height:calc(100dvh / var(--ui-scale,1))!important;max-width:none!important;max-height:none!important}
+
+/* v294: larger text in the two highlighted in-run information panels; panel dimensions unchanged */
+.screen > .particle-panel#particlePanel h3{font-size:11px!important;letter-spacing:1px!important}
+.screen > .particle-panel#particlePanel .stat,.screen > .particle-panel#particlePanel .stat b{font-size:10px!important}
+@media(max-width:700px){.screen > .particle-panel#particlePanel h3{font-size:9px!important}.screen > .particle-panel#particlePanel .stat,.screen > .particle-panel#particlePanel .stat b{font-size:9px!important}}
