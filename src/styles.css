@@ -499,3 +499,32 @@ body>.credits-easter-egg-backdrop>.credits-easter-egg p{white-space:normal!impor
 /* Global arcade typography: consistent across menus, HUD, modals, and controls */
 :root{--font-ui:'Rajdhani',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
+
+
+/* v291: scale the play area and supporting UI for desktop displays without browser-zoom side effects */
+@media (min-width: 1200px) {
+  body { padding: clamp(18px, 1.5vw, 28px); }
+  .wrap { width: min(1540px, 100%); }
+  main { grid-template-columns: minmax(0, 1fr) clamp(280px, 22vw, 330px); gap: clamp(14px, 1.2vw, 20px); }
+  .screen { width: min(100%, calc((100dvh - 115px) * 1.428571)); }
+  .panel { padding: clamp(14px, 1.05vw, 18px); }
+  .panel h3 { font-size: clamp(10px, .78vw, 13px); }
+  .stat { font-size: clamp(11px, .82vw, 13px); }
+  .controls, .upgrade { font-size: clamp(10px, .78vw, 12px); }
+  .upgrade em, .controls small { font-size: clamp(10px, .72vw, 11px); }
+  .btn, .collapse-btn, .setting-row { font-size: clamp(11px, .82vw, 13px); }
+  .modal { width: min(720px, 100%); }
+  .modal h2 { font-size: clamp(26px, 2.2vw, 36px); }
+  .modal p { font-size: clamp(13px, 1vw, 16px); }
+  .choices, .world-grid { gap: clamp(10px, .9vw, 14px); }
+  .choice, .world-card { padding: clamp(14px, 1.1vw, 18px); }
+  .choice b, .world-card b { font-size: clamp(13px, .95vw, 16px); }
+  .choice small, .world-card small { font-size: clamp(11px, .8vw, 13px); }
+}
+@media (min-width: 1600px) and (min-height: 850px) {
+  .screen { width: min(100%, calc((100dvh - 100px) * 1.428571)); }
+  .shard-hud { font-size: 14px; padding: 9px 12px; }
+}
+@media (max-width: 1199px) {
+  .wrap { width: min(1100px, 100%); }
+}
