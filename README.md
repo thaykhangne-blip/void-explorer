@@ -1,9 +1,9 @@
-## v3.0.0 (300) release
-- Set the game release version to 3.0.0 (build 300).
+## v0.3 release
+- Set the game release version to 0.3 (build 300).
 - Updated the in-game version labels and asset cache versions to match the release.
 - Includes the recent UI scaling, HUD readability, and loading-screen improvements.
 
-# Void Explorer v3.0.0 (300)
+# Void Explorer v0.3
 
 ## v251 portal flight transition
 - Made portal selection feel like physical travel instead of a quick scene swap.
