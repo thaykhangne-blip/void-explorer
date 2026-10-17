@@ -533,3 +533,7 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 /* v292: keep the in-game UI-size control legible while the rest of the interface is scaled */
 .ui-scale-row input[type=range]{min-width:0;cursor:pointer}
 .ui-scale-row>b{min-width:48px;text-align:right;color:var(--cyan);font-variant-numeric:tabular-nums}
+
+
+/* v293: compensate the fullscreen arena for wrapper zoom so HUD anchors remain visible at every UI scale */
+.screen{width:calc(100vw / var(--ui-scale,1))!important;height:calc(100dvh / var(--ui-scale,1))!important;max-width:none!important;max-height:none!important}
