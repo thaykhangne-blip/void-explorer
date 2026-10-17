@@ -13,7 +13,7 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
 #voidLoader *{box-sizing:border-box}
 .void-loader-content{width:min(360px,86vw);display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
 .void-loader-mark{font-size:clamp(19px,4vw,25px);font-weight:900;letter-spacing:.3em;margin-left:.3em;text-shadow:0 0 24px #8d83ff66}
-.void-loader-subtitle{font-size:9px;letter-spacing:.24em;color:#7885a8;margin-left:.24em}
+.void-loader-subtitle{font-size:11px;letter-spacing:.24em;color:#7885a8;margin-left:.24em}
 .void-loader-orbit{position:relative;width:clamp(150px,36vw,190px);aspect-ratio:1;display:grid;place-items:center;margin:8px 0}
 .void-loader-orbit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 #voidLoaderProgressRing{transition:stroke-dashoffset .22s ease;filter:drop-shadow(0 0 5px #968bff99)}
@@ -22,12 +22,12 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
 .void-loader-event-horizon:before{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid #7970ff70;box-shadow:0 0 14px #6659ff40;transform:rotate(-22deg) scaleX(.62)}
 .void-loader-event-horizon:after{content:"";position:absolute;width:9px;height:9px;left:16%;top:26%;border-radius:50%;background:#c2b8ff;box-shadow:0 0 9px #a9a0ff}
 .void-loader-progress{font-size:clamp(32px,7vw,42px);font-weight:800;line-height:1;letter-spacing:.04em;font-variant-numeric:tabular-nums}
-.void-loader-percent{font-size:15px;color:#a29aff;margin-left:3px}
-.void-loader-phase{margin-top:3px;font-size:9px;letter-spacing:.18em;color:#b5bfd9}
-.void-loader-details{min-height:12px;font-size:8px;letter-spacing:.08em;color:#667492}
+.void-loader-percent{font-size:18px;color:#a29aff;margin-left:3px}
+.void-loader-phase{margin-top:3px;font-size:12px;letter-spacing:.18em;color:#b5bfd9}
+.void-loader-details{min-height:15px;font-size:10px;letter-spacing:.08em;color:#667492}
 .void-loader-track{width:min(260px,78vw);height:2px;background:#1a2036;overflow:hidden;margin-top:4px}
 #voidLoaderBar{height:100%;width:0;background:linear-gradient(90deg,#6d5eff,#8cecff);box-shadow:0 0 10px #8c82ff;transition:width .22s ease}
-.void-loader-retry{display:none;margin-top:7px;padding:9px 14px;background:#0b1021;color:#e8edff;border:1px solid #6560bd;border-radius:3px;font:800 9px monospace;letter-spacing:.12em;cursor:pointer}
+.void-loader-retry{display:none;margin-top:7px;padding:9px 14px;background:#0b1021;color:#e8edff;border:1px solid #6560bd;border-radius:3px;font:800 11px monospace;letter-spacing:.12em;cursor:pointer}
 #voidLoader.has-error .void-loader-retry{display:block}
 #voidLoader.has-error .void-loader-details{color:#ff9baf}
 @keyframes voidOrbit{to{transform:rotate(360deg)}}
@@ -138,6 +138,6 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
  preload();
 })();
 </script>
-<script type="module" src="src/game.js?v=287"></script>
+<script type="module" src="src/game.js?v=288"></script>
 
 </body></html>
