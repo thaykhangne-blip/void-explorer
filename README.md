@@ -31,7 +31,7 @@ The game combines fast arcade combat with elemental core identities, active abil
 - **Four campaign worlds** with distinct environments, threats, and narrative arcs.
 - **Playable cores** with different combat identities, elemental effects, skills, and ultimate abilities.
 - **Roguelike progression** through upgrades, perks, core evolution, and build combinations.
-- **Combat encounters** including regular rooms, minibosses, bosses, and room-specific objectives.
+- **Varied stage objectives** including singularity destruction, horde and ambush waves, ship defense, cargo delivery, escort/evacuation, multi-beacon capture, key hunts, escalating survival countdowns, and high-risk challenge contracts.
 - **Portal-based advancement** with animated transitions between rooms.
 - **Story Archive** for replaying recovered transmissions and reading internal corporate memos.
 - **Corporate satire** following V Corp's failed Singularity Core investment and its increasingly desperate attempts to protect the budget and the board.
