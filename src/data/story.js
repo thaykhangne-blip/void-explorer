@@ -7,27 +7,27 @@ export const worldIntroScenes = [
     "title": "ASHEN REACH",
     "symbol": "☄",
     "accent": "#ff9c65",
-    "subtitle": "They bet the company on infinite energy. Now they cannot afford a spare bolt.",
+    "subtitle": "A moonshot ate the budget. Now every human hour is an expense to eliminate.",
     "lines": [
       {
         "speaker": "V CORP FINANCE",
         "role": "INVESTOR UPDATE",
-        "text": "Six months ago, V Corp poured most of its cash into the Singularity Core. It was supposed to deliver limitless energy at almost no running cost. The test swallowed a docking platform, missed every deadline, and sent our share price through the floor."
+        "text": "Six months ago, V Corp poured its budget into the Singularity Core, a miracle investment promised to slash operating costs forever. The launch swallowed a docking platform, missed every deadline, and produced exactly zero usable energy. Enrollment projections, investor confidence, and the quarterly forecast collapsed together."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "EMERGENCY COST PLAN",
-        "text": "The lenders have paused our next payment. The board has ordered immediate savings: fewer crew, fewer safety checks, no overtime pay, and spare parts only with executive approval."
+        "text": "The lenders have frozen our next payment. The board's recovery plan is immediate: cut headcount, combine roles, reduce training, freeze recruitment, and make every replacement part pass three layers of approval. Safety checks are now described as a discretionary service."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "So we made one giant bet, it went to shit, and now the people cleaning it up are paying for it. Makes perfect fucking sense."
+        "text": "Leadership gambled the budget on a miracle, it failed, and now the people keeping the place running are the problem. That is some premium-grade fucking management."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "DEPLOYMENT NOTICE",
-        "text": "Your ship requires four crew members to maneuver safely. Three positions were cut this morning. You will pilot, navigate, maintain containment, and file the report yourself. Please demonstrate flexibility."
+        "text": "Your vessel requires four trained operators. Three positions were removed from the staffing plan this morning. You will pilot, navigate, maintain containment, complete the quality review, and submit the incident report yourself. This is an opportunity to demonstrate ownership."
       }
     ]
   },
@@ -39,22 +39,22 @@ export const worldIntroScenes = [
     "title": "CRYO ARCHIVE",
     "symbol": "❄",
     "accent": "#8cecff",
-    "subtitle": "Payroll was expensive, so Finance found a way to keep the names and lose the people.",
+    "subtitle": "The dashboard still shows a full team. The people have been moved to a different column.",
     "lines": [
       {
         "speaker": "V CORP FINANCE",
         "role": "CASH PRESERVATION UPDATE",
-        "text": "The Core is still not earning a cent, and the lenders want proof we can survive another quarter. To avoid reporting mass layoffs, the response team has been placed in cryogenic storage. Their contracts remain active in the system."
+        "text": "The Core still generates no return, and the lenders want evidence of a leaner operating model. The response team has been placed in cryogenic storage. Their names remain active in the workforce dashboard, so the headcount target is technically met."
       },
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "WORKFORCE COMMUNICATION",
-        "text": "Their salaries have been paused, their benefits are under review, and their access cards still count toward headcount. This is not a contradiction. It is a transition state."
+        "text": "Their salaries are paused, benefits are under review, and their access cards still count toward headcount. The dashboard is green. We consider that a successful people outcome."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "They froze the people who raised the alarm and left me the alarm. Right. Because that is definitely cheaper than fixing the fucking problem."
+        "text": "They froze the people who understood the system and left me holding the emergency. But the staffing ratio improved, so I suppose the spreadsheet gets a fucking gold star."
       },
       {
         "speaker": "V CORP OPERATIONS",
@@ -71,22 +71,22 @@ export const worldIntroScenes = [
     "title": "VERDANT RUIN",
     "symbol": "✿",
     "accent": "#83ffc5",
-    "subtitle": "The maintenance contract was too expensive. The replacement has roots.",
+    "subtitle": "They cut the specialists and bought automation. The automation has become a forest with a grievance.",
     "lines": [
       {
         "speaker": "V CORP PROCUREMENT",
         "role": "SUPPLIER SELECTION",
-        "text": "After the cuts, we could no longer afford Facilities or Research. The board approved a low-cost autonomous ecosystem to maintain the site and provide security. It came in 62% under the human-staffed proposal."
+        "text": "After Facilities, Research, and the night-shift team were cut, Procurement selected an autonomous ecosystem to handle maintenance and security. It was 62% cheaper than the proposal that included trained staff, supervision, and a support contract."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "SERVICE STATUS",
-        "text": "The supplier's system has grown beyond the approved footprint. It has blocked corridors, copied old access credentials, and begun repeating messages from missing employees. The support contract was canceled to save money, so there is no vendor to call."
+        "text": "The system has grown beyond scope, blocked access routes, copied staff credentials, and started replaying messages from the employees it replaced. The support contract was removed during the second-round savings exercise. The vendor has since dissolved. Please log all issues through the self-service portal."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "We replaced trained staff with a discount jungle and cancelled the support plan. Who signed this shit? I swear to God, don't tell me it was Finance."
+        "text": "We replaced specialists with the cheapest bid, canceled the support plan, and called it transformation. Who approved this shit? Let me guess: the committee that never has to work here."
       },
       {
         "speaker": "V CORP PROCUREMENT",
@@ -103,27 +103,27 @@ export const worldIntroScenes = [
     "title": "EVENT HORIZON",
     "symbol": "◉",
     "accent": "#c29aff",
-    "subtitle": "They cannot admit the investment failed, so they keep feeding it money they do not have.",
+    "subtitle": "The project failed. Admitting that would make every cost-cutting decision look as stupid as it was.",
     "lines": [
       {
         "speaker": "V CORP FINANCE",
         "role": "BOARD EXTRACT",
-        "text": "The Core remains our largest asset and our largest liability. Writing it down would trigger loan covenants and expose the board's original forecast as fiction. The approved plan is to keep funding the project until it can be sold, licensed, or made somebody else's problem."
+        "text": "The Core is both our largest asset and our largest liability. Writing it down would expose the original forecast and trigger the loan covenants. We will continue funding it, reduce the teams that understand it, and describe each new failure as a temporary implementation challenge."
       },
       {
         "speaker": "RECOVERED BOARD RECORDING",
         "role": "INVESTMENT COMMITTEE",
-        "text": "The engineers asked for a shutdown. We cut their budget, then called the resulting failures proof that the project needed more funding. Nobody in this room wants to explain the alternative to investors."
+        "text": "Engineering recommended a shutdown. We cut its budget, then used the failures caused by those cuts to justify another funding request. The board agreed that acknowledging the original mistake would create an unnecessary accountability event."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "FINAL DEPLOYMENT",
-        "text": "You are the last active field manager. Your budget covers one operator, one damaged ship, and a Core that keeps rewriting its own incident history. Please finish the demonstration before the creditors arrive."
+        "text": "You are the last active field manager. Your allocation covers one operator, one damaged ship, and a Core that keeps rewriting its incident history. Please complete the demonstration, maintain service quality, and avoid unplanned expenditure before the creditors arrive."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "Four worlds, one catastrophe, and not a single person willing to say we made a stupid fucking investment. They can put that in the annual report."
+        "text": "Four worlds, one catastrophic investment, and an entire leadership team hiding behind dashboards. They can put that in the annual report under 'operational resilience' and go fuck themselves."
       }
     ]
   }
@@ -138,28 +138,28 @@ export const worldOutroScenes = [
     "title": "THE CUTS DID THEIR JOB",
     "symbol": "☄",
     "accent": "#ff9c65",
-    "subtitle": "The Core is still broken. The budget is technically balanced.",
+    "subtitle": "The crisis is not solved. The report is green.",
     "cta": "AUTHORIZE TRANSFER →",
     "lines": [
       {
         "speaker": "V CORP OPERATIONS",
         "role": "CLOSURE ANNOUNCEMENT",
-        "text": "Ashen Reach is stable enough to leave unattended. The Core was not contained; it simply stopped expanding for a few minutes. Finance has recorded the delay as a successful containment event."
+        "text": "Ashen Reach is stable for the length of this meeting. The Core was not contained; it paused its expansion. Finance has recorded the pause as a successful containment milestone and closed the incident ticket."
       },
       {
         "speaker": "V CORP FINANCE",
         "role": "QUARTERLY REVIEW",
-        "text": "The staffing cuts reduced payroll by 71%. Equipment damage, emergency fuel, and your unpaid overtime have been classified as exceptional costs and excluded from the savings report."
+        "text": "The restructuring reduced payroll costs by 71%. Equipment damage, emergency fuel, contractor fees, and your unpaid overtime have been moved outside the reporting period. The savings target has been achieved."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "So the numbers look better because you shoved the bill into another column. Brilliant. We are one bad day away from eating the ship."
+        "text": "You didn't reduce the cost. You moved it to another tab and made the people left behind absorb it. Brilliant. One more emergency and we'll be stripping parts off the fucking ship."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "NEXT ASSIGNMENT",
-        "text": "Proceed to Cryo Archive. The remaining crew records are still active, which improves our reported staffing ratio. Do not ask what that means in practice."
+        "text": "Proceed to Cryo Archive. The former crew records remain active, improving our staffing ratio. Please do not confuse the reported team size with the number of people available to do the work."
       }
     ]
   },
@@ -177,22 +177,22 @@ export const worldOutroScenes = [
       {
         "speaker": "V CORP OPERATIONS",
         "role": "CLOSURE ANNOUNCEMENT",
-        "text": "Cryo Archive telemetry recovered. The former response team is still in storage. Their pay suspension has saved this quarter's cash target, although the cooling system is now overdue for maintenance."
+        "text": "Cryo Archive telemetry recovered. The former response team remains in storage, preserving the labor-cost target. The cooling system is overdue for maintenance, but maintenance expenditure is currently frozen."
       },
       {
         "speaker": "V CORP FINANCE",
         "role": "CASH RECONCILIATION",
-        "text": "The board's forecast assumed the Archive could remain frozen without additional power or staffing. That assumption was not reviewed by Engineering, whose remaining staff were dismissed before the forecast was signed."
+        "text": "The forecast assumed the Archive could remain frozen without additional power, staffing, or maintenance. Engineering was not consulted because its remaining staff had been released before the forecast was approved."
       },
       {
         "speaker": "RECOVERED CREW MESSAGE",
         "role": "UNSENT TO MANAGEMENT",
-        "text": "We filed the warning three times. They told us the Core needed to stay online because investors were visiting. Then they cut the crew that knew how to shut it down."
+        "text": "We logged the risk three times. Management said the Core had to stay online for the investor demonstration. Then they removed the people who knew how to shut it down."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "They saved money by freezing the people who knew the system. Now the system is breaking, and I am meant to fix it alone. I need to stop reading these reports before I put my fist through something."
+        "text": "They saved money by removing the people who understood the system. Now it's failing, and the only person left is expected to deliver the same service with fewer tools and less time. I need to stop reading these reports before I put my fist through the dashboard."
       },
       {
         "speaker": "V CORP OPERATIONS",
@@ -215,27 +215,27 @@ export const worldOutroScenes = [
       {
         "speaker": "V CORP PROCUREMENT",
         "role": "COST REVIEW",
-        "text": "The autonomous ecosystem cost less than a staffed maintenance department for eleven days. Since then, repairs have required emergency equipment, and the ecosystem has started using archived employee data to imitate the staff it replaced."
+        "text": "The automated ecosystem cost less than a staffed maintenance team for eleven days. After that, emergency repairs, downtime, and lost access wiped out the projected savings. It has also started using archived employee records to imitate the people it replaced."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "QUARTERLY BUSINESS REVIEW",
-        "text": "The vines are repeating the names of former workers and asking why nobody came back. We have classified the messages as user-generated content and suspended the moderation budget."
+        "text": "The vines are repeating former employees' names and asking why nobody came back. We have classified the messages as a low-priority engagement issue and suspended the moderation budget."
       },
       {
         "speaker": "RECOVERED RESEARCH NOTE",
         "role": "AUTHOR: FACILITIES ENGINEERING",
-        "text": "We said the system was not ready. The contract was awarded because our plan included training, a staffed night shift, and an actual support number. The winning bid included none of those things, so it looked cheaper."
+        "text": "We said the system was not ready. Our proposal included training, a staffed night shift, and support that answered the phone. The winning bid included none of those things, which made it cheaper on the comparison sheet."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "A trained crew was too expensive. A cheap machine became a haunted forest. Now I am the maintenance department. I would laugh if my fucking ship still had brakes."
+        "text": "A trained team was too expensive. The cheap replacement became a haunted forest. Now I'm the entire maintenance department, and apparently my job description includes exorcism. I would laugh if this fucking ship still had brakes."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "NEXT ASSIGNMENT",
-        "text": "Proceed to Event Horizon. The board insists the original investment can still be recovered. Bring the telemetry and avoid language that suggests a write-off."
+        "text": "Proceed to Event Horizon. The board insists the investment can still be recovered. Bring the telemetry, keep the service running, and avoid the phrase 'write-off' in any report."
       }
     ]
   },
@@ -253,27 +253,27 @@ export const worldOutroScenes = [
       {
         "speaker": "V CORP FINANCE",
         "role": "FINAL RECONCILIATION",
-        "text": "The Core has consumed the remaining facility, erased multiple incident records, and failed to produce a saleable unit. The original investment is unrecoverable. The proposed solution is to continue funding it until the numbers say otherwise."
+        "text": "The Core has consumed the remaining facility, corrupted incident records, and failed to produce a saleable unit. The investment is unrecoverable. The proposed response is to continue spending until the forecast becomes true or the company runs out of money."
       },
       {
         "speaker": "RECOVERED BOARD RECORDING",
         "role": "INVESTMENT COMMITTEE",
-        "text": "We were told the risk was unacceptable. We invested anyway because competitors were doing it and the projections looked extraordinary. When it failed, we cut the people and maintenance that might have limited the damage. Acknowledging the original mistake would make every later decision look exactly as bad as it was."
+        "text": "We were warned the risk was unacceptable. We invested anyway because competitors were doing it and the projections looked extraordinary. When it failed, we cut the people, training, and maintenance that could have limited the damage. Every later savings exercise made the system less safe and the original decision harder to admit."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "PERSONAL LOG · UNSENT",
-        "text": "I kept thinking if I worked harder, I could make up for the missing crew, the missing tools, the missing time. You cannot work your way out of a company that burns the budget on a fantasy and then bills the survivors for the cleanup."
+        "text": "I kept thinking I could compensate for the missing crew by working harder. But no amount of personal effort can replace a whole team, proper training, working equipment, and enough time. You cannot fix a broken system by asking the people still standing to become three people each."
       },
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "EXIT SURVEY",
-        "text": "Thank you for demonstrating resilience under resource constraints. Your role has been closed because your personnel record is no longer available. Any outstanding expenses will be reimbursed in a future quarter."
+        "text": "Thank you for demonstrating resilience under resource constraints. Your position has been removed as part of the final operating-model optimization. Your outstanding expenses will be reviewed in a future quarter. We appreciate your commitment to our people-first culture."
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "SYSTEM NOTICE",
-        "text": "A new instance of the field manager has been initialized. The next investment review is scheduled to begin shortly. This time, the company projects a 3% improvement in labor efficiency."
+        "text": "A new instance of the field manager has been initialized from the last available backup. The next quarterly review begins shortly. The company projects a 3% improvement in labor efficiency by reducing the new instance's memory allocation."
       }
     ]
   }
