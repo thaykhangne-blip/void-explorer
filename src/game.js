@@ -749,7 +749,8 @@ function showPortals(){
   {type:'heal',color:'#83ffc5',glyph:'✚',label:'REPAIR GATE',desc:'Restore 40% of your core hull'},
   {type:'exchange',color:'#d2a0ff',glyph:'⇄',label:'PERK EXCHANGE',desc:exchangeTo?'Exchange '+exchangeFrom+' for '+exchangeTo.title:'No available perk exchange',exchangeFrom,exchangeTo},
   {type:'event',color:'#ff79b8',glyph:'?',label:'ANOMALY',desc:'Choose a cosmic reward'},
-  {type:'shop',color:'#b28cff',glyph:'▣',label:'VOID MARKET',desc:'Spend Void Shards on general perks'}
+  {type:'shop',color:'#b28cff',glyph:'▣',label:'VOID MARKET',desc:'Spend Void Shards on general perks'},
+  {type:'forge',color:'#ffe38a',glyph:'⚒',label:'VOID FORGE',desc:'Spend Void Shards to upgrade an owned perk'}
  ];
  const count=Math.floor(rand(2,5)),chosen=[];while(chosen.length<count){const i=Math.floor(Math.random()*pool.length);if(!chosen.includes(pool[i]))chosen.push(pool[i])}
  const portalSpreadX=Math.min(W*.13,190),portalSpreadY=Math.min(H*.14,115);const spots=count===2?[{x:W/2-portalSpreadX*.8,y:H/2},{x:W/2+portalSpreadX*.8,y:H/2}]:count===3?[{x:W/2-portalSpreadX,y:H/2-portalSpreadY},{x:W/2+portalSpreadX,y:H/2-portalSpreadY},{x:W/2,y:H/2+portalSpreadY}]:[{x:W/2-portalSpreadX,y:H/2-portalSpreadY},{x:W/2+portalSpreadX,y:H/2-portalSpreadY},{x:W/2-portalSpreadX,y:H/2+portalSpreadY},{x:W/2+portalSpreadX,y:H/2+portalSpreadY}];
@@ -762,7 +763,7 @@ function beginPortalTransition(portal){
  portalTransition={type:portal.type,portalData:{exchangeFrom:portal.exchangeFrom,exchangeTo:portal.exchangeTo},x:portal.x,y:portal.y,startX:player.x,startY:player.y,color:portal.color||core?.color||'#72f6ff',glyph:portal.glyph||'◉',label:portal.label||'DESTINATION',elapsed:0,travelDuration:1.05,duration:1.62,hold:0,seed:Math.random()*Math.PI*2};
  state='portalTransition';sfx('portal');
 }
-function enterPortal(type,portalData=null){state='portal';environmentHazards=[];hazardSpawnTimer=Math.max(1.8,4.2-(Math.max(0,currentWorld)*.35));hazardHitCooldown=0;portals=[];burst(player.x,player.y,'#72f6ff',12);if(type==='heal'){const healed=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.4));player.hp=Math.min(player.maxHp,player.hp+healed);updateUI();showModal('REPAIR GATE','CORE RESTORED',`The gate repairs ${healed} hull.`,[{glyph:'✚',color:'#83ffc5',title:'CONTINUE',desc:'Proceed with your repaired core.',action:finishPortalRoom}]);return}if(type==='exchange'){const oldPerk=portalData?.exchangeFrom||'No existing perk';const offer=portalData?.exchangeTo||null;if(!offer){showModal('PERK EXCHANGE','NO VALID OFFER','No general perk is available. This portal cannot be refreshed.',[{glyph:'→',title:'CONTINUE',desc:'Leave the exchange untouched.',action:finishPortalRoom}]);return}showPerkExchange(offer);return}if(type==='event'){showAnomaly();return}if(type==='shop'){shopVisits++;shopStock=null;shopPurchased=[];showShop();return}}
+function enterPortal(type,portalData=null){state='portal';environmentHazards=[];hazardSpawnTimer=Math.max(1.8,4.2-(Math.max(0,currentWorld)*.35));hazardHitCooldown=0;portals=[];burst(player.x,player.y,'#72f6ff',12);if(type==='heal'){const healed=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.4));player.hp=Math.min(player.maxHp,player.hp+healed);updateUI();showModal('REPAIR GATE','CORE RESTORED',`The gate repairs ${healed} hull.`,[{glyph:'✚',color:'#83ffc5',title:'CONTINUE',desc:'Proceed with your repaired core.',action:finishPortalRoom}]);return}if(type==='exchange'){const oldPerk=portalData?.exchangeFrom||'No existing perk';const offer=portalData?.exchangeTo||null;if(!offer){showModal('PERK EXCHANGE','NO VALID OFFER','No general perk is available. This portal cannot be refreshed.',[{glyph:'→',title:'CONTINUE',desc:'Leave the exchange untouched.',action:finishPortalRoom}]);return}showPerkExchange(offer);return}if(type==='event'){showAnomaly();return}if(type==='shop'){shopVisits++;shopStock=null;shopPurchased=[];showShop();return}if(type==='forge'){showVoidForge();return}}
 function perkExchangeInfo(name){
  const key=String(name||'').toUpperCase();
  const general=createGeneralPerks().find(p=>key===p.title.toUpperCase()||key.startsWith(p.title.toUpperCase()+' '));
@@ -835,6 +836,32 @@ function showPerkExchange(offer){
   m.querySelectorAll('[data-perk-index]').forEach(btn=>btn.onclick=()=>{selectedIndex=Number(btn.dataset.perkIndex);render()});
   m.querySelector('#declineExchange').onclick=finishPortalRoom;
   m.querySelector('#acceptExchange').onclick=()=>{if(selectedIndex===null)return;const idx=build.findIndex((name,i)=>i===selectedIndex);if(idx<0)return;build.splice(idx,1);offer.action();build.push(offer.title);updateUI();finishPortalRoom()};
+ };
+ render();
+}
+function showVoidForge(){
+ state='forge';$('overlay').classList.remove('hidden','closing');const m=$('modal');m.classList.remove('upgrade-modal');
+ const owned=[];
+ const add=(id,title,glyph,color,rank,maxRank,cost,desc,apply)=>{if(rank>0&&rank<maxRank)owned.push({id,title,glyph,color,rank,maxRank,cost:cost+rank*20,desc,apply})};
+ for(const p of createGeneralPerks()){const rank=Number(p.rank?.()||0),max=Number(typeof p.maxRank==='function'?p.maxRank():p.maxRank??99);if(rank>0&&rank<max)add(p.id,p.title,p.glyph,p.color,rank,max,30,p.desc,()=>p.action());}
+ const count=n=>buildCount(n.toUpperCase());
+ add('overcharged','OVERCHARGED PHOTONS','✦','#ffe38a',perkRank('OVERCHARGED PHOTONS'),5,35,'Attack damage +22%.',()=>{player.damage*=1.22;build.push('Overcharged Photons')});
+ add('predictive','PREDICTIVE TARGETING','◎','#d2a0ff',perkRank('PREDICTIVE TARGETING'),5,30,'Critical chance +5 percentage points.',()=>{player.critChance=Math.min(.75,(player.critChance||.12)+.05);build.push('Predictive Targeting')});
+ add('plating','REACTIVE PLATING','⬡','#83ffc5',perkRank('REACTIVE PLATING'),5,35,'Maximum hull +18 and restore 18 hull.',()=>{player.maxHp+=18;player.hp=Math.min(player.maxHp,player.hp+18);build.push('Reactive Plating')});
+ add('cycle','ACCELERATED CYCLE','»','#72f6ff',perkRank('ACCELERATED CYCLE'),5,35,'Fire rate +15%.',()=>{player.fireRate*=1.15;build.push('Accelerated Cycle')});
+ add('ultimate','ULTIMATE MASTERY','✹','#c29aff',ultLevel,5,40,'Ultimate damage +18% per rank.',()=>{ultLevel=Math.min(5,ultLevel+1);build.push('Ultimate Mastery')});
+ add('piercing','PIERCING PHOTONS','↠','#9deaff',player.pierce||0,5,35,'Shots pierce one additional enemy per rank.',()=>{player.pierce=Math.min(5,(player.pierce||0)+1);build.push('Piercing Photons')});
+ add('siphon','VOID SIPHON','♥','#ff79b8',Math.floor((player.lifeSiphon||0)/2),5,35,'Defeating enemies restores 2 hull per rank.',()=>{player.lifeSiphon=(player.lifeSiphon||0)+2;build.push('Void Siphon')});
+ add('sidecannons','SIDE CANNONS','⊣','#72f6ff',player.sideCannons||0,2,50,'Add two side weapons per rank, up to rank 2.',()=>{player.sideCannons=Math.min(2,(player.sideCannons||0)+1);build.push('Side Cannons')});
+ add('missiles','MISSILE SALVO','➤','#d2a0ff',player.autoMissiles||0,3,55,'Launch homing missiles more frequently.',()=>{player.autoMissiles=Math.min(3,(player.autoMissiles||0)+1);player.autoMissileTimer=Math.min(player.autoMissileTimer||4,1);build.push('Missile Salvo '+player.autoMissiles)});
+ add('ricochet','RICOCHET CIRCUIT','↗','#ff9ed8',player.ricochet||0,3,50,'Attacks bounce to additional nearby enemies.',()=>{player.ricochet=Math.min(3,(player.ricochet||0)+1);build.push('Ricochet Circuit')});
+ add('chain','CHAIN LIGHTNING','ϟ','#ffe875',player.chainLightning||0,3,50,'Chain attacks jump to additional enemies.',()=>{player.chainLightning=Math.min(3,(player.chainLightning||0)+1);build.push('Chain Lightning')});
+ add('critical','CRITICAL PAYLOAD','✹','#ffe875',Math.max(0,Math.round(((player.critDamage||1.8)-1.8)/.25)),5,35,'Critical damage multiplier +25%.',()=>{player.critDamage=(player.critDamage||1.8)+.25;build.push('Critical Payload')});
+ add('salvage','SALVAGE PROTOCOL','⬡','#ffe38a',player.shardBonus||0,5,30,'Gain additional Void Shards from enemy kills.',()=>{player.shardBonus=(player.shardBonus||0)+1;build.push('Salvage Protocol')});
+ let selected=null;
+ const render=()=>{const current=owned.filter(o=>o.rank<o.maxRank);m.innerHTML=`<div class="eyebrow">PORTAL DESTINATION · VOID FORGE</div><h2>UPGRADE YOUR BUILD</h2><p>Spend Void Shards to strengthen perks you already own. Costs rise with each rank. Upgrades apply immediately.</p><div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0;color:#ffe38a;font-weight:700"><span>⬡ ${shards} VOID SHARDS</span><span>${current.length} AVAILABLE UPGRADES</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;max-height:min(52vh,430px);overflow:auto;padding:2px">${current.map(o=>`<button type="button" data-forge-id="${o.id}" class="choice" style="text-align:left;border-color:${o.color};min-width:0"><b style="color:${o.color};display:block;margin-bottom:5px">${o.glyph} ${o.title}</b><small style="display:block;color:#aebdd6;white-space:normal;line-height:1.4">${o.desc}</small><small style="display:block;margin-top:7px;color:#ffe38a">RANK ${o.rank}/${o.maxRank} → ${o.rank+1}/${o.maxRank} · ⬡ ${o.cost}</small></button>`).join('')||'<div style="grid-column:1/-1;padding:20px;color:#aebdd6;text-align:center">No owned perks can be upgraded further. Your build has apparently achieved peak paperwork.</div>'}</div><div class="menu-actions" style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn" id="forgeLeave">CONTINUE</button></div>`;
+ m.querySelectorAll('[data-forge-id]').forEach(btn=>btn.onclick=()=>{const o=current.find(x=>x.id===btn.dataset.forgeId);if(!o||shards<o.cost){notify(shards<o?.cost?'NOT ENOUGH VOID SHARDS':'UPGRADE UNAVAILABLE');return}shards-=o.cost;o.apply();updateUI();notify(o.title+' UPGRADED');render()});
+ m.querySelector('#forgeLeave').onclick=finishPortalRoom;
  };
  render();
 }
