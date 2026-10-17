@@ -409,3 +409,33 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 .credits-card h3{font-size:11px;letter-spacing:.09em;color:#a6eaf1;margin:0 0 8px}
 .credits-card p{font-size:15px;font-weight:700;color:#ff9ed8;margin:0}
 @media(max-width:480px){.credits-list{grid-template-columns:1fr}.credits-modal{max-height:78vh}}
+
+
+/* v283: retro-arcade credits transmission */
+.credits-modal{position:relative;isolation:isolate;overflow-x:hidden;border:1px solid rgba(114,246,255,.5)!important;background:radial-gradient(ellipse at 50% -10%,rgba(113,45,178,.27),transparent 55%),linear-gradient(180deg,rgba(7,10,25,.98),rgba(10,13,28,.98))!important;box-shadow:0 0 0 1px rgba(255,83,190,.12),0 0 34px rgba(73,224,255,.13),inset 0 0 42px rgba(73,224,255,.035);animation:creditsBoot .48s cubic-bezier(.2,.8,.2,1) both}
+.credits-modal:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.13;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(117,244,255,.18) 4px);mask-image:linear-gradient(to bottom,black,transparent 85%)}
+.credits-modal:after{content:"";position:absolute;left:0;right:0;top:0;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#72f6ff,#ff68ce,#72f6ff,transparent);box-shadow:0 0 15px rgba(114,246,255,.8);animation:creditsSweep 2.8s ease-in-out infinite}
+.credits-modal .credits-eyebrow{color:#72f6ff;text-shadow:0 0 9px rgba(114,246,255,.55);letter-spacing:.16em;animation:creditsTextIn .35s .08s both}
+.credits-modal .credits-title{font-size:clamp(28px,5vw,42px);letter-spacing:.18em;color:#fff;text-shadow:0 0 7px rgba(114,246,255,.85),0 0 24px rgba(255,83,190,.28);animation:creditsTitleIn .55s .12s cubic-bezier(.16,1,.3,1) both}
+.credits-title-glint{font-size:.45em;color:#ff68ce;vertical-align:middle;letter-spacing:.08em}
+.credits-typewriter{min-height:2.8em;max-width:620px;margin:12px auto 14px!important;color:#c6d5ee!important;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px!important;line-height:1.7;letter-spacing:.025em}
+.credits-typewriter:after{content:"";display:inline-block;width:7px;height:1em;margin-left:4px;vertical-align:-.15em;background:#72f6ff;box-shadow:0 0 8px #72f6ff;animation:creditsCursor .72s steps(2,end) infinite}
+.credits-terminal-line{display:flex;justify-content:space-between;gap:12px;margin:8px 0 14px;padding:8px 10px;border-top:1px solid rgba(114,246,255,.22);border-bottom:1px solid rgba(114,246,255,.22);font:9px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.11em;color:#72f6ff;opacity:.78}
+.credits-list{gap:9px}
+.credits-card{position:relative;overflow:hidden;border-radius:3px!important;border:1px solid rgba(114,246,255,.24)!important;background:linear-gradient(100deg,rgba(25,31,57,.8),rgba(12,17,34,.94))!important;box-shadow:inset 3px 0 0 rgba(114,246,255,.28);text-align:left!important;padding:13px 16px!important;display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;align-items:center;animation:creditsCardIn .38s calc(.2s + var(--credit-index,0)*.055s) both;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.credits-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(114,246,255,.08) 48%,transparent 72%);transform:translateX(-120%);transition:transform .4s ease}
+.credits-card:hover,.credits-card:focus-within{transform:translateX(3px);border-color:rgba(114,246,255,.72)!important;box-shadow:inset 3px 0 0 #72f6ff,0 0 18px rgba(114,246,255,.09);background:linear-gradient(100deg,rgba(30,40,69,.95),rgba(12,17,34,.98))!important}
+.credits-card:hover:before{transform:translateX(120%)}
+.credits-symbol{grid-column:1;grid-row:1/3;display:flex;align-items:center;justify-content:center;width:30px;height:30px;margin:0;border:1px solid rgba(114,246,255,.2);color:#72f6ff;font-size:17px;text-shadow:0 0 9px rgba(114,246,255,.5);background:rgba(114,246,255,.05)}
+.credits-card h3{grid-column:2;grid-row:1;font-size:10px!important;letter-spacing:.13em!important;color:#9eecf3!important;margin:0 0 5px!important}
+.credits-card p{grid-column:2;grid-row:2;color:#ff9ed8!important;font-size:14px!important;text-shadow:0 0 12px rgba(255,105,207,.18)}
+.credits-modal #creditsBack{border-color:rgba(114,246,255,.55);color:#bafaff;letter-spacing:.1em;transition:background .18s ease,box-shadow .18s ease,transform .18s ease}
+.credits-modal #creditsBack:hover{transform:translateY(-2px);background:rgba(114,246,255,.1);box-shadow:0 0 18px rgba(114,246,255,.16)}
+@keyframes creditsBoot{from{opacity:0;transform:translateY(13px) scale(.975);filter:brightness(1.8)}to{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}}
+@keyframes creditsTitleIn{from{opacity:0;letter-spacing:.45em;transform:translateY(7px)}to{opacity:1;letter-spacing:.18em;transform:translateY(0)}}
+@keyframes creditsTextIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes creditsCardIn{from{opacity:0;transform:translateY(9px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes creditsSweep{0%,100%{opacity:.45;transform:translateY(0)}50%{opacity:1;transform:translateY(2px)}}
+@keyframes creditsCursor{0%,49%{opacity:1}50%,100%{opacity:0}}
+@media(max-width:480px){.credits-terminal-line{font-size:8px;letter-spacing:.04em}.credits-card{padding:12px!important}.credits-typewriter{font-size:11px!important}}
+@media(prefers-reduced-motion:reduce){.credits-modal,.credits-modal *{animation:none!important;transition:none!important}.credits-typewriter:after{display:none}}
