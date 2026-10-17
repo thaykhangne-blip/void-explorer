@@ -292,22 +292,22 @@ export const inRunCommsScenes = [
       {
         "speaker": "V CORP OPERATIONS",
         "role": "STAFFING STATUS",
-        "text": "Your ship needs four crew members to maneuver safely. The other three positions were removed in today's emergency savings plan."
+        "text": "Your ship needs four trained crew members to maneuver safely. Three positions were removed in this morning's cost-optimization meeting. The revised staffing model is considered fully operational."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "FOLLOW-UP",
-        "text": "You understand this is a spaceship that requires 4 crew members to maneuver right?"
+        "text": "Just checking: this is a spaceship that physically requires four people to operate, not a spreadsheet that requires four names, right?"
       },
       {
         "speaker": "V CORP OPERATIONS",
         "role": "RESOURCE ALLOCATION",
-        "text": "Correct. There are no personnel left. Please demonstrate leadership by personally doing every job. Your title remains unchanged."
+        "text": "Correct. No replacement hires are authorized. Please demonstrate ownership by performing all four roles. Your title and salary band remain unchanged."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "this is some bullsh*#$%@#$#$#$"
+        "text": "I am doing four jobs for one paycheck while the people who caused this get a slide deck. This is absolute fucking nonsense."
       }
     ],
     "presentation": "field",
@@ -320,7 +320,7 @@ export const inRunCommsScenes = [
     "room": 5,
     "chapter": "ASHEN REACH · FIELD COMMS 05",
     "title": "NO BUDGET FOR BACKUP",
-    "subtitle": "The request form is fully staffed. The ship is not.",
+    "subtitle": "The request form has three approval stages. The ship has one person.",
     "cta": "ACKNOWLEDGE DENIAL →",
     "lines": [
       {
@@ -331,7 +331,7 @@ export const inRunCommsScenes = [
       {
         "speaker": "V CORP WORKFORCE OPTIMIZATION",
         "role": "AUTOMATED RESPONSE",
-        "text": "Request denied. Hiring is frozen until the Core produces a positive return. The Core cannot produce a positive return until it is safely contained."
+        "text": "Request denied. Hiring remains frozen until the Core generates a positive return. Containment cannot be completed without additional staff. Please resubmit your request after the next quarterly review."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
@@ -355,17 +355,17 @@ export const inRunCommsScenes = [
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "PULSE CHECK",
-        "text": "Your team engagement score is 100%. You are the only employee left in the unit, and you selected satisfied on the mandatory survey."
+        "text": "Your team's engagement score is 100%. You are the only active employee in the unit, and the survey records one satisfied response out of one."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "DATA QUALITY REVIEW",
-        "text": "I selected satisfied because the other options redirected me to a manager. I'm the manager."
+        "text": "I selected satisfied because every other answer opened a support ticket. The support team was cut, and I am the manager. The survey was less work."
       },
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "METHODOLOGY",
-        "text": "Thank you for clarifying. We will count this as evidence of strong self-leadership and no additional support needs."
+        "text": "Thank you for clarifying. We will record this as evidence of strong self-leadership and no unmet support needs. Your feedback is important to us."
       }
     ],
     "presentation": "field",
@@ -384,17 +384,17 @@ export const inRunCommsScenes = [
       {
         "speaker": "V CORP OPERATIONS",
         "role": "MAINTENANCE REQUEST",
-        "text": "The stabilizer is rattling, the coolant gauge is flickering, and the emergency seal has been patched twice. Requesting parts and a technician."
+        "text": "The stabilizer is rattling, coolant pressure is dropping, and the emergency seal has been patched twice. I am requesting replacement parts and a qualified technician before the next jump."
       },
       {
         "speaker": "V CORP FINANCE",
         "role": "SPENDING REVIEW",
-        "text": "Denied. The maintenance allocation was moved to investor relations. Please use the approved tape and keep all repairs within budget."
+        "text": "Denied. The maintenance allocation was reassigned to investor relations. Use the approved repair tape and classify any resulting downtime as an external dependency."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "INTERNAL THOUGHT",
-        "text": "The tape is older than the ship. If this thing comes apart, I hope Finance gets the invoice in person."
+        "text": "That tape predates the ship. If this thing comes apart, I'm sending the invoice to Finance with the damaged parts attached. Let them explain the variance to the board."
       }
     ],
     "presentation": "field",
