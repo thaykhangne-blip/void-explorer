@@ -5,7 +5,7 @@
 - Added Multi-Objective Arenas with three capture beacons; hostile presence contests capture progress.
 - Expanded Survival Protocol with progressively faster enemy waves as the countdown advances.
 - Added Lockdown / Key Hunt rooms with three collectible access keys guarded by ongoing enemy spawns.
-- Added High-Risk Challenge rooms with tougher enemies, increased incoming damage, a timed survival objective, and a bonus shard payout.
+- Added High-Risk Challenge rooms with distinct enemy modifiers, an elimination quota, escalating spawn pressure, and a bonus shard payout.
 - Added stage-specific HUD objectives and canvas visuals, and included the new room types in the procedural room pool.
 
 ## v0.3.0 — Campaign narrative refinement
