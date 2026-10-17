@@ -678,16 +678,23 @@ function castUltimate(){
    notify(`VERDANT OVERDRIVE · GLOBAL DAMAGE · +30% ATTACK · +25% FIRE RATE · +75% HEALING · 12s`);
  }else if(core.id==='flash'){player.flashFieldTimer=10;player.flashFieldTick=0;player.flashFieldPower=energyPower;player.inv=Math.max(player.inv,.35);skillFx.push({type:'flashStormField',x:player.x,y:player.y,life:10,max:10,radius:ultRange,color:'#ffe875'});burst(player.x,player.y,'#fff6a8',34);notify(`THUNDERFIELD · PERIODIC LIGHTNING STRIKES · 10s · ${spent} ENERGY CONSUMED`);
  }else if(core.id==='elemental'){
-   // Rank scaling is centralized in src/abilities/ultimateScaling.js.
-   const summonCount=getElementalSummonCount(lv),allowedSummonCoreIds=['ember','frost','nature','flash','nova'],available=cores.filter(c=>allowedSummonCoreIds.includes(c.id));
+   // Every cast deals the direct elemental burst. Mini-cores are limited by mastery rank.
+   const summonCap=getElementalSummonCount(lv),allowedSummonCoreIds=['ember','frost','nature','flash','nova'],available=cores.filter(c=>allowedSummonCoreIds.includes(c.id));
+   const burstDamage=(48+lv*18)*energyPower*(1+lv*.15);
+   let hitCount=0;
+   for(const target of enemies){if(target.hp<=0||!inUltRange(target))continue;applyDamage(target,burstDamage,'#ff71cd',true,'PRISMATIC CATACLYSM');hitCount++;burst(target.x,target.y,pick(ELEMENTAL_CORE_ELEMENTS).color,8);}
+   if(blackHole&&blackHole.hp>0&&!blackHole.inactive&&inUltRange(blackHole)){applyDamage(blackHole,burstDamage,'#ff71cd',true,'PRISMATIC CATACLYSM');hitCount++;}
+   const activeCount=elementalSummons.filter(s=>s.lifeTimer>0).length;
+   const summonCount=Math.max(0,summonCap-activeCount);
    const rankFiveDamageMult=lv>=5?1.5:1;
    for(let i=0;i<summonCount;i++){
-    const summonCore=available[i%available.length],angle=i*Math.PI*2/summonCount;
-    elementalSummons.push({coreId:summonCore.id,name:summonCore.name||summonCore.title||summonCore.id,color:summonCore.color||'#72f6ff',x:player.x+Math.cos(angle)*34,y:player.y+Math.sin(angle)*34,r:6,angle,attackTimer:.1,fireRateMult:1.65,buffTimer:12,damageMult:rankFiveDamageMult,slot:elementalSummons.length});
+    const summonCore=available[(activeCount+i)%available.length],angle=(activeCount+i)*Math.PI*2/Math.max(1,summonCap);
+    elementalSummons.push({coreId:summonCore.id,name:summonCore.name||summonCore.title||summonCore.id,color:summonCore.color||'#72f6ff',x:player.x+Math.cos(angle)*34,y:player.y+Math.sin(angle)*34,r:6,angle,attackTimer:.1,fireRateMult:1.65,buffTimer:12,lifeTimer:12,damageMult:rankFiveDamageMult,slot:activeCount+i});
     burst(player.x+Math.cos(angle)*34,player.y+Math.sin(angle)*34,summonCore.color||'#72f6ff',12);
    }
    if(lv>=5)for(const summon of elementalSummons)summon.damageMult=Math.max(summon.damageMult||1,1.5);
-   notify(`SPECTRUM LEGION · ${summonCount} MINI-CORE${summonCount===1?'':'S'} · ${lv>=5?'+50% MINI-CORE DAMAGE · ':''}+65% FIRE RATE · 12s`);
+   const summonMessage=summonCount?('+'+summonCount+' MINI-CORE'+(summonCount===1?'':'S')):'MINI-CORE LIMIT REACHED';
+   notify('PRISMATIC CATACLYSM · '+hitCount+' TARGETS HIT · '+summonMessage+' · '+(activeCount+summonCount)+'/'+summonCap+' ACTIVE · '+(lv>=5?'+50% MINI-CORE DAMAGE · ':'')+'+65% FIRE RATE · 12s');
  }else{
    const ax=mouse.dx||1,ay=mouse.dy||0;const len=Math.hypot(ax,ay)||1;const old={x:player.x,y:player.y};player.x=Math.max(16,Math.min(W-16,player.x+ax/len*(155+lv*28)));player.y=Math.max(16,Math.min(H-16,player.y+ay/len*(155+lv*28)));player.inv=Math.max(player.inv,.42);player.ultHaste=12+lv;
    const radius=Math.min(ultRange,115+lv*16+spent*.35),dmg=(42+lv*20)*energyPower*(1+lv*.18);burst(old.x,old.y,'#9f5cff',22);burst(player.x,player.y,'#d2a0ff',36);ultFx.push({x:player.x,y:player.y,r:radius,life:.42,max:.42,color:'#c18aff'});
@@ -928,7 +935,7 @@ function updateUI(){if(!player)return;const hpPct=Math.max(0,Math.min(100,player
 
 function update(dt){
  if(blackHole)updateElementalEffects(blackHole,dt);
- if(elementalSummons.length&&player){for(const d of elementalSummons){d.buffTimer=Math.max(0,(d.buffTimer||0)-dt);d.angle=(d.angle||0)+dt*.8;const orbit=38+(d.slot||0)*5,targetX=player.x+Math.cos(d.angle)*orbit,targetY=player.y+Math.sin(d.angle)*orbit;d.x+=(targetX-d.x)*Math.min(1,dt*5);d.y+=(targetY-d.y)*Math.min(1,dt*5);d.attackTimer-=dt;if(d.attackTimer<=0){const target=enemies.filter(e=>e.hp>0).sort((a,b)=>dist(d,a)-dist(d,b))[0]||((blackHole&&!blackHole.inactive&&blackHole.hp>0)?blackHole:null);if(target){const angle=Math.atan2(target.y-d.y,target.x-d.x),rate=d.buffTimer>0?d.fireRateMult:1;d.attackTimer=Math.max(.12,1/((player.fireRate||1)*rate));bullets.push({x:d.x,y:d.y,vx:Math.cos(angle)*360,vy:Math.sin(angle)*360,r:3,damage:player.damage*.42*(d.damageMult||1),color:d.color,life:2.2,rangeLeft:760,pierce:0,hitEnemies:[],elementalSummon:true,sourceCore:d.coreId});}}}}
+ if(elementalSummons.length&&player){for(const d of elementalSummons){d.lifeTimer=Math.max(0,(d.lifeTimer??12)-dt);d.buffTimer=Math.max(0,(d.buffTimer||0)-dt);if(d.lifeTimer<=0)continue;d.angle=(d.angle||0)+dt*.8;const orbit=38+(d.slot||0)*5,targetX=player.x+Math.cos(d.angle)*orbit,targetY=player.y+Math.sin(d.angle)*orbit;d.x+=(targetX-d.x)*Math.min(1,dt*5);d.y+=(targetY-d.y)*Math.min(1,dt*5);d.attackTimer-=dt;if(d.attackTimer<=0){const target=enemies.filter(e=>e.hp>0).sort((a,b)=>dist(d,a)-dist(d,b))[0]||((blackHole&&!blackHole.inactive&&blackHole.hp>0)?blackHole:null);if(target){const angle=Math.atan2(target.y-d.y,target.x-d.x),rate=d.buffTimer>0?d.fireRateMult:1;d.attackTimer=Math.max(.12,1/((player.fireRate||1)*rate));bullets.push({x:d.x,y:d.y,vx:Math.cos(angle)*360,vy:Math.sin(angle)*360,r:3,damage:player.damage*.42*(d.damageMult||1),color:d.color,life:2.2,rangeLeft:760,pierce:0,hitEnemies:[],elementalSummon:true,sourceCore:d.coreId});}}}elementalSummons=elementalSummons.filter(d=>d.lifeTimer>0);}
  if(roomTransition){
   const transition=roomTransition;transition.elapsed+=dt;
   if(transition.phase==='out'&&transition.elapsed>=transition.fadeOut){
