@@ -688,7 +688,11 @@ function castUltimate(){
    let hitCount=0;
    for(const target of enemies){if(target.hp<=0||!inUltRange(target))continue;applyDamage(target,burstDamage,'#ff71cd',true,'PRISMATIC CATACLYSM');hitCount++;burst(target.x,target.y,pick(ELEMENTAL_CORE_ELEMENTS).color,8);}
    if(blackHole&&blackHole.hp>0&&!blackHole.inactive&&inUltRange(blackHole)){applyDamage(blackHole,burstDamage,'#ff71cd',true,'PRISMATIC CATACLYSM');hitCount++;}
-   const activeCount=elementalSummons.filter(s=>s.lifeTimer>0).length;
+   const activeSummons=elementalSummons.filter(s=>s.lifeTimer>0);
+   const activeCount=activeSummons.length;
+   // Recasting Q refreshes every already-active mini-core instead of wasting the summon portion of the ultimate.
+   // The refreshed duration and fire-rate buff remain tied to the current ultimate's summon cap.
+   for(const summon of activeSummons){summon.lifeTimer=12;summon.buffTimer=12;summon.attackTimer=Math.min(summon.attackTimer||0,.1);}
    const summonCount=Math.max(0,summonCap-activeCount);
    const rankFiveDamageMult=lv>=5?1.5:1;
    // Shuffle the available core types for each Q, then exclude types already active.
