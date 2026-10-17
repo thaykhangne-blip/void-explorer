@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.0 — Campaign narrative refinement
+- Refined all four world briefings and debriefings around V Corp's failed Singularity Core investment and the cascading consequences of cost-cutting.
+- Sharpened the satirical through-line: headcount without staff, frozen recruitment, deferred maintenance, unsupported automation, and financial reporting that hides the real cost.
+- Improved early in-run comms to connect the Explorer's understaffed ship and denied maintenance requests to the campaign's larger story.
+- Replaced placeholder profanity in the first room communication with a complete character line.
+
+
 ## v227 — Elemental Convergence buff and projectile range
 - Elemental Convergence now empowers Elemental Core auto-attacks for 10 seconds, with the aura and a distinct HUD buff icon/countdown visible for the full duration.
 - During the buff, all five elemental attacks gain stronger damage/status effects, including longer Nature binds; E's immediate five-effect combo remains intact.
