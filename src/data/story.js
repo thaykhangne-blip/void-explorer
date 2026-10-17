@@ -522,24 +522,44 @@ export const inRunCommsScenes = [
     "worldIndex": 1,
     "room": 15,
     "chapter": "CRYO ARCHIVE · FIELD COMMS 15",
-    "title": "WORK-LIFE BALANCE",
-    "subtitle": "Your shift is continuous. Your wellbeing is a quarterly metric.",
-    "cta": "RETURN TO ASSIGNMENT →",
+    "title": "THREE DEEP BREATHS",
+    "subtitle": "Your workload is unsustainable. Have you tried breathing about it?",
+    "cta": "COMPLETE WELLNESS MODULE →",
     "lines": [
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "WELLBEING CHECK",
-        "text": "Your workload has increased by 300%. We recommend taking regular breaks, ideally during periods in which the Core is not at risk of destroying the ship."
+        "text": "We understand that recent operational changes may cause stress. Remember to take three deep breaths whenever you feel overwhelmed. Your wellbeing is important to us."
       },
       {
         "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
         "role": "CAPACITY REVIEW",
-        "text": "When exactly is that? It has been trying to kill us since launch."
+        "text": "The ship is falling apart, I'm doing four people's jobs, and the reactor is trying to eat the fucking corridor. Should I breathe in while the bulkhead explodes, or after?"
+      },
+      {
+        "speaker": "V CORP PEOPLE EXPERIENCE",
+        "role": "PERSONAL DEVELOPMENT",
+        "text": "We appreciate your honesty. Have you considered reframing this as an opportunity for personal growth?"
+      },
+      {
+        "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+        "role": "INTERNAL THOUGHT",
+        "text": "I've reframed it. It's still a fucking disaster."
+      },
+      {
+        "speaker": "V CORP PEOPLE EXPERIENCE",
+        "role": "WELLNESS COMPLETION REPORT",
+        "text": "Your wellness module has been completed. Your stress score has improved by 12%."
+      },
+      {
+        "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+        "role": "DATA QUALITY REVIEW",
+        "text": "I haven't taken the module."
       },
       {
         "speaker": "V CORP PEOPLE EXPERIENCE",
         "role": "METHODOLOGY",
-        "text": "We have added your comment to the wellbeing report. No additional staffing will be provided while the cost freeze remains in effect."
+        "text": "Non-participation has been interpreted as increased resilience. No additional staffing will be provided while the cost freeze remains in effect."
       }
     ],
     "presentation": "field",
