@@ -468,3 +468,8 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 /* v287: pin the secret transmission to the viewport, not the scrolling credits modal */
 .credits-modal>.credits-easter-egg-backdrop{position:fixed;inset:0;z-index:9999;min-height:100dvh;box-sizing:border-box}
 .credits-modal>.credits-easter-egg-backdrop .credits-easter-egg{flex:0 1 540px;width:min(540px,100%);max-height:min(86dvh,720px);overflow-y:auto}
+
+
+/* v288: fixed overlays must be viewport children, not descendants of the scrolling modal */
+.credits-modal>.credits-easter-egg-backdrop{position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:0!important;width:100vw;height:100vh;height:100dvh;min-height:100vh;min-height:100dvh;margin:0!important;transform:none!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:auto}
+.credits-easter-egg-backdrop>.credits-easter-egg{margin:auto!important;flex:0 1 540px;max-height:calc(100dvh - 36px);box-sizing:border-box}
