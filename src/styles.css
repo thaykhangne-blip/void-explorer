@@ -528,3 +528,8 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 @media (max-width: 1199px) {
   .wrap { width: min(1100px, 100%); }
 }
+
+
+/* v292: keep the in-game UI-size control legible while the rest of the interface is scaled */
+.ui-scale-row input[type=range]{min-width:0;cursor:pointer}
+.ui-scale-row>b{min-width:48px;text-align:right;color:var(--cyan);font-variant-numeric:tabular-nums}
