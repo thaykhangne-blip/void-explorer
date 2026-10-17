@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.3.0 — Expanded stage objectives
+- Added Escort / Evacuation rooms with a moving ship, waypoint route, hull health, and hostile attacks.
+- Added Multi-Objective Arenas with three capture beacons; hostile presence contests capture progress.
+- Expanded Survival Protocol with progressively faster enemy waves as the countdown advances.
+- Added Lockdown / Key Hunt rooms with three collectible access keys guarded by ongoing enemy spawns.
+- Added High-Risk Challenge rooms with tougher enemies, increased incoming damage, a timed survival objective, and a bonus shard payout.
+- Added stage-specific HUD objectives and canvas visuals, and included the new room types in the procedural room pool.
+
 ## v0.3.0 — Campaign narrative refinement
 - Refined all four world briefings and debriefings around V Corp's failed Singularity Core investment and the cascading consequences of cost-cutting.
 - Sharpened the satirical through-line: headcount without staff, frozen recruitment, deferred maintenance, unsupported automation, and financial reporting that hides the real cost.
