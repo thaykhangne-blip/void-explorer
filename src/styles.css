@@ -463,3 +463,8 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 .credits-easter-egg button{margin-top:8px;border-color:rgba(255,104,206,.65);color:#ffd6f1}
 .credits-easter-egg button:hover{box-shadow:0 0 16px rgba(255,104,206,.18)}
 @media(prefers-reduced-motion:reduce){.credits-easter-egg-backdrop,.credits-easter-egg{animation:none!important}}
+
+
+/* v287: pin the secret transmission to the viewport, not the scrolling credits modal */
+.credits-modal>.credits-easter-egg-backdrop{position:fixed;inset:0;z-index:9999;min-height:100dvh;box-sizing:border-box}
+.credits-modal>.credits-easter-egg-backdrop .credits-easter-egg{flex:0 1 540px;width:min(540px,100%);max-height:min(86dvh,720px);overflow-y:auto}
