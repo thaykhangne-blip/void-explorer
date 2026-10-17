@@ -2,100 +2,96 @@
 
 # Void Explorer
 
-**A cosmic action roguelike about light, singularities, and the cost of corporate "efficiency."**
+**A little light, a lot of things trying to kill it, and a company that would rather cut the budget than admit it was wrong.**
 
 [![Beta](https://img.shields.io/badge/status-beta-orange?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer)
 [![Version](https://img.shields.io/badge/version-v0.3-blue?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer/commits/main)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow?style=for-the-badge&logo=javascript&logoColor=111111)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-e34f26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572b6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Main branch](https://img.shields.io/badge/branch-main-181717?style=for-the-badge&logo=github)](https://github.com/thaykhangne-blip/void-explorer/tree/main)
 
-[Gameplay source](https://github.com/thaykhangne-blip/void-explorer) · [Issues](https://github.com/thaykhangne-blip/void-explorer/issues) · [Commit history](https://github.com/thaykhangne-blip/void-explorer/commits/main)
+[Source code](https://github.com/thaykhangne-blip/void-explorer) · [Report a bug](https://github.com/thaykhangne-blip/void-explorer/issues) · [Recent changes](https://github.com/thaykhangne-blip/void-explorer/commits/main)
 
 </div>
 
 ---
 
-## Overview
+## So, what is Void Explorer?
 
-**Void Explorer** is a browser-based cosmic action roguelike. Control a living light-core, fight through hostile rooms, destroy singularities and their defenses, collect upgrades, and shape a build as you push through four increasingly dangerous worlds.
+You’re a little living core of light dropped into a universe that has very clearly gone wrong. Fight through hostile rooms, break singularities, dodge things that should probably not have tentacles, and grab upgrades that turn a desperate run into a build that might actually survive.
 
-The game combines fast arcade combat with elemental core identities, active abilities, roguelike upgrades, boss encounters, and a narrative about a company whose disastrous investment is followed by increasingly absurd cost-cutting decisions.
+Void Explorer is a browser-based action roguelike built around quick combat, distinct playable cores, elemental abilities, room-to-room choices, and increasingly nasty bosses. Between fights, there’s another problem waiting for you: V Corp, the company responsible for this mess, is determined to manage the disaster with budget cuts, corporate slogans, and the occasional wellness initiative.
 
-> [!WARNING]
-> **This project is currently in beta: v0.3 (build 300).** It is playable and actively developed, but it is not a final release. Expect bugs, balance changes, unfinished content, and revisions to gameplay systems, visuals, progression, and story.
+The game is still in beta. Things will break, balance will change, and some ideas will turn out to be less clever once they meet actual gameplay. That’s part of making a game.
 
-## Features
+> **Current version:** Beta v0.3, build 300. This is an active work in progress, not a finished release.
 
-- **Four campaign worlds** with distinct environments, threats, and narrative arcs.
-- **Playable cores** with different combat identities, elemental effects, skills, and ultimate abilities.
-- **Roguelike progression** through upgrades, perks, core evolution, and build combinations.
-- **Varied stage objectives** including singularity destruction, horde and ambush waves, ship defense, cargo delivery, escort/evacuation, multi-beacon capture, key hunts, escalating survival countdowns, and high-risk challenge contracts.
-- **Portal-based advancement** with animated transitions between rooms.
-- **Story Archive** for replaying recovered transmissions and reading internal corporate memos.
-- **Corporate satire** following V Corp's failed Singularity Core investment and its increasingly desperate attempts to protect the budget and the board.
+## What you can do
 
-## Campaign: The Cost of the Void
+- **Explore four worlds.** Each one has its own look, threats, and slice of V Corp’s increasingly indefensible decisions.
+- **Choose your core.** Playable cores have different strengths, weaknesses, elemental effects, skills, and ultimate abilities. Picking one should change how a run feels, not just the colour of your bullets.
+- **Build as you go.** Collect perks, combine upgrades, and evolve your core as the run gets harder.
+- **Do more than survive a wave.** Rooms can ask you to destroy a singularity, defend a ship, deliver cargo, escort an evacuation, capture zones, hunt for keys in a maze, survive escalating attacks, or take on a high-risk challenge.
+- **Take on tougher enemies and bosses.** Some rooms are a breather. Others are a reminder that the universe has a deeply personal issue with you.
+- **Follow the story.** The Story Archive lets you revisit transmissions and internal memos as the bigger picture comes together.
 
-V Corp bets its future on the Singularity Core, a supposedly limitless energy source that promises to eliminate operating costs. The launch fails catastrophically. Rather than acknowledge the failure, leadership pushes the cost onto the people left to clean it up.
+## The mess V Corp made
 
-The Explorer, a field operations manager, must contain the Core across four hostile worlds while V Corp dismantles the very support systems needed to do the job.
+V Corp invested its future in the Singularity Core, a supposedly limitless energy source that would make operating costs practically disappear. The launch went catastrophically wrong. Instead of owning the mistake, the company starts cutting the very people, tools, and support needed to contain it.
 
-| World | Campaign focus |
+You play the Explorer, a field operations manager sent to clean up the fallout across four increasingly hostile worlds. The job description probably sounded better before the singularities started eating everything.
+
+| World | What's going wrong |
 | --- | --- |
-| **Ashen Reach** | Emergency cuts leave the Explorer operating a ship designed for a four-person crew alone. |
-| **Cryo Archive** | Employees who warned about the Core are placed in cryogenic storage while still counting toward headcount. |
-| **Verdant Ruin** | Trained staff are replaced by a cheaper autonomous ecosystem that grows beyond control. |
-| **Event Horizon** | Leadership keeps funding a failed investment and demands one last demonstration rather than admit the mistake. |
+| **Ashen Reach** | Emergency budget cuts leave the Explorer alone aboard a ship meant for a four-person crew. Efficiency, apparently. |
+| **Cryo Archive** | Employees who warned about the Core are put into cryogenic storage, while somehow still counting toward headcount. |
+| **Verdant Ruin** | Trained staff are replaced with a cheaper autonomous ecosystem. It grows out of control. Naturally. |
+| **Event Horizon** | Leadership keeps pouring money into a failed investment and demands one last demonstration instead of admitting defeat. |
 
-The story uses corporate jargon, wellness theatre, engagement surveys, and accounting tricks as dark comedy. Beneath the satire is a simple premise: individual effort cannot indefinitely replace missing staff, equipment, time, or accountable leadership.
+The story pokes fun at corporate jargon, wellness theatre, engagement surveys, and the magical accounting that makes a disaster look acceptable on a dashboard. Underneath the jokes is something less silly: people cannot keep compensating forever for missing staff, broken equipment, impossible deadlines, and leaders who refuse to take responsibility.
 
-## Technology
+## Running the game
 
-| Technology | Role |
-| --- | --- |
-| HTML5 | Game page and interface structure |
-| CSS3 | Styling, layouts, animation, and responsive UI |
-| JavaScript (ES modules) | Gameplay logic, systems, and application behavior |
+You’ll need a browser and a local web server. The game uses JavaScript modules, which some browsers won’t run properly if you simply open `index.html` from your file manager. Computers enjoy making simple things complicated.
 
-The project is organized as a modular browser game rather than a single standalone HTML file.
+Clone the repository:
 
-## Run locally
+```bash
+git clone https://github.com/thaykhangne-blip/void-explorer.git
+cd void-explorer
+```
 
-1. Clone or download the repository.
-   ```bash
-   git clone https://github.com/thaykhangne-blip/void-explorer.git
-   cd void-explorer
-   ```
-2. Serve the project directory with a local web server. For example, if Python is installed:
-   ```bash
-   python -m http.server 8000
-   ```
-3. Open [http://localhost:8000](http://localhost:8000) in your browser.
+Start a local server. If Python is installed, this works:
 
-A local server is recommended because the game uses JavaScript modules, which browsers may restrict when opened directly from the filesystem.
+```bash
+python -m http.server 8000
+```
 
-## Versioning
+Then open [http://localhost:8000](http://localhost:8000).
 
-- **Current beta:** `v0.3`
-- **Build:** `300`
-- **Development branch:** `main`
+## Under the hood
 
-The README's version label describes the current in-game beta version. Git tags and GitHub releases are separate repository metadata; check the repository's [Tags](https://github.com/thaykhangne-blip/void-explorer/tags) and [Releases](https://github.com/thaykhangne-blip/void-explorer/releases) pages for published milestones.
+Void Explorer is made with standard web technologies:
 
-## Development notes
+- **HTML5** for the page and interface structure
+- **CSS3** for layouts, styling, and effects
+- **JavaScript ES modules** for gameplay and game systems
 
-Void Explorer is an actively evolving independent game project. Mechanics, core balance, enemy behavior, narrative content, interface design, and progression may change as development continues. Bug reports and specific reproduction steps are useful when reporting issues.
+The code is split into separate files rather than packed into one enormous HTML document, so systems can be worked on without turning every change into open-heart surgery.
 
-- [Report a bug or request a feature](https://github.com/thaykhangne-blip/void-explorer/issues)
-- [Browse source code](https://github.com/thaykhangne-blip/void-explorer)
-- [Review recent changes](https://github.com/thaykhangne-blip/void-explorer/commits/main)
+## Where development stands
+
+The current beta is **v0.3 (build 300)**. Combat, enemy behaviour, room objectives, core balance, visuals, progression, and story are all still being worked on. Expect rough edges. If something is broken, unfair, confusing, or unexpectedly hilarious, a clear bug report with steps to reproduce it is useful.
+
+- [Report a bug or suggest a feature](https://github.com/thaykhangne-blip/void-explorer/issues)
+- [Browse the source](https://github.com/thaykhangne-blip/void-explorer)
+- [See recent changes](https://github.com/thaykhangne-blip/void-explorer/commits/main)
+- [GitHub releases](https://github.com/thaykhangne-blip/void-explorer/releases) · [Tags](https://github.com/thaykhangne-blip/void-explorer/tags)
 
 ---
 
 <div align="center">
 
-*The crisis is not solved. The report is green.*
+*The universe is collapsing. Please submit your incident report before end of day.*
 
 </div>
