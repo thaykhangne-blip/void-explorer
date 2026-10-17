@@ -793,7 +793,7 @@ function castUltimate(){
    notify(`VERDANT OVERDRIVE · GLOBAL DAMAGE · +30% ATTACK · +25% FIRE RATE · +75% HEALING · 12s`);
  }else if(core.id==='flash'){player.flashFieldTimer=10;player.flashFieldTick=0;player.flashFieldPower=energyPower;player.inv=Math.max(player.inv,.35);skillFx.push({type:'flashStormField',x:player.x,y:player.y,life:10,max:10,radius:ultRange,color:'#ffe875'});burst(player.x,player.y,'#fff6a8',34);notify(`THUNDERFIELD · PERIODIC LIGHTNING STRIKES · 10s · ${spent} ENERGY CONSUMED`);
  }else if(core.id==='elemental'){
-   const summonCount=Math.min(5,Math.max(1,lv)),available=CORE_DEFS.filter(c=>c.id!=='elemental');
+   const summonCount=Math.min(5,Math.max(1,lv)),allowedSummonCoreIds=['ember','frost','nature','flash','nova'],available=CORE_DEFS.filter(c=>allowedSummonCoreIds.includes(c.id));
    for(let i=0;i<summonCount;i++){
     const summonCore=available[i%available.length],angle=i*Math.PI*2/summonCount;
     elementalSummons.push({coreId:summonCore.id,name:summonCore.name||summonCore.title||summonCore.id,color:summonCore.color||'#72f6ff',x:player.x+Math.cos(angle)*34,y:player.y+Math.sin(angle)*34,r:6,angle,attackTimer:.1,fireRateMult:1.65,buffTimer:12,slot:i});
