@@ -3,7 +3,6 @@ import { fireNatureAutoAttack } from './nature.js';
 import { fireFlashAutoAttack } from './flash.js';
 import { fireNovaAutoAttack } from './nova.js';
 import { fireProjectileAutoAttack } from './projectile.js';
-import { getProjectileDamageMultiplier } from './projectiles.js';
 // Core-specific primary auto-attack dispatch. Runtime state and callbacks are injected from game.js.
 export function executeAutoAttack(context) {
  const { player, blackHole, enemies, addEnergy, core, CORE_TARGET_RANGE, getPrimaryAttackTarget, mouse, sfx, pick, ELEMENTAL_CORE_ELEMENTS, bullets, launchElementalNovaSalvo, natureDrones, withinCoreRange, dist, skillFx, rand, applyDamage, triggerRicochetChain, burst, pointSegmentDistance, W, H, lasers, RICOCHET_LINK_RANGE, addLightningArc, element, energy, firePhaseFlowAttack } = context;
