@@ -679,7 +679,7 @@ function castUltimate(){
  }else if(core.id==='flash'){player.flashFieldTimer=10;player.flashFieldTick=0;player.flashFieldPower=energyPower;player.inv=Math.max(player.inv,.35);skillFx.push({type:'flashStormField',x:player.x,y:player.y,life:10,max:10,radius:ultRange,color:'#ffe875'});burst(player.x,player.y,'#fff6a8',34);notify(`THUNDERFIELD · PERIODIC LIGHTNING STRIKES · 10s · ${spent} ENERGY CONSUMED`);
  }else if(core.id==='elemental'){
    // Rank scaling is centralized in src/abilities/ultimateScaling.js.
-   const summonCount=getElementalSummonCount(lv),allowedSummonCoreIds=['ember','frost','nature','flash','nova'],available=CORE_DEFS.filter(c=>allowedSummonCoreIds.includes(c.id));
+   const summonCount=getElementalSummonCount(lv),allowedSummonCoreIds=['ember','frost','nature','flash','nova'],available=cores.filter(c=>allowedSummonCoreIds.includes(c.id));
    const rankFiveDamageMult=lv>=5?1.5:1;
    for(let i=0;i<summonCount;i++){
     const summonCore=available[i%available.length],angle=i*Math.PI*2/summonCount;
