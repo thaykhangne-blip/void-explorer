@@ -560,3 +560,27 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 .screen > .particle-panel#particlePanel h3{font-size:11px!important}
 .screen > .particle-panel#particlePanel .stat,.screen > .particle-panel#particlePanel .stat b{font-size:11px!important}
 @media(max-width:700px){.screen > .particle-panel#particlePanel h3{font-size:9px!important}.screen > .particle-panel#particlePanel .stat,.screen > .particle-panel#particlePanel .stat b{font-size:9px!important}}
+
+
+/* v301: restrained void-glitch transitions for boot, pause, and incoming dialogue */
+#voidLoader{isolation:isolate;overflow:hidden}
+#voidLoader:before,#voidLoader:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;z-index:5}
+#voidLoader:before{background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(114,246,255,.11) 6px,transparent 7px);mix-blend-mode:screen}
+#voidLoader:after{background:linear-gradient(90deg,transparent 0 18%,rgba(255,79,180,.14) 18% 18.4%,transparent 18.4% 72%,rgba(114,246,255,.13) 72% 72.5%,transparent 72.5%);mix-blend-mode:screen}
+#voidLoader.is-hiding{animation:voidLoaderGlitchOut .52s steps(1,end) both}
+#voidLoader.is-hiding:before{opacity:1;animation:voidLoaderScanTear .52s steps(1,end) both}
+#voidLoader.is-hiding:after{opacity:1;animation:voidLoaderColorTear .52s steps(1,end) both}
+.void-loader-content{position:relative;z-index:1}
+@keyframes voidLoaderGlitchOut{0%{opacity:1;transform:translateX(0);filter:none;clip-path:inset(0)}12%{transform:translateX(-5px);filter:hue-rotate(80deg) contrast(1.4);clip-path:inset(10% 0 66%)}24%{transform:translateX(7px);clip-path:inset(48% 0 30%)}36%{transform:translateX(-2px);filter:hue-rotate(-65deg);clip-path:inset(75% 0 8%)}52%{opacity:1;transform:translateX(4px);clip-path:inset(0 0 0)}68%{opacity:.78;transform:translateX(-8px) scaleX(1.015);filter:brightness(2.2) saturate(1.8)}100%{opacity:0;transform:translateX(12px) scaleX(1.04);filter:brightness(2.8);clip-path:inset(0 0 0)}}
+@keyframes voidLoaderScanTear{0%,100%{opacity:0}12%,24%,36%,52%,68%{opacity:1}}
+@keyframes voidLoaderColorTear{0%,100%{opacity:0}24%,36%,68%{opacity:1;transform:translateX(0)}30%{transform:translateX(12px)}40%{transform:translateX(-9px)}72%{opacity:.8;transform:translateX(18px)}}
+#overlay:not(.hidden)>.modal{animation:voidModalGlitchIn .38s steps(1,end) both}
+#overlay:not(.hidden).closing>.modal{animation:uiModalOut 220ms var(--ui-ease) both}
+#overlay.story-overlay:not(.hidden)>.narrative-modal,
+#overlay.dialogue-field-overlay:not(.hidden)>.dialogue-field-modal{animation:voidDialogueGlitchIn .46s steps(1,end) both}
+#overlay:not(.hidden):after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(114,246,255,.07) 5px,transparent 6px);mix-blend-mode:screen;animation:voidOverlayScanIn .38s ease-out both}
+#overlay.closing:after{animation:none;opacity:0}
+@keyframes voidModalGlitchIn{0%{opacity:0;transform:translateX(-9px) skewX(-1.4deg);filter:hue-rotate(85deg) blur(2px);clip-path:inset(0 0 75%)}14%{opacity:1;transform:translateX(7px) skewX(1deg);filter:hue-rotate(-55deg);clip-path:inset(35% 0 38%)}27%{transform:translateX(-3px);clip-path:inset(70% 0 4%)}42%{transform:translateX(2px);filter:hue-rotate(20deg);clip-path:inset(0)}58%{transform:translateX(-1px);filter:none}100%{opacity:1;transform:translateX(0) skewX(0);filter:none;clip-path:inset(0)}}
+@keyframes voidDialogueGlitchIn{0%{opacity:0;transform:translateY(8px) translateX(-5px);filter:brightness(2) hue-rotate(80deg);clip-path:inset(0 0 70%)}12%{opacity:1;transform:translateX(5px);clip-path:inset(42% 0 35%)}24%{transform:translateX(-3px);filter:brightness(1.5) hue-rotate(-45deg);clip-path:inset(72% 0 3%)}38%{transform:translateX(2px);clip-path:inset(0)}52%{transform:translateX(-1px);filter:none}100%{opacity:1;transform:translate(0);filter:none;clip-path:inset(0)}}
+@keyframes voidOverlayScanIn{0%{opacity:.7;transform:translateY(-8px)}100%{opacity:0;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){#voidLoader.is-hiding,#voidLoader.is-hiding:before,#voidLoader.is-hiding:after,#overlay:not(.hidden)>.modal,#overlay.story-overlay:not(.hidden)>.narrative-modal,#overlay.dialogue-field-overlay:not(.hidden)>.dialogue-field-modal,#overlay:not(.hidden):after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
