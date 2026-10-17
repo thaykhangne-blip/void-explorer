@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.3.0 — Expanded stage objectives
+- Animated the starfield during flight with layered drift speeds and slight diagonal motion to give the arena a stronger sense of forward movement.
 - Added Escort / Evacuation rooms with a moving ship, waypoint route, hull health, and hostile attacks.
 - Increased Escort / Evacuation enemy pressure with a larger hostile cap and faster spawn cadence.
 - Added Multi-Objective Arenas with three capture beacons; hostile presence contests capture progress.
