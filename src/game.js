@@ -637,7 +637,7 @@ function shoot(){if(!blackHole&&!enemies.some(e=>e.hp>0))return;addEnergy(1);con
   if(target){chosen.push(target);}
   for(const e of targets){if(chosen.length>=total)break;if(!chosen.includes(e))chosen.push(e);}
   const natureDirectHits=new Set(chosen);
-  const shotPenalty=Math.pow(1-(player.projectileDamagePenalty??.12),Math.max(0,total-(player.baseShots??1)));
+  const shotPenalty=getProjectileDamageMultiplier(total,player.baseShots,player.projectileDamagePenalty??.12);
   chosen.forEach((vineTarget,index)=>{
    const vx=vineTarget.x-player.x,vy=vineTarget.y-player.y;
    skillFx.push({type:'natureVine',x:player.x,y:player.y,tx:vineTarget.x,ty:vineTarget.y,life:.24,max:.24,radius:10,color:'#70e58a',twinComet:index>0});
@@ -688,7 +688,7 @@ function shoot(){if(!blackHole&&!enemies.some(e=>e.hp>0))return;addEnergy(1);con
    const edgeX=vx>0?(W-ox)/vx:vx<0?(0-ox)/vx:Infinity;
    const edgeY=vy>0?(H-oy)/vy:vy<0?(0-oy)/vy:Infinity;
    const length=Math.min(CORE_TARGET_RANGE,Math.max(0,Math.min(edgeX>0?edgeX:Infinity,edgeY>0?edgeY:Infinity)));
-   lasers.push({x:ox,y:oy,angle:a,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*.70*(player.laserDamageMult||1)*(overclockedNovaShot?1.35:1)*Math.pow(1-(player.projectileDamagePenalty??.12),Math.max(0,total-(player.baseShots??1))),color:overclockedNovaShot?'#8ffaff':'#bd78ff',life:.16,maxLife:.16,ticks:1,tickTimer:0,hitRadius:6+(player.laserWidthBonus||0)+(overclockedNovaShot?3:0),ricochetsLeft:player.ricochet||0,ricochetChecked:false});
+   lasers.push({x:ox,y:oy,angle:a,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*.70*(player.laserDamageMult||1)*(overclockedNovaShot?1.35:1)*getProjectileDamageMultiplier(total,player.baseShots,player.projectileDamagePenalty??.12),color:overclockedNovaShot?'#8ffaff':'#bd78ff',life:.16,maxLife:.16,ticks:1,tickTimer:0,hitRadius:6+(player.laserWidthBonus||0)+(overclockedNovaShot?3:0),ricochetsLeft:player.ricochet||0,ricochetChecked:false});
   }
   // Nova's primary weapon is a laser, so its side cannons must emit side beams
   // rather than ordinary ray bullets (which are not processed as laser hits).
@@ -724,7 +724,7 @@ function shoot(){if(!blackHole&&!enemies.some(e=>e.hp>0))return;addEnergy(1);con
    if(parallelPair)laneOffset=(i===0?-.5:.5)*laneGap;
    const px=player.x+Math.cos(angle)*11-Math.sin(angle)*laneOffset;
    const py=player.y+Math.sin(angle)*11+Math.cos(angle)*laneOffset;
-   bullets.push({x:px,y:py,vx:Math.cos(a)*player.shotSpeed,vy:Math.sin(a)*player.shotSpeed,r:4,life:extendedProjectileCore?2.2:1.6,rangeLeft:attackProjectileRange,damage:player.damage*Math.pow(1-(player.projectileDamagePenalty??.12),Math.max(0,total-(player.baseShots??1))),color:element?element.color:(type==='fire'?'#ff743d':'#8cecff'),el:element?.name,type,pierce:(player.pierce||0),hitEnemies:[]});
+   bullets.push({x:px,y:py,vx:Math.cos(a)*player.shotSpeed,vy:Math.sin(a)*player.shotSpeed,r:4,life:extendedProjectileCore?2.2:1.6,rangeLeft:attackProjectileRange,damage:player.damage*getProjectileDamageMultiplier(total,player.baseShots,player.projectileDamagePenalty??.12),color:element?element.color:(type==='fire'?'#ff743d':'#8cecff'),el:element?.name,type,pierce:(player.pierce||0),hitEnemies:[]});
   }
   if(player.sideCannons){
    const cannonCount=Math.min(4,2*(player.sideCannons||0));
