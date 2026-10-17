@@ -687,9 +687,14 @@ function castUltimate(){
    const activeCount=elementalSummons.filter(s=>s.lifeTimer>0).length;
    const summonCount=Math.max(0,summonCap-activeCount);
    const rankFiveDamageMult=lv>=5?1.5:1;
-   for(let i=0;i<summonCount;i++){
-    const summonCore=available[(activeCount+i)%available.length],angle=(activeCount+i)*Math.PI*2/Math.max(1,summonCap);
-    elementalSummons.push({coreId:summonCore.id,name:summonCore.name||summonCore.title||summonCore.id,color:summonCore.color||'#72f6ff',x:player.x+Math.cos(angle)*34,y:player.y+Math.sin(angle)*34,r:6,angle,attackTimer:.1,fireRateMult:1.65,buffTimer:12,lifeTimer:12,damageMult:rankFiveDamageMult,slot:activeCount+i});
+   // Shuffle the available core types for each Q, then exclude types already active.
+   const activeCoreIds=new Set(elementalSummons.filter(s=>s.lifeTimer>0).map(s=>s.coreId));
+   const pool=available.filter(c=>!activeCoreIds.has(c.id));
+   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+   const chosen=pool.slice(0,summonCount);
+   for(let i=0;i<chosen.length;i++){
+    const summonCore=chosen[i],slot=activeCount+i,angle=slot*Math.PI*2/Math.max(1,summonCap);
+    elementalSummons.push({coreId:summonCore.id,name:summonCore.name||summonCore.title||summonCore.id,color:summonCore.color||'#72f6ff',x:player.x+Math.cos(angle)*34,y:player.y+Math.sin(angle)*34,r:6,angle,attackTimer:.1,fireRateMult:1.65,buffTimer:12,lifeTimer:12,damageMult:rankFiveDamageMult,slot});
     burst(player.x+Math.cos(angle)*34,player.y+Math.sin(angle)*34,summonCore.color||'#72f6ff',12);
    }
    if(lv>=5)for(const summon of elementalSummons)summon.damageMult=Math.max(summon.damageMult||1,1.5);
