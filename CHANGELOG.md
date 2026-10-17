@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.3.0 — Expanded stage objectives
+- Reworked High-Risk Challenge rooms to spawn elite-only enemies with substantially higher health, damage, movement speed, and a protective shield.
+- Made Multi-Objective capture circles take 9 seconds to fill and increased enemy pressure with a higher hostile cap and faster spawn cadence.
 - Animated the starfield during flight with layered drift speeds and slight diagonal motion to give the arena a stronger sense of forward movement.
 - Added Escort / Evacuation rooms with a moving ship, waypoint route, hull health, and hostile attacks.
 - Increased Escort / Evacuation enemy pressure with a larger hostile cap and faster spawn cadence.
