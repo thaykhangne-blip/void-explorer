@@ -2,6 +2,7 @@
 
 ## v0.3.0 — Expanded stage objectives
 - Added Escort / Evacuation rooms with a moving ship, waypoint route, hull health, and hostile attacks.
+- Increased Escort / Evacuation enemy pressure with a larger hostile cap and faster spawn cadence.
 - Added Multi-Objective Arenas with three capture beacons; hostile presence contests capture progress.
 - Expanded Survival Protocol with progressively faster enemy waves as the countdown advances.
 - Reworked Lockdown / Key Hunt into a Pac-Man-style maze with solid walls, branching corridors, and three keys placed along reachable paths.
