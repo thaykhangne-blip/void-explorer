@@ -302,7 +302,7 @@ function perkRank(title){const t=String(title||'').toUpperCase();switch(t){
  case 'PRISM FLIGHT: MULTIPLICITY':return player?.phaseFlowExtraStrikes||0;
  case 'CORE SKILL MASTERY':return player?.skillLevel||0;
  case 'GLASS CANNON':return buildCount('GLASS CANNON');
- case 'CORE RESONANCE':return buildCount('RESONANCE');
+ case 'CORE RESONANCE':case 'AURALIS: CORE RESONANCE':return buildCount('RESONANCE');
  case 'ARMOR MATRIX':return Math.ceil((player?.armor||0)/8);
  case 'PHASE DRIVE':return Math.min(3,buildCount('PHASE DRIVE'));
  case 'TEMPORAL COMPRESSION':return player?.cooldownReduction||0;
