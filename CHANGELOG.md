@@ -4,7 +4,7 @@
 - Added Escort / Evacuation rooms with a moving ship, waypoint route, hull health, and hostile attacks.
 - Added Multi-Objective Arenas with three capture beacons; hostile presence contests capture progress.
 - Expanded Survival Protocol with progressively faster enemy waves as the countdown advances.
-- Added Lockdown / Key Hunt rooms with three collectible access keys guarded by ongoing enemy spawns.
+- Reworked Lockdown / Key Hunt into a Pac-Man-style maze with solid walls, branching corridors, and three keys placed along reachable paths.
 - Added High-Risk Challenge rooms with distinct enemy modifiers, an elimination quota, escalating spawn pressure, and a bonus shard payout.
 - Added stage-specific HUD objectives and canvas visuals, and included the new room types in the procedural room pool.
 
