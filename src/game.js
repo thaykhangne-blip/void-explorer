@@ -713,7 +713,7 @@ function castUltimate(){
  }
  updateUI();
 }
-function rainbowCoreColor(offset=0){return `hsl(${(performance.now()*.12+offset)%360} 100% 65%)`;}
+function rainbowCoreColor(offset=0){return `hsl(${Math.round(((performance.now()*.12+offset)%360+360)%360)}, 100%, 65%)`;}
 function coreTrail(){if(!player||!core)return;const color=core.id==='elemental'?rainbowCoreColor(rand(0,100)):(core.color||'#72f6ff');particles.push({x:player.x+rand(-3,3),y:player.y+rand(-3,3),vx:rand(-12,12),vy:rand(-12,12),life:core.id==='nova'?.32:core.id==='remielle'?.26:.22,max:core.id==='nova'?.32:core.id==='remielle'?.26:.22,color,size:core.id==='ember'?3:2});}
 function updateDamageTexts(dt){for(const d of damageTexts){d.x+=d.vx*dt;d.y+=d.vy*dt;d.vy-=7*dt;d.life-=dt;}damageTexts=damageTexts.filter(d=>d.life>0); }
 function enemyContactDamage(e){
