@@ -6,7 +6,7 @@ export const worldIntroScenes = [
     "chapter": "ASSIGNMENT 01 · EMERGENCY BRIEFING",
     "title": "ASHEN REACH",
     "symbol": "☄",
-    "accent": "#ff9c65",
+    "accent": "#ff9c45",
     "subtitle": "A moonshot ate the budget. Now every human hour is an expense to eliminate.",
     "lines": [
       {
@@ -38,7 +38,7 @@ export const worldIntroScenes = [
     "chapter": "ASSIGNMENT 02 · LIQUIDITY BRIEFING",
     "title": "CRYO ARCHIVE",
     "symbol": "❄",
-    "accent": "#8cecff",
+    "accent": "#72e5ff",
     "subtitle": "The dashboard still shows a full team. The people have been moved to a different column.",
     "lines": [
       {
@@ -70,7 +70,7 @@ export const worldIntroScenes = [
     "chapter": "ASSIGNMENT 03 · OPERATING COST BRIEFING",
     "title": "VERDANT RUIN",
     "symbol": "✿",
-    "accent": "#83ffc5",
+    "accent": "#55f0b5",
     "subtitle": "They cut the specialists and bought automation. The automation has become a forest with a grievance.",
     "lines": [
       {
@@ -137,7 +137,7 @@ export const worldOutroScenes = [
     "chapter": "CONTAINMENT REPORT · 01",
     "title": "THE CUTS DID THEIR JOB",
     "symbol": "☄",
-    "accent": "#ff9c65",
+    "accent": "#ff9c45",
     "subtitle": "The crisis is not solved. The report is green.",
     "cta": "AUTHORIZE TRANSFER →",
     "lines": [
@@ -170,7 +170,7 @@ export const worldOutroScenes = [
     "chapter": "CONTAINMENT REPORT · 02",
     "title": "A SAVING THAT COSTS PEOPLE",
     "symbol": "❄",
-    "accent": "#8cecff",
+    "accent": "#72e5ff",
     "subtitle": "The spreadsheet says the team is present. The room says otherwise.",
     "cta": "AUTHORIZE TRANSFER →",
     "lines": [
@@ -208,7 +208,7 @@ export const worldOutroScenes = [
     "chapter": "CONTAINMENT REPORT · 03",
     "title": "THE CHEAP OPTION",
     "symbol": "✿",
-    "accent": "#83ffc5",
+    "accent": "#55f0b5",
     "subtitle": "The lowest bid is not a bargain when it eats the people who could repair it.",
     "cta": "AUTHORIZE TRANSFER →",
     "lines": [
@@ -312,7 +312,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#ff9ed8"
+    "accent": "#ff9c45"
   },
   {
     "id": "w1-comms-room-5",
@@ -341,7 +341,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#ff9ed8"
+    "accent": "#ff9c45"
   },
   {
     "id": "w1-comms-room-10",
@@ -370,7 +370,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#ff9ed8"
+    "accent": "#ff9c45"
   },
   {
     "id": "w1-comms-room-15",
@@ -399,7 +399,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#ff9ed8"
+    "accent": "#ff9c45"
   },
   {
     "id": "w1-comms-room-19",
@@ -428,7 +428,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#ff9ed8"
+    "accent": "#ff9c45"
   },
   {
     "id": "w2-comms-room-1",
@@ -457,7 +457,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#8cecff"
+    "accent": "#72e5ff"
   },
   {
     "id": "w2-comms-room-5",
@@ -486,7 +486,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#8cecff"
+    "accent": "#72e5ff"
   },
   {
     "id": "w2-comms-room-10",
@@ -515,7 +515,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#8cecff"
+    "accent": "#72e5ff"
   },
   {
     "id": "w2-comms-room-15",
@@ -564,7 +564,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#8cecff"
+    "accent": "#72e5ff"
   },
   {
     "id": "w2-comms-room-19",
@@ -593,7 +593,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#8cecff"
+    "accent": "#72e5ff"
   },
   {
     "id": "w3-comms-room-1",
@@ -622,7 +622,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#83ffc5"
+    "accent": "#55f0b5"
   },
   {
     "id": "w3-comms-room-5",
@@ -651,7 +651,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#83ffc5"
+    "accent": "#55f0b5"
   },
   {
     "id": "w3-comms-room-10",
@@ -680,7 +680,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#83ffc5"
+    "accent": "#55f0b5"
   },
   {
     "id": "w3-comms-room-15",
@@ -709,7 +709,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#83ffc5"
+    "accent": "#55f0b5"
   },
   {
     "id": "w3-comms-room-19",
@@ -738,7 +738,7 @@ export const inRunCommsScenes = [
     ],
     "presentation": "field",
     "symbol": "▤",
-    "accent": "#83ffc5"
+    "accent": "#55f0b5"
   },
   {
     "id": "w4-comms-room-1",
