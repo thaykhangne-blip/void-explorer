@@ -443,3 +443,8 @@ html,body{width:100%!important;height:100%!important;min-height:0!important;marg
 
 /* v284: lower the credits neon eyebrow away from the top frame */
 .credits-modal .credits-eyebrow{margin-top:12px}
+
+
+/* v285: consistent icon alignment for main-menu actions */
+.main-menu-actions .menu-icon{display:inline-flex;align-items:center;justify-content:center;width:1.65em;margin-right:.45em;color:#72f6ff;font-size:1.12em;text-align:center;text-shadow:0 0 9px rgba(114,246,255,.48);vertical-align:-.04em}
+.main-menu-actions .btn:hover .menu-icon{color:#ff9ed8;text-shadow:0 0 10px rgba(255,158,216,.6)}
