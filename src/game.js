@@ -1130,8 +1130,8 @@ function drawCinematicWorldBackdrop(wc){
   halo.addColorStop(0,'#ff713c30');halo.addColorStop(.45,'#d94a2920');halo.addColorStop(1,'#ff4b1800');
   ctx.fillStyle=halo;ctx.fillRect(x-r*2.3,y-r*2.3,r*4.6,r*4.6);
   ctx.save();ctx.translate(x,y);ctx.rotate(t*.018);
-  ctx.strokeStyle='#ff7846';ctx.lineWidth=2;ctx.globalAlpha=.28;
-  for(let i=0;i<12;i++){const a=i*Math.PI/6;ctx.beginPath();ctx.moveTo(Math.cos(a)*r*1.03,Math.sin(a)*r*1.03);ctx.quadraticCurveTo(Math.cos(a+.08)*r*1.35,Math.sin(a+.08)*r*1.35,Math.cos(a+.02)*r*(1.48+.08*Math.sin(t*1.2+i)),Math.sin(a+.02)*r*(1.48+.08*Math.sin(t*1.2+i)));ctx.stroke();}
+  // Broad, rigid solar flares: tapered straight rays instead of wavy tendrils.
+  for(let i=0;i<16;i++){const a=i*Math.PI/8,len=r*(.42+.05*Math.sin(t*.8+i*1.7)),base=r*1.01,tip=base+len,half=r*(i%2?.055:.075);ctx.save();ctx.rotate(a);ctx.globalAlpha=.2;ctx.fillStyle=i%3===0?'#ffd17a':'#ff7846';ctx.beginPath();ctx.moveTo(base,-half*.38);ctx.lineTo(tip,0);ctx.lineTo(base,half*.38);ctx.closePath();ctx.fill();ctx.globalAlpha=.32;ctx.strokeStyle='#ff9a54';ctx.lineWidth=Math.max(2,r*.018);ctx.beginPath();ctx.moveTo(base,0);ctx.lineTo(tip,0);ctx.stroke();ctx.restore();}
   ctx.restore();
   const sun=ctx.createRadialGradient(x-r*.3,y-r*.34,r*.04,x,y,r);
   sun.addColorStop(0,'#fff0b0');sun.addColorStop(.24,'#ffb34f');sun.addColorStop(.63,'#e94b25');sun.addColorStop(.88,'#8b2029');sun.addColorStop(1,'#351323');
