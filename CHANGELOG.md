@@ -1,5 +1,7 @@
 # Changelog
 
+- Added Vengeance, the Blood Reaver: an eighth playable core unlocked by clearing World 2, with piercing crimson crescent blades, missing-HP damage/fire-rate scaling, Bloodletting, and the shield-generating Sanguine Rampage ultimate.
+
 - Increased Void Market prices by 20% at the start, with an additional 1% per room and 8% per world so shopping gets more expensive as a run progresses.
 ## v0.3.0 — Expanded stage objectives
 - Reworked High-Risk Challenge rooms to spawn elite-only enemies with substantially higher health, damage, movement speed, and a protective shield.
