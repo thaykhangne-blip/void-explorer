@@ -29,7 +29,7 @@ The game is still in beta. Things will break, balance will change, and some idea
 ## What you can do
 
 - **Explore four worlds.** Each one has its own look, threats, and slice of V Corp’s increasingly indefensible decisions.
-- **Choose your core.** Playable cores have different strengths, weaknesses, elemental effects, skills, and ultimate abilities. Picking one should change how a run feels, not just the colour of your bullets.
+- **Choose your core.** Eight cores bring different strengths, weaknesses, attacks, and abilities. The later cores are earned through campaign progress, including Vengeance, the Blood Reaver, unlocked by clearing World 2.
 - **Build as you go.** Collect perks, combine upgrades, and evolve your core as the run gets harder.
 - **Do more than survive a wave.** Rooms can ask you to destroy a singularity, defend a ship, deliver cargo, escort an evacuation, capture zones, hunt for keys in a maze, survive escalating attacks, or take on a high-risk challenge.
 - **Take on tougher enemies and bosses.** Some rooms are a breather. Others are a reminder that the universe has a deeply personal issue with you.
