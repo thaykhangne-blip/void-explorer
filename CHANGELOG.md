@@ -1,5 +1,7 @@
 # Changelog
 
+- Balance update: reduced Vengeance Core base attack damage from 1.35 to 0.90, a 33.3% reduction. Attack scaling from other mechanics and abilities remains unchanged.
+
 - Added Vengeance, the Blood Reaver: an eighth playable core unlocked by clearing World 2, with piercing crimson crescent blades, missing-HP damage/fire-rate scaling, Bloodletting, and the shield-generating Sanguine Rampage ultimate.
 
 - Increased Void Market prices by 20% at the start, with an additional 1% per room and 8% per world so shopping gets more expensive as a run progresses.
