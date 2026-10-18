@@ -36,10 +36,10 @@ export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,ge
   const text=el('p','dialogue-field-line','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');
   const isPlayerLine=/EXPLORER/i.test(line.speaker||'')||/INTERNAL THOUGHT/i.test(line.role||'');
   if(isPlayerLine){
-   const availableCores=['ember','frost','nova','remielle','elemental','flash','nature'];
+   const availableCores=['ember','frost','nova','remielle','elemental','flash','nature','vengeance'];
    const requestedCore=getCoreId?.();
    const coreId=availableCores.includes(requestedCore)?requestedCore:'ember';
-   const coreNames={ember:'Ember Core',frost:'Frost Core',nova:'Nova Core',remielle:'Auralis Core',elemental:'Elemental Core',flash:'Flash Core',nature:'Nature Core'};
+   const coreNames={ember:'Ember Core',frost:'Frost Core',nova:'Nova Core',remielle:'Auralis Core',elemental:'Elemental Core',flash:'Flash Core',nature:'Nature Core',vengeance:'Vengeance Core'};
    const avatar=el('div','dialogue-field-core-avatar');avatar.setAttribute('role','img');avatar.setAttribute('aria-label',coreNames[coreId]+' avatar');avatar.title=coreNames[coreId];
    const orb=el('div','orb-render '+coreId);orb.append(el('i','orb-aura'),el('i','orb-wing wing-left'),el('i','orb-wing wing-right'),el('i','orb-core'),el('i','orb-orbit orbit-one'),el('i','orb-orbit orbit-two'),el('i','orb-spark spark-one'),el('i','orb-spark spark-two'));avatar.append(orb);
    const message=el('div','dialogue-field-message-row');message.append(avatar,text);frame.append(message);
