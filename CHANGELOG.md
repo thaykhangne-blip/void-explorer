@@ -1,5 +1,6 @@
 # Changelog
 
+- Increased Void Market prices by 20% at the start, with an additional 1% per room and 8% per world so shopping gets more expensive as a run progresses.
 ## v0.3.0 — Expanded stage objectives
 - Reworked High-Risk Challenge rooms to spawn elite-only enemies with substantially higher health, damage, movement speed, and a protective shield.
 - Made Multi-Objective capture circles take 9 seconds to fill and increased enemy pressure with a higher hostile cap and faster spawn cadence.
