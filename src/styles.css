@@ -590,3 +590,12 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 @keyframes voidDialogueGlitchIn{0%{opacity:0;transform:translateY(8px) translateX(-5px);filter:brightness(2) hue-rotate(80deg);clip-path:inset(0 0 70%)}12%{opacity:1;transform:translateX(5px);clip-path:inset(42% 0 35%)}24%{transform:translateX(-3px);filter:brightness(1.5) hue-rotate(-45deg);clip-path:inset(72% 0 3%)}38%{transform:translateX(2px);clip-path:inset(0)}52%{transform:translateX(-1px);filter:none}100%{opacity:1;transform:translate(0);filter:none;clip-path:inset(0)}}
 @keyframes voidOverlayScanIn{0%{opacity:.7;transform:translateY(-8px)}100%{opacity:0;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){#voidLoader.is-hiding,#voidLoader.is-hiding:before,#voidLoader.is-hiding:after,#overlay:not(.hidden)>.modal,#overlay.story-overlay:not(.hidden)>.narrative-modal,#overlay.dialogue-field-overlay:not(.hidden)>.dialogue-field-modal,#overlay:not(.hidden):after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* Core selection: show all eight cores in a wider, balanced grid. */
+#modal.core-selection-modal{width:min(1220px,calc(100vw - 40px));}
+#modal.core-selection-modal .choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch;}
+#modal.core-selection-modal .core-choice-wrap>.choice{min-height:245px;}
+#modal.core-selection-modal .core-choice-wrap>.choice>.choice-copy>small{line-height:1.55;}
+@media(max-width:980px){#modal.core-selection-modal .choices{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:560px){#modal.core-selection-modal{width:calc(100vw - 20px);}#modal.core-selection-modal .choices{grid-template-columns:minmax(0,1fr);}}
