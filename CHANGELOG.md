@@ -1,5 +1,7 @@
 # Changelog
 
+- Further nerfed Vengeance Core base attack damage from 0.90 to 0.63, a further 30% reduction.
+
 - Balance update: reduced Vengeance Core base attack damage from 1.35 to 0.90, a 33.3% reduction. Attack scaling from other mechanics and abilities remains unchanged.
 
 - Added Vengeance, the Blood Reaver: an eighth playable core unlocked by clearing World 2, with piercing crimson crescent blades, missing-HP damage/fire-rate scaling, Bloodletting, and the shield-generating Sanguine Rampage ultimate.
