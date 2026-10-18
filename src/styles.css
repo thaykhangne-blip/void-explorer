@@ -640,3 +640,28 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 /* Four ability entries now include each core's passive. */
 .core-ability-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:640px){.core-ability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Auralis feather motif refresh: light, tapered, and agile rather than leaf-like. */
+.motif-feather{
+  width:17px;height:58px;
+  position:relative;
+  background:linear-gradient(105deg,#fffaff 0%,#ffe8f6 34%,#ffb9e2 72%,#f78acb 100%);
+  border-radius:88% 12% 82% 18% / 22% 12% 88% 78%;
+  transform:rotate(28deg);
+  box-shadow:0 0 7px #ff9ed833;
+  clip-path:polygon(50% 0,68% 9%,83% 23%,100% 39%,78% 47%,68% 61%,56% 78%,50% 100%,43% 80%,31% 64%,15% 51%,0 40%,19% 28%,31% 14%);
+}
+.motif-feather::before{
+  content:"";position:absolute;left:48%;top:9%;width:1px;height:83%;
+  background:linear-gradient(180deg,#fff 0%,#ff9ed8 75%,#ffd9f0 100%);
+  transform:rotate(-5deg);opacity:.8;
+}
+.motif-feather::after{
+  content:"";position:absolute;left:24%;top:28%;width:53%;height:38%;
+  border-top:1px solid #fff8;
+  border-bottom:1px solid #fff6;
+  transform:rotate(-28deg);
+}
+.motif-feather.m2{transform:rotate(-24deg) scale(.78);margin-left:-22px}
+.motif-feather.m3{transform:rotate(54deg) scale(.6);margin-left:-21px}
