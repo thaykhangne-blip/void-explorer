@@ -599,3 +599,13 @@ html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 #modal.core-selection-modal .core-choice-wrap>.choice>.choice-copy>small{line-height:1.55;}
 @media(max-width:980px){#modal.core-selection-modal .choices{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:560px){#modal.core-selection-modal{width:calc(100vw - 20px);}#modal.core-selection-modal .choices{grid-template-columns:minmax(0,1fr);}}
+
+
+/* Final override: core selection must use the viewport, not the generic 720px modal width. */
+#modal.core-selection-modal{width:min(1180px,calc(100vw - 48px))!important;max-width:1180px!important;flex:0 1 1180px!important;margin:0 auto!important;}
+#modal.core-selection-modal .choices{width:100%!important;max-width:none!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important;}
+#modal.core-selection-modal .core-choice-wrap>.choice,#modal.core-selection-modal .choices>.choice{min-width:0;padding:26px 22px 20px!important;}
+#modal.core-selection-modal .choice-copy{min-width:0;}
+#modal.core-selection-modal .choice-copy small{font-size:12px;line-height:1.5;overflow-wrap:anywhere;}
+@media(max-width:980px){#modal.core-selection-modal{width:calc(100vw - 32px)!important;}#modal.core-selection-modal .choices{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
+@media(max-width:560px){#modal.core-selection-modal{width:calc(100vw - 20px)!important;}#modal.core-selection-modal .choices{grid-template-columns:minmax(0,1fr)!important;}#modal.core-selection-modal .core-choice-wrap>.choice,#modal.core-selection-modal .choices>.choice{padding:16px!important;}}
