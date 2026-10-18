@@ -1085,50 +1085,71 @@ function drawDashChargeDiamonds(){
 }
 
 function drawCinematicWorldBackdrop(wc){
- const t=performance.now()*.001;
+ const t=performance.now()*.001, unit=Math.min(W,H);
  ctx.save();
- // Large, distant world silhouettes give each campaign a distinct sense of scale.
- const glow=ctx.createRadialGradient(W*.72,H*.34,4,W*.72,H*.34,Math.max(W,H)*.62);
- glow.addColorStop(0,(wc.accent||'#72f6ff')+'20');glow.addColorStop(1,'#02040d00');
- ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+ // World landmarks are intentionally oversized, low-contrast silhouettes.
+ // The gameplay grid and combat actors are rendered above this scenery.
+ const haze=ctx.createRadialGradient(W*.78,H*.3,2,W*.78,H*.3,Math.max(W,H)*.6);
+ haze.addColorStop(0,(wc.accent||'#72f6ff')+'14');haze.addColorStop(1,'#02040d00');
+ ctx.fillStyle=haze;ctx.fillRect(0,0,W,H);
  if(currentWorld===0){
-  // Ashen Reach: a huge scorched planet, magma fractures, and drifting cinders.
-  const x=W*.79,y=H*.24,r=Math.min(W,H)*.19;
-  const grad=ctx.createRadialGradient(x-r*.35,y-r*.42,r*.04,x,y,r);
-  grad.addColorStop(0,'#653b43');grad.addColorStop(.55,'#241923');grad.addColorStop(1,'#070911');
-  ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();
-  ctx.strokeStyle='#ff704a';ctx.shadowColor='#ff552e';ctx.shadowBlur=15;ctx.lineWidth=2;
-  for(let i=0;i<7;i++){let yy=y-r*.8+i*r*.27;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.lineTo(x-r*.2,yy+r*.12);ctx.lineTo(x+r*.08,yy-r*.06);ctx.lineTo(x+r,yy+r*.22);ctx.stroke();}
+  // ASHEN REACH: a distant burning sun with turbulent corona and restrained prominences.
+  const x=W*.79,y=H*.23,r=unit*.145;
+  const halo=ctx.createRadialGradient(x,y,r*.55,x,y,r*2.25);
+  halo.addColorStop(0,'#ff713c30');halo.addColorStop(.45,'#d94a2920');halo.addColorStop(1,'#ff4b1800');
+  ctx.fillStyle=halo;ctx.fillRect(x-r*2.3,y-r*2.3,r*4.6,r*4.6);
+  ctx.save();ctx.translate(x,y);ctx.rotate(t*.018);
+  ctx.strokeStyle='#ff7846';ctx.lineWidth=2;ctx.globalAlpha=.28;
+  for(let i=0;i<12;i++){const a=i*Math.PI/6;ctx.beginPath();ctx.moveTo(Math.cos(a)*r*1.03,Math.sin(a)*r*1.03);ctx.quadraticCurveTo(Math.cos(a+.08)*r*1.35,Math.sin(a+.08)*r*1.35,Math.cos(a+.02)*r*(1.48+.08*Math.sin(t*1.2+i)),Math.sin(a+.02)*r*(1.48+.08*Math.sin(t*1.2+i)));ctx.stroke();}
   ctx.restore();
-  for(let i=0;i<34;i++){let x0=((i*97+t*(9+i%4)*8)%(W+40))-20,y0=(i*53+Math.sin(t+i)*22)%H;ctx.globalAlpha=.2+.35*(.5+.5*Math.sin(t*2+i));ctx.fillStyle=i%3?'#ff9c65':'#ffe4a0';ctx.fillRect(x0,y0,1+(i%2),1+(i%2));}
+  const sun=ctx.createRadialGradient(x-r*.3,y-r*.34,r*.04,x,y,r);
+  sun.addColorStop(0,'#fff0b0');sun.addColorStop(.24,'#ffb34f');sun.addColorStop(.63,'#e94b25');sun.addColorStop(.88,'#8b2029');sun.addColorStop(1,'#351323');
+  ctx.fillStyle=sun;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();
+  ctx.globalAlpha=.28;ctx.strokeStyle='#70202c';ctx.lineWidth=3;
+  for(let i=0;i<18;i++){const yy=y-r+i*r*.12+Math.sin(t*.5+i)*3;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.25,yy+Math.sin(i+t)*r*.14,x+r*.25,yy-r*.12,x+r,yy+Math.cos(i)*r*.08);ctx.stroke();}
+  ctx.restore();
+  for(let i=0;i<22;i++){const px=((i*103+t*(4+i%4)*3)%(W+20))-10,py=(i*67+Math.sin(t*.7+i)*13)%H;ctx.globalAlpha=.12+.12*(.5+.5*Math.sin(t+i));ctx.fillStyle=i%3?'#ff9b65':'#ffdba0';ctx.fillRect(px,py,1+(i%2),1+(i%2));}
  }else if(currentWorld===1){
-  // Cryo Archive: a blue ice moon with a luminous frozen ring and shards.
-  const x=W*.78,y=H*.26,r=Math.min(W,H)*.18;
-  const grad=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.05,x,y,r);
-  grad.addColorStop(0,'#c3faff');grad.addColorStop(.3,'#4386b6');grad.addColorStop(1,'#09172d');
-  ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.save();ctx.translate(x,y);ctx.rotate(-.28);ctx.strokeStyle='#a8f7ff';ctx.globalAlpha=.5;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(0,0,r*1.55,r*.38,0,0,Math.PI*2);ctx.stroke();ctx.restore();
-  ctx.strokeStyle='#8cecff';ctx.globalAlpha=.3;ctx.lineWidth=1;
-  for(let i=0;i<11;i++){let x0=(i*113+t*7)%(W+80)-40,y0=(i*71+Math.sin(t+i)*30)%H;ctx.beginPath();ctx.moveTo(x0,y0-7-i%5);ctx.lineTo(x0+4,y0);ctx.lineTo(x0,y0+7+i%5);ctx.lineTo(x0-4,y0);ctx.closePath();ctx.stroke();}
+  // CRYO ARCHIVE: a ringed ice giant, mostly shadowed to preserve combat readability.
+  const x=W*.79,y=H*.24,r=unit*.155;
+  const planet=ctx.createRadialGradient(x-r*.45,y-r*.42,r*.02,x,y,r);
+  planet.addColorStop(0,'#9ddde9');planet.addColorStop(.3,'#397a9c');planet.addColorStop(.72,'#16334d');planet.addColorStop(1,'#07101f');
+  ctx.save();ctx.translate(x,y);ctx.rotate(-.24);
+  ctx.globalAlpha=.3;ctx.strokeStyle='#a9f4ff';ctx.lineWidth=unit*.035;ctx.beginPath();ctx.ellipse(0,0,r*1.65,r*.42,0,0,Math.PI*2);ctx.stroke();
+  ctx.globalAlpha=.18;ctx.strokeStyle='#d6fcff';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(0,0,r*1.78,r*.47,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+  ctx.globalAlpha=1;ctx.fillStyle=planet;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();ctx.globalAlpha=.2;ctx.strokeStyle='#b4f8ff';ctx.lineWidth=2;
+  for(let i=0;i<9;i++){const yy=y-r+i*r*.23;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.3,yy+8,x+r*.3,yy-7,x+r,yy+4);ctx.stroke();}
+  ctx.restore();
+  ctx.globalAlpha=.22;ctx.strokeStyle='#a8eaff';ctx.lineWidth=1;
+  for(let i=0;i<8;i++){const px=(i*127+t*3)%(W+20)-10,py=(i*79+Math.sin(t+i)*18)%H;ctx.beginPath();ctx.moveTo(px,py-5-i%3*2);ctx.lineTo(px+3,py);ctx.lineTo(px,py+5+i%3*2);ctx.lineTo(px-3,py);ctx.closePath();ctx.stroke();}
  }else if(currentWorld===2){
-  // Verdant Ruin: an overgrown world, curling tendrils, and glowing spores.
-  const x=W*.8,y=H*.25,r=Math.min(W,H)*.18;
-  const grad=ctx.createRadialGradient(x-r*.35,y-r*.4,r*.05,x,y,r);
-  grad.addColorStop(0,'#377b68');grad.addColorStop(.6,'#102b2c');grad.addColorStop(1,'#050b13');
-  ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#4ddc91';ctx.globalAlpha=.5;ctx.lineWidth=2;
-  for(let i=0;i<9;i++){let bx=(i*139)%W,by=H*(.35+(i%4)*.18);ctx.beginPath();ctx.moveTo(bx,by+35);ctx.bezierCurveTo(bx+Math.sin(t+i)*40,by-20,bx-30,by-55,bx+Math.cos(t+i)*65,by-95);ctx.stroke();ctx.beginPath();ctx.ellipse(bx+Math.cos(t+i)*35,by-35,4,10,Math.sin(t+i),0,Math.PI*2);ctx.stroke();}
-  for(let i=0;i<24;i++){let x0=(i*83+t*(5+i%3)*5)%(W+20),y0=(i*61+Math.sin(t*1.3+i)*25)%H;ctx.globalAlpha=.18+.25*(.5+.5*Math.sin(t+i));ctx.fillStyle='#9affc7';ctx.beginPath();ctx.arc(x0,y0,1+i%2,0,Math.PI*2);ctx.fill();}
+  // VERDANT RUIN: a colossal overgrown planet, with broad tendrils at the far edges.
+  const x=W*.8,y=H*.24,r=unit*.16;
+  const planet=ctx.createRadialGradient(x-r*.35,y-r*.4,r*.04,x,y,r);
+  planet.addColorStop(0,'#4b8c70');planet.addColorStop(.45,'#1b443b');planet.addColorStop(.82,'#0b201e');planet.addColorStop(1,'#040b12');
+  ctx.fillStyle=planet;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();ctx.globalAlpha=.2;ctx.strokeStyle='#8dd8a0';ctx.lineWidth=3;
+  for(let i=0;i<13;i++){const yy=y-r+i*r*.16;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.25,yy+Math.sin(i)*r*.15,x+r*.15,yy-Math.cos(i)*r*.2,x+r,yy+Math.sin(i*2)*r*.12);ctx.stroke();}
+  ctx.restore();
+  ctx.lineWidth=2;ctx.strokeStyle='#4e9b72';ctx.globalAlpha=.22;
+  for(let i=0;i<7;i++){const bx=(i%2===0?W*.03:W*.97),by=H*(.28+(i%4)*.18),direction=bx<W/2?1:-1;
+   ctx.beginPath();ctx.moveTo(bx,by+H*.14);ctx.bezierCurveTo(bx+direction*W*.025,by-H*.02,bx-direction*W*.01,by-H*.08,bx+direction*W*.065,by-H*.16+Math.sin(t*.35+i)*8);ctx.stroke();
+   for(let j=0;j<3;j++){const lx=bx+direction*W*(.018+j*.012),ly=by-H*(.025+j*.03);ctx.beginPath();ctx.ellipse(lx,ly,4,11,direction*.45,0,Math.PI*2);ctx.stroke();}
+  }
+  for(let i=0;i<15;i++){const px=(i*97+t*(2+i%3)*2)%(W+16)-8,py=(i*59+Math.sin(t*.6+i)*12)%H;ctx.globalAlpha=.1+.1*(.5+.5*Math.sin(t+i));ctx.fillStyle='#9affbc';ctx.beginPath();ctx.arc(px,py,1+i%2,0,Math.PI*2);ctx.fill();}
  }else if(currentWorld===3){
-  // Event Horizon: a broken void well and drifting fragments of fractured space.
-  const x=W*.77,y=H*.28,r=Math.min(W,H)*.2;
-  for(let i=4;i>=0;i--){ctx.globalAlpha=.07+i*.025;ctx.strokeStyle=i%2?'#ff79c6':'#b28cff';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(x,y,r*(1+i*.17),r*(.35+i*.1),-.35+t*.025,0,Math.PI*2);ctx.stroke();}
-  const grad=ctx.createRadialGradient(x,y,2,x,y,r);
-  grad.addColorStop(0,'#000000');grad.addColorStop(.42,'#03030b');grad.addColorStop(.7,'#512b83');grad.addColorStop(1,'#0b0817');
-  ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,y,r*.78,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#d8a7ff';ctx.globalAlpha=.35;ctx.lineWidth=1;
-  for(let i=0;i<22;i++){let a=i*2.399+t*.05,rr=r*(.9+(i%4)*.22),px=x+Math.cos(a)*rr,py=y+Math.sin(a)*rr;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px+Math.cos(a+.4)*(12+i%3*7),py+Math.sin(a+.4)*(12+i%3*7));ctx.stroke();}
+  // EVENT HORIZON: a huge distant black hole with a broken, slowly rotating accretion ring.
+  const x=W*.78,y=H*.27,r=unit*.17;
+  ctx.save();ctx.translate(x,y);ctx.rotate(-.32+t*.012);
+  for(let i=0;i<5;i++){ctx.globalAlpha=.1+i*.025;ctx.strokeStyle=i%2?'#e68dff':'#8d77ff';ctx.lineWidth=2+i*.4;ctx.beginPath();ctx.ellipse(0,0,r*(1+i*.13),r*(.3+i*.035),0,i*.28,Math.PI*1.7+i*.22);ctx.stroke();}
+  ctx.restore();
+  const halo=ctx.createRadialGradient(x,y,r*.45,x,y,r*1.5);halo.addColorStop(0,'#090617');halo.addColorStop(.52,'#4b267a28');halo.addColorStop(1,'#4b267a00');ctx.fillStyle=halo;ctx.fillRect(x-r*1.5,y-r*1.5,r*3,r*3);
+  const hole=ctx.createRadialGradient(x-r*.15,y-r*.18,1,x,y,r*.78);hole.addColorStop(0,'#000');hole.addColorStop(.72,'#03030a');hole.addColorStop(.9,'#100b25');hole.addColorStop(1,'#080712');
+  ctx.fillStyle=hole;ctx.beginPath();ctx.arc(x,y,r*.78,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#d6b0ff';ctx.globalAlpha=.18;ctx.lineWidth=1;
+  for(let i=0;i<13;i++){const a=i*2.399+t*.018,rr=r*(.9+(i%4)*.18),px=x+Math.cos(a)*rr,py=y+Math.sin(a)*rr;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px+Math.cos(a+.4)*(8+i%3*5),py+Math.sin(a+.4)*(8+i%3*5));ctx.stroke();}
  }
  ctx.restore();
 }
