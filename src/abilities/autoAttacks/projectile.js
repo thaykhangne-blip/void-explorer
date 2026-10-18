@@ -29,7 +29,7 @@ export function fireProjectileAutoAttack(context, locals) {
    const boltType=coreId==='frost'?'ice':coreId==='remielle'?'lumine':'fire';
    for(let i=0;i<cannonCount;i++){
     const side=(i-(cannonCount-1)/2)*2,a=angle+side*.22,ox=player.x+Math.cos(angle)*5-Math.sin(angle)*side*12,oy=player.y+Math.sin(angle)*5+Math.cos(angle)*side*12;
-    bullets.push({x:ox,y:oy,vx:Math.cos(a)*player.shotSpeed,vy:Math.sin(a)*player.shotSpeed,r:coreId==='nova'?3:coreId==='remielle'?4.5:4,rangeLeft:attackProjectileRange,damage:player.damage*.48,color:coreId==='remielle'?'#ff9ed8':(core?.color||'#72f6ff'),type:boltType,life:2.2,pierce:0,hitEnemies:[],ricochetsLeft:player.ricochet||0,fromSideCannon:true,featherTrail:coreId==='remielle'});
+    bullets.push({x:ox,y:oy,vx:Math.cos(a)*player.shotSpeed*(coreId==='vengeance'?.9:1),vy:Math.sin(a)*player.shotSpeed*(coreId==='vengeance'?.9:1),r:coreId==='vengeance'?7:coreId==='nova'?3:coreId==='remielle'?4.5:4,rangeLeft:attackProjectileRange,damage:player.damage*(coreId==='vengeance'?.34:.48),color:coreId==='vengeance'?'#ff304f':coreId==='remielle'?'#ff9ed8':(core?.color||'#72f6ff'),type:coreId==='vengeance'?'crimson':boltType,life:2.2,pierce:coreId==='vengeance'?1:0,hitEnemies:[],ricochetsLeft:player.ricochet||0,fromSideCannon:true,featherTrail:coreId==='remielle',vengeanceBlade:coreId==='vengeance'});
    }
   }
  
