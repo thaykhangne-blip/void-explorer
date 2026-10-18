@@ -1,12 +1,12 @@
 // Shared target selection for all player-core primary auto-attacks.
-// The game supplies a nearest-target selector that includes live singular cores and enemies.
+// Every core has a finite targeting radius. Singular cores receive priority only when
+// they are inside that same radius, rather than bypassing range limits.
 export function getPrimaryAttackTarget({ player, core, coreTargetRange, nearestTarget }) {
  if (!player) return null;
  const coreId = core?.id || 'ember';
  const extendedProjectileCore = ['ember', 'frost', 'remielle', 'elemental'].includes(coreId);
- const rangeLimited = ['nature', 'flash', 'remielle', 'nova', 'elemental', 'ember', 'frost'].includes(coreId);
- const maxRange = extendedProjectileCore ? coreTargetRange * 1.5 : (rangeLimited ? coreTargetRange : Infinity);
- // Use one selector for every target type so minibosses, normal enemies, and singular cores
- // are all eligible instead of special cases silently excluding one category.
+ const maxRange = extendedProjectileCore ? coreTargetRange * 1.5 : coreTargetRange;
+ // nearestTarget prioritizes the singularity only if it is within maxRange;
+ // otherwise, a normal enemy in range remains a valid target.
  return nearestTarget(maxRange);
 }
