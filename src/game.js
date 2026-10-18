@@ -516,7 +516,38 @@ function start(resumeSavedRun=false){
  }
  else{showCoreSelection();state='menu'}
 }
-function makeRoomPlan(){if(currentWorld===-1)return [null,'singularity','horde','defense','cargo','survival','ambush'];const plan=Array(world().rooms+1).fill('singularity');const pool=['singularity','singularity','horde','horde','defense','cargo','survival','ambush','escort','multiObjective','lockdown','challenge'];for(let n=1;n<=world().rooms;n++){if([5,10,15].includes(n))plan[n]='miniboss';else if(n===20)plan[n]='finalboss';else plan[n]=pick(pool)}return plan}
+function makeRoomPlan(){
+ if(currentWorld===-1)return [null,'singularity','horde','defense','cargo','survival','ambush'];
+ const total=world().rooms,plan=Array(total+1).fill('singularity');
+ // Encounter pacing is deliberately authored in four acts: teach, vary, combine, then test mastery.
+ // Boss rooms remain fixed milestones. Each act introduces mechanics before asking players to handle them under pressure.
+ const acts={
+  early:['singularity','singularity','horde','singularity'],
+  standard:['horde','defense','cargo','survival','singularity','horde'],
+  advanced:['ambush','escort','multiObjective','defense','cargo','horde','survival'],
+  elite:['lockdown','challenge','ambush','escort','multiObjective','challenge']
+ };
+ let previous='';
+ const choose=(pool)=>{let options=pool.filter(type=>type!==previous);if(!options.length)options=pool;const type=pick(options);previous=type;return type;};
+ for(let n=1;n<=total;n++){
+  if([5,10,15].includes(n)){plan[n]='miniboss';previous='miniboss';continue;}
+  if(n===total){plan[n]='finalboss';continue;}
+  let pool;
+  if(n<=4)pool=acts.early;
+  else if(n<=9)pool=acts.standard;
+  else if(n<=14)pool=acts.advanced;
+  else pool=acts.elite;
+  // Seed a recognizable ramp: early rooms teach the core loop; advanced objectives arrive only after the first miniboss.
+  if(n===1)plan[n]='singularity';
+  else if(n===2)plan[n]='horde';
+  else if(n===3)plan[n]='singularity';
+  else if(n===4)plan[n]='horde';
+  else plan[n]=choose(pool);
+ }
+ // Keep the fixed milestones readable and guarantee at least one introduction to each advanced objective by the late game.
+ if(total>=20){plan[16]='lockdown';plan[18]='challenge';plan[19]='multiObjective';}
+ return plan;
+}
 function restorePhaseFlowStats(){if(!player)return;if(player.phaseFlowBaseRate!==null&&player.phaseFlowBaseRate!==undefined)player.fireRate=player.phaseFlowBaseRate;player.phaseFlowCritBonus=0;player.phaseFlowBaseCrit=null;player.phaseFlowBaseRate=null;player.phaseFlowBaseSpeed=null;player.skillShield=0;player.skillShieldHp=0;player.skillShieldMax=0;}
 function clearAuralisRoomEffects(){if(core?.id!=='remielle'||!player)return;restorePhaseFlowStats();player.skillActive=0;player.phaseFlowTick=0;skillFx=skillFx.filter(fx=>!['phaseFlow','lightLance'].includes(fx.type));updateUI();}
 function roomTypeName(){return ({singularity:'SINGULARITY DESTRUCTION',miniboss:'MINI-BOSS ENCOUNTER',finalboss:'FINAL BOSS',horde:'HORDE DESTRUCTION',defense:'SHIP DEFENSE',cargo:'CARGO TRANSFER',survival:'SURVIVAL PROTOCOL',ambush:'AMBUSH WAVES',escort:'ESCORT / EVACUATION',multiObjective:'MULTI-OBJECTIVE ARENA',lockdown:'LOCKDOWN / KEY HUNT',challenge:'HIGH-RISK CHALLENGE'})[roomType]||'COMBAT'}
