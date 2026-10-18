@@ -636,3 +636,7 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 .motif-crimson{width:38px;height:9px;background:linear-gradient(90deg,transparent,#ffb2bf 22%,#ff304f 70%,transparent);clip-path:polygon(0 50%,25% 0,100% 50%,25% 100%);transform:rotate(-28deg);color:#ff304f}
 .motif-crimson.m2{transform:rotate(28deg) scaleX(.78);margin-left:-25px;opacity:.82}
 .motif-crimson.m3{transform:rotate(90deg) scaleX(.55);margin-left:-24px;opacity:.65}
+
+/* Four ability entries now include each core's passive. */
+.core-ability-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:640px){.core-ability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
