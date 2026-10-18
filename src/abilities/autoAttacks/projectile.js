@@ -7,7 +7,7 @@ export function fireProjectileAutoAttack(context, locals) {
 
   const spread=coreId==='frost'?.28:.24;
   const total=player.shots;
-  const type=coreId==='frost'?'ice':coreId==='remielle'?'lumine':'fire';
+  const type=coreId==='vengeance'?'crimson':coreId==='frost'?'ice':coreId==='remielle'?'lumine':'fire';
   const laneGap=coreId==='frost'?14:12;
   for(let i=0;i<total;i++){
    // The first two shots travel parallel in separate lanes. Only shots 3+ fan outward.
@@ -22,7 +22,7 @@ export function fireProjectileAutoAttack(context, locals) {
    if(parallelPair)laneOffset=(i===0?-.5:.5)*laneGap;
    const px=player.x+Math.cos(angle)*11-Math.sin(angle)*laneOffset;
    const py=player.y+Math.sin(angle)*11+Math.cos(angle)*laneOffset;
-   bullets.push({x:px,y:py,vx:Math.cos(a)*player.shotSpeed,vy:Math.sin(a)*player.shotSpeed,r:4,life:extendedProjectileCore?2.2:1.6,rangeLeft:attackProjectileRange,damage:player.damage*getProjectileDamageMultiplier(total,player.baseShots,player.projectileDamagePenalty??.12),color:element?element.color:(type==='fire'?'#ff743d':'#8cecff'),el:element?.name,type,pierce:(player.pierce||0),hitEnemies:[]});
+   bullets.push({x:px,y:py,vx:Math.cos(a)*player.shotSpeed,vy:Math.sin(a)*player.shotSpeed,r:4,life:extendedProjectileCore?2.2:1.6,rangeLeft:attackProjectileRange,damage:player.damage*getProjectileDamageMultiplier(total,player.baseShots,player.projectileDamagePenalty??.12),color:coreId==='vengeance'?'#ff304f':element?element.color:(type==='fire'?'#ff743d':'#8cecff'),el:element?.name,type,pierce:coreId==='vengeance'?Math.max(2,player.pierce||0):(player.pierce||0),hitEnemies:[],vengeanceBlade:coreId==='vengeance'});
   }
   if(player.sideCannons){
    const cannonCount=Math.min(4,2*(player.sideCannons||0));
