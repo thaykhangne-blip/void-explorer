@@ -1248,7 +1248,7 @@ function draw(){let orbSize=7;c.style.cursor=state==='portalTransition'||state==
   if(hoveredWorldPreview===null||hoveredWorldPreview===-1){drawMenuCinematicBackground();return;}
   const savedWorld=currentWorld,previewWorld=hoveredWorldPreview;
   currentWorld=previewWorld;const preview=world();
-  const fade=Math.min(1,Math.max(0,(performance.now()-worldPreviewChangedAt)/380));
+  const fade=Math.min(1,Math.max(0,(performance.now()-worldPreviewChangedAt)/180));
   ctx.fillStyle='#050711';ctx.fillRect(0,0,W,H);
   ctx.save();ctx.globalAlpha=.12*fade;ctx.fillStyle=preview.secondary;ctx.fillRect(0,0,W,H);ctx.restore();
   ctx.save();ctx.globalAlpha=.13*fade;drawCinematicWorldBackdrop(preview);ctx.restore();
