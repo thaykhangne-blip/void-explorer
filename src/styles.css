@@ -625,3 +625,7 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 .modal .choice small,.modal .world-card small{font-size:var(--ui-font-sm);line-height:1.55;}
 .modal .menu-actions{gap:var(--ui-space-2);}
 @media(max-width:700px){:root{--ui-font-xs:10px;--ui-font-sm:12px;--ui-font-md:14px;--ui-font-lg:16px;--ui-space-3:10px;--ui-space-4:14px;--ui-control-height:38px}.modal h2{font-size:clamp(23px,6vw,30px);}}
+
+
+/* World loading interstitial */
+.world-loading{width:min(460px,82vw);margin:0 auto;padding:30px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}.world-loading h2{margin:0;font-size:clamp(30px,4vw,46px);letter-spacing:.12em}.world-loading p{margin:0;color:#9eacc9;font-size:14px;line-height:1.5}.world-loading small{font-size:10px;letter-spacing:.25em;color:#7d8ba9}.world-loading-track{width:min(340px,76vw);height:3px;background:#19243b;overflow:hidden;margin-top:8px}.world-loading-track span{display:block;width:40%;height:100%;background:var(--world-accent,#72f6ff);box-shadow:0 0 14px var(--world-accent,#72f6ff);animation:worldLoadSweep 1s ease-in-out infinite alternate}@keyframes worldLoadSweep{from{transform:translateX(-10%)}to{transform:translateX(165%)}}
