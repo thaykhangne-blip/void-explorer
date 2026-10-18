@@ -1124,23 +1124,31 @@ function drawCinematicWorldBackdrop(wc){
  haze.addColorStop(0,(wc.accent||'#72f6ff')+'14');haze.addColorStop(1,'#02040d00');
  ctx.fillStyle=haze;ctx.fillRect(0,0,W,H);
  if(currentWorld===0){
-  // ASHEN REACH: a distant burning sun with turbulent corona and restrained prominences.
-  const x=W*.79,y=H*.23,r=unit*.145;
-  const halo=ctx.createRadialGradient(x,y,r*.55,x,y,r*2.25);
-  halo.addColorStop(0,'#ff713c30');halo.addColorStop(.45,'#d94a2920');halo.addColorStop(1,'#ff4b1800');
-  ctx.fillStyle=halo;ctx.fillRect(x-r*2.3,y-r*2.3,r*4.6,r*4.6);
-  ctx.save();ctx.translate(x,y);ctx.rotate(t*.018);
-  // Broad, rigid solar flares: tapered straight rays instead of wavy tendrils.
-  for(let i=0;i<16;i++){const a=i*Math.PI/8,len=r*(.42+.05*Math.sin(t*.8+i*1.7)),base=r*1.01,tip=base+len,half=r*(i%2?.055:.075);ctx.save();ctx.rotate(a);ctx.globalAlpha=.2;ctx.fillStyle=i%3===0?'#ffd17a':'#ff7846';ctx.beginPath();ctx.moveTo(base,-half*.38);ctx.lineTo(tip,0);ctx.lineTo(base,half*.38);ctx.closePath();ctx.fill();ctx.globalAlpha=.32;ctx.strokeStyle='#ff9a54';ctx.lineWidth=Math.max(2,r*.018);ctx.beginPath();ctx.moveTo(base,0);ctx.lineTo(tip,0);ctx.stroke();ctx.restore();}
+  // ASHEN REACH: a huge ball of living fire, with turbulent surface currents and licking flames.
+  const x=W*.79,y=H*.23,r=unit*.17;
+  const halo=ctx.createRadialGradient(x,y,r*.45,x,y,r*2.05);
+  halo.addColorStop(0,'#ff672c24');halo.addColorStop(.48,'#e94b2520');halo.addColorStop(1,'#ff4b1800');
+  ctx.fillStyle=halo;ctx.fillRect(x-r*2.1,y-r*2.1,r*4.2,r*4.2);
+  // Flames rise and curl around the silhouette, rather than forming solar rays.
+  ctx.save();ctx.translate(x,y);
+  for(let i=0;i<30;i++){
+   const a=i*Math.PI*2/30,inner=r*(.91+.035*Math.sin(t*1.8+i)),length=r*(.16+.11*(.5+.5*Math.sin(t*1.45+i*2.17))),width=r*(i%3===0?.095:.06);
+   ctx.save();ctx.rotate(a);ctx.globalAlpha=.2+.08*(.5+.5*Math.sin(t*1.6+i));ctx.fillStyle=i%3===0?'#ffcf68':'#ff6333';ctx.beginPath();ctx.moveTo(inner,-width*.55);ctx.quadraticCurveTo(inner+length*.35,-width*.5,inner+length*.72,-width*.12);ctx.quadraticCurveTo(inner+length*1.1,0,inner+length*.72,width*.12);ctx.quadraticCurveTo(inner+length*.25,width*.5,inner,width*.55);ctx.closePath();ctx.fill();ctx.restore();
+  }
   ctx.restore();
-  const sun=ctx.createRadialGradient(x-r*.3,y-r*.34,r*.04,x,y,r);
-  sun.addColorStop(0,'#fff0b0');sun.addColorStop(.24,'#ffb34f');sun.addColorStop(.63,'#e94b25');sun.addColorStop(.88,'#8b2029');sun.addColorStop(1,'#351323');
-  ctx.fillStyle=sun;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();
-  ctx.globalAlpha=.28;ctx.strokeStyle='#70202c';ctx.lineWidth=3;
-  for(let i=0;i<18;i++){const yy=y-r+i*r*.12+Math.sin(t*.5+i)*3;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.25,yy+Math.sin(i+t)*r*.14,x+r*.25,yy-r*.12,x+r,yy+Math.cos(i)*r*.08);ctx.stroke();}
+  const fireball=ctx.createRadialGradient(x-r*.32,y-r*.35,r*.025,x,y,r);
+  fireball.addColorStop(0,'#ffe8a0');fireball.addColorStop(.2,'#ffb044');fireball.addColorStop(.48,'#ff702c');fireball.addColorStop(.73,'#d63825');fireball.addColorStop(.92,'#71202a');fireball.addColorStop(1,'#27101c');
+  ctx.fillStyle=fireball;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  // Rolling plasma streams animate across the surface.
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r*.985,0,Math.PI*2);ctx.clip();
+  for(let i=0;i<24;i++){
+   const yy=y-r+i*r*.085+Math.sin(t*1.25+i*.8)*r*.045;
+   ctx.globalAlpha=.12+.09*(.5+.5*Math.sin(t*1.7+i));ctx.strokeStyle=i%3===0?'#ffd06a':'#9f2428';ctx.lineWidth=r*(i%4===0?.055:.025);
+   ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.55,yy+Math.sin(t+i)*r*.15,x+r*.25,yy+Math.cos(t*.9+i)*r*.12,x+r,yy+Math.sin(t*1.1+i)*r*.07);ctx.stroke();
+  }
   ctx.restore();
-  for(let i=0;i<22;i++){const px=((i*103+t*(4+i%4)*3)%(W+20))-10,py=(i*67+Math.sin(t*.7+i)*13)%H;ctx.globalAlpha=.12+.12*(.5+.5*Math.sin(t+i));ctx.fillStyle=i%3?'#ff9b65':'#ffdba0';ctx.fillRect(px,py,1+(i%2),1+(i%2));}
+  // Sparks drift upward around the fireball.
+  for(let i=0;i<24;i++){const px=x+Math.sin(i*2.4+t*(.35+i%4*.08))*r*(1.05+(i%3)*.12),py=((i*47-t*(10+i%5*4))%(H+30)+H+30)%(H+30)-15;ctx.globalAlpha=.1+.1*(.5+.5*Math.sin(t*2+i));ctx.fillStyle=i%3?'#ff9b53':'#ffe4a0';ctx.fillRect(px,py,1+(i%2),1+(i%2));}
  }else if(currentWorld===1){
   // CRYO ARCHIVE: a ringed ice giant, mostly shadowed to preserve combat readability.
   const x=W*.79,y=H*.24,r=unit*.155;
@@ -1156,20 +1164,33 @@ function drawCinematicWorldBackdrop(wc){
   ctx.globalAlpha=.22;ctx.strokeStyle='#a8eaff';ctx.lineWidth=1;
   for(let i=0;i<8;i++){const px=(i*127+t*3)%(W+20)-10,py=(i*79+Math.sin(t+i)*18)%H;ctx.beginPath();ctx.moveTo(px,py-5-i%3*2);ctx.lineTo(px+3,py);ctx.lineTo(px,py+5+i%3*2);ctx.lineTo(px-3,py);ctx.closePath();ctx.stroke();}
  }else if(currentWorld===2){
-  // VERDANT RUIN: a colossal overgrown planet, with broad tendrils at the far edges.
-  const x=W*.8,y=H*.24,r=unit*.16;
-  const planet=ctx.createRadialGradient(x-r*.35,y-r*.4,r*.04,x,y,r);
-  planet.addColorStop(0,'#4b8c70');planet.addColorStop(.45,'#1b443b');planet.addColorStop(.82,'#0b201e');planet.addColorStop(1,'#040b12');
+  // VERDANT RUIN: a planet wrapped in living vines, with animated tendrils and glowing nodes.
+  const x=W*.8,y=H*.24,r=unit*.17;
+  const planet=ctx.createRadialGradient(x-r*.38,y-r*.4,r*.035,x,y,r);
+  planet.addColorStop(0,'#356d50');planet.addColorStop(.4,'#183b2d');planet.addColorStop(.76,'#0b211c');planet.addColorStop(1,'#030b0d');
   ctx.fillStyle=planet;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();ctx.globalAlpha=.2;ctx.strokeStyle='#8dd8a0';ctx.lineWidth=3;
-  for(let i=0;i<13;i++){const yy=y-r+i*r*.16;ctx.beginPath();ctx.moveTo(x-r,yy);ctx.bezierCurveTo(x-r*.25,yy+Math.sin(i)*r*.15,x+r*.15,yy-Math.cos(i)*r*.2,x+r,yy+Math.sin(i*2)*r*.12);ctx.stroke();}
-  ctx.restore();
-  ctx.lineWidth=2;ctx.strokeStyle='#4e9b72';ctx.globalAlpha=.22;
-  for(let i=0;i<7;i++){const bx=(i%2===0?W*.03:W*.97),by=H*(.28+(i%4)*.18),direction=bx<W/2?1:-1;
-   ctx.beginPath();ctx.moveTo(bx,by+H*.14);ctx.bezierCurveTo(bx+direction*W*.025,by-H*.02,bx-direction*W*.01,by-H*.08,bx+direction*W*.065,by-H*.16+Math.sin(t*.35+i)*8);ctx.stroke();
-   for(let j=0;j<3;j++){const lx=bx+direction*W*(.018+j*.012),ly=by-H*(.025+j*.03);ctx.beginPath();ctx.ellipse(lx,ly,4,11,direction*.45,0,Math.PI*2);ctx.stroke();}
+  // Broad looping vines cross the planet's face and slowly crawl over its surface.
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r*.99,0,Math.PI*2);ctx.clip();
+  for(let i=0;i<11;i++){
+   const yy=y-r+i*r*.19+Math.sin(t*.65+i*.9)*r*.055;
+   ctx.globalAlpha=.16+.06*(.5+.5*Math.sin(t+i));ctx.strokeStyle=i%3===0?'#a0d878':'#3f8b55';ctx.lineWidth=i%3===0?3.5:2.3;
+   ctx.beginPath();ctx.moveTo(x-r,yy);
+   ctx.bezierCurveTo(x-r*.55,yy+Math.sin(t*.7+i)*r*.2,x-r*.1,yy-Math.cos(t*.6+i)*r*.2,x+r*.15,yy+Math.sin(t*.8+i)*r*.13);
+   ctx.bezierCurveTo(x+r*.45,yy+Math.cos(t*.65+i)*r*.2,x+r*.6,yy-Math.sin(t*.7+i)*r*.16,x+r,yy+Math.cos(t+i)*r*.1);ctx.stroke();
+   if(i%2===0){const nx=x+Math.sin(t*.45+i)*r*.35,ny=yy+Math.cos(t*.5+i)*r*.12;ctx.globalAlpha=.22+.1*(.5+.5*Math.sin(t*2+i));ctx.fillStyle='#a8f58a';ctx.beginPath();ctx.arc(nx,ny,2.5+Math.sin(t*2+i)*.7,0,Math.PI*2);ctx.fill();}
   }
-  for(let i=0;i<15;i++){const px=(i*97+t*(2+i%3)*2)%(W+16)-8,py=(i*59+Math.sin(t*.6+i)*12)%H;ctx.globalAlpha=.1+.1*(.5+.5*Math.sin(t+i));ctx.fillStyle='#9affbc';ctx.beginPath();ctx.arc(px,py,1+i%2,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+  // Tendrils grow in from the edges, swaying slowly; leaf pairs move with each vine.
+  ctx.lineCap='round';
+  for(let i=0;i<8;i++){
+   const left=i%2===0, bx=left?W*.015:W*.985, by=H*(.22+(i%4)*.2), dir=left?1:-1;
+   const sway=Math.sin(t*.65+i*1.3)*W*.018, reach=W*(.045+(i%3)*.012);
+   ctx.globalAlpha=.19;ctx.strokeStyle='#3e8551';ctx.lineWidth=2.5+(i%2);
+   ctx.beginPath();ctx.moveTo(bx,by+H*.16);ctx.bezierCurveTo(bx+dir*reach*.3+sway,by+H*.04,bx+dir*reach*.15-sway,by-H*.05,bx+dir*reach+sway,by-H*.14);ctx.stroke();
+   for(let j=0;j<3;j++){const q=(j+1)/4,lx=bx+dir*reach*q+sway*q,ly=by+H*.16-H*.3*q+Math.sin(t*.65+i*1.3)*8*q;ctx.save();ctx.translate(lx,ly);ctx.rotate(dir*(.35+Math.sin(t*.8+i+j)*.16));ctx.beginPath();ctx.ellipse(dir*5,-2,3.2,8,0,0,Math.PI*2);ctx.stroke();ctx.restore();}
+  }
+  // Spores pulse and drift around the living planet.
+  for(let i=0;i<20;i++){const px=(i*97+t*(2+i%3)*2)%(W+16)-8,py=(i*59+Math.sin(t*.6+i)*12+H)%H;ctx.globalAlpha=.1+.12*(.5+.5*Math.sin(t*1.8+i));ctx.fillStyle='#9affbc';ctx.beginPath();ctx.arc(px,py,1+i%2,0,Math.PI*2);ctx.fill();}
  }else if(currentWorld===3){
   // EVENT HORIZON: a huge distant black hole with a broken, slowly rotating accretion ring.
   const x=W*.78,y=H*.27,r=unit*.17;
