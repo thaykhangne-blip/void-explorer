@@ -1,5 +1,7 @@
 # Changelog
 
+- Rebuffed Vengeance Core base attack damage from 0.63 to 0.78, a 23.8% increase from the previous value.
+
 - Further nerfed Vengeance Core base attack damage from 0.90 to 0.63, a further 30% reduction.
 
 - Balance update: reduced Vengeance Core base attack damage from 1.35 to 0.90, a 33.3% reduction. Attack scaling from other mechanics and abilities remains unchanged.
