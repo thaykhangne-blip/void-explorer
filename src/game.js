@@ -711,7 +711,7 @@ function castUltimate(){
  if(state!=='playing'||!player||!core)return;
  const minimum=100;
  if(energy<minimum){notify(`ULTIMATE REQUIRES 100 ENERGY · ${energy}% CHARGED`);return;}
- sfx('ultimate');const spent=energy;energy=Math.min(100,(player.afterglowCapacitor||0)*8);const lv=ultLevel,energyPower=(.65+spent/100)*(1+lv*.18),center={x:player.x,y:player.y},ultRange=Math.min(340,Math.max(220,Math.min(W,H)*.38));const inUltRange=target=>!!target&&dist(center,target)<=ultRange+(target.r||0);ultCastFlash=.55;
+ sfx('ultimate');const spent=energy;energy=Math.min(100,(player.afterglowCapacitor||0)*8);const lv=ultLevel,energyPower=(.65+spent/100)*(1+lv*.18),center={x:player.x,y:player.y},ultRange=Math.min(520,Math.max(340,Math.min(W,H)*.55));const inUltRange=target=>!!target&&dist(center,target)<=ultRange+(target.r||0);ultCastFlash=.55;
  const fxColor=core.id==='ember'?'#ff713d':core.id==='frost'?'#8cecff':core.id==='remielle'?'#ff9ed8':'#c18aff';
  if(core.id==='ember'){
    const dmg=(55+lv*22)*energyPower*(1+lv*.18);burst(player.x,player.y,'#ffb34f',35);burst(player.x,player.y,'#ff633b',26);
