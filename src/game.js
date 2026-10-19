@@ -363,7 +363,7 @@ function applyCoreDefaults(o){
  player.shots=Number.isFinite(o.shots)?o.shots:1;player.baseShots=player.shots;player.projectileDamagePenalty=.12;
  player.r=o.r??8;
  player.maxHp=o.maxHp??100;player.hp=player.maxHp;
- player.armor=o.armor??0;player.critChance=o.critChance??.12;player.pierce=o.pierce??0;
+ player.armor=(o.armor??0)+(o.id==='vengeance'?30:0);player.critChance=o.critChance??.12;player.pierce=o.pierce??0;
  player.critDamage=1.8;player.shotSpeed=400;player.dashPower=0;player.magnet=55;player.ultHaste=0;
  // Shared permanent upgrades are applied to each core's canonical starting stats on every new run.
  const perm=saveData.coreUpgrades||{};const upgradeRank=id=>Math.max(0,Number(perm[id])||0);player.damage*=1+.05*upgradeRank('atk');player.critChance=Math.min(.75,player.critChance+.02*upgradeRank('crit'));player.fireRate*=1+.04*upgradeRank('rate');player.maxHp+=5*upgradeRank('hull');player.hp=player.maxHp;player.armor+=2*upgradeRank('armor');player.speed*=1+.03*upgradeRank('speed');player.inv=1.2;player.evoTier=0;player.evolutions=[];player.pierce=o.pierce??0;player.orbitals=0;player.orbitalStates=[];
