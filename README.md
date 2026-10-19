@@ -5,7 +5,7 @@
 **A little light, a lot of things trying to kill it, and a company that would rather cut the budget than admit it was wrong.**
 
 [![Beta](https://img.shields.io/badge/status-beta-orange?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer)
-[![Version](https://img.shields.io/badge/version-v0.3-blue?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer/commits/main)
+[![Version](https://img.shields.io/badge/version-v0.4-blue?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer/commits/main)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow?style=for-the-badge&logo=javascript&logoColor=111111)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-e34f26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572b6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -24,7 +24,7 @@ Void Explorer is a browser-based action roguelike built around quick combat, dis
 
 The game is still in beta. Things will break, balance will change, and some ideas will turn out to be less clever once they meet actual gameplay. That’s part of making a game.
 
-> **Current version:** Beta v0.3, build 300. This is an active work in progress, not a finished release.
+> **Current version:** Beta v0.4, build 400. This is an active work in progress, not a finished release.
 
 ## What you can do
 
@@ -81,7 +81,7 @@ The code is split into separate files rather than packed into one enormous HTML 
 
 ## Where development stands
 
-The current beta is **v0.3 (build 300)**. Combat, enemy behaviour, room objectives, core balance, visuals, progression, and story are all still being worked on. Expect rough edges. If something is broken, unfair, confusing, or unexpectedly hilarious, a clear bug report with steps to reproduce it is useful.
+The current beta is **v0.4 (build 400)**. Combat, enemy behaviour, room objectives, core balance, visuals, progression, and story are all still being worked on. Expect rough edges. If something is broken, unfair, confusing, or unexpectedly hilarious, a clear bug report with steps to reproduce it is useful.
 
 - [Report a bug or suggest a feature](https://github.com/thaykhangne-blip/void-explorer/issues)
 - [Browse the source](https://github.com/thaykhangne-blip/void-explorer)
