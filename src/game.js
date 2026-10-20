@@ -122,7 +122,75 @@ const sections=groups.map(g=>{const seen=new Set();const sameBuffAliases={genera
 $('overlay').classList.remove('hidden','closing');$('modal').innerHTML=`<div class="eyebrow">UPGRADES</div><h2>PERK CODEX</h2><p>Browse universal upgrades and core-specific perks.</p><div class="codex-feature-key"><span>✦ RARE PERKS</span><span class="codex-jump-links"><button type="button" data-codex-jump="ember">EMBER</button><button type="button" data-codex-jump="frost">FROST</button><button type="button" data-codex-jump="nova">NOVA</button><button type="button" data-codex-jump="remielle">AURALIS</button><button type="button" data-codex-jump="flash">FLASH</button><button type="button" data-codex-jump="nature">NATURE</button><button type="button" data-codex-jump="elemental">ELEMENTAL</button><button type="button" data-codex-jump="vengeance">VENGEANCE</button></span></div><div class="codex-sections">${sections}</div><div class="menu-actions"><button class="btn" id="codexBack">← MAIN MENU</button></div>`;$('codexBack').onclick=showMainMenu;$('modal').querySelectorAll('[data-codex-jump]').forEach(btn=>btn.onclick=()=>{const target=$('codex-section-'+btn.dataset.codexJump);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});});}
 
 function beginSelectedWorld(idx){currentWorld=idx;saveData.lastWorld=idx;persist();hoveredWorldPreview=idx;worldPreviewChangedAt=performance.now();state='worldloading';$('phase').textContent='LOADING WORLD';$('overlay').classList.remove('hidden','closing');const w=world();$('modal').innerHTML=`<div class="world-loading"><div class="eyebrow">WORLD INITIALIZATION</div><h2>${w.name}</h2><p>Preparing environment and initializing your run…</p><div class="world-loading-track"><span></span></div><small>PLEASE WAIT</small></div>`;setTimeout(()=>{if(state!=='worldloading')return;run++;start()},650)}
-function showWorldSelect(){clearToast();hoveredWorldPreview=null;tutorialTipVisible=false;$('tutorialTip').hidden=true;state='worldselect';$('phase').textContent='WORLD SELECT';$('overlay').classList.remove('hidden','closing');$('modal').innerHTML=`<div class="eyebrow">CAMPAIGN SELECT</div><h2>CHOOSE YOUR WORLD</h2><p>Worlds unlock in order, and each run starts fresh.</p><div class="world-grid">${worlds.map((w,i)=>{const unlocked=i<saveData.unlockedWorlds;return `<button class="world-card" data-world="${i}" ${unlocked?'':'disabled'} style="--world-accent:${w.accent}"><span class="world-symbol">${unlocked?w.symbol:'🔒'}</span><b>${String(i+1).padStart(2,'0')} · ${w.name}</b><small>${w.desc}</small><small>${w.rooms} ROOMS · ${unlocked?`BEST CLEAR: ${saveData.bestRooms[i]||0}/${w.rooms}`:'LOCKED · CLEAR THE PREVIOUS WORLD'}</small></button>`}).join('')}</div><div class="menu-actions"><button class="btn" id="worldBack">← MAIN MENU</button></div><p class="save-note">PROGRESS IS SAVED LOCALLY IN THIS BROWSER.</p>`;const cards=$('modal').querySelectorAll('[data-world]');cards.forEach(b=>{b.addEventListener('mouseenter',()=>{if(!b.disabled){hoveredWorldPreview=Number(b.dataset.world);worldPreviewChangedAt=performance.now();lastWorldPreviewFrame=0;}});b.addEventListener('mouseleave',()=>{hoveredWorldPreview=null;worldPreviewChangedAt=performance.now();lastWorldPreviewFrame=0;});b.onclick=()=>{const idx=Number(b.dataset.world);if(idx>=saveData.unlockedWorlds)return;if(saveData.campaignCheckpoint){confirmInGame('DELETE THE SAVED RUN?','Starting a new run deletes the previous checkpoint, including its core, stats, and build. This cannot be undone.','DELETE & START NEW RUN',()=>{saveData.campaignCheckpoint=null;beginSelectedWorld(idx)},showWorldSelect,'KEEP SAVE');return}saveData.campaignCheckpoint=null;beginSelectedWorld(idx)}});$('worldBack').onclick=showMainMenu}
+function showWorldSelect(){
+ clearToast();hoveredWorldPreview=null;tutorialTipVisible=false;$('tutorialTip').hidden=true;state='worldselect';$('phase').textContent='WORLD SELECT';$('overlay').classList.remove('hidden','closing');
+ const initial=Math.max(0,Math.min(worlds.length-1,Number(saveData.lastWorld)||0));
+ let selected=initial,typeTimer=null;
+ const modal=$('modal');
+ modal.className='modal world-hologram-modal';
+ modal.innerHTML=`<div class="world-holo-topline"><span class="eyebrow">CAMPAIGN SELECT / PLANETARY DATABASE</span><span class="world-holo-signal"><i></i> HOLO LINK STABLE</span></div>
+ <h2>CHOOSE YOUR WORLD</h2>
+ <p class="world-holo-subtitle">Select a destination. Every world tells a different story.</p>
+ <div class="world-holo-stage">
+   <div class="world-holo-scanline"></div>
+   <div class="world-holo-planet-wrap"><div class="world-holo-orbit world-holo-orbit-a"></div><div class="world-holo-orbit world-holo-orbit-b"></div><div class="world-holo-planet" id="worldHoloPlanet"><div class="world-holo-planet-surface"></div><div class="world-holo-atmosphere"></div><div class="world-holo-planet-ring"></div></div><div class="world-holo-planet-shadow"></div><div class="world-holo-coordinate" id="worldHoloCoords">SECTOR 01 / 04</div></div>
+   <div class="world-holo-data">
+     <div class="world-holo-kicker" id="worldHoloKicker">DESTINATION 01 / 04</div>
+     <h3 id="worldHoloName"></h3>
+     <div class="world-holo-rule"><span></span></div>
+     <p class="world-holo-description" id="worldHoloDescription" aria-live="polite"></p>
+     <div class="world-holo-readouts"><div><small>ROOMS</small><b id="worldHoloRooms">20</b></div><div><small>BEST CLEAR</small><b id="worldHoloBest">0 / 20</b></div><div><small>THREAT</small><b id="worldHoloThreat">MODERATE</b></div></div>
+     <div class="world-holo-lock" id="worldHoloLock"></div>
+     <button class="world-holo-deploy" id="worldHoloDeploy">DEPLOY TO WORLD <span>↗</span></button>
+   </div>
+ </div>
+ <div class="world-holo-navigation"><button type="button" class="world-holo-step" id="worldHoloPrev" aria-label="Previous world">←</button><div class="world-holo-track" id="worldHoloTrack">${worlds.map((w,i)=>`<button type="button" class="world-holo-node" data-holo-world="${i}" style="--world-accent:${w.accent}" aria-label="Select ${w.name}"><span>${String(i+1).padStart(2,'0')}</span><b>${w.name}</b><i></i></button>`).join('')}</div><button type="button" class="world-holo-step" id="worldHoloNext" aria-label="Next world">→</button></div>
+ <div class="world-holo-footer"><span>SCROLL OR USE ARROWS TO NAVIGATE</span><span>PROGRESS SAVED LOCALLY</span></div>
+ <div class="menu-actions"><button class="btn" id="worldBack">← MAIN MENU</button></div>`;
+ const name=$('worldHoloName'),description=$('worldHoloDescription'),planet=$('worldHoloPlanet');
+ const worldThreat=['ELEVATED','HIGH','SEVERE','CRITICAL'];
+ function typeText(node,text,speed=24){
+  if(typeTimer)clearInterval(typeTimer);
+  node.textContent='';let pos=0;
+  typeTimer=setInterval(()=>{if(!node.isConnected){clearInterval(typeTimer);return;}node.textContent=text.slice(0,pos++);if(pos>text.length){clearInterval(typeTimer);typeTimer=null;}},speed);
+ }
+ function selectWorld(index,animate=true){
+  selected=(index+worlds.length)%worlds.length;
+  const w=worlds[selected],unlocked=selected<saveData.unlockedWorlds,best=saveData.bestRooms[selected]||0;
+  hoveredWorldPreview=selected;worldPreviewChangedAt=performance.now();lastWorldPreviewFrame=0;
+  modal.style.setProperty('--world-accent',w.accent);modal.style.setProperty('--world-secondary',w.secondary);
+  modal.dataset.selectedWorld=String(selected);
+  planet.dataset.planet=String(selected);planet.className='world-holo-planet planet-'+selected+(animate?' is-arriving':'');
+  $('worldHoloKicker').textContent='DESTINATION '+String(selected+1).padStart(2,'0')+' / '+String(worlds.length).padStart(2,'0')+(unlocked?' · ACCESS GRANTED':' · ACCESS RESTRICTED');
+  $('worldHoloCoords').textContent=['ASH BELT / 04.19.8','CRYO SECTOR / 11.02.4','VERDANT ZONE / 07.28.1','EVENT EDGE / 00.00.0'][selected];
+  name.textContent=w.name;
+  $('worldHoloRooms').textContent=String(w.rooms).padStart(2,'0');
+  $('worldHoloBest').textContent=best+' / '+w.rooms;
+  $('worldHoloThreat').textContent=worldThreat[selected];
+  $('worldHoloLock').textContent=unlocked?'● UPLINK READY · DESTINATION STABLE':'▰ LOCKED · CLEAR THE PREVIOUS WORLD TO UNLOCK';
+  $('worldHoloLock').classList.toggle('is-locked',!unlocked);
+  const deploy=$('worldHoloDeploy');deploy.disabled=!unlocked;deploy.innerHTML=unlocked?'DEPLOY TO WORLD <span>↗</span>':'DESTINATION LOCKED <span>⌁</span>';
+  $('worldHoloPrev').disabled=selected===0;$('worldHoloNext').disabled=selected===worlds.length-1;
+  modal.querySelectorAll('[data-holo-world]').forEach((b,i)=>{b.classList.toggle('active',i===selected);b.classList.toggle('locked',i>=saveData.unlockedWorlds);b.setAttribute('aria-current',i===selected?'true':'false');});
+  const active=modal.querySelector('[data-holo-world="'+selected+'"]');active?.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
+  if(animate){description.classList.add('is-typing');typeText(description,w.desc,24);}else{description.textContent=w.desc;description.classList.remove('is-typing');}
+ }
+ function deploy(){
+  if(selected>=saveData.unlockedWorlds)return;
+  const idx=selected;
+  if(saveData.campaignCheckpoint){confirmInGame('DELETE THE SAVED RUN?','Starting a new run deletes the previous checkpoint, including its core, stats, and build. This cannot be undone.','DELETE & START NEW RUN',()=>{saveData.campaignCheckpoint=null;beginSelectedWorld(idx)},showWorldSelect,'KEEP SAVE');return}
+  saveData.campaignCheckpoint=null;beginSelectedWorld(idx);
+ }
+ modal.querySelectorAll('[data-holo-world]').forEach((b,i)=>b.addEventListener('click',()=>selectWorld(i)));
+ $('worldHoloPrev').onclick=()=>selectWorld(Math.max(0,selected-1));
+ $('worldHoloNext').onclick=()=>selectWorld(Math.min(worlds.length-1,selected+1));
+ $('worldHoloDeploy').onclick=deploy;
+ modal.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12){e.preventDefault();selectWorld(Math.max(0,Math.min(worlds.length-1,selected+(e.deltaY>0?1:-1))));}},{passive:false});
+ modal.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();selectWorld(Math.min(worlds.length-1,selected+1));}else if(e.key==='ArrowLeft'){e.preventDefault();selectWorld(Math.max(0,selected-1));}else if(e.key==='Enter'&&!$('worldHoloDeploy').disabled){deploy();}},{capture:true});
+ $('worldBack').onclick=showMainMenu;
+ selectWorld(initial,false);
+}
+
 function completeWorld(){
  const w=world();
  if(currentWorld===-1){tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TUTORIAL COMPLETE','READY FOR CAMPAIGN','Tutorial complete. Your campaign progress is unchanged.',[{glyph:'✦',color:'#72f6ff',title:'ENTER CAMPAIGN',desc:'Choose one of the four campaign worlds.',action:showWorldSelect},{glyph:'↻',color:'#ffe38a',title:'REPEAT TUTORIAL',desc:'Practice the controls and objectives again.',action:()=>{currentWorld=-1;run++;start()}}]);return;}
