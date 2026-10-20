@@ -708,3 +708,23 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 .screen .status-hud{opacity:1!important}
 .screen .skill-hud,.screen .dash-hud,.screen .ultimate-hud{opacity:1!important}
 .screen .combat-stats-panel{opacity:1!important}
+
+/* Each peripheral HUD element brightens independently on hover. */
+.screen .particle-panel,
+.screen .combat-stats-toggle,
+.screen .toast,
+.screen .tutorial-tip,
+.screen .side,
+.screen .bottom,
+.screen #pauseBtn{opacity:.32;transition:opacity .18s ease}
+.screen .particle-panel:hover,
+.screen .combat-stats-toggle:hover,
+.screen .combat-stats-toggle[aria-expanded="true"],
+.screen .toast:hover,
+.screen .tutorial-tip:hover,
+.screen .side:hover,
+.screen .bottom:hover,
+.screen #pauseBtn:hover{opacity:1}
+.screen .status-hud{opacity:1!important}
+.screen .skill-hud,.screen .dash-hud,.screen .ultimate-hud{opacity:1!important}
+.screen .combat-stats-panel{opacity:1!important}
