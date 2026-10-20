@@ -65,6 +65,16 @@ function world(){return currentWorld===-1?tutorialWorld:(worlds[currentWorld]||w
 function nativeElementForCore(id){return elements.find(e=>e.name===({ember:'FIRE',frost:'FROST',nova:'NOVA',remielle:'LUMINE',nature:'NATURE',flash:'LIGHTNING','elemental':'PRISM',vengeance:'CRIMSON'}[id]||'NOVA'))||elements[2]}
 function randomCargoDock(exclude){let pt={x:W/2,y:H/2};for(let i=0;i<40;i++){pt={x:rand(95,W-95),y:rand(85,H-85)};if(!exclude||dist(pt,exclude)>=Math.min(390,Math.min(W,H)*.72))break;}return pt;}function createCargoRoute(delivered=0,total=10){const from=randomCargoDock(),to=randomCargoDock(from),swap=Math.random()<.5;return{from:swap?to:from,to:swap?from:to,fromLabel:swap?'B':'A',toLabel:swap?'A':'B',picked:false,delivered,total};}
 
+function markGlobalBackButtons(root=document){
+ root.querySelectorAll('#modal button, #modal .menu-actions button').forEach(button=>{
+  const label=button.textContent.trim().replace(/\\s+/g,' ').toUpperCase();
+  if(/^(?:←\\s*)?(?:BACK TO\\b|MAIN MENU\\b)/.test(label))button.classList.add('global-back-button');
+ });
+}
+const backButtonDockObserver=new MutationObserver(()=>markGlobalBackButtons());
+const backButtonDockStart=()=>{const modalNode=document.getElementById('modal');if(modalNode){markGlobalBackButtons();backButtonDockObserver.observe(modalNode,{childList:true,subtree:true,characterData:true});}};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',backButtonDockStart,{once:true});else backButtonDockStart();
+
 function showModal(eyebrow,title,desc,choices){$('overlay').classList.remove('hidden','closing');let m=$('modal');m.classList.toggle('upgrade-modal',/EXPERIENCE THRESHOLD|EVOLVE YOUR ORB|EVOLUTION/i.test(eyebrow+' '+title));m.innerHTML=`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2><p>${desc}</p><div class="choices">${choices.map((x,i)=>{const rare=PERK_RARITY[String(x.title||'').trim().toUpperCase()]==='rare';return `<button class="choice ${rare?'rare-choice':''}" data-i="${i}"><span class="orb" style="color:${x.color||'#72f6ff'}">${x.glyph||'✦'}</span><span class="choice-copy"><b>${x.title}${rare?'<em class="rare-tag">RARE</em>':''}</b><small>${String(x.desc||'').replace(/^RARE ·\s*/,'')}</small></span></button>`}).join('')}</div>`;m.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{sfx('ui');choices[i].action()});}
 function confirmInGame(title,desc,confirmTitle,onConfirm,onCancel,cancelTitle='CANCEL'){
  showModal('SYSTEM CONFIRMATION',title,desc,[
