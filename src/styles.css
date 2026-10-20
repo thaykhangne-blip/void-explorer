@@ -668,7 +668,7 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 
 
 /* Compact right-edge drawer for live per-room combat statistics */
-.combat-stats-toggle{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:12;width:22px;height:46px;min-height:0;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid #526783;border-right:0;border-radius:5px 0 0 5px;background:rgba(8,15,30,.96);color:#9defff;box-shadow:0 0 12px #0008;cursor:pointer;font:inherit}
+.combat-stats-toggle{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:12;width:18px;height:30px;min-height:0;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid #526783;border-right:0;border-radius:5px 0 0 5px;background:rgba(8,15,30,.96);color:#9defff;box-shadow:0 0 12px #0008;cursor:pointer;font:inherit}
 .combat-stats-toggle>span{font-size:25px;line-height:1;transform:translateY(-1px)}
 .combat-stats-toggle:hover,.combat-stats-toggle[aria-expanded="true"]{border-color:#72f6ff;background:#102238;box-shadow:0 0 14px #72f6ff33}
 .combat-stats-panel{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:11;box-sizing:border-box;right:30px;width:min(176px,calc(100% - 54px));max-height:88%;overflow-y:auto;padding:13px 10px;background:rgba(7,12,25,.97);border:1px solid #3c5875;border-right:1px solid #3c5875;border-radius:6px 0 0 6px;box-shadow:0 8px 28px #000a;backdrop-filter:blur(8px);pointer-events:auto}
@@ -734,3 +734,8 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 /* Run HUD dimming: smooth idle opacity, full clarity on hover. */
 .screen > .particle-panel#particlePanel{opacity:.32!important;transition:opacity .18s ease!important;pointer-events:auto}
 .screen > .particle-panel#particlePanel:hover,.screen > .particle-panel#particlePanel:focus-within{opacity:1!important}
+
+
+/* Compact T-key hint for the run statistics panel. */
+.combat-stats-toggle>span{font-size:11px!important;font-weight:800;letter-spacing:.2px}
+@media(max-width:700px){.combat-stats-toggle{width:24px!important;height:32px!important;min-height:0!important}.combat-stats-toggle>span{font-size:11px!important}}
