@@ -846,3 +846,17 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
   .overlay:has(#modal .world-grid){padding:10px!important}
   #modal:has(.world-grid) .global-back-button{top:8px!important;left:8px!important}
 }
+
+
+/* Hide scrollbars in the campaign overlay while preserving scrolling when needed. */
+.overlay:has(#modal .world-grid),
+.overlay:has(#modal .world-grid) #modal{
+  scrollbar-width:none!important;
+  -ms-overflow-style:none!important;
+}
+.overlay:has(#modal .world-grid)::-webkit-scrollbar,
+.overlay:has(#modal .world-grid) #modal::-webkit-scrollbar{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
