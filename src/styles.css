@@ -1205,3 +1205,21 @@ button.global-back-button:hover{
 #modal.core-hologram-modal #coreHoloDescription{display:none!important}
 #modal.core-hologram-modal .world-holo-rule{margin-bottom:18px!important}
 #modal.core-hologram-modal .core-holo-readouts{margin-top:22px!important}
+
+
+/* Core hologram: use the wheel to navigate, not to scroll the modal. */
+#modal.core-hologram-modal{
+  overflow-y:auto!important;
+  scrollbar-width:none!important;
+  -ms-overflow-style:none!important;
+}
+#modal.core-hologram-modal::-webkit-scrollbar,
+#modal.core-hologram-modal *::-webkit-scrollbar{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+#modal.core-hologram-modal,
+#modal.core-hologram-modal *{
+  scrollbar-width:none!important;
+}
