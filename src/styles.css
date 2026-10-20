@@ -732,5 +732,5 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 
 
 /* Run HUD dimming: smooth idle opacity, full clarity on hover. */
-.screen > .particle-panel#particlePanel{opacity:.32;transition:opacity .18s ease}
-.screen > .particle-panel#particlePanel:hover{opacity:1}
+.screen > .particle-panel#particlePanel{opacity:.32!important;transition:opacity .18s ease!important;pointer-events:auto}
+.screen > .particle-panel#particlePanel:hover,.screen > .particle-panel#particlePanel:focus-within{opacity:1!important}
