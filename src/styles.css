@@ -1199,3 +1199,9 @@ button.global-back-button:hover{
 #modal.core-hologram-modal .world-holo-node{flex:1 1 0;min-width:0}
 #modal.core-hologram-modal .world-holo-node b{font-size:10px}
 @media(max-width:760px){#modal.core-hologram-modal .core-holo-stage{grid-template-columns:minmax(0,1fr)!important;gap:10px!important}#modal.core-hologram-modal .core-holo-visual{min-height:170px!important}#modal.core-hologram-modal .core-holo-planet{width:150px!important}#modal.core-hologram-modal .world-holo-navigation{gap:6px!important}#modal.core-hologram-modal .world-holo-node b{display:none}}
+
+
+/* Core selector: hide the long description line; keep the tactical readouts prominent. */
+#modal.core-hologram-modal #coreHoloDescription{display:none!important}
+#modal.core-hologram-modal .world-holo-rule{margin-bottom:18px!important}
+#modal.core-hologram-modal .core-holo-readouts{margin-top:22px!important}
