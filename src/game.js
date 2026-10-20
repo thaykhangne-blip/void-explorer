@@ -474,7 +474,7 @@ function showCoreSelection(){
  <div class="world-holo-data"><div class="world-holo-kicker" id="coreHoloKicker">ORIGIN 01 / CORE MATRIX</div><h3 id="coreHoloName"></h3><div class="world-holo-rule"><span></span></div>
  <p class="world-holo-description" id="coreHoloDescription" aria-live="polite"></p>
  <div class="world-holo-readouts core-holo-readouts"><div><small>ATTACK</small><b id="coreHoloAttack">—</b></div><div><small>MOBILITY</small><b id="coreHoloSpeed">—</b></div><div><small>HULL</small><b id="coreHoloHull">—</b></div></div>
- <div class="world-holo-lock" id="coreHoloStatus"></div><button class="world-holo-deploy" id="coreHoloDeploy">SELECT CORE <span>↗</span></button><button type="button" class="core-holo-details" id="coreHoloDetails">VIEW CORE DOSSIER ↗</button></div></div>
+ <div class="world-holo-lock" id="coreHoloStatus"></div><button class="world-holo-deploy" id="coreHoloDeploy">SELECT CORE <span>↗</span></button></div></div>
  <div class="world-holo-navigation"><button type="button" class="world-holo-step" id="coreHoloPrev" aria-label="Previous core">←</button><div class="world-holo-track" id="coreHoloTrack">${cores.map((c,i)=>`<button type="button" class="world-holo-node" data-holo-core="${i}" style="--world-accent:${c.color}" aria-label="Select ${c.name}"><span>${String(i+1).padStart(2,'0')}</span><b>${c.name}</b><i></i></button>`).join('')}</div><button type="button" class="world-holo-step" id="coreHoloNext" aria-label="Next core">→</button></div>
  <div class="world-holo-footer"><span>USE ARROWS TO NAVIGATE CORES</span><span>CORE MASTERY PERSISTS</span></div>`;
  const desc=$('coreHoloDescription');
