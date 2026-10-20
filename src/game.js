@@ -481,7 +481,7 @@ function showCoreSelection(){
  function typeCoreText(text){if(typeTimer)clearInterval(typeTimer);desc.textContent='';let pos=0;desc.classList.add('is-typing');typeTimer=setInterval(()=>{if(!desc.isConnected){clearInterval(typeTimer);return;}desc.textContent=text.slice(0,pos++);if(pos>text.length){clearInterval(typeTimer);typeTimer=null;desc.classList.remove('is-typing');}},22);}
  function selectCore(index,animate=true){selected=(index+cores.length)%cores.length;const c=cores[selected],unlocked=isCoreUnlocked(c.id),vals=statsFor(c);
  modal.style.setProperty('--world-accent',c.color||'#72f6ff');modal.style.setProperty('--world-secondary',c.color||'#174c78');modal.dataset.selectedCore=String(selected);
- $('coreHoloPlanet').className='world-holo-planet core-holo-planet'+(animate?' is-arriving':'');$('coreHoloGlyph').textContent=c.glyph||'✦';
+ $('coreHoloPlanet').className='world-holo-planet core-holo-planet'+(c.id==='elemental'?' elemental-spectrum':'')+(animate?' is-arriving':'');$('coreHoloGlyph').textContent=c.glyph||'✦';
  $('coreHoloKicker').textContent='ORIGIN '+String(selected+1).padStart(2,'0')+' / '+(unlocked?'ACCESS GRANTED':'ACCESS RESTRICTED');$('coreHoloName').textContent=c.name.toUpperCase();
  $('coreHoloAttack').textContent=vals[0];$('coreHoloSpeed').textContent=vals[1];$('coreHoloHull').textContent=vals[2];$('coreHoloStatus').textContent=unlocked?'● CORE SYNCHRONIZED · READY FOR DEPLOYMENT':'▰ CORE LOCKED · '+coreUnlockMessage(c.id);$('coreHoloStatus').classList.toggle('is-locked',!unlocked);
  const deploy=$('coreHoloDeploy');deploy.disabled=!unlocked;deploy.innerHTML=unlocked?'SELECT CORE <span>↗</span>':'CORE LOCKED <span>⌁</span>';
