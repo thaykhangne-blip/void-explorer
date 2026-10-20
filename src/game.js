@@ -187,7 +187,8 @@ function showWorldSelect(){
  $('worldHoloDeploy').onclick=deploy;
  modal.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12){e.preventDefault();selectWorld(Math.max(0,Math.min(worlds.length-1,selected+(e.deltaY>0?1:-1))));}},{passive:false});
  modal.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();selectWorld(Math.min(worlds.length-1,selected+1));}else if(e.key==='ArrowLeft'){e.preventDefault();selectWorld(Math.max(0,selected-1));}else if(e.key==='Enter'&&!$('worldHoloDeploy').disabled){deploy();}},{capture:true});
- $('worldHoloBack').onclick=showMainMenu;\n $('worldBack')?.remove();
+ $('worldHoloBack').onclick=showMainMenu;
+ $('worldBack')?.remove();
  selectWorld(initial,false);
 }
 
