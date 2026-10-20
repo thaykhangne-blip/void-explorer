@@ -1,6 +1,6 @@
 <div align="center">
 
-# Void Explorer
+# Void Protocol
 
 **A little light, a lot of things trying to kill it, and a company that would rather cut the budget than admit it was wrong.**
 
@@ -16,11 +16,11 @@
 
 ---
 
-## So, what is Void Explorer?
+## So, what is Void Protocol?
 
 You’re a little living core of light dropped into a universe that has very clearly gone wrong. Fight through hostile rooms, break singularities, dodge things that should probably not have tentacles, and grab upgrades that turn a desperate run into a build that might actually survive.
 
-Void Explorer is a browser-based action roguelike built around quick combat, distinct playable cores, elemental abilities, room-to-room choices, and increasingly nasty bosses. Between fights, there’s another problem waiting for you: V Corp, the company responsible for this mess, is determined to manage the disaster with budget cuts, corporate slogans, and the occasional wellness initiative.
+Void Protocol is a browser-based action roguelike built around quick combat, distinct playable cores, elemental abilities, room-to-room choices, and increasingly nasty bosses. Between fights, there’s another problem waiting for you: V Corp, the company responsible for this mess, is determined to manage the disaster with budget cuts, corporate slogans, and the occasional wellness initiative.
 
 The game is still in beta. Things will break, balance will change, and some ideas will turn out to be less clever once they meet actual gameplay. That’s part of making a game.
 
@@ -71,7 +71,7 @@ Then open [http://localhost:8000](http://localhost:8000).
 
 ## Under the hood
 
-Void Explorer is made with standard web technologies:
+Void Protocol is made with standard web technologies:
 
 - **HTML5** for the page and interface structure
 - **CSS3** for layouts, styling, and effects
