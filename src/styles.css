@@ -1312,3 +1312,10 @@ button.global-back-button:hover{
   color:#fff;
   text-shadow:0 0 8px #fff,0 0 18px rgba(255,255,255,.8),0 0 35px rgba(191,140,255,.65);
 }
+
+
+/* All non-Elemental core glyphs use the same white luminous symbol treatment. */
+#modal.core-hologram-modal .core-holo-planet:not(.elemental-spectrum) #coreHoloGlyph{
+  color:#fff!important;
+  text-shadow:0 0 8px #fff,0 0 18px rgba(255,255,255,.8),0 0 35px rgba(255,255,255,.62)!important;
+}
