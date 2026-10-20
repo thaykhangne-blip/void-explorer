@@ -67,7 +67,7 @@ function randomCargoDock(exclude){let pt={x:W/2,y:H/2};for(let i=0;i<40;i++){pt=
 
 function markGlobalBackButtons(root=document){
  root.querySelectorAll('#modal button, #modal .menu-actions button').forEach(button=>{
-  const label=button.textContent.trim().replace(/\\s+/g,' ').toUpperCase().replace(/^←\\s*/,'');
+  const label=button.textContent.trim().replace(/\s+/g,' ').toUpperCase().replace(/^←\s*/,'');
   if(label.startsWith('BACK TO ')||label==='MAIN MENU')button.classList.add('global-back-button');
  });
 }
@@ -109,7 +109,7 @@ const groups=[
 {key:'vengeance',title:'VENGEANCE CORE EXCLUSIVE',sub:'Blood shields, crimson blades, and berserker scaling.',accent:'#ff304f',test:p=>p[0].startsWith('VENGEANCE:')},
 {key:'remielle',title:'AURALIS EXCLUSIVE',sub:'Lumine and Prism Flight upgrades.',accent:'#ff9ed8',test:p=>p[0].startsWith('AURALIS:')||['PRISMATIC SNARE','PRISM FLIGHT','PRISM FLIGHT: SWIFT CURRENT','PRISM FLIGHT: LASTING RADIANCE','PRISM FLIGHT: PRISM ECHO','PRISM FLIGHT: MULTIPLICITY','PRISMATIC','LUMINOUS WINGS'].includes(p[0])}
 ];
-const card=(p)=>{const rare=PERK_RARITY[String(p[0]||'').trim().toUpperCase()]==='rare';return `<article class="codex-entry ${rare?'codex-featured':''}"><b>${p[1]} ${p[0]}${rare?'<span class="codex-rarity">RARE</span>':''}</b><small>${String(p[2]||'').replace(/^RARE ·\\s*/,'')}</small></article>`;};
+const card=(p)=>{const rare=PERK_RARITY[String(p[0]||'').trim().toUpperCase()]==='rare';return `<article class="codex-entry ${rare?'codex-featured':''}"><b>${p[1]} ${p[0]}${rare?'<span class="codex-rarity">RARE</span>':''}</b><small>${String(p[2]||'').replace(/^RARE ·\s*/,'')}</small></article>`;};
 const sections=groups.map(g=>{const seen=new Set();const sameBuffAliases={general:new Set(['RAPID PULSAR','ULTIMATE AMPLIFIER','CORE RESONANCE'])};const items=perks.filter(g.test).filter(p=>{const key=p[0].normalize('NFKC').replace(/\s+/g,' ').trim().toUpperCase();if(seen.has(key))return false;seen.add(key);if(sameBuffAliases[g.key]?.has(key))return false;return true});return items.length?`<section id="codex-section-${g.key}" class="codex-section" style="--codex-accent:${g.accent}"><div class="codex-section-head"><h3>${g.title}</h3><p>${g.sub}</p><span>${items.length} ENTRIES</span></div><div class="codex-list">${items.map(card).join('')}</div></section>`:''}).join('');
 $('overlay').classList.remove('hidden','closing');$('modal').innerHTML=`<div class="eyebrow">UPGRADES</div><h2>PERK CODEX</h2><p>Browse universal upgrades and core-specific perks.</p><div class="codex-feature-key"><span>✦ RARE PERKS</span><span class="codex-jump-links"><button type="button" data-codex-jump="ember">EMBER</button><button type="button" data-codex-jump="frost">FROST</button><button type="button" data-codex-jump="nova">NOVA</button><button type="button" data-codex-jump="remielle">AURALIS</button><button type="button" data-codex-jump="flash">FLASH</button><button type="button" data-codex-jump="nature">NATURE</button><button type="button" data-codex-jump="elemental">ELEMENTAL</button><button type="button" data-codex-jump="vengeance">VENGEANCE</button></span></div><div class="codex-sections">${sections}</div><div class="menu-actions"><button class="btn" id="codexBack">← MAIN MENU</button></div>`;$('codexBack').onclick=showMainMenu;$('modal').querySelectorAll('[data-codex-jump]').forEach(btn=>btn.onclick=()=>{const target=$('codex-section-'+btn.dataset.codexJump);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});});}
 
