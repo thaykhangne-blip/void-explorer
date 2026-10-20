@@ -1223,3 +1223,57 @@ button.global-back-button:hover{
 #modal.core-hologram-modal *{
   scrollbar-width:none!important;
 }
+
+
+/* Core selection uses a luminous energy orb, not the planetary holograms used for worlds. */
+.core-holo-visual .core-holo-planet{
+  width:clamp(150px,19vw,230px);
+  filter:drop-shadow(0 0 22px color-mix(in srgb,var(--world-accent) 52%,transparent));
+}
+.core-holo-visual .core-holo-planet:before{
+  border-color:color-mix(in srgb,var(--world-accent) 82%,white);
+  box-shadow:inset 0 0 22px color-mix(in srgb,var(--world-accent) 42%,transparent),
+    inset 0 0 48px rgba(255,255,255,.12),
+    0 0 20px color-mix(in srgb,var(--world-accent) 50%,transparent);
+}
+.core-holo-visual .core-holo-planet:after{
+  inset:-11px;
+  border:1px dashed color-mix(in srgb,var(--world-accent) 68%,transparent);
+  opacity:.85;
+  box-shadow:0 0 22px color-mix(in srgb,var(--world-accent) 28%,transparent);
+  animation:coreOrbPulse 3.2s ease-in-out infinite;
+}
+.core-holo-visual .core-holo-planet-surface{
+  background:
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.98) 0, color-mix(in srgb,var(--world-accent) 78%,white) 5%,transparent 23%),
+    radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--world-accent) 92%,white),var(--world-accent) 30%,color-mix(in srgb,var(--world-secondary) 80%,#050817) 66%,#030612 100%);
+  box-shadow:inset 0 0 22px rgba(255,255,255,.2),
+    inset 0 0 48px color-mix(in srgb,var(--world-accent) 58%,transparent),
+    0 0 28px color-mix(in srgb,var(--world-accent) 36%,transparent);
+}
+.core-holo-visual .core-holo-planet-surface:before{
+  inset:8%;
+  opacity:.75;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0 9px,color-mix(in srgb,var(--world-accent) 52%,transparent) 10px 11px,transparent 12px 20px);
+  mix-blend-mode:screen;
+  transform:none;
+  animation:coreOrbEnergy 14s linear infinite;
+}
+.core-holo-visual .core-holo-planet-surface:after{
+  background:radial-gradient(ellipse at 30% 25%,rgba(255,255,255,.34),transparent 38%),
+    linear-gradient(135deg,transparent 25%,color-mix(in srgb,var(--world-accent) 24%,transparent) 50%,transparent 72%);
+  mix-blend-mode:screen;
+}
+.core-holo-visual .world-holo-atmosphere{
+  inset:-17px;
+  border-width:1px;
+  border-style:dashed;
+  filter:blur(1px);
+  opacity:.8;
+  animation:coreOrbPulse 4.2s ease-in-out infinite reverse;
+}
+.core-holo-visual .world-holo-planet-ring{display:none}
+.core-holo-visual .world-holo-orbit{width:126%;height:42%;border-style:dashed;opacity:.7}
+.core-holo-visual .world-holo-orbit-b{width:138%;height:54%;opacity:.38}
+@keyframes coreOrbPulse{0%,100%{transform:scale(.98);opacity:.55}50%{transform:scale(1.04);opacity:1}}
+@keyframes coreOrbEnergy{to{transform:rotate(360deg)}}
