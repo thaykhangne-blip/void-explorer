@@ -817,3 +817,32 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
   #modal:has(.world-grid) .world-card{min-height:150px!important;padding:16px!important}
   #modal:has(.world-grid) h2{font-size:clamp(21px,5vw,28px)!important;letter-spacing:2px!important}
 }
+
+
+/* Zoom-safe campaign layout: size against the overlay content box, not raw viewport width. */
+.overlay:has(#modal .world-grid){
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  padding:12px!important;
+  box-sizing:border-box!important;
+}
+#modal:has(.world-grid){
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0 auto!important;
+  box-sizing:border-box!important;
+  overflow-x:hidden!important;
+}
+#modal:has(.world-grid) .world-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+#modal:has(.world-grid) .global-back-button{
+  position:absolute!important;
+  top:12px!important;
+  left:12px!important;
+}
+@media(max-width:700px){
+  .overlay:has(#modal .world-grid){padding:10px!important}
+  #modal:has(.world-grid) .global-back-button{top:8px!important;left:8px!important}
+}
