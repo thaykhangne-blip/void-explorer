@@ -1277,3 +1277,38 @@ button.global-back-button:hover{
 .core-holo-visual .world-holo-orbit-b{width:138%;height:54%;opacity:.38}
 @keyframes coreOrbPulse{0%,100%{transform:scale(.98);opacity:.55}50%{transform:scale(1.04);opacity:1}}
 @keyframes coreOrbEnergy{to{transform:rotate(360deg)}}
+
+
+/* Elemental Core: five-way spectrum representing Fire, Frost, Lightning, Nova, and Nature. */
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum{
+  --world-accent:#ff71cd;
+  filter:drop-shadow(0 0 15px rgba(255,122,80,.36)) drop-shadow(0 0 19px rgba(123,232,255,.3)) drop-shadow(0 0 22px rgba(255,232,117,.28)) drop-shadow(0 0 20px rgba(191,140,255,.28)) drop-shadow(0 0 22px rgba(112,229,138,.28));
+}
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum:before{
+  border-color:transparent;
+  background:conic-gradient(from -90deg,#ff7a50 0deg 72deg,#7be8ff 72deg 144deg,#ffe875 144deg 216deg,#bf8cff 216deg 288deg,#70e58a 288deg 360deg);
+  padding:2px;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  box-shadow:0 0 24px rgba(255,255,255,.12);
+}
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum .core-holo-planet-surface{
+  background:radial-gradient(circle at 35% 27%,rgba(255,255,255,.98),transparent 20%),conic-gradient(from -90deg,#ff7a50 0deg 72deg,#7be8ff 72deg 144deg,#ffe875 144deg 216deg,#bf8cff 216deg 288deg,#70e58a 288deg 360deg);
+  box-shadow:inset 0 0 26px rgba(255,255,255,.5),inset 0 0 55px rgba(4,8,20,.55),0 0 32px rgba(255,255,255,.12);
+}
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum .core-holo-planet-surface:before{
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0 8px,rgba(255,255,255,.4) 9px 10px,transparent 11px 18px);
+  mix-blend-mode:screen;
+}
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum .world-holo-atmosphere{
+  border-color:transparent;
+  background:conic-gradient(from -90deg,rgba(255,122,80,.9),rgba(123,232,255,.9),rgba(255,232,117,.9),rgba(191,140,255,.9),rgba(112,229,138,.9),rgba(255,122,80,.9));
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 1px),#fff 100%);
+  mask:radial-gradient(farthest-side,transparent calc(100% - 1px),#fff 100%);
+  filter:blur(1px);
+}
+#modal.core-hologram-modal .core-holo-planet.elemental-spectrum #coreHoloGlyph{
+  color:#fff;
+  text-shadow:0 0 8px #fff,0 0 18px rgba(255,255,255,.8),0 0 35px rgba(191,140,255,.65);
+}
