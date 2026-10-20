@@ -67,8 +67,8 @@ function randomCargoDock(exclude){let pt={x:W/2,y:H/2};for(let i=0;i<40;i++){pt=
 
 function markGlobalBackButtons(root=document){
  root.querySelectorAll('#modal button, #modal .menu-actions button').forEach(button=>{
-  const label=button.textContent.trim().replace(/\\s+/g,' ').toUpperCase();
-  if(/^(?:←\\s*)?(?:BACK TO\\b|MAIN MENU\\b)/.test(label))button.classList.add('global-back-button');
+  const label=button.textContent.trim().replace(/\s+/g,' ').toUpperCase();
+  if(/^(?:←\s*)?(?:BACK TO\\b|MAIN MENU\\b)/.test(label))button.classList.add('global-back-button');
  });
 }
 const backButtonDockObserver=new MutationObserver(()=>markGlobalBackButtons());
