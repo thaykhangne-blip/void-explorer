@@ -1324,7 +1324,7 @@ button.global-back-button:hover{
 #modal.core-hologram-modal .core-holo-stage{position:relative}
 #modal.core-hologram-modal .core-holo-side-icons{position:absolute;z-index:12;top:12px;bottom:12px;width:clamp(70px,8vw,112px);display:flex;flex-direction:column;justify-content:center;gap:8px}
 #modal.core-hologram-modal .core-holo-abilities{left:12px}
-#modal.core-hologram-modal .core-holo-evolutions{left:calc(50% - 340px);right:auto}
+#modal.core-hologram-modal .core-holo-evolutions{left:34%;right:auto}
 #modal.core-hologram-modal .core-holo-icon-heading{font:9px/1.3 monospace;letter-spacing:.1em;text-align:center;color:#9bb5d3;margin-bottom:2px}
 #modal.core-hologram-modal .core-holo-mini-icon{position:relative;width:100%;min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:5px 2px;border:1px solid color-mix(in srgb,var(--world-accent) 42%,#26374d);border-radius:6px;background:rgba(5,13,27,.92);color:#fff;cursor:help;text-align:center}
 #modal.core-hologram-modal .core-holo-mini-icon>span{font-size:23px;line-height:1;color:#fff;text-shadow:0 0 8px #fff,0 0 18px rgba(255,255,255,.65)}
