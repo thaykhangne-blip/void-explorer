@@ -1344,6 +1344,3 @@ button.global-back-button:hover{
  #modal.core-hologram-modal .core-holo-mini-icon{min-height:48px}
  #modal.core-hologram-modal .core-holo-mini-icon:after{left:50%!important;right:auto!important;top:auto;bottom:calc(100% + 6px);transform:translateX(-50%);width:180px}
 }
-
-/* Core selection: expand deploy action into the space formerly occupied by the dossier button. */
-#modal.core-hologram-modal .world-holo-deploy{min-height:88px;height:88px;display:flex;align-items:center;justify-content:space-between}
