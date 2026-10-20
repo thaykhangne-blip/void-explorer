@@ -665,3 +665,26 @@ button,input,select,textarea{font:inherit;box-sizing:border-box;}
 }
 .motif-feather.m2{transform:rotate(-24deg) scale(.78);margin-left:-22px}
 .motif-feather.m3{transform:rotate(54deg) scale(.6);margin-left:-21px}
+
+
+/* Live per-room combat statistics HUD */
+.combat-stats-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:12;width:43px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid #526783;border-radius:5px;background:rgba(8,15,30,.94);color:#9defff;box-shadow:0 0 14px #0008;cursor:pointer;font:inherit}
+.combat-stats-toggle>span{font-size:20px;line-height:1}
+.combat-stats-toggle small{font-size:8px;letter-spacing:.8px}
+.combat-stats-toggle:hover,.combat-stats-toggle[aria-expanded="true"]{border-color:#72f6ff;background:#102238;box-shadow:0 0 14px #72f6ff33}
+.combat-stats-panel{position:absolute;right:61px;top:50%;transform:translateY(-50%);z-index:11;width:min(270px,calc(100vw - 90px));padding:12px;background:rgba(7,12,25,.96);border:1px solid #3c5875;border-radius:6px;box-shadow:0 8px 28px #000a;backdrop-filter:blur(8px);pointer-events:auto}
+.combat-stats-panel[hidden]{display:none}
+.combat-stats-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:9px;margin-bottom:10px;border-bottom:1px solid #293754}
+.combat-stats-heading b{font-size:10px;letter-spacing:1.1px;color:#e8f3ff}
+.combat-stats-heading span{font-size:8px;letter-spacing:1px;color:#72f6ff}
+.combat-metric{margin:11px 0 13px}
+.combat-metric-label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;letter-spacing:.35px}
+.combat-metric-label span{color:#9aaac7}
+.combat-metric-label b{font-size:12px;color:#f0f6ff;font-variant-numeric:tabular-nums}
+.combat-metric-track{height:7px;margin-top:5px;background:#202a40;border:1px solid #303e59;border-radius:2px;overflow:hidden}
+.combat-metric-track i{display:block;width:0;height:100%;transition:width .12s linear}
+[data-metric="damageDealt"] .combat-metric-track i{background:linear-gradient(90deg,#ff526b,#ffb0bd);box-shadow:0 0 8px #ff526b55}
+[data-metric="healingReceived"] .combat-metric-track i{background:linear-gradient(90deg,#4fe39a,#b8ffd7);box-shadow:0 0 8px #4fe39a55}
+[data-metric="damageReceived"] .combat-metric-track i{background:linear-gradient(90deg,#ff9a50,#ffe0a8);box-shadow:0 0 8px #ff9a5055}
+.combat-stats-panel>p{margin:8px 0 0;color:#7284a3;font-size:9px;line-height:1.4}
+@media(max-width:700px){.combat-stats-toggle{right:7px;width:37px;min-height:51px}.combat-stats-panel{right:50px;width:min(240px,calc(100vw - 64px));padding:10px}.combat-stats-heading b{font-size:9px}.combat-metric-label{font-size:8px}}
