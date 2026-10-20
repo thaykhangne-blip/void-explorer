@@ -1043,3 +1043,50 @@ button.global-back-button:hover{
 @media(prefers-reduced-motion:reduce){
  .world-holo-signal i,.world-holo-scanline,.world-holo-planet-surface:before,.world-holo-orbit,.world-holo-description.is-typing:after{animation:none!important}
 }
+
+/* World hologram: compact the projection so the full interface fits inside the modal. */
+#modal.world-hologram-modal{box-sizing:border-box!important;width:min(1320px,calc(100vw - 48px))!important;max-height:calc(100vh - 32px)!important;padding:18px 22px 16px!important;overflow-x:hidden!important;overflow-y:auto!important}
+.world-holo-back{position:absolute!important;top:14px!important;left:14px!important;z-index:8!important;width:34px!important;height:34px!important;min-width:34px!important;padding:0!important;display:grid!important;place-items:center!important;border:1px solid rgba(111,205,255,.38)!important;border-radius:8px!important;background:rgba(7,15,29,.9)!important;color:#83efff!important;font-size:20px!important;line-height:1!important;cursor:pointer!important}
+.world-holo-back:hover{background:rgba(29,55,79,.95)!important;border-color:#83efff!important}
+#modal.world-hologram-modal>.world-holo-topline{padding-left:42px!important;margin-bottom:4px!important}
+#modal.world-hologram-modal>h2{font-size:clamp(21px,2.25vw,30px)!important;letter-spacing:.18em!important;margin:2px 0 5px!important}
+.world-holo-subtitle{font-size:12px!important;margin-bottom:12px!important}
+.world-holo-stage{grid-template-columns:minmax(210px,.8fr) minmax(280px,1.2fr)!important;gap:clamp(16px,2.4vw,32px)!important;min-height:clamp(235px,34vh,340px)!important;padding:clamp(14px,2vw,24px)!important}
+.world-holo-planet-wrap{min-height:220px!important}
+.world-holo-planet{width:clamp(150px,17vw,225px)!important}
+.world-holo-data h3{font-size:clamp(24px,2.8vw,38px)!important;margin:6px 0 9px!important;letter-spacing:.08em!important}
+.world-holo-description{font-size:clamp(12px,1.25vw,16px)!important;line-height:1.55!important;min-height:2.8em!important;margin:10px 0 18px!important}
+.world-holo-readouts{gap:8px!important;margin-bottom:12px!important}
+.world-holo-readouts>div{padding:10px 8px!important}
+.world-holo-readouts small{font-size:8px!important;letter-spacing:.12em!important}
+.world-holo-readouts b{font-size:14px!important}
+.world-holo-lock{font-size:10px!important;margin:8px 0 12px!important}
+.world-holo-deploy{min-height:48px!important;padding:11px 16px!important;font-size:12px!important}
+.world-holo-navigation{margin-top:12px!important;gap:10px!important}
+.world-holo-node{min-height:48px!important;padding:9px 12px!important;flex-basis:0!important;min-width:0!important}
+.world-holo-node b{font-size:10px!important}
+.world-holo-step{width:42px!important;min-width:42px!important;height:42px!important}
+.world-holo-footer{margin-top:8px!important;font-size:8px!important}
+#modal.world-hologram-modal .menu-actions{display:none!important}
+@media(max-height:760px) and (min-width:761px){
+ #modal.world-hologram-modal{padding:10px 18px!important;max-height:calc(100vh - 18px)!important}
+ .world-holo-stage{min-height:220px!important;padding:12px 18px!important}
+ .world-holo-planet-wrap{min-height:190px!important}
+ .world-holo-planet{width:clamp(140px,15vw,190px)!important}
+ .world-holo-subtitle{margin-bottom:8px!important}
+ .world-holo-navigation{margin-top:8px!important}
+ .world-holo-node{min-height:40px!important}
+}
+@media(max-width:760px){
+ #modal.world-hologram-modal{width:calc(100vw - 24px)!important;padding:12px!important;max-height:calc(100vh - 16px)!important}
+ .world-holo-back{top:8px!important;left:8px!important}
+ #modal.world-hologram-modal>.world-holo-topline{padding-left:38px!important}
+ .world-holo-stage{grid-template-columns:1fr!important;gap:8px!important;padding:12px!important;min-height:0!important}
+ .world-holo-planet-wrap{min-height:170px!important}
+ .world-holo-planet{width:clamp(130px,38vw,180px)!important}
+ .world-holo-data h3{font-size:clamp(22px,6vw,30px)!important}
+ .world-holo-readouts>div{padding:7px 5px!important}
+ .world-holo-navigation{gap:6px!important}
+ .world-holo-node{flex:0 0 120px!important}
+ .world-holo-footer{display:none!important}
+}
