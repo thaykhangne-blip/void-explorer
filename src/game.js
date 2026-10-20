@@ -469,7 +469,7 @@ function showCoreSelection(){
  <h2>SELECT YOUR CORE</h2><p class="world-holo-subtitle">Choose your origin. Every core rewrites the way you survive.</p>
  <div class="world-holo-stage core-holo-stage"><div class="world-holo-scanline"></div>
  <div class="world-holo-planet-wrap core-holo-visual"><div class="world-holo-orbit world-holo-orbit-a"></div><div class="world-holo-orbit world-holo-orbit-b"></div>
- <div class="world-holo-planet core-holo-planet" id="coreHoloPlanet"><div class="world-holo-planet-surface"></div><div class="world-holo-atmosphere"></div><div class="world-holo-planet-ring"></div><span id="coreHoloGlyph"></span></div><div class="world-holo-coordinate" id="coreHoloCoordinate">CORE SIGNATURE</div></div>
+ <div class="world-holo-planet core-holo-planet" id="coreHoloPlanet"><div class="world-holo-planet-surface"></div><div class="world-holo-atmosphere"></div><div class="world-holo-planet-ring"></div><span id="coreHoloGlyph"></span></div></div>
  <div class="world-holo-data"><div class="world-holo-kicker" id="coreHoloKicker">ORIGIN 01 / CORE MATRIX</div><h3 id="coreHoloName"></h3><div class="world-holo-rule"><span></span></div>
  <p class="world-holo-description" id="coreHoloDescription" aria-live="polite"></p>
  <div class="world-holo-readouts core-holo-readouts"><div><small>ATTACK</small><b id="coreHoloAttack">—</b></div><div><small>MOBILITY</small><b id="coreHoloSpeed">—</b></div><div><small>HULL</small><b id="coreHoloHull">—</b></div></div>
@@ -482,7 +482,7 @@ function showCoreSelection(){
  function selectCore(index,animate=true){selected=(index+cores.length)%cores.length;const c=cores[selected],unlocked=isCoreUnlocked(c.id),vals=statsFor(c);
  modal.style.setProperty('--world-accent',c.color||'#72f6ff');modal.style.setProperty('--world-secondary',c.color||'#174c78');modal.dataset.selectedCore=String(selected);
  $('coreHoloPlanet').className='world-holo-planet core-holo-planet'+(animate?' is-arriving':'');$('coreHoloGlyph').textContent=c.glyph||'✦';
- $('coreHoloKicker').textContent='ORIGIN '+String(selected+1).padStart(2,'0')+' / '+(unlocked?'ACCESS GRANTED':'ACCESS RESTRICTED');$('coreHoloCoordinate').textContent='CORE SIGNATURE / '+String(c.id||c.name).toUpperCase();$('coreHoloName').textContent=c.name.toUpperCase();
+ $('coreHoloKicker').textContent='ORIGIN '+String(selected+1).padStart(2,'0')+' / '+(unlocked?'ACCESS GRANTED':'ACCESS RESTRICTED');$('coreHoloName').textContent=c.name.toUpperCase();
  $('coreHoloAttack').textContent=vals[0];$('coreHoloSpeed').textContent=vals[1];$('coreHoloHull').textContent=vals[2];$('coreHoloStatus').textContent=unlocked?'● CORE SYNCHRONIZED · READY FOR DEPLOYMENT':'▰ CORE LOCKED · '+coreUnlockMessage(c.id);$('coreHoloStatus').classList.toggle('is-locked',!unlocked);
  const deploy=$('coreHoloDeploy');deploy.disabled=!unlocked;deploy.innerHTML=unlocked?'SELECT CORE <span>↗</span>':'CORE LOCKED <span>⌁</span>';
  $('coreHoloPrev').disabled=selected===0;$('coreHoloNext').disabled=selected===cores.length-1;
