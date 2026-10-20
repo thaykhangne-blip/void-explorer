@@ -139,8 +139,6 @@ function showFlightManual(returnState='paused'){settingsReturn=returnState;state
  const settingsModal=$('modal');settingsModal.className='modal settings-modal';
  settingsModal.innerHTML=`<div class="eyebrow">CONFIGURATION</div><h2>SETTINGS</h2><p>Customize controls, audio, and testing options.</p>
  <div class="setting-row ui-scale-row"><div style="flex:1;min-width:0"><b>UI SIZE</b><br><span>Scale the game interface and play area. Saved on this device.</span><input id="uiScale" aria-label="UI size" type="range" min="80" max="150" step="10" value="${Math.round(saveData.uiScale*100)}" style="display:block;width:100%;margin-top:9px;accent-color:var(--cyan)"></div><b id="uiScaleValue">${Math.round(saveData.uiScale*100)}%</b></div>
- <div class="setting-row"><div><b>AUTO SHOOT</b><br><span>Automatically fire at the nearest target.</span></div><button class="btn" id="autoToggle">${autoShoot?'ON':'OFF'}</button></div>
- <div class="setting-row"><div><b>MOUSE STEERING</b><br><span>Move the orb toward the mouse cursor.</span></div><button class="btn" id="mouseToggle">${mouseSteering?'ON':'OFF'}</button></div>
  <div class="setting-row"><div><b>BACKGROUND MUSIC</b><br><span>Play the arcade soundtrack.</span></div><button class="btn" id="musicToggle">${musicEnabled?'ON':'OFF'}</button></div>
  <div class="setting-row"><div style="flex:1"><b>MUSIC VOLUME</b><br><span>Adjust music volume.</span><input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="${Math.round(musicVolume*100)}" style="display:block;width:100%;margin-top:9px;accent-color:var(--cyan)"></div><b id="musicVolumeValue">${Math.round(musicVolume*100)}%</b></div>
  <div class="setting-row"><div><b>SOUND EFFECTS</b><br><span>Toggle combat and menu sounds.</span></div><button class="btn" id="sfxToggle">${sfxEnabled?'ON':'OFF'}</button></div>
@@ -153,8 +151,6 @@ function showFlightManual(returnState='paused'){settingsReturn=returnState;state
  <div class="setting-row"><div><b>FLIGHT MANUAL</b><br><span>View controls and gameplay tips.</span></div><button class="btn" id="manualOpen">OPEN</button></div>
  <div class="setting-row"><div><b>PAUSE KEY</b><br><span>Escape or P opens the pause menu.</span></div><b>ESC / P</b></div>
  <p class="version-note">VERSION 0.3</p><div class="menu-actions"><button class="btn" id="settingsBack">← BACK</button></div>`;
- $('autoToggle').onclick=()=>{autoShoot=!autoShoot;saveData.autoShoot=autoShoot;persist();showSettings(returnState)};
- $('mouseToggle').onclick=()=>{mouseSteering=!mouseSteering;saveData.mouseSteering=mouseSteering;persist();showSettings(returnState)};
  $('sfxToggle').onclick=()=>{sfxEnabled=!sfxEnabled;saveData.sfxEnabled=sfxEnabled;persist();if(sfxEnabled)sfx('ui');showSettings(returnState)};
  $('musicToggle').onclick=()=>{musicEnabled=!musicEnabled;saveData.musicEnabled=musicEnabled;persist();if(musicEnabled)startMusic();else stopMusic();showSettings(returnState)};
  $('uiScale').oninput=e=>{const scale=applyUiScale(Number(e.target.value)/100);saveData.uiScale=scale;persist();$('uiScaleValue').textContent=Math.round(scale*100)+'%';};
