@@ -128,7 +128,7 @@ function showWorldSelect(){
  let selected=initial,typeTimer=null;
  const modal=$('modal');
  modal.className='modal world-hologram-modal';
- modal.innerHTML=`<div class="world-holo-topline"><span class="eyebrow">CAMPAIGN SELECT / PLANETARY DATABASE</span><span class="world-holo-signal"><i></i> HOLO LINK STABLE</span></div>
+ modal.innerHTML=`<button type="button" class="world-holo-back" id="worldHoloBack" aria-label="Back to main menu" title="Back to main menu">←</button><div class="world-holo-topline"><span class="eyebrow">CAMPAIGN SELECT / PLANETARY DATABASE</span><span class="world-holo-signal"><i></i> HOLO LINK STABLE</span></div>
  <h2>CHOOSE YOUR WORLD</h2>
  <p class="world-holo-subtitle">Select a destination. Every world tells a different story.</p>
  <div class="world-holo-stage">
@@ -187,7 +187,7 @@ function showWorldSelect(){
  $('worldHoloDeploy').onclick=deploy;
  modal.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12){e.preventDefault();selectWorld(Math.max(0,Math.min(worlds.length-1,selected+(e.deltaY>0?1:-1))));}},{passive:false});
  modal.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();selectWorld(Math.min(worlds.length-1,selected+1));}else if(e.key==='ArrowLeft'){e.preventDefault();selectWorld(Math.max(0,selected-1));}else if(e.key==='Enter'&&!$('worldHoloDeploy').disabled){deploy();}},{capture:true});
- $('worldBack').onclick=showMainMenu;
+ $('worldHoloBack').onclick=showMainMenu;\n $('worldBack')?.remove();
  selectWorld(initial,false);
 }
 
