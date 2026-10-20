@@ -69,12 +69,13 @@ function markGlobalBackButtons(root=document){
  root.querySelectorAll('#modal button, #modal .menu-actions button').forEach(button=>{
   const raw=button.dataset.backButtonLabel||button.textContent.trim().replace(/\\s+/g,' ');
   const label=raw.toUpperCase().replace(/^←\\s*/,'');
-  if(label.startsWith('BACK TO ')||label==='MAIN MENU'){
+  if(label.startsWith('BACK')||label==='MAIN MENU'){
    button.classList.add('global-back-button');
    button.dataset.backButtonLabel=raw;
    button.setAttribute('aria-label',raw);
    button.title=raw;
    if(button.textContent.trim()!=='←')button.textContent='←';
+   if(button.parentElement!==document.body)document.body.appendChild(button);
   }
  });
 }
