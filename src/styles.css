@@ -1365,8 +1365,8 @@ button.global-back-button:hover{
 #modal .tutorial-tip button,
 #modal .core-holo-mini-icon{
   position:relative;
-  isolation:isolate;
-  overflow:hidden;
+  isolation:auto;
+  overflow:visible;
   border:1px solid rgba(191,222,255,.3);
   background:
     linear-gradient(135deg,rgba(255,255,255,.19) 0%,rgba(190,224,255,.075) 22%,rgba(109,151,212,.035) 55%,rgba(205,180,255,.09) 100%),
@@ -1707,4 +1707,15 @@ button.global-back-button:hover {
 }
 @media(max-width:760px) {
   #modal.codex-modal {max-height:calc(100dvh - 36px)!important}
+}
+
+
+/* Ability/evolution tooltips must escape their glass buttons instead of being clipped. */
+#modal.core-hologram-modal .core-holo-stage,
+#modal.core-hologram-modal .core-holo-side-icons,
+#modal.core-hologram-modal .core-holo-mini-icon {
+  overflow:visible!important;
+}
+#modal.core-hologram-modal .core-holo-mini-icon:after {
+  z-index:100!important;
 }
