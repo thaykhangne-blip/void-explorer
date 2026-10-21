@@ -1436,76 +1436,21 @@ button.global-back-button:hover{
 }
 
 
-/* Liquid-glass pass 2: extend glass surfaces beyond selection cards to HUD, pause controls, back buttons, and panels. */
-/* Glass treatment for broad menu surfaces and HUD panels, including the upgrade-matrix panel in the supplied screenshot. */
-#modal,
-#modal .modal,
-#modal .panel,
-#modal .codex-section,
-#modal .codex-entry,
-#modal .codex-feature-key,
-#modal .setting-row,
-#modal .upgrade-modal .choice .orb,
-#modal .upgrade,
-#modal .world-holo-node,
-#modal .core-holo-readouts,
-#modal .core-holo-details,
-#modal .core-holo-mini-icon,
-#modal .core-info-button,
-#modal .core-selection-back,
+
+/* Liquid-glass correction: style existing surfaces only. Do not create or restyle a container behind menu elements. */
+/* Existing interactive controls and existing cards only. */
 #modal .world-card,
 #modal .choice,
 #modal .btn,
 #modal .setting-row button,
 #modal .collapse-btn,
 #modal .codex-jump-links button,
-#modal .tutorial-tip,
-#modal .toast,
-#modal .core-holo-mini-icon {
-  background-color:rgba(14,25,45,.58);
-  background-image:
-    linear-gradient(132deg,rgba(255,255,255,.14) 0%,rgba(181,216,255,.055) 24%,rgba(107,143,202,.025) 56%,rgba(208,186,255,.075) 100%);
-  -webkit-backdrop-filter:blur(18px) saturate(170%);
-  backdrop-filter:blur(18px) saturate(170%);
-  border-color:rgba(190,220,255,.28);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(168,202,255,.07),0 8px 24px rgba(0,0,0,.18);
-}
-/* Preserve modal readability while making the actual surface feel like layered glass. */
-#modal {
-  background-color:rgba(8,14,27,.5);
-  border:1px solid rgba(190,220,255,.3);
-  border-radius:14px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 32px rgba(125,174,255,.035),0 16px 48px rgba(0,0,0,.32);
-}
-#modal .modal,
-#modal .panel,
-#modal .codex-section,
-#modal .codex-entry,
-#modal .codex-feature-key,
-#modal .setting-row,
-#modal .upgrade,
-#modal .world-holo-node,
-#modal .core-holo-readouts,
-#modal .core-holo-details,
+#modal .tutorial-tip button,
+#modal .core-holo-mini-icon,
 #modal .core-info-button,
 #modal .core-selection-back,
-#modal .toast {
-  border-radius:9px;
-}
-/* In-game HUD cards and action controls sit outside #modal, so style them explicitly. */
-.shard-hud,
-.ultimate-hud,
-.skill-hud,
-.dash-hud,
-.status-chip,
-.tutorial-tip,
-.toast,
-.panel,
-.build-panel,
-#hud,
-.hud,
-.hud-panel,
-.hud-card,
+.overlay button,
+.overlay .btn,
 .hud-button,
 .pause-button,
 .menu-button,
@@ -1519,27 +1464,23 @@ button.back-btn,
 #pauseButton,
 #menuButton,
 #backButton {
-  -webkit-backdrop-filter:blur(18px) saturate(175%);
-  backdrop-filter:blur(18px) saturate(175%);
+  -webkit-backdrop-filter:blur(16px) saturate(170%);
+  backdrop-filter:blur(16px) saturate(170%);
+  border-color:rgba(190,222,255,.32);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(177,207,255,.07),0 5px 18px rgba(0,0,0,.2);
 }
-.shard-hud,
-.status-chip,
-.tutorial-tip,
-.toast,
-.panel,
-.build-panel,
-#hud,
-.hud,
-.hud-panel,
-.hud-card {
-  background-color:rgba(9,18,34,.52);
-  background-image:linear-gradient(135deg,rgba(255,255,255,.12),rgba(142,183,255,.035) 48%,rgba(201,172,255,.07));
-  border-color:rgba(185,215,255,.26);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(171,203,255,.06),0 7px 22px rgba(0,0,0,.2);
-}
-.ultimate-hud,
-.skill-hud,
-.dash-hud,
+#modal .world-card,
+#modal .choice,
+#modal .btn,
+#modal .setting-row button,
+#modal .collapse-btn,
+#modal .codex-jump-links button,
+#modal .tutorial-tip button,
+#modal .core-holo-mini-icon,
+#modal .core-info-button,
+#modal .core-selection-back,
+.overlay button,
+.overlay .btn,
 .hud-button,
 .pause-button,
 .menu-button,
@@ -1553,21 +1494,18 @@ button.back-btn,
 #pauseButton,
 #menuButton,
 #backButton {
-  background-image:linear-gradient(135deg,rgba(255,255,255,.2),rgba(155,196,255,.06) 42%,rgba(203,174,255,.09));
-  background-color:rgba(13,25,45,.48);
-  border-color:rgba(195,225,255,.38);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.23),inset 0 -1px 0 rgba(178,210,255,.09),0 6px 20px rgba(0,0,0,.24);
+  background-image:linear-gradient(135deg,rgba(255,255,255,.17),rgba(142,183,255,.045) 48%,rgba(205,180,255,.085));
 }
-.ultimate-hud:before,
-.skill-hud:before,
-.dash-hud:before {
-  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(10,19,36,.62) 68%);
-  -webkit-backdrop-filter:blur(12px) saturate(160%);
-  backdrop-filter:blur(12px) saturate(160%);
-}
-.ultimate-hud:hover,
-.skill-hud:hover,
-.dash-hud:hover,
+#modal .world-card:hover:not(:disabled),
+#modal .choice:hover:not(:disabled),
+#modal .btn:hover:not(:disabled),
+#modal .setting-row button:hover:not(:disabled),
+#modal .collapse-btn:hover,
+#modal .codex-jump-links button:hover,
+#modal .tutorial-tip button:hover,
+#modal .core-holo-mini-icon:hover,
+.overlay button:hover,
+.overlay .btn:hover,
 .hud-button:hover,
 .pause-button:hover,
 .menu-button:hover,
@@ -1582,37 +1520,36 @@ button.back-btn:hover,
 #menuButton:hover,
 #backButton:hover {
   border-color:rgba(202,240,255,.72);
-  filter:brightness(1.13);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.25),0 0 16px rgba(114,220,255,.12);
+  filter:brightness(1.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 8px 24px rgba(0,0,0,.22),0 0 16px rgba(114,220,255,.1);
 }
-/* Common button classes used by in-game pause/menu overlays and back navigation. */
-.overlay button,
-.overlay .btn,
-#modal button,
-button.core-selection-back,
-button.world-selection-back,
-button.back,
-button.back-btn,
-button.pause,
-button.pause-menu,
-button.menu,
-button.open-menu,
-button.return-button {
+/* Glass only on existing in-game HUD pieces; no new backing panel or container background. */
+.shard-hud,
+.ultimate-hud,
+.skill-hud,
+.dash-hud,
+.status-chip {
   -webkit-backdrop-filter:blur(16px) saturate(170%);
   backdrop-filter:blur(16px) saturate(170%);
-  border-color:rgba(190,222,255,.32);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(177,207,255,.07),0 5px 18px rgba(0,0,0,.2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(171,203,255,.06),0 6px 18px rgba(0,0,0,.2);
 }
-.overlay button,
-.overlay .btn,
-#modal button {
-  background-image:linear-gradient(135deg,rgba(255,255,255,.14),rgba(142,183,255,.045) 50%,rgba(205,180,255,.075));
+.shard-hud,
+.status-chip {
+  background-image:linear-gradient(135deg,rgba(255,255,255,.13),rgba(142,183,255,.035) 48%,rgba(201,172,255,.065));
+  border-color:rgba(185,215,255,.28);
 }
-/* Menus should not receive an extra opaque rectangle; the existing cinematic/game backdrop remains intact. */
+.ultimate-hud,
+.skill-hud,
+.dash-hud {
+  background-image:linear-gradient(135deg,rgba(255,255,255,.18),rgba(155,196,255,.05) 42%,rgba(203,174,255,.08));
+  border-color:rgba(195,225,255,.38);
+}
 @media(prefers-reduced-transparency:reduce){
-  #modal,#modal .modal,#modal .panel,#modal .codex-section,#modal .codex-entry,#modal .setting-row,
-  .shard-hud,.status-chip,.tutorial-tip,.toast,.panel,.build-panel,#hud,.hud,.hud-panel,.hud-card,
-  .ultimate-hud,.skill-hud,.dash-hud,.hud-button,.pause-button,.menu-button,.back-button {
-    -webkit-backdrop-filter:none;backdrop-filter:none;background-color:rgba(12,22,40,.94);
+  #modal .world-card,#modal .choice,#modal .btn,#modal .setting-row button,#modal .collapse-btn,
+  #modal .codex-jump-links button,#modal .tutorial-tip button,#modal .core-holo-mini-icon,
+  #modal .core-info-button,#modal .core-selection-back,.overlay button,.overlay .btn,
+  .hud-button,.pause-button,.menu-button,.back-button,.shard-hud,.status-chip,
+  .ultimate-hud,.skill-hud,.dash-hud {
+    -webkit-backdrop-filter:none;backdrop-filter:none;
   }
 }
