@@ -1646,3 +1646,65 @@ button.back-btn:hover,
     max-height:calc(100dvh - 100px)!important;
   }
 }
+
+
+/* Perk Codex scroll fix: dedicated modal class plus a single, dependable scroll region. */
+.screen>.overlay:has(#modal.codex-modal) {
+  align-items:flex-start!important;
+  justify-content:center!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+}
+#modal.codex-modal {
+  display:flex!important;
+  flex-direction:column!important;
+  flex:0 0 auto!important;
+  width:min(1100px,100%)!important;
+  max-height:calc(100dvh - 76px)!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+#modal.codex-modal .codex-sections {
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  scrollbar-width:thin;
+  scrollbar-color:#354563 #0a1020;
+}
+#modal.codex-modal .codex-list {
+  max-height:none!important;
+  overflow:visible!important;
+}
+#modal.codex-modal .menu-actions {
+  flex:0 0 auto!important;
+}
+/* World/core selection use the same global back button helper. Give that exact control glass. */
+#modal .global-back-button,
+#modal.world-hologram-modal .global-back-button,
+#modal.core-hologram-modal .global-back-button,
+#modal:has(.world-grid) .global-back-button,
+#modal:has(.core-hologram-modal) .global-back-button,
+button.global-back-button {
+  background-color:rgba(13,27,48,.38)!important;
+  background-image:linear-gradient(135deg,rgba(255,255,255,.2) 0%,rgba(146,195,255,.06) 45%,rgba(183,145,255,.1) 100%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(180%)!important;
+  backdrop-filter:blur(18px) saturate(180%)!important;
+  border:1px solid rgba(147,218,255,.42)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(160,201,255,.1),0 6px 20px rgba(0,0,0,.22)!important;
+}
+#modal .global-back-button:hover,
+button.global-back-button:hover {
+  background-color:rgba(24,46,72,.52)!important;
+  background-image:linear-gradient(135deg,rgba(255,255,255,.26),rgba(146,195,255,.09) 45%,rgba(183,145,255,.14))!important;
+  border-color:rgba(153,237,255,.8)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 0 18px rgba(114,246,255,.13)!important;
+}
+@media(max-width:760px) {
+  #modal.codex-modal {max-height:calc(100dvh - 36px)!important}
+}
