@@ -1346,7 +1346,7 @@ button.global-back-button:hover{
 }
 
 
-/* Liquid-glass menu pass: translucent surfaces, spectral edge light, and hidden world-list scrollbar. */
+/* Liquid-glass controls: apply the glass treatment to menu buttons/cards themselves, not a second modal surface. */
 #modal:has(.world-grid){
   max-height:calc(100% - 12px);
   overflow-y:auto;
@@ -1354,91 +1354,83 @@ button.global-back-button:hover{
   -ms-overflow-style:none;
 }
 #modal:has(.world-grid)::-webkit-scrollbar{display:none;width:0;height:0}
-.overlay:not(.hidden){
-  background:
-    radial-gradient(ellipse at 50% 0%,rgba(87,129,190,.14),transparent 58%),
-    rgba(3,7,18,.72);
-  -webkit-backdrop-filter:blur(14px) saturate(135%);
-  backdrop-filter:blur(14px) saturate(135%);
-}
-.overlay.cinematic-menu:not(.hidden){
-  background:linear-gradient(120deg,rgba(4,10,25,.48),rgba(9,16,35,.28) 52%,rgba(4,8,20,.56));
-  -webkit-backdrop-filter:blur(10px) saturate(145%);
-  backdrop-filter:blur(10px) saturate(145%);
-}
-#modal{
+
+/* Keep the existing menu backdrop and modal layout untouched. Give interactive surfaces the glass effect. */
+#modal .world-card,
+#modal .choice,
+#modal .btn,
+#modal .setting-row button,
+#modal .collapse-btn,
+#modal .codex-jump-links button,
+#modal .tutorial-tip button,
+#modal .core-holo-mini-icon{
   position:relative;
   isolation:isolate;
-  border:1px solid rgba(190,222,255,.22);
-  border-radius:16px;
-  padding:clamp(15px,2.2vw,25px);
+  overflow:hidden;
+  border:1px solid rgba(191,222,255,.3);
   background:
-    linear-gradient(135deg,rgba(183,222,255,.105),rgba(115,146,202,.035) 42%,rgba(185,154,255,.075)),
-    rgba(8,15,32,.69);
-  -webkit-backdrop-filter:blur(22px) saturate(155%);
-  backdrop-filter:blur(22px) saturate(155%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(163,199,255,.06),0 18px 60px rgba(0,0,0,.34),0 0 30px rgba(91,171,255,.055);
+    linear-gradient(135deg,rgba(255,255,255,.19) 0%,rgba(190,224,255,.075) 22%,rgba(109,151,212,.035) 55%,rgba(205,180,255,.09) 100%),
+    rgba(13,25,46,.42);
+  -webkit-backdrop-filter:blur(16px) saturate(165%);
+  backdrop-filter:blur(16px) saturate(165%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(177,207,255,.08),0 5px 18px rgba(0,0,0,.18);
+  transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
 }
-#modal:before{
+#modal .world-card:before,
+#modal .choice:before,
+#modal .btn:before,
+#modal .setting-row button:before,
+#modal .collapse-btn:before,
+#modal .codex-jump-links button:before,
+#modal .tutorial-tip button:before,
+#modal .core-holo-mini-icon:before{
   content:"";
   position:absolute;
   inset:0;
   z-index:-1;
   pointer-events:none;
-  border-radius:inherit;
-  background:linear-gradient(115deg,rgba(255,255,255,.075),transparent 25%,transparent 70%,rgba(126,174,255,.055));
-}
-#modal h2{text-shadow:0 0 22px rgba(114,246,255,.12)}
-#modal .world-card,
-#modal .choice,
-#modal .codex-entry,
-#modal .codex-section,
-#modal .setting-row,
-#modal .panel,
-#modal .btn,
-#modal .collapse-btn,
-#modal .codex-feature-key{
-  background-color:rgba(17,29,52,.56);
-  border-color:rgba(177,210,255,.2);
-  -webkit-backdrop-filter:blur(12px) saturate(140%);
-  backdrop-filter:blur(12px) saturate(140%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 5px 18px rgba(0,0,0,.12);
-}
-#modal .world-card,
-#modal .choice{
-  background-image:linear-gradient(135deg,rgba(191,224,255,.085),rgba(89,117,169,.025) 52%,rgba(185,151,255,.055));
-  border-radius:10px;
-  transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
+  background:linear-gradient(118deg,rgba(255,255,255,.14),transparent 28%,transparent 68%,rgba(132,174,255,.09));
 }
 #modal .world-card:hover:not(:disabled),
-#modal .choice:hover:not(:disabled){
-  background-color:rgba(35,57,86,.68);
-  border-color:color-mix(in srgb,var(--world-accent,var(--cyan)) 70%,rgba(255,255,255,.5));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.2),0 0 18px color-mix(in srgb,var(--world-accent,var(--cyan)) 14%,transparent);
+#modal .choice:hover:not(:disabled),
+#modal .btn:hover:not(:disabled),
+#modal .setting-row button:hover:not(:disabled),
+#modal .collapse-btn:hover,
+#modal .codex-jump-links button:hover,
+#modal .tutorial-tip button:hover,
+#modal .core-holo-mini-icon:hover{
+  border-color:rgba(190,237,255,.68);
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.23),rgba(145,190,241,.1) 42%,rgba(191,157,255,.13)),
+    rgba(31,53,83,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.27),inset 0 -1px 0 rgba(181,211,255,.1),0 8px 24px rgba(0,0,0,.23),0 0 18px rgba(117,190,255,.1);
+  transform:translateY(-2px);
 }
-#modal .btn,
-#modal .setting-row button,
-#modal .tutorial-tip button{
-  border-color:rgba(171,222,255,.3);
-  background:linear-gradient(135deg,rgba(111,171,221,.2),rgba(117,117,190,.1)),rgba(11,24,44,.64);
-  border-radius:8px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 14px rgba(0,0,0,.16);
-}
-#modal .btn:hover,
-#modal .setting-row button:hover{
-  background:linear-gradient(135deg,rgba(120,196,239,.28),rgba(159,132,230,.18)),rgba(18,35,60,.76);
-  border-color:rgba(190,234,255,.58);
+#modal .world-card:active:not(:disabled),
+#modal .choice:active:not(:disabled),
+#modal .btn:active:not(:disabled){
+  transform:translateY(0) scale(.985);
 }
 #modal .world-card:focus-visible,
 #modal .choice:focus-visible,
-#modal .btn:focus-visible{
+#modal .btn:focus-visible,
+#modal .setting-row button:focus-visible{
   outline:2px solid rgba(135,235,255,.82);
   outline-offset:2px;
 }
+#modal .world-card:disabled,
+#modal .choice:disabled{
+  opacity:.45;
+  filter:saturate(.65);
+  box-shadow:none;
+}
 @media(prefers-reduced-transparency:reduce){
-  .overlay:not(.hidden){-webkit-backdrop-filter:none;backdrop-filter:none}
-  #modal{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(8,15,32,.96)}
+  #modal .world-card,#modal .choice,#modal .btn,#modal .setting-row button,#modal .collapse-btn,#modal .codex-jump-links button,#modal .tutorial-tip button,#modal .core-holo-mini-icon{
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    background:rgba(15,27,48,.94);
+  }
 }
 @media(prefers-reduced-motion:reduce){
-  #modal .world-card,#modal .choice{transition:none}
+  #modal .world-card,#modal .choice,#modal .btn,#modal .setting-row button,#modal .collapse-btn,#modal .codex-jump-links button,#modal .tutorial-tip button,#modal .core-holo-mini-icon{transition:none}
 }
