@@ -1553,3 +1553,96 @@ button.back-btn:hover,
     -webkit-backdrop-filter:none;backdrop-filter:none;
   }
 }
+
+
+/* Global glass and scroll reliability pass: existing surfaces only, never add a backing panel. */
+/* Upgrade Matrix cards and the existing currency banner were still opaque. */
+#modal .currency-banner,
+#modal .core-upgrade-card,
+#modal .core-upgrade-card .btn,
+#modal.settings-modal .setting-row,
+#modal.settings-modal .setting-row button,
+#modal.settings-modal input,
+#modal.settings-modal select,
+#modal.settings-modal textarea,
+#modal.codex-modal .codex-sections,
+#modal.codex-modal .codex-section,
+#modal.codex-modal .codex-entry,
+#modal.codex-modal .codex-feature-key,
+#modal .core-detail-block,
+#modal .core-detail-scroll,
+#modal .upgrade,
+#modal .panel,
+#modal .setting-row {
+  background-color:rgba(13,24,43,.48)!important;
+  background-image:linear-gradient(135deg,rgba(255,255,255,.15),rgba(150,190,245,.045) 44%,rgba(198,171,255,.07))!important;
+  -webkit-backdrop-filter:blur(16px) saturate(165%)!important;
+  backdrop-filter:blur(16px) saturate(165%)!important;
+  border-color:rgba(183,216,255,.25);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(173,204,255,.06),0 5px 16px rgba(0,0,0,.14);
+}
+/* Preserve distinct card accents while adding translucent highlights. */
+#modal .core-upgrade-card,
+#modal .codex-section,
+#modal .codex-entry,
+#modal .core-detail-block {
+  background-image:linear-gradient(135deg,rgba(255,255,255,.12),rgba(146,183,239,.035) 48%,rgba(194,167,255,.055))!important;
+}
+#modal .currency-banner {
+  border-color:rgba(255,220,130,.34)!important;
+}
+/* Reliable wheel/touch scrolling across screens: the overlay is the outer scroll area,
+   and each long content region can scroll without being trapped by a fixed-height flex parent. */
+.screen>.overlay {
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+.screen>.overlay #modal {
+  flex:0 0 auto!important;
+  min-height:0;
+  max-height:none!important;
+  overflow:visible!important;
+}
+#modal.settings-modal,
+#modal.codex-modal,
+#modal.manual-modal,
+#modal.story-modal,
+#modal.story-archive-modal,
+#modal.credits-modal,
+#modal.build-modal {
+  box-sizing:border-box;
+  min-height:0;
+  max-height:calc(100dvh - 150px)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+#modal.settings-modal .setting-row {
+  flex-shrink:0;
+}
+#modal.codex-modal .codex-sections,
+#modal.codex-modal .codex-list,
+#modal.codex-modal .core-upgrade-grid {
+  min-height:0;
+  max-height:none!important;
+  overflow:visible!important;
+}
+#modal.codex-modal .codex-sections {
+  display:flex;
+  flex-direction:column;
+}
+#modal .core-upgrade-grid {
+  max-height:none!important;
+  overflow:visible!important;
+}
+@media(max-width:760px) {
+  .screen>.overlay {padding:12px 10px 24px!important}
+  #modal.settings-modal,#modal.codex-modal,#modal.manual-modal,#modal.story-modal,#modal.story-archive-modal,#modal.credits-modal,#modal.build-modal {
+    max-height:calc(100dvh - 100px)!important;
+  }
+}
