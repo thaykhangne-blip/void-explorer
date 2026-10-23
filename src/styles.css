@@ -1862,3 +1862,7 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-weapon-empty b{display:block;font-size:11px;letter-spacing:1.4px;margin:10px 0}
 .void-weapon-empty p{font-size:10px;line-height:1.6;max-width:340px;margin:0 auto;color:#8da5c2}
 @media(max-width:580px){.void-weapon-inventory-list{grid-template-columns:1fr}.void-weapon-passive{min-height:0}.void-weapon-card-desc{min-height:0}.void-weapon-slot{gap:8px;padding:9px}.void-weapon-slot-action{font-size:8px}.void-weapon-current{flex-wrap:wrap}.void-weapon-current .btn{margin-left:auto}}
+
+/* Void Weapon refinement controls */
+.void-weapon-refine-button{width:100%;margin-top:6px;font-size:9px!important;padding:9px 7px!important;border-color:color-mix(in srgb,var(--weapon-accent) 55%,#354a63)!important;color:var(--weapon-accent)!important}
+.void-weapon-refine-button:disabled{opacity:.45;cursor:default}
