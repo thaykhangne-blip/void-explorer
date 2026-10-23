@@ -5,7 +5,7 @@
 **A little light, a lot of things trying to kill it, and a company that would rather cut the budget than admit it was wrong.**
 
 [![Beta](https://img.shields.io/badge/status-beta-orange?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer)
-[![Version](https://img.shields.io/badge/version-v0.4-blue?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer/commits/main)
+[![Version](https://img.shields.io/badge/version-v0.5-blue?style=for-the-badge)](https://github.com/thaykhangne-blip/void-explorer/commits/main)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow?style=for-the-badge&logo=javascript&logoColor=111111)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-e34f26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572b6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -24,7 +24,18 @@ Void Protocol is a browser-based action roguelike built around quick combat, dis
 
 The game is still in beta. Things will break, balance will change, and some ideas will turn out to be less clever once they meet actual gameplay. That’s part of making a game.
 
-> **Current version:** Beta v0.4, build 400. This is an active work in progress, not a finished release.
+> **Current version:** Beta v0.5, build 500. This is an active work in progress, not a finished release.
+
+## Latest changes in v0.5
+
+## v0.5 — Campaign and interface update
+
+- Added three linear story interludes between Worlds 1–3 and a final evidence-reconciliation epilogue after World 4.
+- Expanded the Story Archive to include new campaign transmissions and replay support.
+- Refined narrative presentation with speaker-specific colors, subtle transitions, and reduced-motion support.
+- Removed the legacy toast notification system.
+- Fixed gameplay edge controls: the floating back button is hidden during active runs, and the combat-statistics toggle is anchored to the right edge.
+- Continued combat, core, room-objective, and progression tuning across the beta.
 
 ## What you can do
 
@@ -81,7 +92,7 @@ The code is split into separate files rather than packed into one enormous HTML 
 
 ## Where development stands
 
-The current beta is **v0.4 (build 400)**. Combat, enemy behaviour, room objectives, core balance, visuals, progression, and story are all still being worked on. Expect rough edges. If something is broken, unfair, confusing, or unexpectedly hilarious, a clear bug report with steps to reproduce it is useful.
+The current beta is **v0.5 (build 500)**. Combat, enemy behaviour, room objectives, core balance, visuals, progression, and story are all still being worked on. Expect rough edges. If something is broken, unfair, confusing, or unexpectedly hilarious, a clear bug report with steps to reproduce it is useful.
 
 - [Report a bug or suggest a feature](https://github.com/thaykhangne-blip/void-explorer/issues)
 - [Browse the source](https://github.com/thaykhangne-blip/void-explorer)
