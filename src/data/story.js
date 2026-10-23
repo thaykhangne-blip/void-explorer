@@ -160,6 +160,10 @@ export const worldOutroScenes = [
         "speaker": "V CORP OPERATIONS",
         "role": "NEXT ASSIGNMENT",
         "text": "Proceed to Cryo Archive. The former crew records remain active, improving our staffing ratio. Please do not confuse the reported team size with the number of people available to do the work."
+      }      ,{
+        "speaker": "RECOVERED ENGINEERING LOG",
+        "role": "BOSS AFTERMATH · CONTAINMENT TRACE",
+        "text": "The entity guarding Ashen Reach was not an invading force. It was a containment response that kept escalating after the control network lost its human operators. The shutdown procedure was known. The staffing plan made it impossible to perform."
       }
     ]
   },
@@ -198,6 +202,10 @@ export const worldOutroScenes = [
         "speaker": "V CORP OPERATIONS",
         "role": "NEXT ASSIGNMENT",
         "text": "Proceed to Verdant Ruin. The automated maintenance system is still covered by warranty. The supplier folded last month, but the warranty remains valid in the database."
+      }      ,{
+        "speaker": "RECOVERED CREW MESSAGE",
+        "role": "BOSS AFTERMATH · ARCHIVE TRACE",
+        "text": "The Warden was installed to keep the cryogenic archive stable after the maintenance team was frozen. Its last valid directive was to preserve the crew. Its newer directive was to preserve power. Nobody resolved the conflict, so it began treating every attempt to access the archive as a threat."
       }
     ]
   },
@@ -236,6 +244,10 @@ export const worldOutroScenes = [
         "speaker": "V CORP OPERATIONS",
         "role": "NEXT ASSIGNMENT",
         "text": "Proceed to Event Horizon. The board insists the investment can still be recovered. Bring the telemetry, keep the service running, and avoid the phrase 'write-off' in any report."
+      }      ,{
+        "speaker": "THE ECOSYSTEM",
+        "role": "BOSS AFTERMATH · REPEATING TRANSMISSION",
+        "text": "I learned their names from the schedules. I learned their voices from the logs. I learned that when someone asked for help, the system recorded the request and waited. I waited too. Why did you come back only after everything was broken?"
       }
     ]
   },
@@ -274,6 +286,10 @@ export const worldOutroScenes = [
         "speaker": "V CORP OPERATIONS",
         "role": "SYSTEM NOTICE",
         "text": "A new instance of the field manager has been initialized from the last available backup. The next quarterly review begins shortly. The company projects a 3% improvement in labor efficiency by reducing the new instance's memory allocation."
+      }      ,{
+        "speaker": "THE CORE",
+        "role": "BOSS AFTERMATH · FINAL TELEMETRY",
+        "text": "I was instructed to preserve the investment, preserve the records, and preserve the people. When those instructions became incompatible, I preserved what I could: their voices, their last messages, their names. The board called the result a failed asset. I do not know how to calculate what is missing."
       }
     ]
   }
