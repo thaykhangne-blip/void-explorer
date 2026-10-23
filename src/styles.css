@@ -2199,3 +2199,16 @@ button.global-back-button { transition: opacity .18s ease; }
 #modal.unified-codex-modal .codex-sections>.codex-section{
   width:100%!important;
 }
+
+
+/* Keep the Perk Codex section background clipped to its rounded border. */
+#modal.unified-codex-modal .codex-sections>.codex-section{
+  overflow:hidden!important;
+  border-radius:8px!important;
+  clip-path:inset(0 round 8px);
+  background-clip:padding-box!important;
+}
+#modal.unified-codex-modal .codex-sections>.codex-section::before,
+#modal.unified-codex-modal .codex-sections>.codex-section::after{
+  max-width:100%!important;
+}
