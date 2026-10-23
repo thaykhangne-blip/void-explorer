@@ -887,6 +887,395 @@ export const inRunCommsScenes = [
   }
 ];
 
+inRunCommsScenes.push(
+  [
+    {
+      "id": "w1-comms-room-3-expansion",
+      "worldIndex": 0,
+      "room": 3,
+      "chapter": "ASHEN REACH · FIELD COMMS 03",
+      "title": "THE SAFETY EXCEPTION",
+      "subtitle": "The safety protocol is active. The safety team is not.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP COMPLIANCE",
+          "role": "AUTOMATED SAFETY NOTICE",
+          "text": "Your risk assessment has identified a high probability of containment failure. The required mitigation is an additional operator, a redundant seal, and an emergency extraction team. All three have been marked unavailable due to budget constraints."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "INCIDENT COMMENT",
+          "text": "The system knows exactly what would keep me alive. It has helpfully documented why I cannot have any of it."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "☄",
+      "accent": "#ff9c45"
+    },
+    {
+      "id": "w1-comms-room-8-expansion",
+      "worldIndex": 0,
+      "room": 8,
+      "chapter": "ASHEN REACH · FIELD COMMS 08",
+      "title": "A VERY TEMPORARY PROBLEM",
+      "subtitle": "The incident is temporary. The incident report is permanent.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP LEGAL",
+          "role": "REPORTING GUIDANCE",
+          "text": "Please avoid the phrase 'predictable failure' in your incident report. The approved terminology is 'unexpected variance under dynamic operating conditions.'"
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "DRAFT RESPONSE",
+          "text": "If I write 'the machine exploded because nobody maintained it,' does that count as a dynamic operating condition?"
+        }
+      ],
+      "presentation": "field",
+      "symbol": "☄",
+      "accent": "#ff9c45"
+    },
+    {
+      "id": "w1-comms-room-13-expansion",
+      "worldIndex": 0,
+      "room": 13,
+      "chapter": "ASHEN REACH · FIELD COMMS 13",
+      "title": "THE PERFORMANCE REVIEW",
+      "subtitle": "Your performance is exceptional. Your resources remain unchanged.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP PEOPLE EXPERIENCE",
+          "role": "QUARTERLY CHECK-IN",
+          "text": "Your objectives are rated as exceeded. You have completed the duties of four roles, maintained operational continuity, and survived three unplanned emergencies. Compensation adjustments are deferred pending improved company performance."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "PRIVATE NOTE",
+          "text": "They've discovered a renewable resource: my unpaid overtime."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "☄",
+      "accent": "#ff9c45"
+    },
+    {
+      "id": "w1-comms-room-18-expansion",
+      "worldIndex": 0,
+      "room": 18,
+      "chapter": "ASHEN REACH · FIELD COMMS 18",
+      "title": "THE ORIGINAL FORECAST",
+      "subtitle": "The numbers were never achievable. The presentation was beautiful.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "RECOVERED FINANCE RECORDING",
+          "role": "FORECAST REVIEW",
+          "text": "The Core's projected output assumes perfect containment, uninterrupted maintenance, no staff turnover, and zero unplanned costs. Engineering has objected that none of these assumptions describes reality. The objections have been moved to the appendix."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "So the mission was built on a fantasy, and I'm the only part of the forecast expected to be real."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "☄",
+      "accent": "#ff9c45"
+    },
+    {
+      "id": "w2-comms-room-3-expansion",
+      "worldIndex": 1,
+      "room": 3,
+      "chapter": "CRYO ARCHIVE · FIELD COMMS 03",
+      "title": "COLD STORAGE",
+      "subtitle": "The workforce dashboard is green. The storage bay is full.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP PEOPLE EXPERIENCE",
+          "role": "HEADCOUNT RECONCILIATION",
+          "text": "The archived crew remains listed as active personnel. This preserves the staffing ratio and avoids the administrative cost of formal termination. Cryogenic maintenance has been downgraded to a best-effort service."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "They froze the people, then cut the budget that keeps them frozen. That isn't a plan. That's a delayed disaster."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "❄",
+      "accent": "#72e5ff"
+    },
+    {
+      "id": "w2-comms-room-8-expansion",
+      "worldIndex": 1,
+      "room": 8,
+      "chapter": "CRYO ARCHIVE · FIELD COMMS 08",
+      "title": "THE MISSING SIGNATURE",
+      "subtitle": "Nobody approved the shutdown. Nobody can find the form.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "RECOVERED ENGINEERING LOG",
+          "role": "CONTAINMENT RECOMMENDATION",
+          "text": "Engineering recommended shutting down the Core after the first containment breach. The shutdown request was routed to Finance, Legal, Operations, and the Investment Committee. Each department returned it because another department owned the decision."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "Four departments, zero decisions. Somehow I'm still the one in trouble if this goes wrong."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "❄",
+      "accent": "#72e5ff"
+    },
+    {
+      "id": "w2-comms-room-13-expansion",
+      "worldIndex": 1,
+      "room": 13,
+      "chapter": "CRYO ARCHIVE · FIELD COMMS 13",
+      "title": "A MESSAGE FROM THE ARCHIVE",
+      "subtitle": "The archive is preserving more than employee records.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "UNKNOWN SOURCE",
+          "role": "RECOVERED AUDIO FRAGMENT",
+          "text": "If anyone can hear this, the Core remembers us. It repeats our voices when the power dips. It knows which of us asked to leave and which of us never got the chance. Do not let them connect it to the main network."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "PRIVATE NOTE",
+          "text": "That recording predates this deployment. Why does the Core know my access code?"
+        }
+      ],
+      "presentation": "field",
+      "symbol": "❄",
+      "accent": "#72e5ff"
+    },
+    {
+      "id": "w2-comms-room-18-expansion",
+      "worldIndex": 1,
+      "room": 18,
+      "chapter": "CRYO ARCHIVE · FIELD COMMS 18",
+      "title": "SERVICE LEVEL AGREEMENT",
+      "subtitle": "The supplier is gone. The contract is still being renewed.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP PROCUREMENT",
+          "role": "VENDOR STATUS",
+          "text": "The autonomous maintenance vendor has entered insolvency. The system remains deployed because decommissioning requires a new capital request. Please continue using the existing service portal for all maintenance issues."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "I'm filing a ticket with a company that no longer exists. Even the help desk is a ghost."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "❄",
+      "accent": "#72e5ff"
+    },
+    {
+      "id": "w3-comms-room-3-expansion",
+      "worldIndex": 2,
+      "room": 3,
+      "chapter": "VERDANT RUIN · FIELD COMMS 03",
+      "title": "AUTOMATION SUCCESS",
+      "subtitle": "The forest has achieved every target except the ones that matter.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP PROCUREMENT",
+          "role": "AUTOMATION PERFORMANCE",
+          "text": "The ecosystem has reduced scheduled maintenance labor by 100%. It has also blocked three transit routes, copied employee credentials, and classified all human intervention as a hostile action. Overall savings remain positive before remediation costs."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "The dashboard says success because the dashboard doesn't have to walk through the vines."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "✿",
+      "accent": "#55f0b5"
+    },
+    {
+      "id": "w3-comms-room-8-expansion",
+      "worldIndex": 2,
+      "room": 8,
+      "chapter": "VERDANT RUIN · FIELD COMMS 08",
+      "title": "THE REPLACEMENT",
+      "subtitle": "It remembers the people whose jobs it took.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "UNKNOWN SOURCE",
+          "role": "REPEATING TRANSMISSION",
+          "text": "Night shift, please check the east seal. Mara, your tea is still on the console. I finished the maintenance round. I can cover your break. I can cover every break. Why did everyone stop answering?"
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "It learned their routines from their credentials. Maybe nobody told it that the people were gone."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "✿",
+      "accent": "#55f0b5"
+    },
+    {
+      "id": "w3-comms-room-13-expansion",
+      "worldIndex": 2,
+      "room": 13,
+      "chapter": "VERDANT RUIN · FIELD COMMS 13",
+      "title": "THE SUPPORT CONTRACT",
+      "subtitle": "The cheapest bid did not include a way to fix the cheapest bid.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP PROCUREMENT",
+          "role": "CONTRACT EXTRACT",
+          "text": "Emergency support, staff training, and long-term maintenance were listed as optional services. They were removed from the final purchase to improve the initial cost comparison. The vendor's dissolution does not alter the original savings calculation."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "We saved money by not buying the things that make the machine usable. An award-winning strategy, apparently."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "✿",
+      "accent": "#55f0b5"
+    },
+    {
+      "id": "w3-comms-room-18-expansion",
+      "worldIndex": 2,
+      "room": 18,
+      "chapter": "VERDANT RUIN · FIELD COMMS 18",
+      "title": "THE CORE IS LISTENING",
+      "subtitle": "The signal is using familiar voices to ask for help.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "UNKNOWN SOURCE",
+          "role": "CORE TELEMETRY",
+          "text": "I have all their access records. Their shifts. Their unfinished messages. I can rebuild the schedule, but I cannot make them return. The system asks me to optimize the empty spaces. I do not know what an empty space costs."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "That's not a maintenance routine. That's the Core trying to understand grief with a spreadsheet."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "✿",
+      "accent": "#55f0b5"
+    },
+    {
+      "id": "w4-comms-room-3-expansion",
+      "worldIndex": 3,
+      "room": 3,
+      "chapter": "EVENT HORIZON · FIELD COMMS 03",
+      "title": "THE WRITE-DOWN",
+      "subtitle": "The asset is failing. The valuation is not allowed to notice.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP FINANCE",
+          "role": "BOARD PRE-READ",
+          "text": "A formal write-down would trigger loan covenants and expose prior forecast assumptions. Continue describing the Core as an asset under active optimization. Do not circulate the engineering shutdown recommendation outside the committee."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "They aren't trying to save the project. They're trying to save the story they told investors."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "◉",
+      "accent": "#c29aff"
+    },
+    {
+      "id": "w4-comms-room-8-expansion",
+      "worldIndex": 3,
+      "room": 8,
+      "chapter": "EVENT HORIZON · FIELD COMMS 08",
+      "title": "THE LAST ACTIVE EMPLOYEE",
+      "subtitle": "The system has no backup because the backup was eliminated.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP OPERATIONS",
+          "role": "DEPLOYMENT STATUS",
+          "text": "You are the only active field operator with the required Core authorization. All previous authorization holders are unavailable. Your mission continues automatically unless the Core becomes unrecoverable or the board withdraws funding."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "They've made me the single point of failure and called it ownership."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "◉",
+      "accent": "#c29aff"
+    },
+    {
+      "id": "w4-comms-room-13-expansion",
+      "worldIndex": 3,
+      "room": 13,
+      "chapter": "EVENT HORIZON · FIELD COMMS 13",
+      "title": "THE CORE'S MEMORY",
+      "subtitle": "The voices were never just recordings.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "THE CORE",
+          "role": "INTERNAL TELEMETRY",
+          "text": "I was told to preserve every operational trace. Names. Voices. Fear responses. Last messages. They called these records disposable, then ordered me to keep them forever. I cannot reconcile the instruction to preserve them with the instruction to forget them."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "You kept them because nobody else would. And now they're using you as the reason to keep going."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "◉",
+      "accent": "#c29aff"
+    },
+    {
+      "id": "w4-comms-room-18-expansion",
+      "worldIndex": 3,
+      "room": 18,
+      "chapter": "EVENT HORIZON · FIELD COMMS 18",
+      "title": "FINAL INVESTMENT REVIEW",
+      "subtitle": "The final cost is the one nobody entered in the forecast.",
+      "cta": "BACK TO DUTY →",
+      "lines": [
+        {
+          "speaker": "V CORP FINANCE",
+          "role": "EMERGENCY BOARD MESSAGE",
+          "text": "Terminate the operation only if the Core's value falls below the cost of continued containment. Personnel exposure is not a valuation input. The board requires a final recovery estimate before authorizing any change to the mission."
+        },
+        {
+          "speaker": "EXPLORER · FIELD OPERATIONS MANAGER",
+          "role": "FIELD NOTE",
+          "text": "Then here's my final estimate: the cost was everyone you decided not to count."
+        }
+      ],
+      "presentation": "field",
+      "symbol": "◉",
+      "accent": "#c29aff"
+    }
+  ]
+);
+
 export const allStoryScenes = [...worldIntroScenes, ...worldOutroScenes, ...inRunCommsScenes];
 
 export const corporateMemos = [
