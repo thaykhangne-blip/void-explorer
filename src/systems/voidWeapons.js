@@ -68,8 +68,34 @@ export function normalizeVoidWeaponSave(saveData = {}) {
   return normalized;
 }
 
-export function getVoidWeapon(weaponId) {
-  return VOID_WEAPON_BY_ID[weaponId] || null;
+/**
+ * Resolve slash-separated rank progressions in passive copy so UI shows only
+ * the selected refinement rank, not every rank's value.
+ */
+export function getRankedVoidWeaponDescription(description, rank = 1) {
+  const selectedRank = Math.max(1, Math.min(5, Math.floor(Number(rank) || 1)));
+  return String(description || '').replace(/\\b(?:\\d+(?:\\.\\d+)?%?\\s*\\/\\s*){4}\\d+(?:\\.\\d+)?%?/g, sequence => {
+    const values = sequence.split('/').map(value => value.trim());
+    return values[selectedRank - 1] ?? values[0];
+  });
+}
+
+function withPassiveRank(weapon, rank = 1) {
+  if (!weapon) return null;
+  return {
+    ...weapon,
+    passive: weapon.passive ? {
+      ...weapon.passive,
+      rank,
+      description: getRankedVoidWeaponDescription(weapon.passive.description, rank)
+    } : weapon.passive
+  };
+}
+
+export function getVoidWeapon(weaponId, refinementLevel = 0) {
+  const weapon = VOID_WEAPON_BY_ID[weaponId] || null;
+  const rank = Math.max(1, Math.min(5, Math.floor(Number(refinementLevel) || 0) + 1));
+  return withPassiveRank(weapon, rank);
 }
 
 export function getOwnedVoidWeapons(saveData) {
@@ -92,7 +118,7 @@ export function getOwnedVoidWeapons(saveData) {
           fireRate: weapon.passive?.statKey === 'fireRate' ? passiveStatBonus : 0,
           damage: weapon.passive?.statKey === 'damage' ? passiveStatBonus : 0
         },
-        passive: { ...weapon.passive, rank: passiveRank, statBonus: passiveStatBonus },
+        passive: { ...withPassiveRank(weapon, passiveRank).passive, statBonus: passiveStatBonus },
         refinementLevel,
         copies: safe.voidWeaponInventory[weapon.id]
       };
@@ -168,7 +194,7 @@ export function getVoidWeaponBonuses(saveData, coreId) {
       fireRate: passive?.statKey === 'fireRate' ? passiveStatBonus : 0,
       damage: passive?.statKey === 'damage' ? passiveStatBonus : 0
     },
-    signaturePassive: passive ? { ...passive, rank: passiveRank, statBonus: passiveStatBonus } : null,
+    signaturePassive: passive ? { ...withPassiveRank(weapon, passiveRank).passive, statBonus: passiveStatBonus } : null,
     refinementLevel
   };
 }
