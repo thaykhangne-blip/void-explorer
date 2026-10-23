@@ -1106,7 +1106,7 @@ function configureVoidWeaponAutoAttack(target){
  if(effect==='eventide-array'&&player.voidWeaponAutoCount>=[5,4,3,3,2][rank-1]){
   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
  }else if(effect==='thunderclap-protocol'&&player.voidWeaponAutoCount>=[6,5,4,3,3][rank-1]){
-  player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+  player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;player.voidWeaponChargedTarget=target;
  }else if(effect==='blood-dividend'&&player.voidWeaponAutoCount>=[8,7,6,5,4][rank-1]){
   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
  }else if(effect==='cinder-oath'){
@@ -1130,10 +1130,19 @@ function shoot(){
   lasers.push({x:player.x,y:player.y,angle,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*eventHorizonDamage*(player.laserDamageMult||1),color:'#f0c8ff',life:.28,maxLife:.28,ticks:1,tickTimer:0,hitRadius:10+(player.laserWidthBonus||0),ricochetsLeft:0,ricochetChecked:false,voidWeaponEnhanced:true});
   player.voidWeaponChargedAttack=false;
  }else if(player?.voidWeaponPassive==='thunderclap-protocol'&&player.voidWeaponChargedAttack&&core?.id==='flash'){
-  const first=getPrimaryAttackTarget();const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));const maxJumps=[3,4,5,6,7][rank-1],damage=player.damage*([1.5,1.75,2,2.25,2.5][rank-1]);
-  let from=first;const hit=new Set();if(first)hit.add(first);if(first){applyDamage(first,damage,'#fff7b0',true,'OVERLOAD CIRCUIT');burst(first.x,first.y,'#fff7b0',14);}
-  for(let n=0;first&&n<maxJumps;n++){const next=enemies.filter(e=>e.hp>0&&!hit.has(e)&&withinCoreRange(player,e)&&dist(e,from)<RICOCHET_LINK_RANGE).sort((a,b)=>dist(a,from)-dist(b,from))[0]||(!hit.has(blackHole)&&blackHole&&!blackHole.inactive&&blackHole.hp>0&&withinCoreRange(player,blackHole)&&dist(blackHole,from)<RICOCHET_LINK_RANGE?blackHole:null);if(!next)break;addLightningArc(from,next);applyDamage(next,damage*.58,'#ffe875',true,'OVERLOAD CIRCUIT · CHAIN');hit.add(next);if(next!==blackHole)burst(next.x,next.y,'#fff4a8',8);from=next;}
-  player.voidWeaponChargedAttack=false;
+  const first=player.voidWeaponChargedTarget||getPrimaryAttackTarget();const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));
+  const maxJumps=[3,4,5,6,7][rank-1],damage=player.damage*([1.5,1.75,2,2.25,2.5][rank-1]),cascadeBonus=[.20,.25,.30,.35,.40][rank-1];
+  const hit=new Set();let from=first;
+  if(first){hit.add(first);applyDamage(first,damage,'#fff7b0',true,'OVERLOAD CIRCUIT');burst(first.x,first.y,'#fff7b0',14);}
+  for(let n=0;first&&n<maxJumps;n++){
+   const next=enemies.filter(e=>e.hp>0&&!hit.has(e)&&withinCoreRange(player,e)&&dist(e,from)<RICOCHET_LINK_RANGE).sort((a,b)=>dist(a,from)-dist(b,from))[0]||(!hit.has(blackHole)&&blackHole&&!blackHole.inactive&&blackHole.hp>0&&withinCoreRange(player,blackHole)&&dist(blackHole,from)<RICOCHET_LINK_RANGE?blackHole:null);
+   if(!next)break;
+   addLightningArc(from,next);
+   const jumpDamage=damage*.58*(1+Math.min(3,n+1)*cascadeBonus);
+   applyDamage(next,jumpDamage,'#ffe875',true,'OVERLOAD CIRCUIT · CHAIN');
+   hit.add(next);if(next!==blackHole)burst(next.x,next.y,'#fff4a8',8);from=next;
+  }
+  player.voidWeaponChargedAttack=false;player.voidWeaponChargedTarget=null;
  }else if(player?.voidWeaponPassive==='blood-dividend'&&player.voidWeaponChargedAttack&&core?.id==='vengeance'){
   const target=getPrimaryAttackTarget();if(target){const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1)),damage=player.damage*([2,2.5,3,3.5,4][rank-1]);applyDamage(target,damage,'#ff304f',true,'CRIMSON REPRISAL');burst(target.x,target.y,'#ff8c9e',14);if(target.hp<=0){for(const e of enemies){if(e!==target&&e.hp>0&&dist(e,target)<90)applyDamage(e,player.damage*([1,1.25,1.5,1.75,2][rank-1]),'#ff526b',false,'CRIMSON REPRISAL SHOCKWAVE');}}}
   player.voidWeaponChargedAttack=false;
