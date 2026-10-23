@@ -74,7 +74,7 @@ export function normalizeVoidWeaponSave(saveData = {}) {
  */
 export function getRankedVoidWeaponDescription(description, rank = 1) {
   const selectedRank = Math.max(1, Math.min(5, Math.floor(Number(rank) || 1)));
-  return String(description || '').replace(/\\b(?:\\d+(?:\\.\\d+)?%?\\s*\\/\\s*){4}\\d+(?:\\.\\d+)?%?/g, sequence => {
+  return String(description || '').replace(/\b(?:\d+(?:\.\d+)?%?\s*\/\s*){4}\d+(?:\.\d+)?%?/g, sequence => {
     const values = sequence.split('/').map(value => value.trim());
     return values[selectedRank - 1] ?? values[0];
   });
