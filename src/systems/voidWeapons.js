@@ -94,7 +94,7 @@ function withPassiveRank(weapon, rank = 1) {
 
 export function getVoidWeapon(weaponId, refinementLevel = 0) {
   const weapon = VOID_WEAPON_BY_ID[weaponId] || null;
-  const rank = Math.max(1, Math.min(5, Math.floor(Number(refinementLevel) || 0) + 1));
+  const rank = Math.max(1, Math.min(5, Math.floor(Number(refinementLevel) || 1)));
   return withPassiveRank(weapon, rank);
 }
 
@@ -105,7 +105,7 @@ export function getOwnedVoidWeapons(saveData) {
     .map(weapon => {
       const refinementLevel = safe.voidWeaponRefinements[weapon.id] || 0;
       const refinementBonus = refinementLevel * 0.02;
-      const passiveRank = Math.max(1, Math.min(5, refinementLevel + 1));
+      const passiveRank = Math.max(1, Math.min(5, refinementLevel || 1));
       const passiveStatBonus = weapon.passive?.values?.[passiveRank - 1] || 0;
       return {
         ...weapon,
@@ -181,7 +181,7 @@ export function getVoidWeaponBonuses(saveData, coreId) {
   const refinementLevel = safe.voidWeaponRefinements[weaponId] || 0;
   const refinementBonus = refinementLevel * 0.02;
   const passive = weapon.signatureCoreId === coreId ? weapon.passive : null;
-  const passiveRank = Math.max(1, Math.min(5, refinementLevel + 1));
+  const passiveRank = Math.max(1, Math.min(5, refinementLevel || 1));
   const passiveStatBonus = passive?.values?.[passiveRank - 1] || 0;
   return {
     weapon,
