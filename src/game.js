@@ -761,8 +761,8 @@ function showCoreSelection(previewCoreId=null){
  const deploy=$('coreHoloDeploy');deploy.disabled=!unlocked;deploy.innerHTML=unlocked?'SELECT CORE <span>↗</span>':'CORE LOCKED <span>⌁</span>';
  $('coreHoloPrev').disabled=selected===0;$('coreHoloNext').disabled=selected===cores.length-1;
  const selectedSignatureId=saveData.equippedVoidWeapons?.[c.id],selectedSignatureEquipped=!!selectedSignatureId&&voidWeapons.some(w=>w.id===selectedSignatureId&&w.signatureCoreId===c.id);
- const firstAbilityIcon=$('coreHoloAbilities')?.querySelector('.core-holo-mini-icon');
- if(firstAbilityIcon){let signatureBadge=firstAbilityIcon.querySelector('.signature-weapon-badge');if(selectedSignatureEquipped&&!signatureBadge){signatureBadge=document.createElement('span');signatureBadge.className='signature-weapon-badge';signatureBadge.textContent='✦';signatureBadge.setAttribute('aria-label','Signature weapon equipped');firstAbilityIcon.appendChild(signatureBadge);}else if(!selectedSignatureEquipped&&signatureBadge)signatureBadge.remove();}
+ const planet=$('coreHoloPlanet');
+ if(planet){let signatureBadge=planet.querySelector('.signature-weapon-badge');if(selectedSignatureEquipped&&!signatureBadge){signatureBadge=document.createElement('span');signatureBadge.className='signature-weapon-badge core-orbit-signature-badge';signatureBadge.textContent='✦';signatureBadge.setAttribute('aria-label','Signature weapon equipped');planet.appendChild(signatureBadge);}else if(!selectedSignatureEquipped&&signatureBadge)signatureBadge.remove();}
  modal.querySelectorAll('[data-holo-core]').forEach((b,i)=>{b.classList.toggle('active',i===selected);b.classList.toggle('locked',!isCoreUnlocked(cores[i].id));b.classList.remove('has-signature-weapon');const badge=b.querySelector('.signature-weapon-badge');if(badge)badge.remove();b.setAttribute('aria-current',i===selected?'true':'false');});
  modal.querySelector('[data-holo-core="'+selected+'"]')?.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
  const text=isCoreUnlocked(c.id)?c.desc:coreUnlockMessage(c.id);if(animate)typeCoreText(text);else desc.textContent=text;
