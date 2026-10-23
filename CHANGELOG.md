@@ -1,3 +1,9 @@
+## Core-exclusive perk expansion
+- Audited all eight playable cores and expanded each exclusive pool to ten distinct perks.
+- Added functional stat-focused relics for Ember, Frost, Nova, Flash, Nature, Prism, and Crimson; Auralis already had ten.
+- Balanced the rarity registry to keep each core at three or four Rare exclusive perks.
+- Added all new perks to the Core Codex and refreshed asset cache versions.
+
 ## v0.5 — Campaign and interface update
 
 - Added three linear story interludes between Worlds 1–3 and a final evidence-reconciliation epilogue after World 4.
