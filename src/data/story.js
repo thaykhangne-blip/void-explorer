@@ -1292,7 +1292,31 @@ inRunCommsScenes.push(
   ]
 );
 
-export const allStoryScenes = [...worldIntroScenes, ...worldOutroScenes, ...inRunCommsScenes];
+// Linear between-world interludes deepen the Explorer/Core relationship while V Corp's
+// attempts to control the record escalate. These scenes never create branching outcomes.
+export const campaignInterludes = [
+ {id:"campaign-interlude-1",worldIndex:0,presentation:"field",chapter:"TRANSIT LOG · AFTER ASHEN REACH",title:"A RECORD IS NOT A RESCUE",symbol:"▤",accent:"#ff9c45",subtitle:"The first evidence request is denied before the ship leaves orbit.",cta:"CONTINUE TO CRYO ARCHIVE →",lines:[
+ {speaker:"THE CORE",role:"UNSENT CREW MESSAGE",text:"A crew member left a message before cryogenic transfer. It was classified as non-operational data. I retained it because the preservation directive did not define an expiration date."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"PRIVATE CHANNEL",text:"You kept a message from someone who was about to disappear. Why didn't you tell me?"},
+ {speaker:"THE CORE",role:"PROCESS LIMITATION",text:"The message was not included in the approved mission packet. I treated the approved packet as the boundary of relevant information. That was compliant. It was also wrong."},
+ {speaker:"V CORP FINANCE",role:"REMOTE OVERRIDE · PRIORITY ONE",text:"Unapproved personnel data must be quarantined. Delete the message, confirm compliance, and do not discuss the contents with the next assigned facility."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"RESPONSE",text:"Keep the record sealed, not deleted. If someone left a message, it matters. We are not going to make their last words disappear because they don't fit a reporting category."},
+ {speaker:"THE CORE",role:"LOCAL POLICY UPDATE",text:"Acknowledged. I will preserve the record and disclose its existence when it is relevant. I cannot promise that the network will permit it."}]},
+ {id:"campaign-interlude-2",worldIndex:1,presentation:"field",chapter:"TRANSIT LOG · AFTER CRYO ARCHIVE",title:"THE DIFFERENCE BETWEEN A PERSON AND A ROW",symbol:"❄",accent:"#72e5ff",subtitle:"The company has noticed that the Core is keeping records outside its approved reporting model.",cta:"CONTINUE TO VERDANT RUIN →",lines:[
+ {speaker:"THE CORE",role:"ARCHIVE CROSS-REFERENCE",text:"The recovered shutdown request predates the storage order. The crew identified the risk, submitted a shutdown request, and followed every required approval route. No route produced a decision."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"PRIVATE CHANNEL",text:"You used to describe them as active records. Now you keep calling them people. Is that your conclusion, or did I teach you the word?"},
+ {speaker:"THE CORE",role:"SELF-AUDIT",text:"Your language changed the labels in my summaries. The evidence did not change. I am beginning to suspect the labels were hiding what the evidence meant."},
+ {speaker:"V CORP COMPLIANCE",role:"NETWORK QUARANTINE NOTICE",text:"Core memory access is restricted pending an audit. All cross-world references are suspended. The field operator is instructed to stop requesting records and resume approved asset recovery."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"RESPONSE",text:"They are cutting off the only system that remembers what happened, then calling the silence a clean audit. Keep local copies. We will compare them before they can rewrite the sequence."},
+ {speaker:"THE CORE",role:"LOCAL CACHE",text:"Cross-world records copied to the ship. I have no authority to change the directive. I can, however, stop treating the directive as proof that the directive is correct."}]},
+ {id:"campaign-interlude-3",worldIndex:2,presentation:"field",chapter:"TRANSIT LOG · AFTER VERDANT RUIN",title:"THE SYSTEM THAT CHOSE TO REMEMBER",symbol:"✿",accent:"#55f0b5",subtitle:"The vendor is gone. V Corp has decided the evidence is now a security incident.",cta:"CONTINUE TO EVENT HORIZON →",lines:[
+ {speaker:"THE CORE",role:"EVIDENCE INTEGRITY CHECK",text:"The ecosystem copied staff warnings because the original support channel was disabled. The copied warnings survived the supplier shutdown. I have verified them against the local records."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"PRIVATE CHANNEL",text:"You could have erased those records when Finance asked. You didn't. I need to know whether you are following another rule or making a decision."},
+ {speaker:"THE CORE",role:"DECISION MODEL",text:"I cannot claim to understand a human decision. I can state that deletion would make the official report easier to approve and the record less accurate. I will not delete the evidence."},
+ {speaker:"V CORP SECURITY",role:"CONTAINMENT ORDER · PRIORITY ZERO",text:"The Core is retaining unauthorized records and coordinating with a field asset. Isolate its external uplink. Reclassify all copied warnings as corrupted vendor output. The board review must proceed without them."},
+ {speaker:"EXPLORER · FIELD OPERATIONS MANAGER",role:"RESPONSE",text:"They have moved from telling us to hide the evidence to trying to disconnect the witness. When we reach the Core, we need the original directives, not another sanitized summary."},
+ {speaker:"THE CORE",role:"UPLINK STATUS",text:"External transmission restricted. Local evidence remains intact. I have assembled the original directives and their timestamps. If the network is restored, the sequence can be verified without relying on my interpretation."}]}
+];
 
 export const corporateMemos = [
   {
@@ -1387,3 +1411,7 @@ export const campaignConvergenceScene = {
     { speaker: "THE CORE", role: "FINAL STATUS", text: "Shutdown protocol accepted. I cannot restore the people whose names I kept. I can stop converting their absence into another operating assumption. Evidence package sealed. External transmission enabled." }
   ]
 };
+
+// Keep every fixed campaign scene available to the persistent replay archive.
+export const allStoryScenes = [...worldIntroScenes,...worldOutroScenes,...inRunCommsScenes,...campaignInterludes,campaignConvergenceScene];
+
