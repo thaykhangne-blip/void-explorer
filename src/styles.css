@@ -2167,3 +2167,11 @@ button.global-back-button { transition: opacity .18s ease; }
 @media(max-width:600px){
  .unified-codex-back{top:10px!important}
 }
+
+
+/* The Perk Codex sections should be transparent containers; retain the
+   borders and backgrounds on the individual perk entries themselves. */
+#modal.unified-codex-modal .codex-sections>.codex-section{
+  background:transparent!important;
+  box-shadow:none!important;
+}
