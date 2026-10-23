@@ -1831,7 +1831,7 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-weapon-slot-copy b{font-size:11px;letter-spacing:.7px;overflow-wrap:anywhere}
 .void-weapon-slot-copy em,.void-weapon-current em{font-style:normal;font-size:9px;color:#a9c2dc}
 .void-weapon-slot-action{font-size:9px;letter-spacing:1px;color:#a7dfff;white-space:nowrap}
-#modal.void-weapon-inventory-modal{box-sizing:border-box;width:min(720px,100%);max-height:calc(100dvh - 36px)!important;overflow-x:hidden!important;overflow-y:auto!important;padding:clamp(18px,3vw,28px);background:radial-gradient(ellipse at 50% 0,#182b48,#0a1120 65%);border:1px solid #385271}
+#modal.void-weapon-inventory-modal, .screen>.overlay #modal.void-weapon-inventory-modal{box-sizing:border-box;width:min(720px,100%);max-height:calc(100dvh - 36px)!important;overflow-x:hidden!important;overflow-y:auto!important;padding:clamp(18px,3vw,28px);background:radial-gradient(ellipse at 50% 0,#182b48,#0a1120 65%);border:1px solid #385271}
 .void-weapon-inventory-modal h2{font-size:clamp(20px,4vw,28px);letter-spacing:1.8px}
 .void-weapon-inventory-modal>p{font-size:11px;line-height:1.7;color:#9fb4d0}
 .void-weapon-current{display:flex;align-items:center;gap:12px;padding:12px;margin:15px 0;border:1px solid #344b68;background:#0b1525;border-radius:6px}
