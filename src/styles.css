@@ -1813,3 +1813,39 @@ button.global-back-button { transition: opacity .18s ease; }
 @keyframes deliveryBurst{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
 @keyframes deliveryRewardIn{from{opacity:0;transform:scale(.55) rotate(-12deg);filter:blur(6px)}to{opacity:1;transform:scale(1) rotate(0);filter:blur(0)}}
 @media(prefers-reduced-motion:reduce){#modal.mystery-delivery-modal *{animation:none!important;transition:none!important}}
+
+/* Void Weapon Armory: compact inventory and per-core equipment assignment. */
+#modal.void-armory-modal{width:min(900px,96vw);max-height:min(88vh,900px);overflow-y:auto}
+#modal.void-armory-modal>p{max-width:720px;margin-left:auto;margin-right:auto}
+#modal.void-armory-modal .armory-core-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+#modal.void-armory-modal .armory-core-tab{flex:1 1 90px;min-width:0;padding:9px 7px;border:1px solid #293754;border-radius:4px;background:#0a1020;color:#9aaac7;font:700 11px Rajdhani,sans-serif;letter-spacing:.07em;cursor:pointer}
+#modal.void-armory-modal .armory-core-tab.active{color:var(--weapon-accent);border-color:var(--weapon-accent);background:linear-gradient(135deg,#152238,#101629);box-shadow:inset 0 0 15px color-mix(in srgb,var(--weapon-accent) 10%,transparent),0 0 12px color-mix(in srgb,var(--weapon-accent) 10%,transparent)}
+#modal.void-armory-modal .armory-equipped{padding:12px;border:1px solid color-mix(in srgb,var(--weapon-accent) 45%,#293754);background:linear-gradient(120deg,#111b30,#090f1d);border-radius:5px;text-align:left}
+#modal.void-armory-modal .armory-section-label,#modal.void-armory-modal .armory-inventory-heading{font-size:10px;letter-spacing:.15em;color:#9aaac7}
+#modal.void-armory-modal .armory-equipped-main{display:flex;align-items:center;gap:12px;margin-top:10px}
+#modal.void-armory-modal .armory-equipped-main>div{flex:1;min-width:0}
+#modal.void-armory-modal .armory-equipped-main b{display:block;color:var(--weapon-accent);font-size:18px;letter-spacing:.08em}
+#modal.void-armory-modal .armory-equipped-main small{display:block;color:#9aaac7;font-size:10px;margin-top:3px;letter-spacing:.08em}
+#modal.void-armory-modal .armory-weapon-symbol{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border:1px solid color-mix(in srgb,var(--weapon-accent) 55%,#293754);border-radius:5px;color:var(--weapon-accent);font-size:29px;background:color-mix(in srgb,var(--weapon-accent) 9%,#080e1b);text-shadow:0 0 16px color-mix(in srgb,var(--weapon-accent) 60%,transparent)}
+#modal.void-armory-modal .armory-empty{padding:16px 8px;color:#7284a5;font-size:11px;letter-spacing:.1em;text-align:center}
+#modal.void-armory-modal .armory-empty p{font-size:12px;letter-spacing:0;margin:8px 0 0}
+#modal.void-armory-modal .armory-inventory-heading{display:flex;justify-content:space-between;gap:12px;margin:18px 0 9px}
+#modal.void-armory-modal .armory-inventory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;text-align:left}
+#modal.void-armory-modal .armory-weapon-card{min-width:0;padding:12px;border:1px solid #293754;border-radius:5px;background:linear-gradient(145deg,#10182a,#090e1b);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+#modal.void-armory-modal .armory-weapon-card.equipped{border-color:color-mix(in srgb,var(--weapon-accent) 65%,#293754);box-shadow:inset 0 0 22px color-mix(in srgb,var(--weapon-accent) 7%,transparent)}
+#modal.void-armory-modal .armory-weapon-top{display:flex;align-items:center;gap:9px}
+#modal.void-armory-modal .armory-weapon-top .armory-weapon-symbol{flex-basis:40px;width:40px;height:40px;font-size:24px}
+#modal.void-armory-modal .armory-weapon-title{min-width:0;flex:1}
+#modal.void-armory-modal .armory-weapon-title b{display:block;color:var(--weapon-accent);font-size:15px;letter-spacing:.06em;overflow-wrap:anywhere}
+#modal.void-armory-modal .armory-weapon-title small{display:block;margin-top:3px;color:#9aaac7;font-size:9px;letter-spacing:.07em}
+#modal.void-armory-modal .armory-copy-number{color:#657696;font-size:10px}
+#modal.void-armory-modal .armory-weapon-stats{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+#modal.void-armory-modal .armory-weapon-stats span{padding:4px 6px;border:1px solid #293754;background:#0a1020;color:#c8e6ff;font-size:10px}
+#modal.void-armory-modal .armory-weapon-card p{font-size:12px;line-height:1.45;color:#aab8d1;overflow-wrap:anywhere}
+#modal.void-armory-modal .armory-weapon-card p b{color:#e9f3ff}
+#modal.void-armory-modal .armory-equip{width:100%;font-size:10px;letter-spacing:.04em;white-space:normal}
+#modal.void-armory-modal .armory-status{padding:8px;text-align:center;color:var(--weapon-accent);font-size:10px;letter-spacing:.12em;border:1px solid color-mix(in srgb,var(--weapon-accent) 35%,#293754);background:#0b1221}
+#modal.void-armory-modal .menu-actions{margin-top:14px}
+#modal.main-menu-modal .armory-menu-count{float:right;margin-left:8px;color:var(--cyan);font-size:10px}
+@media(max-width:620px){#modal.void-armory-modal .armory-inventory{grid-template-columns:1fr}#modal.void-armory-modal .armory-core-tab{flex-basis:70px}#modal.void-armory-modal .armory-equipped-main{flex-wrap:wrap}#modal.void-armory-modal .armory-equipped-main .btn{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){#modal.void-armory-modal *{scroll-behavior:auto!important}}
