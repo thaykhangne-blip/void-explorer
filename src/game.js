@@ -197,6 +197,7 @@ function showWorldSelect(){
 }
 
 function completeWorld(){
+ if(showMysteryDelivery(()=>completeWorld()))return;
  const w=world();
  if(currentWorld===-1){tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TUTORIAL COMPLETE','READY FOR CAMPAIGN','Tutorial complete. Your campaign progress is unchanged.',[{glyph:'✦',color:'#72f6ff',title:'ENTER CAMPAIGN',desc:'Choose one of the four campaign worlds.',action:showWorldSelect},{glyph:'↻',color:'#ffe38a',title:'REPEAT TUTORIAL',desc:'Practice the controls and objectives again.',action:()=>{currentWorld=-1;run++;start()}}]);return;}
  const completedIndex=currentWorld;
