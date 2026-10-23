@@ -7,12 +7,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ff9c65',
     glyph: '♨',
-    description: 'A blade forged inside a dying star.',
-    stats: { atkPct: 0.12, hpPct: 0.08, armorPct: 0 },
+    description: 'EMBER · BURNING CRITICAL STRIKES',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Ashen Verdict',
-      description: 'Burning enemies take 15% increased damage from critical hits. Defeating a burning enemy has a 20% chance to spread its remaining burn to a nearby enemy.',
-      effectId: 'ashen-verdict'
+      name: 'Cinder Oath',
+      effectId: 'cinder-oath',
+      statKey: 'critChance',
+      values: [0.12, 0.14, 0.16, 0.18, 0.20],
+      description: 'Critical Rate: +12% / 14% / 16% / 18% / 20%. Ashen Verdict: Burning enemies take 25% / 30% / 35% / 40% / 45% more damage. Infernal Barrage: Auto-attacks spawn 1 / 2 / 3 / 4 / 5 additional homing fireballs. Each fireball damages nearby enemies and applies Burn. Fireballs inherit player damage bonuses but cannot spawn more fireballs.'
     }
   },
   {
@@ -22,12 +24,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#8cecff',
     glyph: '❄',
-    description: 'A weapon preserved beyond the end of time.',
-    stats: { atkPct: 0, hpPct: 0.10, armorPct: 0.15 },
+    description: 'FROST · FREEZE AND SHATTER',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Absolute Zero',
-      description: 'Frozen enemies receive 20% increased damage. When Frost activates its shield, nearby enemies gain 2 Chill stacks.',
-      effectId: 'absolute-zero'
+      name: 'Stillpoint',
+      effectId: 'stillpoint',
+      statKey: 'critChance',
+      values: [0.08, 0.10, 0.12, 0.14, 0.16],
+      description: 'Critical Rate: +8% / 10% / 12% / 14% / 16%. Absolute Zero: Frozen enemies take 25% / 30% / 35% / 40% / 45% more damage. Glacial Shatter: Auto-attacking a frozen enemy triggers an explosion for 100% / 125% / 150% / 175% / 200% ATK as bonus damage, damaging nearby enemies and applying 1 / 1 / 2 / 2 / 3 Chill stacks.'
     }
   },
   {
@@ -37,12 +41,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#d2a0ff',
     glyph: '✧',
-    description: 'A precision instrument designed to pierce collapsed space.',
-    stats: { atkPct: 0.14, hpPct: 0, armorPct: 0.06 },
+    description: 'NOVA · LASER PENETRATION',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Infinite Line',
-      description: 'Each additional enemy pierced by a laser increases that attack’s damage by 8%, up to 32% additional damage.',
-      effectId: 'infinite-line'
+      name: 'Eventide Array',
+      effectId: 'eventide-array',
+      statKey: 'fireRate',
+      values: [0.10, 0.12, 0.14, 0.16, 0.18],
+      description: 'Attack Speed: +10% / 12% / 14% / 16% / 18%. Infinite Line: Each additional enemy pierced by a laser increases that laser’s damage by 12% / 15% / 18% / 21% / 24%, stacking up to four times. Event Horizon: Every 5 / 4 / 3 / 3 / 2 auto-attacks, the next attack fires an enhanced piercing beam dealing 200% / 225% / 250% / 275% / 300% ATK. The beam pierces all enemies and gains the full Infinite Line bonus.'
     }
   },
   {
@@ -52,12 +58,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ffe875',
     glyph: 'ϟ',
-    description: 'A weapon that reaches its target before the shot is visible.',
-    stats: { atkPct: 0.10, hpPct: 0.10, armorPct: 0 },
+    description: 'FLASH · CHAIN LIGHTNING',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Cascade Failure',
-      description: 'Chain lightning deals 15% more damage per successive jump, up to 45% additional damage. The bonus resets after each attack sequence.',
-      effectId: 'cascade-failure'
+      name: 'Thunderclap Protocol',
+      effectId: 'thunderclap-protocol',
+      statKey: 'fireRate',
+      values: [0.12, 0.14, 0.16, 0.18, 0.20],
+      description: 'Attack Speed: +12% / 14% / 16% / 18% / 20%. Cascade Failure: Each successive chain-lightning jump increases that jump’s damage by 20% / 25% / 30% / 35% / 40%, stacking up to three times. Overload Circuit: Every 6 / 5 / 4 / 3 / 3 auto-attacks, the next hit triggers a surge dealing 150% / 175% / 200% / 225% / 250% ATK as bonus damage. It chains to 3 / 4 / 5 / 6 / 7 additional enemies, prioritizing targets not yet hit by the surge.'
     }
   },
   {
@@ -67,12 +75,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#70e58a',
     glyph: '❧',
-    description: 'A living relic grown around a forgotten reactor.',
-    stats: { atkPct: 0.08, hpPct: 0.12, armorPct: 0 },
+    description: 'NATURE · DRONES AND SYMBIOSIS',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Symbiotic Engine',
-      description: 'Each living summoned drone restores 0.5% of maximum HP every 5 seconds. While at least one drone is active, Nature deals 10% increased damage.',
-      effectId: 'symbiotic-engine'
+      name: 'Verdant Covenant',
+      effectId: 'verdant-covenant',
+      statKey: 'damage',
+      values: [0.10, 0.12, 0.14, 0.16, 0.18],
+      description: 'Attack Damage: +10% / 12% / 14% / 16% / 18%. Symbiotic Engine: Each active summoned drone increases all damage dealt by 5% / 6% / 7% / 8% / 9%, stacking up to five times. Predatory Bloom: Every 5 / 4 / 4 / 3 / 3 seconds, each active drone launches a homing seed dealing 80% / 100% / 120% / 140% / 160% ATK. With at least three drones, seeds explode on impact for 50% of their damage to nearby enemies.'
     }
   },
   {
@@ -82,12 +92,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ff71cd',
     glyph: '◈',
-    description: 'A crystalline weapon that refuses to obey a single law of physics.',
-    stats: { atkPct: 0.10, hpPct: 0, armorPct: 0.10 },
+    description: 'ELEMENTAL · REACTION CASCADES',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Spectrum Collapse',
-      description: 'Each distinct elemental effect on an enemy grants 4% bonus critical damage, up to 20%. Critical hits against enemies carrying at least three different elemental effects restore 2 energy.',
-      effectId: 'spectrum-collapse'
+      name: 'Prism Paradox',
+      effectId: 'prism-paradox',
+      statKey: 'critDamage',
+      values: [0.20, 0.25, 0.30, 0.35, 0.40],
+      description: 'Critical Damage: +20% / 25% / 30% / 35% / 40%. Spectrum Collapse: Each distinct elemental effect on a target increases damage dealt to it by 8% / 10% / 12% / 14% / 16%, up to three effects. Prismatic Detonation: Hitting a target with 3 / 3 / 2 / 2 / 2 distinct effects triggers a burst for 150% / 175% / 200% / 225% / 250% ATK. The burst spreads the triggering effects to nearby enemies.'
     }
   },
   {
@@ -97,12 +109,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ff304f',
     glyph: '⟡',
-    description: 'A weapon built on the principle that survival always has a cost.',
-    stats: { atkPct: 0.15, hpPct: 0.05, armorPct: 0 },
+    description: 'VENGEANCE · RISK AND EXECUTION',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Debt Collection',
-      description: 'While below 50% HP, gain 15% increased damage. Defeating an enemy restores 2% of maximum HP, with a 2-second internal cooldown.',
-      effectId: 'debt-collection'
+      name: 'Blood Dividend',
+      effectId: 'blood-dividend',
+      statKey: 'critDamage',
+      values: [0.25, 0.30, 0.35, 0.40, 0.45],
+      description: 'Critical Damage: +25% / 30% / 35% / 40% / 45%. Debt Collection: Below 50% HP, deal 20% / 25% / 30% / 35% / 40% more damage; below 25% HP, gain another 10%. Crimson Reprisal: Every 8 / 7 / 6 / 5 / 4 auto-attacks, the next hit deals 200% / 250% / 300% / 350% / 400% ATK as bonus damage. A kill with this strike releases a shockwave for 100% / 125% / 150% / 175% / 200% ATK to nearby enemies.'
     }
   },
   {
@@ -112,12 +126,14 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ff9ed8',
     glyph: '✦',
-    description: 'A fragment of light left behind by a universe that no longer exists.',
-    stats: { atkPct: 0.10, hpPct: 0.10, armorPct: 0 },
+    description: 'REMIELLE · LIGHT CRYSTALS AND FEATHERS',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: {
-      name: 'Luminous Afterimage',
-      description: 'Each Light Crystal grants 4% increased Void Burst damage, up to 20%. Triggering Lumox at four stacks has a 25% chance to generate one additional Light Crystal.',
-      effectId: 'luminous-afterimage'
+      name: 'Last Light, First Dawn',
+      effectId: 'last-light-first-dawn',
+      statKey: 'critChance',
+      values: [0.10, 0.12, 0.14, 0.16, 0.18],
+      description: 'Critical Rate: +10% / 12% / 14% / 16% / 18%. Luminous Afterimage: Each Light Crystal increases Void Burst damage by 8% / 10% / 12% / 14% / 16%, up to five stacks. Dawn’s Echo: Triggering Lumox at four stacks launches 2 / 3 / 4 / 5 / 6 luminous feathers. Each feather deals 75% / 90% / 105% / 120% / 135% ATK and pierces one additional enemy per refinement rank. Each activation has a 25% / 30% / 35% / 40% / 45% chance to generate one Light Crystal.'
     }
   }
 ];
