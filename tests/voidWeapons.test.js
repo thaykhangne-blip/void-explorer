@@ -4,6 +4,7 @@ import {
   claimVoidWeaponMilestone,
   equipVoidWeapon,
   getVoidWeaponBonuses,
+  getOwnedVoidWeapons,
   normalizeVoidWeaponSave,
   refineVoidWeapon,
   resolveVoidWeaponMilestoneReward,
@@ -93,13 +94,51 @@ test('equipping a weapon exposes its stats and only its signature passive on the
   };
   const offSignature = equipVoidWeapon(owned, 'frost', 'cinder-oath');
   assert.equal(offSignature.equipped, true);
-  assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').stats.atkPct, 0.12);
+  assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').stats.atkPct, 0);
+  assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').stats.critChance, 0);
   assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').signaturePassive, null);
   const onSignature = equipVoidWeapon(offSignature.saveData, 'ember', 'cinder-oath');
-  assert.equal(getVoidWeaponBonuses(onSignature.saveData, 'ember').signaturePassive.effectId, 'ashen-verdict');
+  assert.equal(getVoidWeaponBonuses(onSignature.saveData, 'ember').signaturePassive.effectId, 'cinder-oath');
+  assert.equal(getVoidWeaponBonuses(onSignature.saveData, 'ember').stats.critChance, 0.12);
   const removed = unequipVoidWeapon(onSignature.saveData, 'ember');
   assert.equal(removed.unequipped, true);
   assert.equal(getVoidWeaponBonuses(removed.saveData, 'ember').weapon, null);
+});
+
+
+test('signature weapon passives expose the requested rank I-V stat progression', () => {
+  const cases = [
+    ['cinder-oath', 'ember', 'critChance', [0.12, 0.14, 0.16, 0.18, 0.20]],
+    ['stillpoint', 'frost', 'critChance', [0.08, 0.10, 0.12, 0.14, 0.16]],
+    ['eventide-array', 'nova', 'fireRate', [0.10, 0.12, 0.14, 0.16, 0.18]],
+    ['thunderclap-protocol', 'flash', 'fireRate', [0.12, 0.14, 0.16, 0.18, 0.20]],
+    ['verdant-covenant', 'nature', 'damage', [0.10, 0.12, 0.14, 0.16, 0.18]],
+    ['prism-paradox', 'elemental', 'critDamage', [0.20, 0.25, 0.30, 0.35, 0.40]],
+    ['blood-dividend', 'vengeance', 'critDamage', [0.25, 0.30, 0.35, 0.40, 0.45]],
+    ['last-light-first-dawn', 'remielle', 'critChance', [0.10, 0.12, 0.14, 0.16, 0.18]]
+  ];
+  for (const [weaponId, coreId, statKey, values] of cases) {
+    let save = { ...baseSave(), voidWeaponInventory: { [weaponId]: 6 } };
+    const equipped = equipVoidWeapon(save, coreId, weaponId);
+    save = equipped.saveData;
+    for (let refinement = 0; refinement <= 4; refinement++) {
+      if (refinement > 0) save = refineVoidWeapon(save, weaponId).saveData;
+      const bonuses = getVoidWeaponBonuses(save, coreId);
+      assert.equal(bonuses.signaturePassive.rank, refinement + 1, weaponId + ' rank');
+      assert.equal(bonuses.stats[statKey], values[refinement], weaponId + ' ' + statKey);
+    }
+  }
+});
+
+test('owned weapon list includes the signature stat at its current refinement rank', () => {
+  const save = {
+    ...baseSave(),
+    voidWeaponInventory: { 'stillpoint': 2 }
+  };
+  const owned = getOwnedVoidWeapons(save);
+  assert.equal(owned.length, 1);
+  assert.equal(owned[0].passive.rank, 1);
+  assert.equal(owned[0].stats.critChance, 0.08);
 });
 
 test('equipping a weapon to another core automatically unequips it from the previous core', () => {
@@ -143,8 +182,11 @@ test('refinement consumes one duplicate and permanently improves weapon stats', 
   const equipped = equipVoidWeapon(first.saveData, 'ember', 'cinder-oath');
   const bonuses = getVoidWeaponBonuses(equipped.saveData, 'ember');
   assert.equal(bonuses.refinementLevel, 1);
-  assert.equal(bonuses.stats.atkPct, 0.14);
-  assert.equal(bonuses.stats.hpPct, 0.10);
+  assert.equal(bonuses.stats.atkPct, 0);
+  assert.equal(bonuses.stats.hpPct, 0);
+  assert.equal(bonuses.signaturePassive.rank, 2);
+  assert.equal(bonuses.stats.critChance, 0.14);
+  assert.equal(bonuses.stats.critChance, 0.14);
 });
 
 test('refinement requires a duplicate and stops at rank five', () => {

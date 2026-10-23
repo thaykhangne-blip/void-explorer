@@ -79,13 +79,20 @@ export function getOwnedVoidWeapons(saveData) {
     .map(weapon => {
       const refinementLevel = safe.voidWeaponRefinements[weapon.id] || 0;
       const refinementBonus = refinementLevel * 0.02;
+      const passiveRank = Math.max(1, Math.min(5, refinementLevel + 1));
+      const passiveStatBonus = weapon.passive?.values?.[passiveRank - 1] || 0;
       return {
         ...weapon,
         stats: {
           atkPct: weapon.stats.atkPct + (weapon.stats.atkPct > 0 ? refinementBonus : 0),
           hpPct: weapon.stats.hpPct + (weapon.stats.hpPct > 0 ? refinementBonus : 0),
-          armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0)
+          armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0),
+          critChance: weapon.passive?.statKey === 'critChance' ? passiveStatBonus : 0,
+          critDamage: weapon.passive?.statKey === 'critDamage' ? passiveStatBonus : 0,
+          fireRate: weapon.passive?.statKey === 'fireRate' ? passiveStatBonus : 0,
+          damage: weapon.passive?.statKey === 'damage' ? passiveStatBonus : 0
         },
+        passive: { ...weapon.passive, rank: passiveRank, statBonus: passiveStatBonus },
         refinementLevel,
         copies: safe.voidWeaponInventory[weapon.id]
       };
@@ -144,17 +151,24 @@ export function getVoidWeaponBonuses(saveData, coreId) {
   const safe = normalizeVoidWeaponSave(saveData);
   const weaponId = safe.equippedVoidWeapons[coreId];
   const weapon = weaponId ? VOID_WEAPON_BY_ID[weaponId] : null;
-  if (!weapon) return { weapon: null, stats: { atkPct: 0, hpPct: 0, armorPct: 0 }, signaturePassive: null, refinementLevel: 0 };
+  if (!weapon) return { weapon: null, stats: { atkPct: 0, hpPct: 0, armorPct: 0, critChance: 0, critDamage: 0, fireRate: 0, damage: 0 }, signaturePassive: null, refinementLevel: 0 };
   const refinementLevel = safe.voidWeaponRefinements[weaponId] || 0;
   const refinementBonus = refinementLevel * 0.02;
+  const passive = weapon.signatureCoreId === coreId ? weapon.passive : null;
+  const passiveRank = Math.max(1, Math.min(5, refinementLevel + 1));
+  const passiveStatBonus = passive?.values?.[passiveRank - 1] || 0;
   return {
     weapon,
     stats: {
       atkPct: weapon.stats.atkPct + (weapon.stats.atkPct > 0 ? refinementBonus : 0),
       hpPct: weapon.stats.hpPct + (weapon.stats.hpPct > 0 ? refinementBonus : 0),
-      armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0)
+      armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0),
+      critChance: passive?.statKey === 'critChance' ? passiveStatBonus : 0,
+      critDamage: passive?.statKey === 'critDamage' ? passiveStatBonus : 0,
+      fireRate: passive?.statKey === 'fireRate' ? passiveStatBonus : 0,
+      damage: passive?.statKey === 'damage' ? passiveStatBonus : 0
     },
-    signaturePassive: weapon.signatureCoreId === coreId ? weapon.passive : null,
+    signaturePassive: passive ? { ...passive, rank: passiveRank, statBonus: passiveStatBonus } : null,
     refinementLevel
   };
 }
