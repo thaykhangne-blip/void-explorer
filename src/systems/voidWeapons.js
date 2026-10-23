@@ -42,11 +42,14 @@ export function normalizeVoidWeaponSave(saveData = {}) {
   }
 
   normalized.equippedVoidWeapons = {};
+  const equippedWeaponIds = new Set();
   for (const [coreId, weaponId] of Object.entries(equipped)) {
     if (CORE_IDS.has(coreId) &&
         Object.prototype.hasOwnProperty.call(VOID_WEAPON_BY_ID, weaponId) &&
-        (normalized.voidWeaponInventory[weaponId] || 0) > 0) {
+        (normalized.voidWeaponInventory[weaponId] || 0) > 0 &&
+        !equippedWeaponIds.has(weaponId)) {
       normalized.equippedVoidWeapons[coreId] = weaponId;
+      equippedWeaponIds.add(weaponId);
     }
   }
 
@@ -104,6 +107,13 @@ export function equipVoidWeapon(saveData, coreId, weaponId) {
   if (!CORE_IDS.has(coreId)) return { saveData: safe, equipped: false, reason: 'invalid-core' };
   if (!VOID_WEAPON_BY_ID[weaponId]) return { saveData: safe, equipped: false, reason: 'invalid-weapon' };
   if (!(safe.voidWeaponInventory[weaponId] > 0)) return { saveData: safe, equipped: false, reason: 'not-owned' };
+  // A weapon instance can be assigned to only one core at a time.
+  // Moving it automatically clears the previous core's equipment slot.
+  for (const [equippedCoreId, equippedWeaponId] of Object.entries(safe.equippedVoidWeapons)) {
+    if (equippedWeaponId === weaponId && equippedCoreId !== coreId) {
+      delete safe.equippedVoidWeapons[equippedCoreId];
+    }
+  }
   safe.equippedVoidWeapons[coreId] = weaponId;
   return { saveData: safe, equipped: true, coreId, weaponId };
 }
