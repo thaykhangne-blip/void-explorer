@@ -2081,3 +2081,61 @@ button.global-back-button { transition: opacity .18s ease; }
   #modal.unified-codex-modal{height:calc(100dvh - 20px)!important;max-height:calc(100dvh - 20px)!important}
   #modal.unified-codex-modal .unified-codex-tabs{top:0!important}
 }
+
+
+/* Final Codex structure: fixed tab row, independently scrolling page body,
+   and a back control positioned outside the modal frame. */
+#modal.unified-codex-modal{
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  height:min(82dvh,900px)!important;
+  max-height:calc(100dvh - 36px)!important;
+  padding:0!important;
+}
+#modal.unified-codex-modal>.unified-codex-tabs{
+  flex:0 0 auto!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:5!important;
+  margin:0!important;
+  padding:12px clamp(18px,3vw,28px)!important;
+  background:#101b2d!important;
+  border-bottom:1px solid rgba(114,246,255,.2)!important;
+}
+#modal.unified-codex-modal>.unified-codex-content{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:#405779 #0a1120;
+  padding:clamp(18px,3vw,28px)!important;
+  scroll-behavior:smooth;
+}
+.unified-codex-back{
+  position:absolute!important;
+  left:max(12px,calc((100vw - 900px)/2 - 64px))!important;
+  top:clamp(24px,8vh,76px)!important;
+  z-index:10020!important;
+  display:grid!important;
+  place-items:center!important;
+  width:48px!important;
+  height:48px!important;
+  border:1px solid #31536f!important;
+  border-radius:13px!important;
+  background:linear-gradient(145deg,#14253a,#091321)!important;
+  color:#72f6ff!important;
+  font-size:25px!important;
+  cursor:pointer!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.08)!important;
+}
+.unified-codex-back:hover{border-color:#72f6ff!important;box-shadow:0 0 20px rgba(114,246,255,.18)!important}
+@media(max-width:600px){
+ #modal.unified-codex-modal{height:calc(100dvh - 20px)!important;max-height:calc(100dvh - 20px)!important}
+ #modal.unified-codex-modal>.unified-codex-tabs{padding:10px 12px!important}
+ #modal.unified-codex-modal>.unified-codex-content{padding:16px!important}
+ .unified-codex-back{left:10px!important;top:10px!important;width:40px!important;height:40px!important}
+}
