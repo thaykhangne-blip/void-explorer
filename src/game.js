@@ -198,8 +198,9 @@ function completeWorld(){
  const completedIndex=currentWorld;
  saveData.bestRooms[completedIndex]=Math.max(saveData.bestRooms[completedIndex]||0,w.rooms);
  if(completedIndex<3)saveData.unlockedWorlds=Math.max(saveData.unlockedWorlds,completedIndex+2);else saveData.unlockedWorlds=4;
- const memo=corporateMemos.find(entry=>entry.worldIndex===completedIndex);
- if(memo&&!saveData.storyProgress.recoveredFiles.includes(memo.id))saveData.storyProgress.recoveredFiles.push(memo.id);
+ for(const memo of corporateMemos.filter(entry=>entry.worldIndex===completedIndex)){
+  if(!saveData.storyProgress.recoveredFiles.includes(memo.id))saveData.storyProgress.recoveredFiles.push(memo.id);
+ }
  persist();
  const showWorldResult=()=>{
   if(completedIndex<3){
