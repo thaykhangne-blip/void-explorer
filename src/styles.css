@@ -2175,3 +2175,11 @@ button.global-back-button { transition: opacity .18s ease; }
   background:transparent!important;
   box-shadow:none!important;
 }
+
+
+/* Remove the large panel fill from the Perk Codex sections wrapper itself. */
+#modal.unified-codex-modal .codex-sections{
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+}
