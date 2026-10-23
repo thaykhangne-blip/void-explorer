@@ -1279,6 +1279,7 @@ inRunCommsScenes.push(
 export const allStoryScenes = [...worldIntroScenes, ...worldOutroScenes, ...inRunCommsScenes];
 
 export const corporateMemos = [
+[
   {
     "id": "memo-ashen-incident",
     "worldIndex": 0,
@@ -1309,6 +1310,38 @@ export const corporateMemos = [
     "code": "MIR-INV-099",
     "title": "Investment Committee: Continued Funding Decision",
     "summary": "The project has not met its forecasts. Closing it would make that fact public.",
+    "body": "The original investment thesis projected cheap, near-limitless energy and a rapid return. Those projections have not been achieved. A write-down would trigger debt clauses, reduce executive compensation, and expose prior approvals to review. The committee therefore recommends continued funding, reduced safety expenditure, fewer staff, and revised reporting assumptions. The objective is to preserve the valuation until an exit becomes available, regardless of whether the underlying asset can deliver the forecast."
+  },
+  {
+    "id": "log-ashen-safety",
+    "worldIndex": 0,
+    "code": "ASH-SAFE-014",
+    "title": "Containment Risk Register",
+    "summary": "Engineering documented the failure before the first deployment.",
+    "body": "Risk: containment instability under single-operator deployment. Required controls: four trained crew, redundant seals, and an extraction vessel. Disposition: controls deferred pending positive return from the Singularity Core. Approval chain: Operations, Finance, Investment Committee. Final note from Engineering: the risk does not become smaller because the report is moved to a different folder."
+  },
+  {
+    "id": "log-cryo-shutdown",
+    "worldIndex": 1,
+    "code": "CRYO-ENG-022",
+    "title": "Shutdown Request: Rejected by Routing",
+    "summary": "Four departments returned the same shutdown request to one another.",
+    "body": "Engineering recommends immediate shutdown after repeated containment failures. Finance requests a quantified impact assessment. Legal requests confirmation of ownership. Operations requests an approved budget. The Investment Committee requests a revised forecast. The request has completed four routing cycles without a decision. Cooling system maintenance is now overdue. The crew remains in cryogenic storage."
+  },
+  {
+    "id": "log-verdant-vendor",
+    "worldIndex": 2,
+    "code": "VER-PROC-062",
+    "title": "Supplier Comparison: Final Version",
+    "summary": "The winning bid was cheaper because it omitted training and support.",
+    "body": "Option A: trained staff, night-shift coverage, emergency support, and maintenance. Option B: autonomous ecosystem, no training allocation, support contract optional. Option B was 62% cheaper at purchase. The comparison excludes downtime, access restoration, emergency repairs, and the cost of a supplier entering insolvency. Procurement notes that the comparison is accurate within the scope of the comparison."
+  },
+  {
+    "id": "log-event-investment",
+    "worldIndex": 3,
+    "code": "MIR-INV-099",
+    "title": "Investment Committee: Continued Funding Decision",
+    "summary": "The project failed its forecasts. Closing it would make that fact public.",
     "body": "The original investment thesis projected cheap, near-limitless energy and a rapid return. Those projections have not been achieved. A write-down would trigger debt clauses, reduce executive compensation, and expose prior approvals to review. The committee therefore recommends continued funding, reduced safety expenditure, fewer staff, and revised reporting assumptions. The objective is to preserve the valuation until an exit becomes available, regardless of whether the underlying asset can deliver the forecast."
   }
 ];
