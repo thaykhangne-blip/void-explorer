@@ -1091,28 +1091,29 @@ function applyElementalAutoSplash(primary,elementName,damage){
  burst(primary.x,primary.y,spec.color,5);
  if(hits)skillFx.push({type:'elementalSplash',x:primary.x,y:primary.y,life:.22,max:.22,radius,color:spec.color});
 }
-function shoot(){
- const isPrimaryWeaponAttack=true;
- if(player?.voidWeaponPassive&&['cinder-oath','stillpoint','eventide-array','thunderclap-protocol','blood-dividend'].includes(player.voidWeaponPassive)&&getPrimaryAttackTarget()){
-  player.voidWeaponAutoCount=(player.voidWeaponAutoCount||0)+1;
-  const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));
-  if(player.voidWeaponPassive==='eventide-array'&&player.voidWeaponAutoCount>=( [5,4,3,3,2][rank-1])){
-   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
-  }else if(player.voidWeaponPassive==='thunderclap-protocol'&&player.voidWeaponAutoCount>=( [6,5,4,3,3][rank-1])){
-   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
-  }else if(player.voidWeaponPassive==='blood-dividend'&&player.voidWeaponAutoCount>=( [8,7,6,5,4][rank-1])){
-   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
-  }else if(player.voidWeaponPassive==='cinder-oath'){
-   const count=rank;const nearest=getPrimaryAttackTarget();
-   if(nearest){
-    for(let n=0;n<count;n++){
-     const angle=Math.atan2(nearest.y-player.y,nearest.x-player.x)+((n-(count-1)/2)*.12);
-     bullets.push({x:player.x+Math.cos(angle)*12,y:player.y+Math.sin(angle)*12,vx:Math.cos(angle)*Math.max(220,player.shotSpeed*.76),vy:Math.sin(angle)*Math.max(220,player.shotSpeed*.76),r:5,life:3.2,rangeLeft:CORE_TARGET_RANGE*2,damage:player.damage*.42,color:'#ff9c65',type:'voidWeaponFireball',pierce:0,hitEnemies:[],homingTarget:nearest,homingTargetLocked:true,homingTargetLost:false,fromVoidWeapon:true});
-    }
-   }
+function configureVoidWeaponAutoAttack(target){
+ if(!player?.voidWeaponPassive||!target)return;
+ const effect=player.voidWeaponPassive;
+ if(!['cinder-oath','stillpoint','eventide-array','thunderclap-protocol','blood-dividend'].includes(effect))return;
+ player.voidWeaponAutoCount=(player.voidWeaponAutoCount||0)+1;
+ const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));
+ if(effect==='eventide-array'&&player.voidWeaponAutoCount>=[5,4,3,3,2][rank-1]){
+  player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+ }else if(effect==='thunderclap-protocol'&&player.voidWeaponAutoCount>=[6,5,4,3,3][rank-1]){
+  player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+ }else if(effect==='blood-dividend'&&player.voidWeaponAutoCount>=[8,7,6,5,4][rank-1]){
+  player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+ }else if(effect==='cinder-oath'){
+  for(let n=0;n<rank;n++){
+   const angle=Math.atan2(target.y-player.y,target.x-player.x)+(n-(rank-1)/2)*.12;
+   bullets.push({x:player.x+Math.cos(angle)*12,y:player.y+Math.sin(angle)*12,vx:Math.cos(angle)*Math.max(220,player.shotSpeed*.76),vy:Math.sin(angle)*Math.max(220,player.shotSpeed*.76),r:5,life:3.2,rangeLeft:CORE_TARGET_RANGE*2,damage:player.damage*.42,color:'#ff9c65',type:'voidWeaponFireball',pierce:0,hitEnemies:[],homingTarget:target,homingTargetLocked:true,homingTargetLost:false,fromVoidWeapon:true});
   }
  }
+}
+function shoot(){
+ player.voidWeaponOnPrimaryAttack=configureVoidWeaponAutoAttack;
  const nextShootCd=executeAutoAttack({player,blackHole,enemies,addEnergy,core,CORE_TARGET_RANGE,getPrimaryAttackTarget,mouse,sfx,pick,ELEMENTAL_CORE_ELEMENTS,bullets,launchElementalNovaSalvo,natureDrones,withinCoreRange,dist,skillFx,rand,applyDamage,triggerRicochetChain,burst,pointSegmentDistance,W,H,lasers,RICOCHET_LINK_RANGE,addLightningArc,element,energy,firePhaseFlowAttack});
+ player.voidWeaponOnPrimaryAttack=null;
  if(player?.voidWeaponPassive==='eventide-array'&&player.voidWeaponChargedAttack&&core?.id==='nova'){
   const nearest=getPrimaryAttackTarget(),angle=nearest?Math.atan2(nearest.y-player.y,nearest.x-player.x):Math.atan2(mouse.y-player.y,mouse.x-player.x);
   const vx=Math.cos(angle),vy=Math.sin(angle),edgeX=vx>0?(W-player.x)/vx:vx<0?(0-player.x)/vx:Infinity,edgeY=vy>0?(H-player.y)/vy:vy<0?(0-player.y)/vy:Infinity,length=Math.min(CORE_TARGET_RANGE,Math.max(0,Math.min(edgeX>0?edgeX:Infinity,edgeY>0?edgeY:Infinity)));
