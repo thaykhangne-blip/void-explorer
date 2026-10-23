@@ -1,3 +1,8 @@
+## UI fix — Notification lifecycle
+- Notifications now replace the previous message immediately and restart the 1.8-second visibility timer on every push, regardless of the previous notification's priority.
+- When the timer expires, the toast is hidden and its text is cleared so stale messages cannot linger in the notification element.
+- Bumped the game script cache version to ensure browsers load the update.
+
 ## Story update — Linear campaign arc and narrative presentation
 - Added three fixed between-world interludes that advance the Explorer/Core relationship and escalate V Corp interference from data suppression to network quarantine and attempted isolation.
 - Interludes play after each of the first three world debriefings, before the next-world menu; the main plot remains linear and existing save keys are preserved.
