@@ -147,6 +147,13 @@ function addUnifiedCodexTabs(active){
  modal.querySelectorAll('.world-holo-back').forEach(button=>button.remove());
  const tabs='<nav class="unified-codex-tabs" aria-label="Codex sections"><button type="button" data-unified-codex-tab="perks" '+(active==='perks'?'aria-current="page"':'')+'>PERK CODEX</button><button type="button" data-unified-codex-tab="weapons" '+(active==='weapons'?'aria-current="page"':'')+'>VOID WEAPONS</button><button type="button" data-unified-codex-tab="story" '+(active==='story'?'aria-current="page"':'')+'>STORY ARCHIVE</button></nav>';
  modal.insertAdjacentHTML('afterbegin',tabs);
+ let content=modal.querySelector('.unified-codex-content');
+ if(!content){
+  content=document.createElement('div');content.className='unified-codex-content';
+  const children=Array.from(modal.children).filter(child=>!child.matches('.unified-codex-tabs'));
+  children.forEach(child=>content.appendChild(child));
+  modal.appendChild(content);
+ }
  modal.querySelectorAll('[data-unified-codex-tab]').forEach(button=>button.onclick=()=>showUnifiedCodex(button.dataset.unifiedCodexTab));
  const overlay=$('overlay');
  let back=overlay.querySelector('.unified-codex-back');
