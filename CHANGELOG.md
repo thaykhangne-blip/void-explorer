@@ -1,3 +1,12 @@
+## v0.5 — Campaign and interface update
+
+- Added three linear story interludes between Worlds 1–3 and a final evidence-reconciliation epilogue after World 4.
+- Expanded the Story Archive to include new campaign transmissions and replay support.
+- Refined narrative presentation with speaker-specific colors, subtle transitions, and reduced-motion support.
+- Removed the legacy toast notification system.
+- Fixed gameplay edge controls: the floating back button is hidden during active runs, and the combat-statistics toggle is anchored to the right edge.
+- Continued combat, core, room-objective, and progression tuning across the beta.
+
 ## UI fix — Notification lifecycle
 - Notifications now replace the previous message immediately and restart the 1.8-second visibility timer on every push, regardless of the previous notification's priority.
 - When the timer expires, the toast is hidden and its text is cleared so stale messages cannot linger in the notification element.
