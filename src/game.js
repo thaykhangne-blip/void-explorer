@@ -1162,6 +1162,8 @@ function continueAfterRoomClear(){
  if(pendingTutorialAdvance){pendingTutorialAdvance=false;if(room>=world().rooms){state='tutorialcomplete';tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TRAINING SIMULATION · COMPLETE','YOU ARE READY','', [{title:'RETURN TO WORLD SELECT',glyph:'⌂',color:'#72f6ff',desc:'Confirm to return to campaign select.',action:()=>{if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);hideModal();state='worldselect';showWorldSelect();}}]);const modal=$('modal'),message='MOVEMENT CALIBRATED. DASH PROTOCOL VERIFIED. CORE SKILL ONLINE. ULTIMATE DISCHARGED. TRAINING COMPLETE. YOUR CAMPAIGN BEGINS NOW.';const desc=modal.querySelector('p');desc.classList.add('tutorial-typewriter');desc.textContent='';if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);let typeIndex=0;window.__voidTutorialTypeTimer=setInterval(()=>{if(state!=='tutorialcomplete'||!desc.isConnected){clearInterval(window.__voidTutorialTypeTimer);return;}desc.textContent=message.slice(0,++typeIndex);if(typeIndex%3===0)sfx('text');if(typeIndex>=message.length)clearInterval(window.__voidTutorialTypeTimer);},28);return;}room++;enterRoom();state='playing';hideModal();last=performance.now();updateUI();}
 }
 function showPortals(){
+ // Portal selection is an in-run canvas state, not a menu. Remove any stale menu back controls.
+ document.querySelectorAll('#worldHoloBack,.world-holo-back').forEach(button=>button.remove());
  const dialogueScene=currentWorld>=0?inRunCommsScenes.find(scene=>scene.worldIndex===currentWorld&&scene.room===room):null;
  if(dialogueScene&&!roomDialogueShown.has(room)){
   roomDialogueShown.add(room);
