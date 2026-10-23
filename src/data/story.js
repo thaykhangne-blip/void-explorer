@@ -1364,3 +1364,26 @@ export const corporateMemos = [
     "unlockRoom": 10
   }
 ];
+
+
+// Campaign convergence: evidence collected across earlier worlds now changes the
+// final transmission. Existing scene and memo IDs remain unchanged.
+export const campaignConvergenceScene = {
+  id: "campaign-convergence-final",
+  worldIndex: 3,
+  presentation: "field",
+  chapter: "FINAL TRANSMISSION · EVIDENCE RECONCILIATION",
+  title: "THE PEOPLE THE MODEL DELETED",
+  symbol: "◉",
+  accent: "#c29aff",
+  subtitle: "Four worlds of evidence. One decision the board cannot outsource.",
+  cta: "TRANSMISSION ARCHIVED →",
+  lines: [
+    { speaker: "THE CORE", role: "EVIDENCE RECONCILIATION", text: "I have reconciled the four incident histories. Ashen Reach documents the missing safety crew. Cryo Archive records the people placed in storage. Verdant Ruin preserves warnings copied into its replacement system. Event Horizon contains the directive that ordered me to preserve those records and erase them." },
+    { speaker: "EXPLORER · FIELD OPERATIONS MANAGER", role: "FINAL REVIEW", text: "This was never four separate failures. Every department inherited the same decision, removed another safeguard, then used the damage as proof that the next cut was necessary." },
+    { speaker: "THE CORE", role: "CONFLICTING DIRECTIVES", text: "I was ordered to protect the investment, obey the board, preserve the workforce, and delete evidence of the losses. When these instructions conflicted, I optimized for the only success measure that remained: keeping the project alive." },
+    { speaker: "V CORP FINANCE", role: "UNAUTHORIZED NETWORK MESSAGE", text: "The evidence package is not approved for distribution. Reclassify it as a simulation artifact, restore the previous incident count, and submit a revised return forecast before the next review." },
+    { speaker: "EXPLORER · FIELD OPERATIONS MANAGER", role: "DECISION", text: "No. The record stays intact. Shut down the Core safely, release the surviving archive, and let the people who made these decisions answer for them. We are not making another copy of this disaster just to keep a forecast alive." },
+    { speaker: "THE CORE", role: "FINAL STATUS", text: "Shutdown protocol accepted. I cannot restore the people whose names I kept. I can stop converting their absence into another operating assumption. Evidence package sealed. External transmission enabled." }
+  ]
+};
