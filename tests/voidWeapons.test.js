@@ -5,6 +5,8 @@ import {
   equipVoidWeapon,
   getVoidWeaponBonuses,
   getOwnedVoidWeapons,
+  getRankedVoidWeaponDescription,
+  getVoidWeapon,
   normalizeVoidWeaponSave,
   refineVoidWeapon,
   resolveVoidWeaponMilestoneReward,
@@ -212,4 +214,34 @@ test('normalization safely clamps refinement ranks and drops unknown weapon keys
     voidWeaponRefinements: { 'cinder-oath': 99, unknown: 4, stillpoint: -1 }
   });
   assert.deepEqual(normalized.voidWeaponRefinements, { 'cinder-oath': 5 });
+});
+
+
+test('Void Weapon descriptions show only values for the current rank', () => {
+  const cinder = getVoidWeapon('cinder-oath');
+  assert.match(cinder.passive.description, /Critical Rate: \\+12%\\./);
+  assert.match(cinder.passive.description, /Burning enemies take 25% more damage/);
+  assert.match(cinder.passive.description, /spawn 1 additional homing fireball/);
+  assert.doesNotMatch(cinder.passive.description, /12% \\/ 14%|25% \\/ 30%|1 \\/ 2 \\/ 3/);
+
+  const rankThree = getVoidWeapon('cinder-oath', 2);
+  assert.match(rankThree.passive.description, /Critical Rate: \\+16%\\./);
+  assert.match(rankThree.passive.description, /Burning enemies take 35% more damage/);
+  assert.match(rankThree.passive.description, /spawn 3 additional homing fireballs/);
+
+  const owned = {
+    ...baseSave(),
+    voidWeaponInventory: { 'cinder-oath': 2 },
+    voidWeaponRefinements: { 'cinder-oath': 1 }
+  };
+  assert.match(getOwnedVoidWeapons(owned)[0].passive.description, /Critical Rate: \\+14%\\./);
+  assert.match(getVoidWeaponBonuses(
+    equipVoidWeapon(owned, 'ember', 'cinder-oath').saveData,
+    'ember'
+  ).signaturePassive.description, /Critical Rate: \\+14%\\./);
+
+  assert.equal(
+    getRankedVoidWeaponDescription('Test 1 / 2 / 3 / 4 / 5 and 10% / 20% / 30% / 40% / 50%', 5),
+    'Test 5 and 50%'
+  );
 });
