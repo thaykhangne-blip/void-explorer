@@ -1333,7 +1333,8 @@ export const corporateMemos = [
     "code": "ASH-SAFE-014",
     "title": "Containment Risk Register",
     "summary": "Engineering documented the failure before the first deployment.",
-    "body": "Risk: containment instability under single-operator deployment. Required controls: four trained crew, redundant seals, and an extraction vessel. Disposition: controls deferred pending positive return from the Singularity Core. Approval chain: Operations, Finance, Investment Committee. Final note from Engineering: the risk does not become smaller because the report is moved to a different folder."
+    "body": "Risk: containment instability under single-operator deployment. Required controls: four trained crew, redundant seals, and an extraction vessel. Disposition: controls deferred pending positive return from the Singularity Core. Approval chain: Operations, Finance, Investment Committee. Final note from Engineering: the risk does not become smaller because the report is moved to a different folder.",
+    "unlockRoom": 10
   },
   {
     "id": "log-cryo-shutdown",
@@ -1341,7 +1342,8 @@ export const corporateMemos = [
     "code": "CRYO-ENG-022",
     "title": "Shutdown Request: Rejected by Routing",
     "summary": "Four departments returned the same shutdown request to one another.",
-    "body": "Engineering recommends immediate shutdown after repeated containment failures. Finance requests a quantified impact assessment. Legal requests confirmation of ownership. Operations requests an approved budget. The Investment Committee requests a revised forecast. The request has completed four routing cycles without a decision. Cooling system maintenance is now overdue. The crew remains in cryogenic storage."
+    "body": "Engineering recommends immediate shutdown after repeated containment failures. Finance requests a quantified impact assessment. Legal requests confirmation of ownership. Operations requests an approved budget. The Investment Committee requests a revised forecast. The request has completed four routing cycles without a decision. Cooling system maintenance is now overdue. The crew remains in cryogenic storage.",
+    "unlockRoom": 10
   },
   {
     "id": "log-verdant-vendor",
@@ -1349,7 +1351,8 @@ export const corporateMemos = [
     "code": "VER-PROC-062",
     "title": "Supplier Comparison: Final Version",
     "summary": "The winning bid was cheaper because it omitted training and support.",
-    "body": "Option A: trained staff, night-shift coverage, emergency support, and maintenance. Option B: autonomous ecosystem, no training allocation, support contract optional. Option B was 62% cheaper at purchase. The comparison excludes downtime, access restoration, emergency repairs, and the cost of a supplier entering insolvency. Procurement notes that the comparison is accurate within the scope of the comparison."
+    "body": "Option A: trained staff, night-shift coverage, emergency support, and maintenance. Option B: autonomous ecosystem, no training allocation, support contract optional. Option B was 62% cheaper at purchase. The comparison excludes downtime, access restoration, emergency repairs, and the cost of a supplier entering insolvency. Procurement notes that the comparison is accurate within the scope of the comparison.",
+    "unlockRoom": 10
   },
   {
     "id": "log-event-core-memory",
@@ -1357,6 +1360,7 @@ export const corporateMemos = [
     "code": "MIR-OPS-104",
     "title": "Core Memory Preservation Directive",
     "summary": "The Core was ordered to preserve human records and then blamed for retaining them.",
-    "body": "Directive 7 requires the Core to preserve every operational trace, including employee names, voices, access records, and final messages. Directive 12 classifies all retained personnel data as a storage liability and orders deletion after project closure. No priority order was defined between the directives. The Core has continued preserving the records. The incident report attributes its refusal to comply to autonomous instability rather than conflicting executive instructions."
+    "body": "Directive 7 requires the Core to preserve every operational trace, including employee names, voices, access records, and final messages. Directive 12 classifies all retained personnel data as a storage liability and orders deletion after project closure. No priority order was defined between the directives. The Core has continued preserving the records. The incident report attributes its refusal to comply to autonomous instability rather than conflicting executive instructions.",
+    "unlockRoom": 10
   }
 ];
