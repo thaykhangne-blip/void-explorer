@@ -2239,7 +2239,7 @@ button.global-back-button { transition: opacity .18s ease; }
 
 /* Signature weapon visual language: restrained orbiting marks and clear equipment badges. */
 .core-holo-node{position:relative}
-.core-holo-node.has-signature-weapon{border-color:color-mix(in srgb,var(--world-accent,#72f6ff) 62%,#263550);box-shadow:inset 0 0 18px color-mix(in srgb,var(--world-accent,#72f6ff) 10%,transparent)}
+.world-holo-node.has-signature-weapon{border-color:color-mix(in srgb,var(--world-accent,#72f6ff) 62%,#263550);box-shadow:inset 0 0 18px color-mix(in srgb,var(--world-accent,#72f6ff) 10%,transparent)}
 .signature-weapon-badge{position:absolute;top:5px;right:6px;display:grid;place-items:center;width:19px;height:19px;border-radius:50%;font-size:12px;line-height:1;color:#fff4cf;background:rgba(12,18,32,.94);border:1px solid #ffe7a1;box-shadow:0 0 9px rgba(255,220,130,.5),inset 0 0 5px rgba(255,220,130,.12);z-index:3}
 .core-holo-planet.has-signature-weapon{filter:drop-shadow(0 0 10px color-mix(in srgb,var(--world-accent,#72f6ff) 48%,transparent))}
 .core-holo-planet.has-signature-weapon:after{content:"✦";position:absolute;right:-7px;top:8%;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;font-size:13px;color:#fff2bd;background:rgba(8,14,26,.94);border:1px solid #ffe7a1;box-shadow:0 0 12px rgba(255,220,130,.55);z-index:8;animation:signatureBadgePulse 2.6s ease-in-out infinite}
