@@ -1,3 +1,8 @@
+export function getVoidWeaponRefinementBonuses(stats = {}, refinementLevel = 0) {
+ const level = Math.max(0, Math.min(5, Math.floor(Number(refinementLevel) || 0)));
+ return { attackMultiplier: 1 + Math.max(0, Number(stats.attackPercent) || 0) / 100 + level * 0.02, hpMultiplier: 1 + Math.max(0, Number(stats.hpPercent) || 0) / 100 + level * 0.02, armorFlat: (Number(stats.armorFlat) || 0) + level };
+}
+
 export function getVoidWeaponDamageMultiplier(effect, target, tag = '') {
  if (!effect || !target) return 1;
  switch (effect.type) {
