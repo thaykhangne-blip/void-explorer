@@ -1,3 +1,9 @@
+## Story update — Campaign convergence
+- Added a final evidence-reconciliation transmission connecting the missing safety crew, frozen workforce, unsupported automation, and conflicting Core memory directives.
+- Completing the final world now plays the new epilogue after the existing boss-aftermath debrief and before the campaign-complete screen.
+- The epilogue acknowledges whether records from all four worlds have been recovered without blocking completion for older saves or players who skipped optional clues.
+- Preserved all existing scene and memo IDs for save compatibility.
+
 # Changelog
 
 - Rebuffed Vengeance Core base attack damage from 0.63 to 0.78, a 23.8% increase from the previous value.
