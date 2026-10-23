@@ -359,15 +359,19 @@ if(statGrid){
  const rows=[['CORE',core?.name||'Unbound',core?.color||'#72f6ff'],['ELEMENT',element?.name||'None',element?.color||'#72f6ff'],['ATTACK DAMAGE',Math.round(player?.damage||0),'#ffe38a'],['CRIT CHANCE',Math.round((player?.critChance||0)*100)+'%','#ff9ed8'],['CRIT DAMAGE',Math.round((player?.critDamage||1)*100)+'%','#ff9ed8'],['FIRE RATE',(player?.fireRate||0).toFixed(2)+'/s','#72f6ff'],['PROJECTILES / BEAMS',String(player?.shots||1),'#72f6ff'],['PROJECTILE SPEED',Math.round(player?.shotSpeed||0),'#72f6ff'],['MOVEMENT SPEED',Math.round(player?.speed||0),'#72f6ff'],['ARMOR',Math.round(player?.armor||0),'#8cecff'],['DAMAGE REDUCTION',Math.round(Math.min(.7,(player?.armor||0)/100)*100)+'%','#8cecff'],['HULL',Math.ceil(player?.hp||0)+' / '+Math.ceil(player?.maxHp||0),'#ff789d'],['ULTIMATE MASTERY',(ultLevel||0)+' / 5','#c29aff']];
  if(core?.id==='remielle')rows.push(['VOID BURST',(player?.voidflares||0)+' / '+(player?.maxVoidflares||3),'#ff9ed8']);
  const weaponBonus=getVoidWeaponBonuses(saveData,core?.id||'');
+ statGrid.innerHTML=rows.map(([label,value,color])=>'<div style="min-width:0;padding:9px 11px;background:linear-gradient(145deg,#111b2d,#0c1424);border:1px solid #263550;border-radius:7px"><div style="font-size:9px;letter-spacing:1px;color:#8799b7;margin-bottom:5px">'+label+'</div><strong style="font-size:13px;color:'+color+';overflow-wrap:anywhere;white-space:normal">'+value+'</strong></div>').join('');
+ let weaponPanel=statGrid.querySelector('#orbitalVoidWeaponPanel');
  if(weaponBonus.weapon){
-  rows.push(['VOID WEAPON',weaponBonus.weapon.name,weaponBonus.weapon.color]);
-  if(weaponBonus.signaturePassive){
-   rows.push(['WEAPON REFINEMENT','RANK '+['I','II','III','IV','V'][Math.max(1,weaponBonus.signaturePassive.rank||1)-1],weaponBonus.weapon.color]);
-   rows.push(['SIGNATURE PASSIVE',weaponBonus.signaturePassive.name,weaponBonus.weapon.color]);
-   rows.push(['PASSIVE EFFECT',highlightVoidWeaponNumbers(weaponBonus.signaturePassive.description),weaponBonus.weapon.color]);
-  } else rows.push(['PASSIVE','Signature passive is active only on its matching core.','#9aaac7']);
+  const accent=weaponBonus.weapon.color||'#72f6ff';
+  const passive=weaponBonus.signaturePassive;
+  const rank=passive?Math.max(1,Math.min(5,passive.rank||1)):0;
+  const rankLabel=['I','II','III','IV','V'][rank-1]||'—';
+  const panel=document.createElement('section');
+  panel.id='orbitalVoidWeaponPanel';
+  panel.style.cssText='grid-column:1/-1;min-width:0;position:relative;overflow:hidden;margin-top:2px;padding:13px 15px 14px;background:linear-gradient(120deg,rgba(16,27,46,.98),rgba(10,17,31,.98));border:1px solid '+accent+'55;border-left:3px solid '+accent+';border-radius:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)';
+  panel.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:11px"><div style="min-width:0"><div style="font-size:9px;letter-spacing:1.5px;color:#8799b7;margin-bottom:4px">VOID WEAPON · SIGNATURE SYSTEM</div><div style="font-size:15px;font-weight:800;letter-spacing:.15px;color:'+accent+'">'+weaponBonus.weapon.name+'</div></div><span style="flex-shrink:0;padding:5px 8px;border:1px solid '+accent+'55;border-radius:5px;background:'+accent+'12;color:'+accent+';font-size:9px;font-weight:800;letter-spacing:1px">'+(passive?'REFINEMENT '+rankLabel:'NON-SIGNATURE CORE')+'</span></div>'+(passive?'<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="width:5px;height:5px;border-radius:50%;background:'+accent+';box-shadow:0 0 8px '+accent+';flex-shrink:0"></span><span style="font-size:10px;letter-spacing:1.1px;color:#a9b8d2">SIGNATURE PASSIVE</span><strong style="font-size:12px;color:#f1f5ff">'+passive.name+'</strong></div><p style="margin:0;color:#b9c7df;font-size:12px;line-height:1.7;overflow-wrap:anywhere">'+highlightVoidWeaponNumbers(passive.description)+'</p>':'<p style="margin:0;color:#9aaac7;font-size:12px;line-height:1.6">The signature passive activates only when this weapon is equipped to '+(weaponBonus.weapon.signatureCoreId||'its matching core').toUpperCase()+'.</p>');
+  statGrid.appendChild(panel);
  }
- statGrid.innerHTML=rows.map(([label,value,color])=>'<div style="min-width:0;padding:8px 9px;background:#10182a;border:1px solid #263550;border-radius:5px"><div style="font-size:9px;letter-spacing:.7px;color:#9aaac7;margin-bottom:5px">'+label+'</div><strong style="font-size:13px;color:'+color+';overflow-wrap:anywhere;white-space:normal">'+value+'</strong></div>').join('');
 }
 if(currentStats.parentNode!==modal)modal.appendChild(currentStats);
 let earned=$('orbitalEarnedPerks');if(!earned){earned=document.createElement('section');earned.id='orbitalEarnedPerks';earned.className='panel orbital-earned-perks';earned.style.cssText='display:block!important;visibility:visible!important;position:relative;width:100%;margin-top:12px;text-align:left;max-height:34vh;overflow:auto;background:#0b1020;border:1px solid #293754;border-radius:7px;padding:12px;flex:0 0 auto';earned.innerHTML='<h3 style="margin:0 0 4px;color:#9aaac7;font-size:11px;letter-spacing:1.5px">PERKS ACQUIRED THIS RUN</h3><div style="font-size:11px;color:#72819e;margin-bottom:6px">Hover over or focus an icon to view its description and rank.</div><div id="orbitalEarnedPerksList"></div>';}
