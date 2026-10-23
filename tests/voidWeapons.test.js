@@ -186,6 +186,7 @@ test('refinement consumes one duplicate and permanently improves weapon stats', 
   assert.equal(bonuses.stats.hpPct, 0);
   assert.equal(bonuses.stats.critChance, 0.12);
   assert.equal(bonuses.signaturePassive.rank, 2);
+  assert.equal(bonuses.stats.critChance, 0.14);
 });
 
 test('refinement requires a duplicate and stops at rank five', () => {
