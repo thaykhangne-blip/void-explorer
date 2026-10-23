@@ -3,7 +3,7 @@ import { cores, elements } from './data/cores.js';
 import { PERKCODEXDATA, PERK_MAX_RANK, PERK_RARITY } from './data/perks.js';
 import { pointSegmentDistance } from './utils/geometry.js';
 import { createRicochetSystem } from './systems/ricochet.js';
-import { worldIntroScenes, worldOutroScenes, inRunCommsScenes, allStoryScenes, corporateMemos } from './data/story.js';
+import { worldIntroScenes, worldOutroScenes, inRunCommsScenes, allStoryScenes, corporateMemos, campaignConvergenceScene } from './data/story.js';
 import { createNarrativeSystem } from './systems/narrative.js';
 import { getElementalSummonCount, getUltimateMasteryRank } from './abilities/ultimateScaling.js';
 import { getPrimaryAttackTarget as selectPrimaryAttackTarget } from './abilities/targeting.js';
@@ -213,7 +213,19 @@ function completeWorld(){
   }
  };
  const outro=worldOutroScenes[completedIndex];
- if(outro)narrative.play(outro,{force:true,markSeen:true,onComplete:showWorldResult});else showWorldResult();
+ const showFinalEvidenceTransmission=()=>{
+  if(completedIndex===3){
+   const progress=saveData.storyProgress||{seenScenes:[],recoveredFiles:[]};
+   const recovered=new Set(progress.recoveredFiles||[]);
+   const worldMemoCounts=[0,1,2,3].map(index=>corporateMemos.filter(memo=>memo.worldIndex===index&&recovered.has(memo.id)).length);
+   const allWorldsInvestigated=worldMemoCounts.every(count=>count>0);
+   campaignConvergenceScene.subtitle=allWorldsInvestigated
+    ?'All four investigations connected. The evidence chain is complete.'
+    :'The record is incomplete, but the pattern is clear. The remaining evidence stays in the archive.';
+   narrative.play(campaignConvergenceScene,{force:true,markSeen:true,onComplete:showWorldResult});
+  }else showWorldResult();
+ };
+ if(outro)narrative.play(outro,{force:true,markSeen:true,onComplete:showFinalEvidenceTransmission});else showFinalEvidenceTransmission();
 }
 
 const buildPanelNode=document.querySelector('.build-panel');const buildPanelHome=buildPanelNode?.parentNode;const buildPanelMarker=document.createComment('Orbital Build returns to its home outside the arena');if(buildPanelNode&&buildPanelHome)buildPanelHome.insertBefore(buildPanelMarker,buildPanelNode);function returnBuildPanelHome(){if(buildPanelNode&&buildPanelMarker.parentNode)buildPanelMarker.parentNode.insertBefore(buildPanelNode,buildPanelMarker.nextSibling);buildPanelNode?.classList.remove('pause-build-panel');const stats=$('orbitalCurrentStats'),perks=$('orbitalEarnedPerks');if(stats)stats.remove();if(perks)perks.remove()}function showOrbitalBuild(){if(state!=='paused')return;showModal('PAUSED · CHARACTER DETAILS','ORBITAL BUILD','View your stats, evolutions, and perks. The run stays paused.',[{glyph:'←',color:'#72f6ff',title:'BACK TO PAUSE MENU',desc:'Back to the pause menu.',action:()=>{returnBuildPanelHome();showPauseMenu()}}]);const modal=$('modal');modal.classList.add('build-modal');if(buildPanelNode){modal.appendChild(buildPanelNode);buildPanelNode.classList.add('pause-build-panel');if(statsContent)statsContent.classList.remove('collapsed');if(statsToggle){statsToggle.textContent='− HIDE STATS';statsToggle.setAttribute('aria-expanded','true');}}
