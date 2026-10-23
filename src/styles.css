@@ -2264,3 +2264,33 @@ button.global-back-button { transition: opacity .18s ease; }
  font-weight:700;
  transform:translate(0,0);
 }
+
+/* Signature marker belongs on the small satellite beside the core, not on the ability tile. */
+#modal.core-hologram-modal .core-holo-planet{position:relative}
+#modal.core-hologram-modal .core-orbit-signature-badge{
+ position:absolute;
+ left:-54%;
+ top:-48%;
+ right:auto;
+ width:22px;
+ height:22px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ box-sizing:border-box;
+ padding:0;
+ margin:0;
+ border-radius:50%;
+ line-height:1;
+ text-align:center;
+ font-family:Arial,sans-serif;
+ font-size:12px;
+ font-weight:700;
+ color:#fff4cf;
+ background:rgba(12,18,32,.96);
+ border:1px solid #ffe7a1;
+ box-shadow:0 0 10px rgba(255,220,130,.65),inset 0 0 5px rgba(255,220,130,.15);
+ z-index:12;
+ pointer-events:none;
+}
+#modal.core-hologram-modal .core-holo-mini-icon>.signature-weapon-badge{display:none!important}
