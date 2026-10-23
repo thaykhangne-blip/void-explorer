@@ -1785,3 +1785,37 @@ button.global-back-button { transition: opacity .18s ease; }
 
 /* The legacy toast notification system is disabled globally. */
 .toast { display:none!important; }
+
+
+/* Mystery delivery box reward reveal */
+.void-delivery-modal{width:min(540px,100%);padding:clamp(18px,4vw,30px);border:1px solid #3d5579;background:radial-gradient(ellipse at 50% 36%,#172743 0,#0b1222 65%);box-shadow:0 0 36px #72f6ff22,0 18px 60px #000b;overflow:hidden}
+.void-delivery-modal h2{letter-spacing:2.5px;font-size:clamp(20px,4vw,29px)}
+.void-delivery-stage{height:210px;position:relative;display:grid;place-items:center;isolation:isolate;overflow:hidden;border:1px solid #263b5c;border-radius:8px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--delivery-accent) 12%,transparent),transparent 62%)}
+.void-delivery-orbit{position:absolute;width:170px;height:170px;border:1px solid color-mix(in srgb,var(--delivery-accent) 55%,transparent);border-radius:50%;transform:rotateX(67deg);animation:voidDeliveryOrbit 7s linear infinite}
+.void-delivery-orbit.orbit-two{width:130px;height:130px;transform:rotateY(67deg);animation-duration:5s;animation-direction:reverse;opacity:.55}
+.void-delivery-box{position:relative;width:108px;height:90px;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--delivery-accent) 40%,transparent));transition:transform .45s cubic-bezier(.2,.85,.25,1)}
+.delivery-box-base{position:absolute;left:7px;right:7px;bottom:0;height:58px;border:2px solid var(--delivery-accent);background:linear-gradient(135deg,#243651,#111a2d 65%);clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);box-shadow:inset 0 0 20px color-mix(in srgb,var(--delivery-accent) 16%,transparent)}
+.delivery-box-lid{position:absolute;z-index:2;left:0;right:0;top:16px;height:20px;border:2px solid var(--delivery-accent);background:linear-gradient(135deg,#3a4d68,#17243a);transform-origin:8% 100%;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.delivery-box-mark{position:absolute;z-index:3;top:37px;left:0;right:0;text-align:center;color:var(--delivery-accent);font-size:32px;font-weight:800;text-shadow:0 0 12px var(--delivery-accent)}
+.delivery-box-glow{position:absolute;inset:0;border-radius:50%;background:var(--delivery-accent);filter:blur(24px);opacity:.12;transform:scale(.6);transition:opacity .5s,transform .5s}
+.void-delivery-stage.is-sealed{cursor:pointer}
+.void-delivery-stage.is-sealed .void-delivery-box{animation:voidDeliveryHover 2.2s ease-in-out infinite}
+.void-delivery-stage.is-opening .delivery-box-lid{transform:translate(-13px,-30px) rotate(-32deg)}
+.void-delivery-stage.is-opening .delivery-box-glow,.void-delivery-stage.is-collected .delivery-box-glow{opacity:.48;transform:scale(1.4)}
+.void-delivery-stage.is-opening .void-delivery-box{transform:translateY(-8px) scale(1.08)}
+.void-delivery-stage.is-collected .void-delivery-box{transform:translateY(20px) scale(.72);opacity:.3}
+.void-delivery-sparks{position:absolute;top:22px;color:var(--delivery-accent);font-size:24px;letter-spacing:14px;text-shadow:0 0 14px var(--delivery-accent);animation:voidDeliverySpark 1s ease-in-out infinite alternate}
+.void-delivery-hint{font-size:10px!important;letter-spacing:2px;color:#c7d7f0!important}
+.void-delivery-reward{display:flex;align-items:center;gap:14px;text-align:left;padding:14px;margin-top:14px;border:1px solid color-mix(in srgb,var(--delivery-accent) 55%,#263b5c);border-radius:6px;background:color-mix(in srgb,var(--delivery-accent) 8%,#0c1425);animation:voidDeliveryRewardIn .35s ease-out both}
+.void-delivery-glyph{flex:0 0 48px;height:48px;display:grid;place-items:center;font-size:34px;border:1px solid currentColor;border-radius:6px;background:#090f1d}
+.void-delivery-reward b,.void-delivery-reward small{display:block}
+.void-delivery-reward b{color:#fff;font-size:13px;letter-spacing:.7px}
+.void-delivery-reward small{color:#aebdd8;font-size:10px;line-height:1.6;margin-top:5px}
+.void-delivery-actions{display:flex;justify-content:center;margin-top:16px}
+.void-delivery-primary{min-width:190px;border-color:var(--delivery-accent,#72f6ff)!important;box-shadow:0 0 18px color-mix(in srgb,var(--delivery-accent,#72f6ff) 18%,transparent)}
+@keyframes voidDeliveryOrbit{to{transform:rotateX(67deg) rotateZ(360deg)}}
+@keyframes voidDeliveryHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes voidDeliverySpark{from{opacity:.45;transform:translateY(4px) scale(.9)}to{opacity:1;transform:translateY(-5px) scale(1.1)}}
+@keyframes voidDeliveryRewardIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:520px){.void-delivery-stage{height:175px}.void-delivery-modal{padding:16px}.void-delivery-reward{padding:10px;gap:10px}.void-delivery-glyph{flex-basis:40px;height:40px;font-size:28px}}
+@media(prefers-reduced-motion:reduce){.void-delivery-orbit,.void-delivery-stage.is-sealed .void-delivery-box,.void-delivery-sparks,.void-delivery-reward{animation:none}.delivery-box-lid,.void-delivery-box,.delivery-box-glow{transition:none}}
