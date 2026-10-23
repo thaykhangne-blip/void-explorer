@@ -9,7 +9,7 @@ import { getElementalSummonCount, getUltimateMasteryRank } from './abilities/ult
 import { getPrimaryAttackTarget as selectPrimaryAttackTarget } from './abilities/targeting.js';
 import { getProjectileDamageMultiplier } from './abilities/autoAttacks/projectiles.js';
 import { executeAutoAttack } from './abilities/autoAttacks/execute.js';
-import { getVoidWeapon, normalizeVoidWeaponSave, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
+import { getVoidWeapon, getOwnedVoidWeapons, equipVoidWeapon, unequipVoidWeapon, normalizeVoidWeaponSave, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
 
 // Wait until the startup loader has preloaded the local app resources before booting the game.
 await window.__voidPreloadPromise;
@@ -579,8 +579,31 @@ function awardCoreCurrency(){if(currentWorld===-1)return;const reward=8+(current
 function coreUnlockRequirement(id){return CORE_UNLOCK_REQUIREMENTS[id]||null;}
 function isCoreUnlocked(id){if(developerMode)return true;const req=coreUnlockRequirement(id);if(!req)return true;const requiredWorld=worlds[req.worldIndex];return !!requiredWorld&&(saveData.bestRooms?.[req.worldIndex]||0)>=requiredWorld.rooms;}
 function coreUnlockMessage(id){const req=coreUnlockRequirement(id);return req?`LOCKED · COMPLETE ${req.label} TO UNLOCK`:'CORE LOCKED';}
-function showCoreSelection(){
- clearToast();state='coreselect';const modal=$('modal');let selected=Math.max(0,cores.findIndex(c=>c.id===player.coreId));let typeTimer=null;
+
+function showVoidWeaponInventory(coreId){
+ const modal=$('modal');
+ const coreName=cores.find(item=>item.id===coreId)?.name||coreId.toUpperCase();
+ const render=()=>{
+  const owned=getOwnedVoidWeapons(saveData);
+  const equippedId=saveData.equippedVoidWeapons?.[coreId]||null;
+  const equipped=equippedId?getVoidWeapon(equippedId):null;
+  modal.className='modal void-weapon-inventory-modal';
+  modal.innerHTML=`<button type="button" class="world-holo-back" id="voidWeaponInventoryBack" aria-label="Back to core selection" title="Back to core selection">←</button>
+   <div class="eyebrow">ARMORY / EQUIPMENT MATRIX</div><h2>VOID WEAPON INVENTORY</h2>
+   <p>Equipment for <b>${coreName}</b>. Any core can equip any owned Void Weapon. Signature passives only activate on their matching core.</p>
+   <div class="void-weapon-current">${equipped?'<span class="void-weapon-current-glyph" style="color:'+equipped.color+'">'+equipped.glyph+'</span><div><small>CURRENTLY EQUIPPED</small><b>'+equipped.name+'</b><em>'+(equipped.signatureCoreId===coreId?'SIGNATURE PASSIVE ACTIVE':'GENERAL STATS ONLY · PASSIVE INACTIVE')+'</em></div><button type="button" class="btn" id="voidWeaponUnequip">UNEQUIP</button>':'<span class="void-weapon-current-glyph">＋</span><div><small>CURRENT LOADOUT</small><b>EMPTY SLOT</b><em>Equip one weapon to this core.</em></div>'}</div>
+   <div class="void-weapon-inventory-list">${owned.length?owned.map(weapon=>{const isEquipped=weapon.id===equippedId,signature=weapon.signatureCoreId===coreId;return '<article class="void-weapon-card '+(isEquipped?'is-equipped':'')+'" style="--weapon-accent:'+weapon.color+'"><div class="void-weapon-card-head"><span class="void-weapon-card-glyph">'+weapon.glyph+'</span><div><b>'+weapon.name+'</b><small>LEGENDARY · '+weapon.copies+' '+(weapon.copies===1?'COPY':'COPIES')+'</small></div><span class="void-weapon-card-status">'+(isEquipped?'EQUIPPED':'OWNED')+'</span></div><p class="void-weapon-card-desc">'+weapon.description+'</p><div class="void-weapon-stats"><span>ATK <b>+'+Math.round(weapon.stats.atkPct*100)+'%</b></span><span>HULL <b>+'+Math.round(weapon.stats.hpPct*100)+'%</b></span><span>ARMOR <b>+'+Math.round(weapon.stats.armorPct*100)+'%</b></span></div><div class="void-weapon-passive"><small>'+weapon.passive.name+(signature?' · SIGNATURE ACTIVE':' · SIGNATURE: '+(cores.find(item=>item.id===weapon.signatureCoreId)?.name||weapon.signatureCoreId))+'</small><p>'+weapon.passive.description+'</p></div><button type="button" class="btn void-weapon-equip-button" data-equip-weapon="'+weapon.id+'" '+(isEquipped?'disabled':'')+'>'+(isEquipped?'CURRENTLY EQUIPPED':'EQUIP TO '+coreName.toUpperCase())+'</button></article>';}).join(''):'<div class="void-weapon-empty"><span>◇</span><b>NO WEAPONS RECOVERED</b><p>Void Weapons arrive through milestone mystery deliveries. Nexus Fragments are the more common result.</p></div>'}</div>`;
+  $('voidWeaponInventoryBack').onclick=()=>showCoreSelection(coreId);
+  const unequipButton=$('voidWeaponUnequip');
+  if(unequipButton)unequipButton.onclick=()=>{const result=unequipVoidWeapon(saveData,coreId);saveData=result.saveData;persist();sfx('ui');render();};
+  modal.querySelectorAll('[data-equip-weapon]').forEach(button=>button.addEventListener('click',()=>{const result=equipVoidWeapon(saveData,coreId,button.dataset.equipWeapon);if(!result.equipped){notify('WEAPON COULD NOT BE EQUIPPED');return;}saveData=result.saveData;persist();sfx('ui');render();}));
+ };
+ $('overlay').classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
+ render();
+}
+
+function showCoreSelection(previewCoreId=null){
+ clearToast();state='coreselect';const modal=$('modal');let selected=Math.max(0,cores.findIndex(c=>c.id===(previewCoreId||player.coreId)));let typeTimer=null;
  modal.className='modal world-hologram-modal core-hologram-modal';
  modal.innerHTML=`<button type="button" class="world-holo-back" id="coreHoloBack" aria-label="Back to world select" title="Back to world select">←</button>
  <div class="world-holo-topline"><span class="eyebrow">CORE DATABASE / ORIGIN MATRIX</span><span class="world-holo-signal"><i></i> CORE LINK STABLE</span></div>
@@ -593,6 +616,7 @@ function showCoreSelection(){
  <p class="world-holo-description" id="coreHoloDescription" aria-live="polite"></p>
  <div class="world-holo-readouts core-holo-readouts"><div><small>ATTACK</small><b id="coreHoloAttack">—</b></div><div><small>MOBILITY</small><b id="coreHoloSpeed">—</b></div><div><small>HULL</small><b id="coreHoloHull">—</b></div><div><small>ELEMENT</small><b id="coreHoloElement">—</b></div><div><small>FIRE RATE</small><b id="coreHoloFireRate">—</b></div><div><small>SIZE</small><b id="coreHoloSize">—</b></div></div>
  <div class="world-holo-lock" id="coreHoloStatus"></div><button class="world-holo-deploy" id="coreHoloDeploy">SELECT CORE <span>↗</span></button></div></div>
+ <div class="void-weapon-equipment" id="coreVoidWeaponSlot"></div>
  <div class="world-holo-navigation"><button type="button" class="world-holo-step" id="coreHoloPrev" aria-label="Previous core">←</button><div class="world-holo-track" id="coreHoloTrack">${cores.map((c,i)=>`<button type="button" class="world-holo-node" data-holo-core="${i}" style="--world-accent:${c.color}" aria-label="Select ${c.name}"><span>${String(i+1).padStart(2,'0')}</span><b>${c.name.replace(/\s+CORE$/i, '')}</b><i></i></button>`).join('')}</div><button type="button" class="world-holo-step" id="coreHoloNext" aria-label="Next core">→</button></div>
  <div class="world-holo-footer"><span>USE ARROWS TO NAVIGATE CORES</span><span>CORE MASTERY PERSISTS</span></div>`;
  const desc=$('coreHoloDescription');
@@ -618,6 +642,10 @@ function showCoreSelection(){
  $('coreHoloEvolutions').innerHTML='<div class="core-holo-icon-heading">EVOLUTION</div>'+iconStrip(iconInfo.e);
  $('coreHoloKicker').textContent='ORIGIN '+String(selected+1).padStart(2,'0')+' / '+(unlocked?'ACCESS GRANTED':'ACCESS RESTRICTED');$('coreHoloName').textContent=c.name.toUpperCase();
  $('coreHoloAttack').textContent=vals[0];$('coreHoloSpeed').textContent=vals[1];$('coreHoloHull').textContent=vals[2];$('coreHoloElement').textContent=vals[3];$('coreHoloFireRate').textContent=vals[4];$('coreHoloSize').textContent=vals[5];$('coreHoloStatus').textContent=unlocked?'● CORE SYNCHRONIZED · READY FOR DEPLOYMENT':'▰ CORE LOCKED · '+coreUnlockMessage(c.id);$('coreHoloStatus').classList.toggle('is-locked',!unlocked);
+ const weaponId=saveData.equippedVoidWeapons?.[c.id],equippedWeapon=weaponId?getVoidWeapon(weaponId):null,weaponSlot=$('coreVoidWeaponSlot');
+ if(weaponSlot){weaponSlot.innerHTML=equippedWeapon?'<button type="button" class="void-weapon-slot is-equipped" id="manageCoreWeapon" style="--weapon-accent:'+equippedWeapon.color+'"><span class="void-weapon-slot-glyph">'+equippedWeapon.glyph+'</span><span class="void-weapon-slot-copy"><small>VOID WEAPON EQUIPPED</small><b>'+equippedWeapon.name+'</b><em>'+(equippedWeapon.signatureCoreId===c.id?'SIGNATURE PASSIVE ACTIVE':'GENERAL STATS ACTIVE')+'</em></span><span class="void-weapon-slot-action">MANAGE ↗</span></button>':'<button type="button" class="void-weapon-slot" id="manageCoreWeapon"><span class="void-weapon-slot-glyph">＋</span><span class="void-weapon-slot-copy"><small>VOID WEAPON SLOT</small><b>NO WEAPON EQUIPPED</b><em>Equip a weapon to gain its stat bonuses.</em></span><span class="void-weapon-slot-action">INVENTORY ↗</span></button>';
+  $('manageCoreWeapon')?.addEventListener('click',()=>showVoidWeaponInventory(c.id));
+ }
  const deploy=$('coreHoloDeploy');deploy.disabled=!unlocked;deploy.innerHTML=unlocked?'SELECT CORE <span>↗</span>':'CORE LOCKED <span>⌁</span>';
  $('coreHoloPrev').disabled=selected===0;$('coreHoloNext').disabled=selected===cores.length-1;
  modal.querySelectorAll('[data-holo-core]').forEach((b,i)=>{b.classList.toggle('active',i===selected);b.classList.toggle('locked',!isCoreUnlocked(cores[i].id));b.setAttribute('aria-current',i===selected?'true':'false');});
