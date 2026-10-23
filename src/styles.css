@@ -2139,3 +2139,31 @@ button.global-back-button { transition: opacity .18s ease; }
  #modal.unified-codex-modal>.unified-codex-content{padding:16px!important}
  .unified-codex-back{left:10px!important;top:10px!important;width:40px!important;height:40px!important}
 }
+
+
+/* Align the external Codex back button with the modal's top edge. */
+.unified-codex-back{
+  top:clamp(24px,8vh,76px)!important;
+  transform:translateY(0)!important;
+  margin:0!important;
+}
+/* The Codex shell clips its own rounded corners so its background cannot
+   bleed beyond the upper-left and upper-right edges. */
+#modal.unified-codex-modal{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  clip-path:inset(0 round 8px);
+  border-radius:8px!important;
+  background-clip:padding-box!important;
+}
+#modal.unified-codex-modal>.unified-codex-tabs{
+  box-sizing:border-box!important;
+  width:100%!important;
+  flex-shrink:0!important;
+  border-radius:7px 7px 0 0!important;
+  margin:0!important;
+}
+@media(max-width:600px){
+ .unified-codex-back{top:10px!important}
+}
