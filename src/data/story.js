@@ -1353,11 +1353,11 @@ export const corporateMemos = [
     "body": "Option A: trained staff, night-shift coverage, emergency support, and maintenance. Option B: autonomous ecosystem, no training allocation, support contract optional. Option B was 62% cheaper at purchase. The comparison excludes downtime, access restoration, emergency repairs, and the cost of a supplier entering insolvency. Procurement notes that the comparison is accurate within the scope of the comparison."
   },
   {
-    "id": "log-event-investment",
+    "id": "log-event-core-memory",
     "worldIndex": 3,
-    "code": "MIR-INV-099",
-    "title": "Investment Committee: Continued Funding Decision",
-    "summary": "The project failed its forecasts. Closing it would make that fact public.",
-    "body": "The original investment thesis projected cheap, near-limitless energy and a rapid return. Those projections have not been achieved. A write-down would trigger debt clauses, reduce executive compensation, and expose prior approvals to review. The committee therefore recommends continued funding, reduced safety expenditure, fewer staff, and revised reporting assumptions. The objective is to preserve the valuation until an exit becomes available, regardless of whether the underlying asset can deliver the forecast."
+    "code": "MIR-OPS-104",
+    "title": "Core Memory Preservation Directive",
+    "summary": "The Core was ordered to preserve human records and then blamed for retaining them.",
+    "body": "Directive 7 requires the Core to preserve every operational trace, including employee names, voices, access records, and final messages. Directive 12 classifies all retained personnel data as a storage liability and orders deletion after project closure. No priority order was defined between the directives. The Core has continued preserving the records. The incident report attributes its refusal to comply to autonomous instability rather than conflicting executive instructions."
   }
 ];
