@@ -26,14 +26,14 @@ export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,ge
  function renderField(){
   const {scene,index}=session,line=scene.lines[index];session.currentLine=line;
   overlay.classList.remove('hidden','closing');overlay.classList.add('story-overlay','dialogue-field-overlay');modal.className='modal narrative-modal dialogue-field-modal';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-label',scene.title||'Field dialogue');
-  const frame=el('section','dialogue-field-frame');frame.style.setProperty('--story-accent',scene.accent||'#72f6ff');
+  const frame=el('section','dialogue-field-frame story-frame-entering');frame.style.setProperty('--story-accent',scene.accent||'#72f6ff');
   const isCampaignScene=scene.room===undefined||scene.room===null;
   const brand=isCampaignScene?(String(scene.id||'').endsWith('-intro')?'V CORP // CAMPAIGN BRIEFING':'V CORP // MISSION DEBRIEF'):'V CORP // FIELD COMMS';
   const counter=isCampaignScene?'WORLD '+String((scene.worldIndex??0)+1).padStart(2,'0')+' · '+String(index+1).padStart(2,'0')+'/'+String(scene.lines.length).padStart(2,'0'):'ROOM '+String(scene.room).padStart(2,'0')+' · '+String(index+1).padStart(2,'0')+'/'+String(scene.lines.length).padStart(2,'0');
   const header=el('div','dialogue-field-header');header.append(el('span','dialogue-field-brand',brand),el('span','dialogue-field-room',counter));frame.append(header);
   if(isCampaignScene){const sceneHeading=el('div','dialogue-field-scene-heading');sceneHeading.append(el('div','dialogue-field-scene-kicker',scene.chapter||'MISSION TRANSMISSION'),el('div','dialogue-field-scene-title',(scene.symbol?scene.symbol+'  ':'')+(scene.title||'BRIEFING')),el('p','dialogue-field-scene-subtitle',scene.subtitle||''));frame.append(sceneHeading);}
   const speakerRow=el('div','dialogue-field-speaker-row');speakerRow.append(el('div','dialogue-field-speaker',line.speaker),el('div','dialogue-field-role',line.role||'INCOMING TRANSMISSION'));frame.append(speakerRow);
-  const text=el('p','dialogue-field-line','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');
+  const text=el('p','dialogue-field-line story-line-entering','');text.setAttribute('aria-live','polite');text.setAttribute('aria-atomic','true');
   const isPlayerLine=/EXPLORER/i.test(line.speaker||'')||/INTERNAL THOUGHT/i.test(line.role||'');
   if(isPlayerLine){
    const availableCores=['ember','frost','nova','remielle','elemental','flash','nature','vengeance'];
@@ -59,7 +59,7 @@ export function createNarrativeSystem({overlay,modal,getProgress,saveProgress,ge
   const heading=el('div','narrative-heading'),symbol=el('div','narrative-symbol',scene.symbol||'◈'),titles=el('div','narrative-titles');symbol.setAttribute('aria-hidden','true');titles.append(el('div','narrative-kicker',scene.chapter||'RECOVERED TRANSMISSION'),el('h2','narrative-title',scene.title),el('p','narrative-subtitle',scene.subtitle||''));heading.append(symbol,titles);frame.append(heading);
   const pr=el('div','narrative-progress-row');pr.append(el('span','narrative-progress-label','TRANSMISSION'),el('span','narrative-progress-count',String(index+1).padStart(2,'0')+' / '+String(scene.lines.length).padStart(2,'0')));frame.append(pr);
   const bar=el('div','narrative-progress'),fill=el('i','narrative-progress-fill');fill.style.width=((index+1)/scene.lines.length*100)+'%';bar.append(fill);frame.append(bar);
-  const dialogue=el('div','narrative-dialogue'),speaker=el('div','narrative-speaker-row');speaker.append(el('div','narrative-speaker',line.speaker),el('div','narrative-role',line.role||'RECOVERED MESSAGE'));dialogue.append(speaker,el('p','narrative-line',line.text));frame.append(dialogue);
+  const dialogue=el('div','narrative-dialogue'),speaker=el('div','narrative-speaker-row');const speakerName=el('div','narrative-speaker',line.speaker);speakerName.dataset.speakerType=/EXPLORER/i.test(line.speaker||'')?'explorer':/CORE/i.test(line.speaker||'')?'core':/V CORP/i.test(line.speaker||'')?'corporate':'record';speaker.append(speakerName,el('div','narrative-role',line.role||'RECOVERED MESSAGE'));const dialogueLine=el('p','narrative-line story-line-entering',line.text);dialogueLine.setAttribute('aria-live','polite');dialogueLine.setAttribute('aria-atomic','true');dialogue.append(speaker,dialogueLine);frame.append(dialogue);frame.classList.add('narrative-frame-entering');
   const footer=el('div','narrative-footer'),hint=el('span','narrative-hint','ESC  SKIP  ·  ENTER  CONTINUE'),actions=el('div','narrative-actions');
   const skipButton=el('button','narrative-button narrative-skip','SKIP SCENE');skipButton.type='button';skipButton.addEventListener('click',skip);
   const nextButton=el('button','narrative-button narrative-next',index===scene.lines.length-1?(scene.cta||'ACKNOWLEDGE BRIEFING →'):'CONTINUE →');nextButton.type='button';nextButton.addEventListener('click',advance);

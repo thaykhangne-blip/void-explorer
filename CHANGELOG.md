@@ -1,3 +1,9 @@
+## Story update — Linear campaign arc and narrative presentation
+- Added three fixed between-world interludes that advance the Explorer/Core relationship and escalate V Corp interference from data suppression to network quarantine and attempted isolation.
+- Interludes play after each of the first three world debriefings, before the next-world menu; the main plot remains linear and existing save keys are preserved.
+- Expanded the persistent Story Archive to include the interludes and final campaign convergence transmission, with replay support for every recovered scene.
+- Added subtle scene/line transitions, distinct speaker colors for the Explorer, Core, and V Corp, and reduced-motion support.
+
 ## Story update — Campaign convergence
 - Added a final evidence-reconciliation transmission connecting the missing safety crew, frozen workforce, unsupported automation, and conflicting Core memory directives.
 - Completing the final world now plays the new epilogue after the existing boss-aftermath debrief and before the campaign-complete screen.
