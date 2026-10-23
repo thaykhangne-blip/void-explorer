@@ -2212,3 +2212,10 @@ button.global-back-button { transition: opacity .18s ease; }
 #modal.unified-codex-modal .codex-sections>.codex-section::after{
   max-width:100%!important;
 }
+
+
+/* Disable the backdrop blur on the Codex tab bar. */
+#modal.unified-codex-modal>.unified-codex-tabs{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
