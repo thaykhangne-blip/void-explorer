@@ -2244,3 +2244,8 @@ button.global-back-button { transition: opacity .18s ease; }
 .core-holo-planet.has-signature-weapon{filter:drop-shadow(0 0 10px color-mix(in srgb,var(--world-accent,#72f6ff) 48%,transparent))}
 .core-holo-planet.has-signature-weapon:after{content:"✦";position:absolute;right:-7px;top:8%;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;font-size:13px;color:#fff2bd;background:rgba(8,14,26,.94);border:1px solid #ffe7a1;box-shadow:0 0 12px rgba(255,220,130,.55);z-index:8;animation:signatureBadgePulse 2.6s ease-in-out infinite}
 @keyframes signatureBadgePulse{0%,100%{box-shadow:0 0 7px rgba(255,220,130,.35)}50%{box-shadow:0 0 15px rgba(255,220,130,.8)}}
+
+
+/* Place the signature marker on the selected core's first ability glyph, not the bottom navigation node. */
+.core-holo-mini-icon{position:relative}
+.core-holo-mini-icon>.signature-weapon-badge{top:-5px;right:-5px;width:16px;height:16px;font-size:10px;pointer-events:none}
