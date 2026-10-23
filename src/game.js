@@ -963,7 +963,37 @@ function spawnMiniBoss(){const lateStageFactor=currentWorld===-1||room<10?1:1.25
 function getPriorityTarget(origin,maxRange=Infinity,excluded=[]){const usable=t=>!!t&&t.hp>0&&!t.inactive&&!excluded.includes(t)&&dist(origin,t)<=maxRange;if(blackHole&&usable(blackHole))return blackHole;const objectives=[];for(const e of enemies){if(usable(e)&&(e.isMiniBoss||e.isFinalBoss||e.isBoss||e.role==='miniboss'||e.role==='boss'))objectives.push(e)}if(objectives.length)return objectives.sort((a,b)=>dist(origin,a)-dist(origin,b))[0];let target=null,best=maxRange;for(const e of enemies){const d=dist(origin,e);if(e.hp>0&&!e.inactive&&!excluded.includes(e)&&d<best){best=d;target=e}}return target}function nearestTarget(maxRange=Infinity){return getPriorityTarget(player,maxRange)}
 function getPrimaryAttackTarget(){return selectPrimaryAttackTarget({player,core,coreTargetRange:CORE_TARGET_RANGE,nearestTarget});}
 function drawPrimaryTargetIndicator(target){if(!target)return;const pulse=.5+.5*Math.sin(performance.now()*.006),radius=(target.r||10)+14+pulse*1.2,elementalRainbow=core?.id==='elemental';ctx.save();ctx.translate(target.x,target.y);ctx.globalAlpha=.95;ctx.lineWidth=elementalRainbow?2.2:1.8;ctx.shadowBlur=10+pulse*5+(elementalRainbow?5:0);for(let i=0;i<4;i++){const a=i*Math.PI/2+.32,color=elementalRainbow?rainbowCoreColor(i*90+performance.now()*.04):(core?.color||'#72f6ff');ctx.strokeStyle=color;ctx.shadowColor=color;ctx.beginPath();ctx.arc(0,0,radius,a,(i+1)*Math.PI/2-.32);ctx.stroke();}ctx.shadowBlur=0;ctx.globalAlpha=.9;ctx.lineWidth=elementalRainbow?2:1.2;for(let i=0;i<4;i++){const a=i*Math.PI/2+Math.PI/4+performance.now()*.00012,x=Math.cos(a),y=Math.sin(a),color=elementalRainbow?rainbowCoreColor(i*90+45+performance.now()*.04):'#ffffff';ctx.strokeStyle=color;ctx.beginPath();ctx.moveTo(x*(radius+2),y*(radius+2));ctx.lineTo(x*(radius+(elementalRainbow?7:6)),y*(radius+(elementalRainbow?7:6)));ctx.stroke();}ctx.fillStyle=elementalRainbow?rainbowCoreColor(180+performance.now()*.04):(core?.color||'#72f6ff');ctx.globalAlpha=.95;ctx.beginPath();ctx.arc(0,0,elementalRainbow?2.2:1.8,0,Math.PI*2);ctx.fill();ctx.restore()}
-function applyLumineBuildup(target,amount=1){if(core?.id!=='remielle'||!target||target.hp<=0)return;target.lumineStacks=(target.lumineStacks||0)+amount;target.lumineTimer=5;if(target.lumineStacks>=4){const stored=player.voidflares||0,activeCrystals=Math.min(5,featherTraps.filter(f=>!f.hit&&f.life>0).length);const rank=Math.max(1,Math.min(5,player?.voidWeaponRank||1));const dawnBonus=player.voidWeaponPassive==='last-light-first-dawn'?1+activeCrystals*([.08,.10,.12,.14,.16][rank-1]):1;const dmg=player.damage*(1.35*(player.luminizeMult||1)+stored*.12)*(target.voidflareDotTimer>0?1.5:1)*dawnBonus;applyDamage(target,dmg,'#ffb5e2',true,'LUMOX');target.lumineStacks=0;target.lumineTimer=0;player.voidflares=Math.min(player.maxVoidflares||3,stored+1);if(player.voidWeaponPassive==='last-light-first-dawn'){const count=[2,3,4,5,6][rank-1];for(let n=0;n<count;n++){const nearest=enemies.filter(e=>e.hp>0&&e!==target&&dist(e,target)<300).sort((x,y)=>dist(x,target)-dist(y,target))[n%Math.max(1,enemies.filter(e=>e.hp>0&&e!==target&&dist(e,target)<300).length)]||target;const angle=Math.atan2(nearest.y-target.y,nearest.x-target.x)+n*.22;skillMissiles.push({x:target.x,y:target.y,vx:Math.cos(angle)*90,vy:Math.sin(angle)*90,speed:390,damage:player.damage*([.75,.90,1.05,1.20,1.35][rank-1]),life:4,targetId:nearest.id??null,targetCore:nearest===blackHole,color:'#ffb5e2',r:4,lightFeather:true,extraPierce:player.voidWeaponRefinementLevel||0});}if(Math.random()<[.25,.30,.35,.40,.45][rank-1]&&featherTraps.filter(f=>!f.hit&&f.life>0).length<8)featherTraps.push({x:target.x+rand(-8,8),y:target.y+rand(-8,8),age:0,life:8,damage:player.damage*.65,homing:false,targetId:null,targetCore:false,targetRef:null,hit:false,fromKillCrystal:true,fromWeaponCrystal:true});}burst(target.x,target.y,'#ffd8f0',11);notify(`AURALIS · LUMOX · VOID BURST ${player.voidflares}/${player.maxVoidflares||3}`);updateUI();}}
+function applyLumineBuildup(target,amount=1){
+ if(core?.id!=='remielle'||!target||target.hp<=0)return;
+ target.lumineStacks=(target.lumineStacks||0)+amount;
+ target.lumineTimer=5;
+ if(target.lumineStacks>=4){
+  const stored=player.voidflares||0;
+  const activeCrystals=Math.min(5,featherTraps.filter(f=>!f.hit&&f.life>0).length);
+  const rank=Math.max(1,Math.min(5,player?.voidWeaponRank||1));
+  const dawnBonus=player.voidWeaponPassive==='last-light-first-dawn'?1+activeCrystals*([.08,.10,.12,.14,.16][rank-1]):1;
+  const dmg=player.damage*(1.35*(player.luminizeMult||1)+stored*.12)*(target.voidflareDotTimer>0?1.5:1)*dawnBonus;
+  applyDamage(target,dmg,'#ffb5e2',true,'LUMOX');
+  target.lumineStacks=0;target.lumineTimer=0;
+  player.voidflares=Math.min(player.maxVoidflares||3,stored+1);
+  if(player.voidWeaponPassive==='last-light-first-dawn'){
+   const count=[2,3,4,5,6][rank-1];
+   const featherDamage=player.damage*([.75,.90,1.05,1.20,1.35][rank-1]);
+   const featherTargets=enemies.filter(e=>e.hp>0&&e!==target&&dist(e,target)<300).sort((a,b)=>dist(a,target)-dist(b,target));
+   for(let n=0;n<count;n++){
+    const featherTarget=featherTargets[n%Math.max(1,featherTargets.length)]||target;
+    const angle=Math.atan2(featherTarget.y-target.y,featherTarget.x-target.x)+(n-count/2)*.20;
+    skillMissiles.push({x:target.x,y:target.y,vx:Math.cos(angle)*90,vy:Math.sin(angle)*90,speed:390,damage:featherDamage,life:4,targetId:featherTarget.id??null,targetCore:featherTarget===blackHole,color:'#ffb5e2',r:4,lightFeather:true,extraPierce:rank,hitTargets:[]});
+   }
+   if(Math.random()<[.25,.30,.35,.40,.45][rank-1]&&featherTraps.filter(f=>!f.hit&&f.life>0).length<8){
+    featherTraps.push({x:target.x+rand(-8,8),y:target.y+rand(-8,8),age:0,life:8,damage:player.damage*.65,homing:false,targetId:null,targetCore:false,targetRef:null,hit:false,fromKillCrystal:true,fromWeaponCrystal:true});
+   }
+  }
+  burst(target.x,target.y,'#ffd8f0',11);
+  notify(`AURALIS · LUMOX · VOID BURST ${player.voidflares}/${player.maxVoidflares||3}`);
+  updateUI();
+ }
+}
 function firePhaseFlowAttack(tag='PRISM FLIGHT',origin=null,excludedTargetId=null){if(!player||core?.id!=='remielle')return false;const source=origin||player;const enemyTarget=enemies.filter(e=>e.hp>0&&e.id!==excludedTargetId&&withinCoreRange(source,e)).sort((a,b)=>dist(source,a)-dist(source,b))[0]||null;const coreTarget=(blackHole&&!blackHole.inactive&&blackHole.hp>0&&withinCoreRange(source,blackHole))?blackHole:null;const target=enemyTarget||coreTarget;if(!target)return false;// Prism Flight is a rapid passive-stack applicator; keep its original cadence but sharply reduce per-strike damage.
  const rank=player.skillLevel||0,power=player.phaseFlowPower||0,dmg=player.damage*(.14+rank*.025)*(1+power*.06)*(1+(player.remielleSkillRelic||0)*.08);const hit=(victim,suffix='')=>{applyDamage(victim,dmg,'#ff9ed8',true,tag+suffix);if(enemies.includes(victim))applyLumineBuildup(victim);burst(victim.x,victim.y,'#fff0fa',7);skillFx.push({type:'lightLance',x:source.x,y:source.y,tx:victim.x,ty:victim.y,life:.20,max:.20,radius:(victim.r||10)+8,color:'#ffd8f0'});};hit(target);if(enemyTarget&&coreTarget&&target!==coreTarget&&withinCoreRange(source,coreTarget)){hit(coreTarget,' · SINGULAR CORE');}return target}
 const triggerRicochetChain=createRicochetSystem({getPlayer:()=>player,getCore:()=>core,getEnemies:()=>enemies,getSkillFx:()=>skillFx,dist,applyDamage,addLightningArc,burst});
