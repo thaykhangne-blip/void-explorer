@@ -2,6 +2,7 @@ import { cores } from '../data/cores.js';
 import { VOID_WEAPON_BY_ID } from '../data/voidWeapons.js';
 
 const CORE_IDS = new Set(cores.map(core => core.id));
+export const VOID_WEAPON_MAX_REFINEMENT = 5;
 let instanceSequence = 0;
 
 function makeInstanceId() {
@@ -38,7 +39,7 @@ export function normalizeVoidWeaponSave(saveData = {}) {
       instanceId,
       weaponId: entry.weaponId,
       acquiredAt: Number.isFinite(Number(entry.acquiredAt)) ? Number(entry.acquiredAt) : Date.now(),
-      refinementLevel: Math.max(0, Math.floor(Number(entry.refinementLevel) || 0))
+      refinementLevel: Math.min(VOID_WEAPON_MAX_REFINEMENT, Math.max(0, Math.floor(Number(entry.refinementLevel) || 0)))
     });
   }
 
@@ -126,5 +127,29 @@ export function getEquippedVoidWeapon(saveData, coreId) {
 }
 
 export function getVoidWeaponDefinition(instance) {
-  return instance ? VOID_WEAPON_BY_ID[instance.weaponId] || null : null;
+  if (!instance) return null;
+  const definition = VOID_WEAPON_BY_ID[instance.weaponId];
+  if (!definition) return null;
+  const level = Math.max(0, Math.min(5, Math.floor(Number(instance.refinementLevel) || 0)));
+  if (!level) return definition;
+  const stats = { hpPercent: definition.stats.hpPercent + level * 2, attackPercent: definition.stats.attackPercent + level * 2, armorFlat: definition.stats.armorFlat + level };
+  const effect = { ...definition.passive.effect };
+  for (const key of ['damagePercent','bossDamagePercent','energyPerAdditionalTarget','hullPerKill','eliteThresholdRestore','attackSpeedPercent','burstDamagePercent','auralisFeatherBonusPercent']) if (typeof effect[key] === 'number') effect[key] *= 1 + level * 0.1;
+  return { ...definition, stats, passive: { ...definition.passive, effect }, refinementLevel: level };
+}
+
+export function refineVoidWeapon(saveData, instanceId) {
+  if (!saveData || typeof instanceId !== 'string') return { ok: false, reason: 'invalid-save' };
+  const normalized = normalizeVoidWeaponSave(saveData), inventory = normalized.voidWeaponInventory;
+  const target = inventory.find(item => item.instanceId === instanceId);
+  if (!target) return { ok: false, reason: 'not-owned' };
+  if (target.refinementLevel >= VOID_WEAPON_MAX_REFINEMENT) return { ok: false, reason: 'max-refinement' };
+  const equippedIds = new Set(Object.values(normalized.equippedVoidWeapons));
+  const material = inventory.find(item => item.instanceId !== target.instanceId && item.weaponId === target.weaponId && !equippedIds.has(item.instanceId));
+  if (!material) return { ok: false, reason: 'duplicate-required' };
+  target.refinementLevel += 1;
+  saveData.voidWeaponInventory = inventory.filter(item => item.instanceId !== material.instanceId);
+  saveData.equippedVoidWeapons = normalized.equippedVoidWeapons;
+  saveData.voidWeaponDataVersion = normalized.voidWeaponDataVersion;
+  return { ok: true, instance: target, consumedInstanceId: material.instanceId };
 }
