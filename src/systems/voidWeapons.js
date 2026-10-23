@@ -3,6 +3,7 @@ import { voidWeapons, VOID_WEAPON_BY_ID } from '../data/voidWeapons.js';
 
 export const VOID_WEAPON_SAVE_DEFAULTS = Object.freeze({
   voidWeaponInventory: {},
+  voidWeaponRefinements: {},
   equippedVoidWeapons: {},
   voidWeaponClaims: [],
   pendingVoidWeaponRewards: []
@@ -21,6 +22,7 @@ export function normalizeVoidWeaponSave(saveData = {}) {
   const normalized = { ...saveData };
   const inventory = isRecord(normalized.voidWeaponInventory) ? normalized.voidWeaponInventory : {};
   const equipped = isRecord(normalized.equippedVoidWeapons) ? normalized.equippedVoidWeapons : {};
+  const refinements = isRecord(normalized.voidWeaponRefinements) ? normalized.voidWeaponRefinements : {};
   const claims = Array.isArray(normalized.voidWeaponClaims) ? normalized.voidWeaponClaims : [];
 
   normalized.voidWeaponInventory = {};
@@ -28,6 +30,14 @@ export function normalizeVoidWeaponSave(saveData = {}) {
     if (Object.prototype.hasOwnProperty.call(VOID_WEAPON_BY_ID, id)) {
       const safeCount = Math.floor(Number(count));
       if (Number.isFinite(safeCount) && safeCount > 0) normalized.voidWeaponInventory[id] = safeCount;
+    }
+  }
+
+  normalized.voidWeaponRefinements = {};
+  for (const [id, level] of Object.entries(refinements)) {
+    if (Object.prototype.hasOwnProperty.call(VOID_WEAPON_BY_ID, id)) {
+      const safeLevel = Math.floor(Number(level));
+      if (Number.isFinite(safeLevel) && safeLevel > 0) normalized.voidWeaponRefinements[id] = Math.min(5, safeLevel);
     }
   }
 
@@ -63,7 +73,20 @@ export function getOwnedVoidWeapons(saveData) {
   const safe = normalizeVoidWeaponSave(saveData);
   return voidWeapons
     .filter(weapon => safe.voidWeaponInventory[weapon.id] > 0)
-    .map(weapon => ({ ...weapon, copies: safe.voidWeaponInventory[weapon.id] }));
+    .map(weapon => {
+      const refinementLevel = safe.voidWeaponRefinements[weapon.id] || 0;
+      const refinementBonus = refinementLevel * 0.02;
+      return {
+        ...weapon,
+        stats: {
+          atkPct: weapon.stats.atkPct + (weapon.stats.atkPct > 0 ? refinementBonus : 0),
+          hpPct: weapon.stats.hpPct + (weapon.stats.hpPct > 0 ? refinementBonus : 0),
+          armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0)
+        },
+        refinementLevel,
+        copies: safe.voidWeaponInventory[weapon.id]
+      };
+    });
 }
 
 export function grantVoidWeapon(saveData, weaponId, copies = 1) {
@@ -92,15 +115,37 @@ export function unequipVoidWeapon(saveData, coreId) {
   return { saveData: safe, unequipped: true, coreId };
 }
 
+export const MAX_VOID_WEAPON_REFINEMENT = 5;
+
+/** Consume one duplicate copy to permanently refine a weapon, up to rank V. */
+export function refineVoidWeapon(saveData, weaponId) {
+  const safe = normalizeVoidWeaponSave(saveData);
+  if (!VOID_WEAPON_BY_ID[weaponId]) return { saveData: safe, refined: false, reason: 'invalid-weapon' };
+  const copies = safe.voidWeaponInventory[weaponId] || 0;
+  const level = safe.voidWeaponRefinements[weaponId] || 0;
+  if (level >= MAX_VOID_WEAPON_REFINEMENT) return { saveData: safe, refined: false, reason: 'max-refinement', level };
+  if (copies < 2) return { saveData: safe, refined: false, reason: 'duplicate-required', level, copies };
+  safe.voidWeaponInventory[weaponId] = copies - 1;
+  safe.voidWeaponRefinements[weaponId] = level + 1;
+  return { saveData: safe, refined: true, weaponId, level: level + 1, copiesRemaining: copies - 1 };
+}
+
 export function getVoidWeaponBonuses(saveData, coreId) {
   const safe = normalizeVoidWeaponSave(saveData);
   const weaponId = safe.equippedVoidWeapons[coreId];
   const weapon = weaponId ? VOID_WEAPON_BY_ID[weaponId] : null;
-  if (!weapon) return { weapon: null, stats: { atkPct: 0, hpPct: 0, armorPct: 0 }, signaturePassive: null };
+  if (!weapon) return { weapon: null, stats: { atkPct: 0, hpPct: 0, armorPct: 0 }, signaturePassive: null, refinementLevel: 0 };
+  const refinementLevel = safe.voidWeaponRefinements[weaponId] || 0;
+  const refinementBonus = refinementLevel * 0.02;
   return {
     weapon,
-    stats: { ...weapon.stats },
-    signaturePassive: weapon.signatureCoreId === coreId ? weapon.passive : null
+    stats: {
+      atkPct: weapon.stats.atkPct + (weapon.stats.atkPct > 0 ? refinementBonus : 0),
+      hpPct: weapon.stats.hpPct + (weapon.stats.hpPct > 0 ? refinementBonus : 0),
+      armorPct: weapon.stats.armorPct + (weapon.stats.armorPct > 0 ? refinementBonus : 0)
+    },
+    signaturePassive: weapon.signatureCoreId === coreId ? weapon.passive : null,
+    refinementLevel
   };
 }
 
