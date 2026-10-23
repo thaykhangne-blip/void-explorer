@@ -182,10 +182,9 @@ function showVoidWeaponCodex(){
    '<div class="void-weapon-codex-summary"><div><b>'+ownedCount+' / '+voidWeapons.length+'</b><small>WEAPONS DISCOVERED</small></div><div><b>'+refinedCount+'</b><small>WEAPONS REFINED</small></div><div><b>'+Object.keys(saveData.voidWeaponRefinements||{}).filter(id=>(saveData.voidWeaponRefinements[id]||0)>=MAX_VOID_WEAPON_REFINEMENT).length+'</b><small>MAX RANK</small></div></div>'+
    '<div class="void-weapon-codex-filters"><button type="button" data-weapon-filter="all" class="'+(filter==='all'?'active':'')+'">ALL SIGNALS · '+voidWeapons.length+'</button><button type="button" data-weapon-filter="owned" class="'+(filter==='owned'?'active':'')+'">DISCOVERED · '+ownedCount+'</button><button type="button" data-weapon-filter="undiscovered" class="'+(filter==='undiscovered'?'active':'')+'">UNKNOWN · '+(voidWeapons.length-ownedCount)+'</button></div>'+
    '<div class="void-weapon-codex-grid">'+(cards||'<div class="void-weapon-empty">NO ENTRIES IN THIS FILTER.</div>')+'</div>'+
-   '<div class="menu-actions"><button class="btn" id="voidWeaponCodexArmory">OPEN ARMORY</button><button class="btn" id="voidWeaponCodexBackBottom">← MAIN MENU</button></div>';
+   '<div class="menu-actions"><button class="btn" id="voidWeaponCodexBackBottom">← MAIN MENU</button></div>';
   $('voidWeaponCodexBack').onclick=showMainMenu;
   $('voidWeaponCodexBackBottom').onclick=showMainMenu;
-  $('voidWeaponCodexArmory').onclick=()=>showCoreSelection(player?.coreId||'ember');
   modal.querySelectorAll('[data-weapon-filter]').forEach(button=>button.onclick=()=>{filter=button.dataset.weaponFilter;render();});
  };
  $('overlay').classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
@@ -659,8 +658,8 @@ function showCoreSelection(previewCoreId=null){
  <div class="world-holo-data"><div class="world-holo-kicker" id="coreHoloKicker">ORIGIN 01 / CORE MATRIX</div><h3 id="coreHoloName"></h3><div class="world-holo-rule"><span></span></div>
  <p class="world-holo-description" id="coreHoloDescription" aria-live="polite"></p>
  <div class="world-holo-readouts core-holo-readouts"><div><small>ATTACK</small><b id="coreHoloAttack">—</b></div><div><small>MOBILITY</small><b id="coreHoloSpeed">—</b></div><div><small>HULL</small><b id="coreHoloHull">—</b></div><div><small>ELEMENT</small><b id="coreHoloElement">—</b></div><div><small>FIRE RATE</small><b id="coreHoloFireRate">—</b></div><div><small>SIZE</small><b id="coreHoloSize">—</b></div></div>
- <div class="world-holo-lock" id="coreHoloStatus"></div><button class="world-holo-deploy" id="coreHoloDeploy">SELECT CORE <span>↗</span></button></div></div>
  <div class="void-weapon-equipment" id="coreVoidWeaponSlot"></div>
+ <div class="world-holo-lock" id="coreHoloStatus"></div><button class="world-holo-deploy" id="coreHoloDeploy">SELECT CORE <span>↗</span></button></div></div>
  <div class="world-holo-navigation"><button type="button" class="world-holo-step" id="coreHoloPrev" aria-label="Previous core">←</button><div class="world-holo-track" id="coreHoloTrack">${cores.map((c,i)=>`<button type="button" class="world-holo-node" data-holo-core="${i}" style="--world-accent:${c.color}" aria-label="Select ${c.name}"><span>${String(i+1).padStart(2,'0')}</span><b>${c.name.replace(/\s+CORE$/i, '')}</b><i></i></button>`).join('')}</div><button type="button" class="world-holo-step" id="coreHoloNext" aria-label="Next core">→</button></div>
  <div class="world-holo-footer"><span>USE ARROWS TO NAVIGATE CORES</span><span>CORE MASTERY PERSISTS</span></div>`;
  const desc=$('coreHoloDescription');
