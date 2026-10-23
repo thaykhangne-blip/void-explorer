@@ -632,8 +632,7 @@ function showVoidWeaponInventory(coreId){
   const equippedId=saveData.equippedVoidWeapons?.[coreId]||null;
   const equipped=equippedId?getVoidWeapon(equippedId):null;
   modal.className='modal void-weapon-inventory-modal';
-  modal.onwheel=null;
-  modal.addEventListener('wheel',event=>{event.stopPropagation();},{capture:true,passive:true});
+  modal.onwheel=event=>{event.stopPropagation();};
   modal.innerHTML=`<button type="button" class="world-holo-back" id="voidWeaponInventoryBack" aria-label="Back to core selection" title="Back to core selection">←</button>
    <div class="eyebrow">ARMORY / EQUIPMENT MATRIX</div><h2>VOID WEAPON INVENTORY</h2>
    <p>Equipment for <b>${coreName}</b>. Any core can equip any owned Void Weapon. Signature passives only activate on their matching core.</p>
