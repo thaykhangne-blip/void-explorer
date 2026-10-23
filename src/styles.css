@@ -1767,3 +1767,18 @@ button.global-back-button:hover {
   #modal.core-hologram-modal .core-holo-readouts>div {padding:7px 5px!important}
   #modal.core-hologram-modal .core-holo-readouts b {font-size:11px!important}
 }
+
+
+/* Edge controls align to the viewport, not the scaled game wrapper. */
+button.global-back-button { transition: opacity .18s ease; }
+#combatStatsToggle {
+ position:fixed!important;
+ right:0!important;
+ left:auto!important;
+ top:50%!important;
+ transform:translateY(-50%)!important;
+ z-index:10040!important;
+}
+@media (max-width:700px) {
+ #combatStatsToggle { right:0!important; }
+}
