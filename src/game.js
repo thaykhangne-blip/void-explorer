@@ -440,10 +440,10 @@ const coreExclusiveAdditions={
  ember:[
  ['EMBER: KINDLED ENGINE','♨','Attack damage +8%.',false,()=>{player.damage*=1.08}],
  ['EMBER: SCORCHING WAKE','♨','Fire rate +10%.',false,()=>{player.fireRate*=1.10}],
- ['EMBER: ASHEN APPETITE','♥','Restore 3 hull whenever you defeat a burning enemy.',false,()=>{player.emberAshenAppetite=true}],
+ ['EMBER: ASHEN APPETITE','♥','Maximum hull +8 and restore 8 hull.',false,()=>{player.maxHp+=8;player.hp=Math.min(player.maxHp,player.hp+8)}],
  ['EMBER: SUNFIRE RESERVOIR','☼','Maximum hull +12 and restore 12 hull.',false,()=>{player.maxHp+=12;player.hp=Math.min(player.maxHp,player.hp+12)}],
- ['EMBER: CROWN OF CINDERS','♛','Burning enemies take 12% more damage.',true,()=>{player.emberCinderCrown=true}],
- ['EMBER: IGNITION CASCADE','☄','Critical chance +5 percentage points.',true,()=>{player.critChance=Math.min(.75,(player.critChance||0)+.05)}],
+ ['EMBER: CROWN OF CINDERS','♛','Attack damage +10%.',false,()=>{player.damage*=1.10}],
+ ['EMBER: IGNITION CASCADE','☄','Critical chance +5 percentage points.',false,()=>{player.critChance=Math.min(.75,(player.critChance||0)+.05)}],
  ['EMBER: LAST SPARK','✹','Deal 15% more damage while below 35% hull.',true,()=>{player.emberLastSpark=true}]
  ],
  frost:[
@@ -452,35 +452,35 @@ const coreExclusiveAdditions={
  ['FROST: STILLWATER FOCUS','◇','Critical damage +15%.',false,()=>{player.critDamage=(player.critDamage||1.5)*1.15}],
  ['FROST: BLUE HOUR','✧','Maximum hull +10 and restore 10 hull.',false,()=>{player.maxHp+=10;player.hp=Math.min(player.maxHp,player.hp+10)}],
  ['FROST: GLACIER HEART','⬡','Reduce incoming damage by 8%.',true,()=>{player.frostGlacierHeart=true}],
- ['FROST: SHARDSTORM','❄','Critical chance +5 percentage points.',true,()=>{player.critChance=Math.min(.6,(player.critChance||0)+.05)}],
- ['FROST: ZERO-POINT FRACTURE','✦','Deal 15% more damage to frozen enemies.',true,()=>{player.frostZeroPointFracture=true}]
+ ['FROST: SHARDSTORM','❄','Critical chance +5 percentage points.',false,()=>{player.critChance=Math.min(.6,(player.critChance||0)+.05)}],
+ ['FROST: ZERO-POINT FRACTURE','✦','Attack damage +10%.',false,()=>{player.damage*=1.10}]
  ],
  nova:[
  ['NOVA: BEAM CALIBRATION','✦','Laser damage +10%.',false,()=>{player.damage*=1.10}],
  ['NOVA: PHOTON LENS','◎','Critical chance +4 percentage points.',false,()=>{player.critChance=Math.min(.75,(player.critChance||0)+.04)}],
  ['NOVA: AFTERIMAGE ARRAY','↠','Fire rate +10%.',false,()=>{player.fireRate*=1.10}],
- ['NOVA: EVENT CHASER','◉','Deal 12% more damage to bosses and singularities.',false,()=>{player.novaEventChaser=true}],
+ ['NOVA: EVENT CHASER','◉','Attack damage +8% and fire rate +5%.',false,()=>{player.damage*=1.08;player.fireRate*=1.05}],
  ['NOVA: COLLAPSING STAR','✹','Critical damage +20%.',true,()=>{player.critDamage=(player.critDamage||1.5)*1.20}],
- ['NOVA: GRAVITY WELL','◉','Maximum hull +10 and restore 10 hull.',true,()=>{player.maxHp+=10;player.hp=Math.min(player.maxHp,player.hp+10)}],
+ ['NOVA: GRAVITY WELL','◉','Maximum hull +10 and restore 10 hull.',false,()=>{player.maxHp+=10;player.hp=Math.min(player.maxHp,player.hp+10)}],
  ['NOVA: LUMINAL OVERDRIVE','✦','Attack damage +12%.',true,()=>{player.damage*=1.12}]
  ],
  flash:[
  ['FLASH: VOLTAGE SPIKE','ϟ','Attack damage +8%.',false,()=>{player.damage*=1.08}],
  ['FLASH: ARC FLASH','ϟ','Fire rate +10%.',false,()=>{player.fireRate*=1.10}],
- ['FLASH: STORM CHASER','➤','Move speed +8%.',true,()=>{player.speed*=1.08}],
- ['FLASH: OVERLOAD WINDOW','ϟ','Critical damage +20%.',true,()=>{player.critDamage=(player.critDamage||1.5)*1.20}]
+ ['FLASH: STORM CHASER','➤','Move speed +8%.',false,()=>{player.speed*=1.08}],
+ ['FLASH: OVERLOAD WINDOW','ϟ','Critical damage +20%.',false,()=>{player.critDamage=(player.critDamage||1.5)*1.20}]
  ],
  nature:[
  ['NATURE: DEEP ROOTS','❧','Maximum hull +12 and restore 12 hull.',false,()=>{player.maxHp+=12;player.hp=Math.min(player.maxHp,player.hp+12)}],
  ['NATURE: POLLEN ARMOR','❧','Armor +3.',false,()=>{player.armor=Math.min(60,(player.armor||0)+3)}],
- ['NATURE: HUNTER BLOOM','✿','Attack damage +10%.',true,()=>{player.damage*=1.10}],
- ['NATURE: LIVING CANOPY','❧','Reduce incoming damage by 8%.',true,()=>{player.natureLivingCanopy=true}]
+ ['NATURE: HUNTER BLOOM','✿','Attack damage +10%.',false,()=>{player.damage*=1.10}],
+ ['NATURE: LIVING CANOPY','❧','Armor +4.',false,()=>{player.armor=Math.min(60,(player.armor||0)+4)}]
  ],
  elemental:[
  ['PRISM: SPECTRAL FOCUS','◈','Attack damage +8%.',false,()=>{player.damage*=1.08}],
  ['PRISM: FIVEFOLD RESONANCE','◈','Critical chance +4 percentage points.',false,()=>{player.critChance=Math.min(.75,(player.critChance||0)+.04)}],
- ['PRISM: CHROMATIC SHELL','⬢','Maximum hull +10 and restore 10 hull.',true,()=>{player.maxHp+=10;player.hp=Math.min(player.maxHp,player.hp+10)}],
- ['PRISM: ELEMENTAL AFTERSHOCK','✦','Elemental damage +15%.',true,()=>{player.elementalDamageMult=(player.elementalDamageMult||1)*1.15}]
+ ['PRISM: CHROMATIC SHELL','⬢','Maximum hull +10 and restore 10 hull.',false,()=>{player.maxHp+=10;player.hp=Math.min(player.maxHp,player.hp+10)}],
+ ['PRISM: ELEMENTAL AFTERSHOCK','✦','Elemental damage +15%.',false,()=>{player.elementalDamageMult=(player.elementalDamageMult||1)*1.15}]
  ],
  vengeance:[
  ['CRIMSON: IRON OATH','⟡','Armor +4.',false,()=>{player.armor=Math.min(70,(player.armor||0)+4)}],
