@@ -1962,3 +1962,84 @@ button.global-back-button { transition: opacity .18s ease; }
 @media(max-width:760px){
   #modal.void-weapon-inventory-modal .void-weapon-inventory-list{grid-template-columns:minmax(0,1fr)}
 }
+
+
+/* Unified Codex shell: identical frame, spacing, scrolling and tab transitions
+   regardless of which archive is active. */
+#modal.unified-codex-modal{
+  box-sizing:border-box!important;
+  display:block!important;
+  width:min(900px,calc(100vw - 32px))!important;
+  max-width:900px!important;
+  height:min( min(82dvh,900px), calc(100dvh - 36px))!important;
+  max-height:calc(100dvh - 36px)!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#405779 #0a1120;
+  padding:clamp(18px,3vw,28px)!important;
+  text-align:left;
+  background:
+    radial-gradient(ellipse at 50% 0,rgba(33,55,88,.96),rgba(10,17,32,.99) 66%),
+    #0a1120!important;
+  border:1px solid #385271!important;
+  border-radius:8px!important;
+  box-shadow:0 24px 90px rgba(0,0,0,.48),inset 0 1px 0 rgba(180,220,255,.09)!important;
+  color:#edf5ff;
+  scroll-behavior:smooth;
+  transition:opacity .14s ease,transform .14s ease;
+}
+#modal.unified-codex-modal>.eyebrow{margin-top:2px;color:#b3a0ff;letter-spacing:3px}
+#modal.unified-codex-modal>h2{
+  margin:8px 0 10px!important;
+  text-align:center;
+  font-size:clamp(22px,3vw,30px)!important;
+  line-height:1.2;
+  letter-spacing:1.7px;
+}
+#modal.unified-codex-modal>p{
+  max-width:760px;
+  margin:0 auto 16px!important;
+  text-align:center;
+  color:#9fb4d0;
+  font-size:11px;
+  line-height:1.7;
+}
+#modal.unified-codex-modal .unified-codex-tabs{
+  position:sticky;
+  top:calc(-1 * clamp(18px,3vw,28px));
+  z-index:30;
+  margin:0 calc(-1 * clamp(18px,3vw,28px)) 20px!important;
+  padding:12px clamp(18px,3vw,28px) 13px!important;
+  background:linear-gradient(180deg,#101b2d 82%,rgba(16,27,45,.94));
+  border-bottom:1px solid rgba(114,246,255,.2);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+#modal.unified-codex-modal .unified-codex-tabs button{
+  min-height:40px;
+  border-radius:5px;
+  font-size:10px;
+  transition:background .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease;
+}
+#modal.unified-codex-modal .codex-sections,
+#modal.unified-codex-modal .void-weapon-codex-grid,
+#modal.unified-codex-modal .story-archive-section{animation:unifiedCodexContentIn .18s ease both}
+#modal.unified-codex-modal .codex-section,
+#modal.unified-codex-modal .void-weapon-codex-card,
+#modal.unified-codex-modal .story-memo,
+#modal.unified-codex-modal .story-archive-scene{
+  border-radius:6px;
+}
+#modal.unified-codex-modal .menu-actions{margin-top:22px;padding-top:12px;border-top:1px solid rgba(114,246,255,.14)}
+#modal.unified-codex-modal .story-archive-section{margin-top:18px}
+#modal.unified-codex-modal .void-weapon-codex-summary{margin:14px 0}
+@keyframes unifiedCodexContentIn{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+  #modal.unified-codex-modal{width:calc(100vw - 20px)!important;height:calc(100dvh - 20px)!important;max-height:calc(100dvh - 20px)!important;padding:16px!important}
+  #modal.unified-codex-modal .unified-codex-tabs{top:-16px;margin:0 -16px 16px!important;padding:10px 16px 11px!important}
+  #modal.unified-codex-modal .unified-codex-tabs button{font-size:8px;letter-spacing:.3px;min-height:38px}
+}
+@media(prefers-reduced-motion:reduce){#modal.unified-codex-modal,#modal.unified-codex-modal .codex-sections,#modal.unified-codex-modal .void-weapon-codex-grid,#modal.unified-codex-modal .story-archive-section{animation:none;transition:none}}
