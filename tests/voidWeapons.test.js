@@ -2,8 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   claimVoidWeaponMilestone,
+  equipVoidWeapon,
+  getVoidWeaponBonuses,
   normalizeVoidWeaponSave,
-  resolveVoidWeaponMilestoneReward
+  resolveVoidWeaponMilestoneReward,
+  unequipVoidWeapon
 } from '../src/systems/voidWeapons.js';
 
 const baseSave = () => ({
@@ -78,4 +81,28 @@ test('legacy saves with no Void Weapon fields normalize safely', () => {
   assert.deepEqual(normalized.voidWeaponClaims, []);
   assert.deepEqual(normalized.pendingVoidWeaponRewards, []);
   assert.equal(normalized.coreCurrency, 12);
+});
+
+
+test('equipping a weapon exposes its stats and only its signature passive on the matching core', () => {
+  const owned = {
+    ...baseSave(),
+    voidWeaponInventory: { 'cinder-oath': 1, 'stillpoint': 1 }
+  };
+  const offSignature = equipVoidWeapon(owned, 'frost', 'cinder-oath');
+  assert.equal(offSignature.equipped, true);
+  assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').stats.atkPct, 0.12);
+  assert.equal(getVoidWeaponBonuses(offSignature.saveData, 'frost').signaturePassive, null);
+  const onSignature = equipVoidWeapon(offSignature.saveData, 'ember', 'cinder-oath');
+  assert.equal(getVoidWeaponBonuses(onSignature.saveData, 'ember').signaturePassive.effectId, 'ashen-verdict');
+  const removed = unequipVoidWeapon(onSignature.saveData, 'ember');
+  assert.equal(removed.unequipped, true);
+  assert.equal(getVoidWeaponBonuses(removed.saveData, 'ember').weapon, null);
+});
+
+test('weapon bonuses reject unowned weapons and invalid core equipment', () => {
+  const empty = baseSave();
+  assert.equal(equipVoidWeapon(empty, 'ember', 'cinder-oath').reason, 'not-owned');
+  assert.equal(equipVoidWeapon(empty, 'unknown-core', 'cinder-oath').reason, 'invalid-core');
+  assert.equal(getVoidWeaponBonuses(empty, 'ember').stats.atkPct, 0);
 });
