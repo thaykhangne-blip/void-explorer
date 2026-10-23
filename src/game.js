@@ -9,7 +9,8 @@ import { getElementalSummonCount, getUltimateMasteryRank } from './abilities/ult
 import { getPrimaryAttackTarget as selectPrimaryAttackTarget } from './abilities/targeting.js';
 import { getProjectileDamageMultiplier } from './abilities/autoAttacks/projectiles.js';
 import { executeAutoAttack } from './abilities/autoAttacks/execute.js';
-import { normalizeVoidWeaponSave } from './systems/voidWeaponInventory.js';
+import { normalizeVoidWeaponSave, addVoidWeapon } from './systems/voidWeaponInventory.js';
+import { VOID_WEAPONS } from './data/voidWeapons.js';
 
 // Wait until the startup loader has preloaded the local app resources before booting the game.
 await window.__voidPreloadPromise;
@@ -18,7 +19,7 @@ await window.__voidPreloadPromise;
 
 
 let tutorialTipVisible=false;
-const SAVE_KEY='void_orb_save_v1';let saveData={unlockedWorlds:1,totalRuns:0,bestRooms:[0,0,0,0],autoShoot:true,mouseSteering:true,sfxEnabled:true,musicEnabled:true,musicVolume:0.32,uiScale:1,lastWorld:0,coreCurrency:0,coreUpgrades:{},storyProgress:{seenScenes:[],recoveredFiles:[]},voidWeaponInventory:[],equippedVoidWeapons:{},voidWeaponDataVersion:1};try{const raw=localStorage.getItem(SAVE_KEY);if(raw){const parsed=JSON.parse(raw);saveData={...saveData,...parsed};saveData.coreCurrency=Math.max(0,Number(saveData.coreCurrency)||0);saveData.coreUpgrades=saveData.coreUpgrades&&typeof saveData.coreUpgrades==='object'?saveData.coreUpgrades:{};saveData.unlockedWorlds=Math.max(1,Math.min(4,Number(saveData.unlockedWorlds)||1));saveData.bestRooms=Array.isArray(saveData.bestRooms)?[0,1,2,3].map(i=>Number(saveData.bestRooms[i])||0):[0,0,0,0]}}catch(e){}try{const legacy=saveData.coreUpgrades||{};if(Object.values(legacy).some(v=>v&&typeof v==='object')){const shared={};for(const value of Object.values(legacy)){if(value&&typeof value==='object')for(const [key,rank] of Object.entries(value))shared[key]=Math.max(Number(shared[key])||0,Number(rank)||0)}for(const key of ['atk','crit','rate','hull','armor','speed'])if(Number.isFinite(Number(legacy[key])))shared[key]=Math.max(Number(shared[key])||0,Number(legacy[key])||0);saveData.coreUpgrades=shared;localStorage.setItem(SAVE_KEY,JSON.stringify(saveData))}}catch(e){}saveData.storyProgress=saveData.storyProgress&&typeof saveData.storyProgress==='object'?saveData.storyProgress:{seenScenes:[],recoveredFiles:[]};saveData.storyProgress.seenScenes=Array.isArray(saveData.storyProgress.seenScenes)?saveData.storyProgress.seenScenes:[];saveData.storyProgress.recoveredFiles=Array.isArray(saveData.storyProgress.recoveredFiles)?saveData.storyProgress.recoveredFiles:[];const normalizedVoidWeaponSave=normalizeVoidWeaponSave(saveData);Object.assign(saveData,normalizedVoidWeaponSave);try{localStorage.setItem(SAVE_KEY,JSON.stringify(saveData))}catch(e){}const DEV_MODE_PASSWORD_SHA256='4a1c5ba9bab4ffbd545fc0e59e31ffa673a1c7dd06e6bccccc432245d922ba14';let developerMode=false;const CORE_UNLOCK_REQUIREMENTS={remielle:{worldIndex:2,label:'WORLD 3'},nature:{worldIndex:0,label:'WORLD 1'},elemental:{worldIndex:1,label:'WORLD 2'},vengeance:{worldIndex:2,label:'WORLD 3'}};let currentWorld=Math.max(0,Math.min(3,saveData.lastWorld||0)),settingsReturn='paused',pausedPageNodes=null,pausedOverlayVisible=false,pausedModalClassName='';autoShoot=saveData.autoShoot!==false;mouseSteering=saveData.mouseSteering!==false;let sfxEnabled=saveData.sfxEnabled!==false,musicEnabled=saveData.musicEnabled!==false,musicVolume=Math.max(0,Math.min(1,Number(saveData.musicVolume??0.32))),audioCtx=null,sfxLast={},musicTimer=null,musicStep=0,musicBus=null,musicTrackIndex=-1;
+const SAVE_KEY='void_orb_save_v1';let saveData={unlockedWorlds:1,totalRuns:0,bestRooms:[0,0,0,0],autoShoot:true,mouseSteering:true,sfxEnabled:true,musicEnabled:true,musicVolume:0.32,uiScale:1,lastWorld:0,coreCurrency:0,coreUpgrades:{},storyProgress:{seenScenes:[],recoveredFiles:[]},voidWeaponInventory:[],equippedVoidWeapons:{},voidWeaponDataVersion:1,mysteryDeliveries:[]};try{const raw=localStorage.getItem(SAVE_KEY);if(raw){const parsed=JSON.parse(raw);saveData={...saveData,...parsed};saveData.coreCurrency=Math.max(0,Number(saveData.coreCurrency)||0);saveData.coreUpgrades=saveData.coreUpgrades&&typeof saveData.coreUpgrades==='object'?saveData.coreUpgrades:{};saveData.unlockedWorlds=Math.max(1,Math.min(4,Number(saveData.unlockedWorlds)||1));saveData.bestRooms=Array.isArray(saveData.bestRooms)?[0,1,2,3].map(i=>Number(saveData.bestRooms[i])||0):[0,0,0,0]}}catch(e){}try{const legacy=saveData.coreUpgrades||{};if(Object.values(legacy).some(v=>v&&typeof v==='object')){const shared={};for(const value of Object.values(legacy)){if(value&&typeof value==='object')for(const [key,rank] of Object.entries(value))shared[key]=Math.max(Number(shared[key])||0,Number(rank)||0)}for(const key of ['atk','crit','rate','hull','armor','speed'])if(Number.isFinite(Number(legacy[key])))shared[key]=Math.max(Number(shared[key])||0,Number(legacy[key])||0);saveData.coreUpgrades=shared;localStorage.setItem(SAVE_KEY,JSON.stringify(saveData))}}catch(e){}saveData.mysteryDeliveries=Array.isArray(saveData.mysteryDeliveries)?saveData.mysteryDeliveries.filter(value=>typeof value==='string'):[];saveData.storyProgress=saveData.storyProgress&&typeof saveData.storyProgress==='object'?saveData.storyProgress:{seenScenes:[],recoveredFiles:[]};saveData.storyProgress.seenScenes=Array.isArray(saveData.storyProgress.seenScenes)?saveData.storyProgress.seenScenes:[];saveData.storyProgress.recoveredFiles=Array.isArray(saveData.storyProgress.recoveredFiles)?saveData.storyProgress.recoveredFiles:[];const normalizedVoidWeaponSave=normalizeVoidWeaponSave(saveData);Object.assign(saveData,normalizedVoidWeaponSave);try{localStorage.setItem(SAVE_KEY,JSON.stringify(saveData))}catch(e){}const DEV_MODE_PASSWORD_SHA256='4a1c5ba9bab4ffbd545fc0e59e31ffa673a1c7dd06e6bccccc432245d922ba14';let developerMode=false;const CORE_UNLOCK_REQUIREMENTS={remielle:{worldIndex:2,label:'WORLD 3'},nature:{worldIndex:0,label:'WORLD 1'},elemental:{worldIndex:1,label:'WORLD 2'},vengeance:{worldIndex:2,label:'WORLD 3'}};let currentWorld=Math.max(0,Math.min(3,saveData.lastWorld||0)),settingsReturn='paused',pausedPageNodes=null,pausedOverlayVisible=false,pausedModalClassName='';autoShoot=saveData.autoShoot!==false;mouseSteering=saveData.mouseSteering!==false;let sfxEnabled=saveData.sfxEnabled!==false,musicEnabled=saveData.musicEnabled!==false,musicVolume=Math.max(0,Math.min(1,Number(saveData.musicVolume??0.32))),audioCtx=null,sfxLast={},musicTimer=null,musicStep=0,musicBus=null,musicTrackIndex=-1;
 function persist(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(saveData))}catch(e){}}
 function applyUiScale(value=saveData.uiScale){const scale=Math.max(.8,Math.min(1.5,Number(value)||1));saveData.uiScale=scale;const wrap=document.querySelector('.wrap');document.documentElement.style.setProperty('--ui-scale',String(scale));if(wrap){wrap.style.zoom=String(scale);wrap.style.width=(100/scale)+'%';wrap.style.maxWidth='none';}return scale;}
 applyUiScale();
@@ -196,6 +197,7 @@ function showWorldSelect(){
 }
 
 function completeWorld(){
+ if(showMysteryDelivery(()=>completeWorld()))return;
  const w=world();
  if(currentWorld===-1){tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TUTORIAL COMPLETE','READY FOR CAMPAIGN','Tutorial complete. Your campaign progress is unchanged.',[{glyph:'✦',color:'#72f6ff',title:'ENTER CAMPAIGN',desc:'Choose one of the four campaign worlds.',action:showWorldSelect},{glyph:'↻',color:'#ffe38a',title:'REPEAT TUTORIAL',desc:'Practice the controls and objectives again.',action:()=>{currentWorld=-1;run++;start()}}]);return;}
  const completedIndex=currentWorld;
@@ -1018,7 +1020,38 @@ function continueAfterRoomClear(){
  if(pendingPortalReveal){pendingPortalReveal=false;showPortals();return;}
  if(pendingTutorialAdvance){pendingTutorialAdvance=false;if(room>=world().rooms){state='tutorialcomplete';tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TRAINING SIMULATION · COMPLETE','YOU ARE READY','', [{title:'RETURN TO WORLD SELECT',glyph:'⌂',color:'#72f6ff',desc:'Confirm to return to campaign select.',action:()=>{if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);hideModal();state='worldselect';showWorldSelect();}}]);const modal=$('modal'),message='MOVEMENT CALIBRATED. DASH PROTOCOL VERIFIED. CORE SKILL ONLINE. ULTIMATE DISCHARGED. TRAINING COMPLETE. YOUR CAMPAIGN BEGINS NOW.';const desc=modal.querySelector('p');desc.classList.add('tutorial-typewriter');desc.textContent='';if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);let typeIndex=0;window.__voidTutorialTypeTimer=setInterval(()=>{if(state!=='tutorialcomplete'||!desc.isConnected){clearInterval(window.__voidTutorialTypeTimer);return;}desc.textContent=message.slice(0,++typeIndex);if(typeIndex%3===0)sfx('text');if(typeIndex>=message.length)clearInterval(window.__voidTutorialTypeTimer);},28);return;}room++;enterRoom();state='playing';hideModal();last=performance.now();updateUI();}
 }
+
+function showMysteryDelivery(onComplete){
+ if(currentWorld<0||![5,10,15,20].includes(room))return false;
+ const key=`w${currentWorld}-r${room}`;
+ if(saveData.mysteryDeliveries.includes(key))return false;
+ saveData.mysteryDeliveries.push(key);persist();
+ const rare=Math.random()<.05;
+ const weapon=rare?pick(VOID_WEAPONS):null;
+ const modal=$('modal');$('overlay').classList.remove('hidden','closing');modal.className='modal mystery-delivery-modal';
+ modal.innerHTML=`<div class="eyebrow">UNREGISTERED CARGO · W${currentWorld+1} / R${String(room).padStart(2,'0')}</div><h2>MYSTERY DELIVERY</h2><p class="delivery-subtitle">A sealed package has entered the recovery channel.</p><button type="button" class="delivery-box" id="mysteryDeliveryOpen" aria-label="Open mystery delivery box"><span class="delivery-box-aura"></span><span class="delivery-box-lid"></span><span class="delivery-box-body"><b>?</b><small>SEALED</small></span><span class="delivery-box-scan"></span></button><p class="delivery-instruction">CLICK THE PACKAGE TO OPEN</p>`;
+ const box=$('mysteryDeliveryOpen');
+ box.onclick=()=>{
+  if(box.dataset.opened==='true')return;
+  box.dataset.opened='true';box.classList.add('is-opening');sfx('ui');
+  setTimeout(()=>{
+   if(!modal.isConnected)return;
+   if(weapon){
+    addVoidWeapon(saveData,weapon.id);persist();
+    modal.innerHTML=`<div class="eyebrow">CARGO DECRYPTED · RARE ACQUISITION</div><h2>VOID WEAPON RECOVERED</h2><div class="delivery-reward-symbol" style="--reward-color:${weapon.color}">${weapon.symbol}</div><h3 class="delivery-reward-name" style="color:${weapon.color}">${weapon.name}</h3><p>${weapon.passive.name} · ${weapon.passive.description}</p><div class="delivery-reward-stats">HP +${weapon.stats.hpPercent}% &nbsp; ATK +${weapon.stats.attackPercent}% &nbsp; ARMOR +${weapon.stats.armorFlat}</div><p class="delivery-footnote">Added to your Void Weapon inventory.</p><button type="button" class="btn delivery-continue" id="mysteryDeliveryContinue">CONTINUE TO PORTAL SELECTION →</button>`;
+   }else{
+    saveData.coreCurrency=(saveData.coreCurrency||0)+5;persist();
+    modal.innerHTML=`<div class="eyebrow">CARGO DECRYPTED · RESOURCE CACHE</div><h2>NEXUS FRAGMENTS</h2><div class="delivery-reward-symbol" style="--reward-color:#b28cff">✦</div><h3 class="delivery-reward-name" style="color:#b28cff">+5 NEXUS FRAGMENTS</h3><p>Crystallized Nexus material for permanent core upgrades.</p><div class="delivery-reward-stats">TOTAL BALANCE · ${saveData.coreCurrency} FRAGMENTS</div><button type="button" class="btn delivery-continue" id="mysteryDeliveryContinue">CONTINUE TO PORTAL SELECTION →</button>`;
+   }
+   sfx('level');
+   modal.querySelector('#mysteryDeliveryContinue').onclick=()=>{sfx('ui');hideModal();setTimeout(()=>{if(typeof onComplete==='function')onComplete();},340);};
+  },520);
+ };
+ return true;
+}
+
 function showPortals(){
+ if(showMysteryDelivery(()=>showPortals()))return;
  const dialogueScene=currentWorld>=0?inRunCommsScenes.find(scene=>scene.worldIndex===currentWorld&&scene.room===room):null;
  if(dialogueScene&&!roomDialogueShown.has(room)){
   roomDialogueShown.add(room);
