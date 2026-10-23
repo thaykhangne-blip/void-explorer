@@ -1896,3 +1896,37 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-weapon-codex-equipment,.void-weapon-codex-lock{margin-top:7px;font-size:8px;letter-spacing:.7px;color:#8fa9c9}
 .void-weapon-codex-lock{padding:12px;border:1px dashed #344a66;text-align:center}
 @media(max-width:580px){.void-weapon-codex-grid{grid-template-columns:1fr}.void-weapon-codex-summary>div{padding:9px}.void-weapon-codex-summary b{font-size:17px}.void-weapon-codex-footer{flex-wrap:wrap}}
+
+
+/* Signature Void Weapon feedback in core selection and armory. */
+#modal.core-hologram-modal .core-holo-planet.has-signature-weapon{
+  filter:drop-shadow(0 0 12px color-mix(in srgb,var(--world-accent) 55%,transparent));
+  animation:signatureCorePulse 2.8s ease-in-out infinite;
+}
+#modal.core-hologram-modal .core-holo-planet.has-signature-weapon::after{
+  content:"";
+  position:absolute;
+  inset:-13px;
+  border:1px solid color-mix(in srgb,var(--world-accent) 78%,transparent);
+  border-radius:50%;
+  box-shadow:0 0 12px color-mix(in srgb,var(--world-accent) 48%,transparent),inset 0 0 14px color-mix(in srgb,var(--world-accent) 20%,transparent);
+  pointer-events:none;
+  animation:signatureCoreOrbit 7s linear infinite;
+}
+#modal.core-hologram-modal .core-holo-planet.has-signature-weapon #coreHoloGlyph{
+  text-shadow:0 0 12px var(--world-accent),0 0 28px var(--world-accent),0 0 54px color-mix(in srgb,var(--world-accent) 70%,transparent);
+}
+.void-weapon-slot.is-signature-active{
+  border-color:color-mix(in srgb,var(--weapon-accent) 80%,#fff);
+  box-shadow:inset 0 0 26px color-mix(in srgb,var(--weapon-accent) 12%,transparent),0 0 14px color-mix(in srgb,var(--weapon-accent) 22%,transparent);
+  background:linear-gradient(110deg,color-mix(in srgb,var(--weapon-accent) 13%,#101e34),rgba(20,24,44,.96));
+}
+.void-weapon-slot.is-signature-active .void-weapon-slot-glyph{
+  box-shadow:0 0 12px color-mix(in srgb,var(--weapon-accent) 45%,transparent);
+  animation:signatureGlyphPulse 2.2s ease-in-out infinite;
+}
+.void-weapon-slot.is-signature-active .void-weapon-slot-copy em{color:var(--weapon-accent);text-shadow:0 0 8px color-mix(in srgb,var(--weapon-accent) 50%,transparent)}
+@keyframes signatureCorePulse{0%,100%{filter:drop-shadow(0 0 7px color-mix(in srgb,var(--world-accent) 38%,transparent))}50%{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--world-accent) 75%,transparent))}}
+@keyframes signatureCoreOrbit{to{transform:rotate(360deg)}}
+@keyframes signatureGlyphPulse{0%,100%{transform:scale(1);box-shadow:0 0 7px color-mix(in srgb,var(--weapon-accent) 30%,transparent)}50%{transform:scale(1.06);box-shadow:0 0 15px color-mix(in srgb,var(--weapon-accent) 60%,transparent)}}
+@media(prefers-reduced-motion:reduce){#modal.core-hologram-modal .core-holo-planet.has-signature-weapon,.void-weapon-slot.is-signature-active .void-weapon-slot-glyph{animation:none}.void-weapon-slot.is-signature-active .void-weapon-slot-glyph{transform:none}}
