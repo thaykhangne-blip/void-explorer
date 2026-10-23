@@ -946,7 +946,13 @@ function continueAfterRoomClear(){
 }
 function showPortals(){
  const dialogueScene=currentWorld>=0?inRunCommsScenes.find(scene=>scene.worldIndex===currentWorld&&scene.room===room):null;
- if(dialogueScene&&!roomDialogueShown.has(room)){roomDialogueShown.add(room);narrative.play(dialogueScene,{force:true,markSeen:true,presentation:'field',onComplete:()=>showPortals()});return;}
+ if(dialogueScene&&!roomDialogueShown.has(room)){
+  roomDialogueShown.add(room);
+  const evidenceId=['log-ashen-safety','log-cryo-shutdown','log-verdant-vendor','log-event-core-memory'][currentWorld];
+  const hasEvidence=saveData.storyProgress.recoveredFiles.includes(evidenceId);
+  const sceneForPlay=room===18&&hasEvidence?{...dialogueScene,subtitle:'Recovered evidence has changed the shape of the transmission.',lines:[...dialogueScene.lines,{speaker:'THE CORE',role:'CROSS-REFERENCED RECORD',text:['The containment risk was recorded before deployment. They sent you anyway.','The shutdown request was rejected by every department. The crew paid for their indecision.','The procurement file confirms the savings depended on removing support. The system was left to fail alone.','I followed both preservation and deletion orders. They called the contradiction my malfunction.'][currentWorld]}]}:dialogueScene;
+  narrative.play(sceneForPlay,{force:true,markSeen:true,presentation:'field',onComplete:()=>showPortals()});return;
+ }
  awardCoreCurrency();
  clearRoomProjectiles();clearAuralisRoomEffects();clearNatureRoomEffects();featherTraps=[];state='portal';blackHole=null;enemies=[];
  const perksInBuild=(build||[]).filter(Boolean);
