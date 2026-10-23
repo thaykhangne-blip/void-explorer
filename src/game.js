@@ -143,6 +143,7 @@ function showMainMenu(){clearToast();hoveredWorldPreview=null;lastWorldPreviewFr
 }
 function addUnifiedCodexTabs(active){
  const modal=$('modal');if(!modal)return;
+ modal.classList.add('unified-codex-modal');
  const tabs='<nav class="unified-codex-tabs" aria-label="Codex sections"><button type="button" data-unified-codex-tab="perks" '+(active==='perks'?'aria-current="page"':'')+'>PERK CODEX</button><button type="button" data-unified-codex-tab="weapons" '+(active==='weapons'?'aria-current="page"':'')+'>VOID WEAPONS</button><button type="button" data-unified-codex-tab="story" '+(active==='story'?'aria-current="page"':'')+'>STORY ARCHIVE</button></nav>';
  modal.insertAdjacentHTML('afterbegin',tabs);
  modal.querySelectorAll('[data-unified-codex-tab]').forEach(button=>button.onclick=()=>showUnifiedCodex(button.dataset.unifiedCodexTab));
