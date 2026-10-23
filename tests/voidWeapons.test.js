@@ -5,6 +5,7 @@ import {
   equipVoidWeapon,
   getVoidWeaponBonuses,
   normalizeVoidWeaponSave,
+  refineVoidWeapon,
   resolveVoidWeaponMilestoneReward,
   unequipVoidWeapon
 } from '../src/systems/voidWeapons.js';
@@ -12,6 +13,7 @@ import {
 const baseSave = () => ({
   coreCurrency: 0,
   voidWeaponInventory: {},
+  voidWeaponRefinements: {},
   equippedVoidWeapons: {},
   voidWeaponClaims: [],
   pendingVoidWeaponRewards: []
@@ -105,4 +107,44 @@ test('weapon bonuses reject unowned weapons and invalid core equipment', () => {
   assert.equal(equipVoidWeapon(empty, 'ember', 'cinder-oath').reason, 'not-owned');
   assert.equal(equipVoidWeapon(empty, 'unknown-core', 'cinder-oath').reason, 'invalid-core');
   assert.equal(getVoidWeaponBonuses(empty, 'ember').stats.atkPct, 0);
+});
+
+
+test('refinement consumes one duplicate and permanently improves weapon stats', () => {
+  const owned = { ...baseSave(), voidWeaponInventory: { 'cinder-oath': 3 } };
+  const first = refineVoidWeapon(owned, 'cinder-oath');
+  assert.equal(first.refined, true);
+  assert.equal(first.level, 1);
+  assert.equal(first.saveData.voidWeaponInventory['cinder-oath'], 2);
+  assert.equal(first.saveData.voidWeaponRefinements['cinder-oath'], 1);
+  const equipped = equipVoidWeapon(first.saveData, 'ember', 'cinder-oath');
+  const bonuses = getVoidWeaponBonuses(equipped.saveData, 'ember');
+  assert.equal(bonuses.refinementLevel, 1);
+  assert.equal(bonuses.stats.atkPct, 0.14);
+  assert.equal(bonuses.stats.hpPct, 0.10);
+});
+
+test('refinement requires a duplicate and stops at rank five', () => {
+  const single = { ...baseSave(), voidWeaponInventory: { 'stillpoint': 1 } };
+  assert.equal(refineVoidWeapon(single, 'stillpoint').reason, 'duplicate-required');
+  let save = { ...baseSave(), voidWeaponInventory: { 'stillpoint': 6 } };
+  for (let rank = 1; rank <= 5; rank++) {
+    const result = refineVoidWeapon(save, 'stillpoint');
+    assert.equal(result.refined, true);
+    assert.equal(result.level, rank);
+    save = result.saveData;
+  }
+  const capped = refineVoidWeapon(save, 'stillpoint');
+  assert.equal(capped.refined, false);
+  assert.equal(capped.reason, 'max-refinement');
+  assert.equal(capped.saveData.voidWeaponInventory.stillpoint, 1);
+});
+
+test('normalization safely clamps refinement ranks and drops unknown weapon keys', () => {
+  const normalized = normalizeVoidWeaponSave({
+    ...baseSave(),
+    voidWeaponInventory: { 'cinder-oath': 2 },
+    voidWeaponRefinements: { 'cinder-oath': 99, unknown: 4, stillpoint: -1 }
+  });
+  assert.deepEqual(normalized.voidWeaponRefinements, { 'cinder-oath': 5 });
 });
