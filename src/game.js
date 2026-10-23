@@ -1121,9 +1121,13 @@ function shoot(){
  const nextShootCd=executeAutoAttack({player,blackHole,enemies,addEnergy,core,CORE_TARGET_RANGE,getPrimaryAttackTarget,mouse,sfx,pick,ELEMENTAL_CORE_ELEMENTS,bullets,launchElementalNovaSalvo,natureDrones,withinCoreRange,dist,skillFx,rand,applyDamage,triggerRicochetChain,burst,pointSegmentDistance,W,H,lasers,RICOCHET_LINK_RANGE,addLightningArc,element,energy,firePhaseFlowAttack});
  player.voidWeaponOnPrimaryAttack=null;
  if(player?.voidWeaponPassive==='eventide-array'&&player.voidWeaponChargedAttack&&core?.id==='nova'){
+  const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));
   const nearest=getPrimaryAttackTarget(),angle=nearest?Math.atan2(nearest.y-player.y,nearest.x-player.x):Math.atan2(mouse.y-player.y,mouse.x-player.x);
-  const vx=Math.cos(angle),vy=Math.sin(angle),edgeX=vx>0?(W-player.x)/vx:vx<0?(0-player.x)/vx:Infinity,edgeY=vy>0?(H-player.y)/vy:vy<0?(0-player.y)/vy:Infinity,length=Math.min(CORE_TARGET_RANGE,Math.max(0,Math.min(edgeX>0?edgeX:Infinity,edgeY>0?edgeY:Infinity)));
-  lasers.push({x:player.x,y:player.y,angle,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*([2,2.25,2.5,2.75,3][(player.voidWeaponRank||1)-1]),color:'#f0c8ff',life:.28,maxLife:.28,ticks:1,tickTimer:0,hitRadius:10,ricochetsLeft:0,ricochetChecked:false,voidWeaponEnhanced:true});
+  const vx=Math.cos(angle),vy=Math.sin(angle),edgeX=vx>0?(W-player.x)/vx:vx<0?(0-player.x)/vx:Infinity,edgeY=vy>0?(H-player.y)/vy:vy<0?(0-player.y)/vy:Infinity;
+  // Event Horizon must cross the entire arena, not stop at Nova's normal targeting range.
+  const length=Math.max(0,Math.min(edgeX>0?edgeX:Infinity,edgeY>0?edgeY:Infinity));
+  const eventHorizonDamage=[2,2.25,2.5,2.75,3][rank-1];
+  lasers.push({x:player.x,y:player.y,angle,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*eventHorizonDamage*(player.laserDamageMult||1),color:'#f0c8ff',life:.28,maxLife:.28,ticks:1,tickTimer:0,hitRadius:10+(player.laserWidthBonus||0),ricochetsLeft:0,ricochetChecked:false,voidWeaponEnhanced:true});
   player.voidWeaponChargedAttack=false;
  }else if(player?.voidWeaponPassive==='thunderclap-protocol'&&player.voidWeaponChargedAttack&&core?.id==='flash'){
   const first=getPrimaryAttackTarget();const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));const maxJumps=[3,4,5,6,7][rank-1],damage=player.damage*([1.5,1.75,2,2.25,2.5][rank-1]);
