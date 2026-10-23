@@ -2229,7 +2229,7 @@ button.global-back-button { transition: opacity .18s ease; }
   top:5vh!important;
   width:44px!important;
   height:44px!important;
-  border-radius:11px!important;
+  border-radius:5px!important;
   font-size:22px!important;
 }
 @media(max-width:600px){
