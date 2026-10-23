@@ -562,7 +562,8 @@ function applyCoreDefaults(o){
  const equippedVoidWeapon=getEquippedVoidWeapon(saveData,o.id);
  const equippedVoidDefinition=getVoidWeaponDefinition(equippedVoidWeapon);
  if(equippedVoidDefinition?.stats){
-  const bonuses=getVoidWeaponRefinementBonuses(equippedVoidDefinition.stats,equippedVoidWeapon.refinementLevel);
+  const baseWeaponStats=VOID_WEAPONS.find(weapon=>weapon.id===equippedVoidWeapon.weaponId)?.stats||equippedVoidDefinition.stats;
+  const bonuses=getVoidWeaponRefinementBonuses(baseWeaponStats,equippedVoidWeapon.refinementLevel);
   player.damage*=bonuses.attackMultiplier;
   player.maxHp=Math.round(player.maxHp*bonuses.hpMultiplier);
   player.hp=player.maxHp;
