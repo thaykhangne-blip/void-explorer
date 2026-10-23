@@ -66,15 +66,16 @@ function nativeElementForCore(id){return elements.find(e=>e.name===({ember:'FIRE
 function randomCargoDock(exclude){let pt={x:W/2,y:H/2};for(let i=0;i<40;i++){pt={x:rand(95,W-95),y:rand(85,H-85)};if(!exclude||dist(pt,exclude)>=Math.min(390,Math.min(W,H)*.72))break;}return pt;}function createCargoRoute(delivered=0,total=10){const from=randomCargoDock(),to=randomCargoDock(from),swap=Math.random()<.5;return{from:swap?to:from,to:swap?from:to,fromLabel:swap?'B':'A',toLabel:swap?'A':'B',picked:false,delivered,total};}
 
 function markGlobalBackButtons(root=document){
- root.querySelectorAll('#modal button, #modal .menu-actions button').forEach(button=>{
+ document.querySelectorAll('#modal button, #modal .menu-actions button, button.global-back-button').forEach(button=>{
   const raw=button.dataset.backButtonLabel||button.textContent.trim().replace(/\\s+/g,' ');
   const label=raw.toUpperCase().replace(/^←\\s*/,'');
-  if(label.startsWith('BACK')||label==='MAIN MENU'){
+  if(button.classList.contains('global-back-button')||label.startsWith('BACK')||label==='MAIN MENU'){
    button.classList.add('global-back-button');
    button.dataset.backButtonLabel=raw;
    button.setAttribute('aria-label',raw);
    button.title=raw;
    if(button.textContent.trim()!=='←')button.textContent='←';
+   button.style.display=state==='playing'?'none':'';
    if(button.parentElement!==document.body)document.body.appendChild(button);
   }
  });
