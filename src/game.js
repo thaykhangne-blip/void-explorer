@@ -12,7 +12,7 @@ import { executeAutoAttack } from './abilities/autoAttacks/execute.js';
 import { getVoidWeapon, getOwnedVoidWeapons, equipVoidWeapon, unequipVoidWeapon, getVoidWeaponBonuses, normalizeVoidWeaponSave, refineVoidWeapon, MAX_VOID_WEAPON_REFINEMENT, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
 import { voidWeapons } from './data/voidWeapons.js';
 
-const highlightVoidWeaponNumbers = value => String(value ?? '').replace(/(\\d+(?:\\.\\d+)?%?)/g, '<span class="void-weapon-number">$1</span>');
+const highlightVoidWeaponNumbers = value => String(value ?? '').replace(/(\\d+(?:\\.\\d+)?%?)/g, '<span style="color:#5de8ff;font-weight:700;text-shadow:0 0 8px rgba(93,232,255,.18)">$1</span>');
 
 // Wait until the startup loader has preloaded the local app resources before booting the game.
 await window.__voidPreloadPromise;
