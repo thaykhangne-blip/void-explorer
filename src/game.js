@@ -1019,7 +1019,38 @@ function continueAfterRoomClear(){
  if(pendingPortalReveal){pendingPortalReveal=false;showPortals();return;}
  if(pendingTutorialAdvance){pendingTutorialAdvance=false;if(room>=world().rooms){state='tutorialcomplete';tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TRAINING SIMULATION · COMPLETE','YOU ARE READY','', [{title:'RETURN TO WORLD SELECT',glyph:'⌂',color:'#72f6ff',desc:'Confirm to return to campaign select.',action:()=>{if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);hideModal();state='worldselect';showWorldSelect();}}]);const modal=$('modal'),message='MOVEMENT CALIBRATED. DASH PROTOCOL VERIFIED. CORE SKILL ONLINE. ULTIMATE DISCHARGED. TRAINING COMPLETE. YOUR CAMPAIGN BEGINS NOW.';const desc=modal.querySelector('p');desc.classList.add('tutorial-typewriter');desc.textContent='';if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);let typeIndex=0;window.__voidTutorialTypeTimer=setInterval(()=>{if(state!=='tutorialcomplete'||!desc.isConnected){clearInterval(window.__voidTutorialTypeTimer);return;}desc.textContent=message.slice(0,++typeIndex);if(typeIndex%3===0)sfx('text');if(typeIndex>=message.length)clearInterval(window.__voidTutorialTypeTimer);},28);return;}room++;enterRoom();state='playing';hideModal();last=performance.now();updateUI();}
 }
+
+function showMysteryDelivery(onComplete){
+ if(currentWorld<0||![5,10,15,20].includes(room))return false;
+ const key=`w${currentWorld}-r${room}`;
+ if(saveData.mysteryDeliveries.includes(key))return false;
+ saveData.mysteryDeliveries.push(key);persist();
+ const rare=Math.random()<.05;
+ const weapon=rare?pick(VOID_WEAPONS):null;
+ const modal=$('modal');$('overlay').classList.remove('hidden','closing');modal.className='modal mystery-delivery-modal';
+ modal.innerHTML=`<div class="eyebrow">UNREGISTERED CARGO · W${currentWorld+1} / R${String(room).padStart(2,'0')}</div><h2>MYSTERY DELIVERY</h2><p class="delivery-subtitle">A sealed package has entered the recovery channel.</p><button type="button" class="delivery-box" id="mysteryDeliveryOpen" aria-label="Open mystery delivery box"><span class="delivery-box-aura"></span><span class="delivery-box-lid"></span><span class="delivery-box-body"><b>?</b><small>SEALED</small></span><span class="delivery-box-scan"></span></button><p class="delivery-instruction">CLICK THE PACKAGE TO OPEN</p>`;
+ const box=$('mysteryDeliveryOpen');
+ box.onclick=()=>{
+  if(box.dataset.opened==='true')return;
+  box.dataset.opened='true';box.classList.add('is-opening');sfx('ui');
+  setTimeout(()=>{
+   if(!modal.isConnected)return;
+   if(weapon){
+    addVoidWeapon(saveData,weapon.id);persist();
+    modal.innerHTML=`<div class="eyebrow">CARGO DECRYPTED · RARE ACQUISITION</div><h2>VOID WEAPON RECOVERED</h2><div class="delivery-reward-symbol" style="--reward-color:${weapon.color}">${weapon.symbol}</div><h3 class="delivery-reward-name" style="color:${weapon.color}">${weapon.name}</h3><p>${weapon.passive.name} · ${weapon.passive.description}</p><div class="delivery-reward-stats">HP +${weapon.stats.hpPercent}% &nbsp; ATK +${weapon.stats.attackPercent}% &nbsp; ARMOR +${weapon.stats.armorFlat}</div><p class="delivery-footnote">Added to your Void Weapon inventory.</p><button type="button" class="btn delivery-continue" id="mysteryDeliveryContinue">CONTINUE TO PORTAL SELECTION →</button>`;
+   }else{
+    saveData.coreCurrency=(saveData.coreCurrency||0)+5;persist();
+    modal.innerHTML=`<div class="eyebrow">CARGO DECRYPTED · RESOURCE CACHE</div><h2>NEXUS FRAGMENTS</h2><div class="delivery-reward-symbol" style="--reward-color:#b28cff">✦</div><h3 class="delivery-reward-name" style="color:#b28cff">+5 NEXUS FRAGMENTS</h3><p>Crystallized Nexus material for permanent core upgrades.</p><div class="delivery-reward-stats">TOTAL BALANCE · ${saveData.coreCurrency} FRAGMENTS</div><button type="button" class="btn delivery-continue" id="mysteryDeliveryContinue">CONTINUE TO PORTAL SELECTION →</button>`;
+   }
+   sfx('level');
+   modal.querySelector('#mysteryDeliveryContinue').onclick=()=>{sfx('ui');hideModal();setTimeout(()=>{if(typeof onComplete==='function')onComplete();},340);};
+  },520);
+ };
+ return true;
+}
+
 function showPortals(){
+ if(showMysteryDelivery(()=>showPortals()))return;
  const dialogueScene=currentWorld>=0?inRunCommsScenes.find(scene=>scene.worldIndex===currentWorld&&scene.room===room):null;
  if(dialogueScene&&!roomDialogueShown.has(room)){
   roomDialogueShown.add(room);
