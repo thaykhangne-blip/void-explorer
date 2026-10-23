@@ -1047,7 +1047,43 @@ function applyElementalAutoSplash(primary,elementName,damage){
  burst(primary.x,primary.y,spec.color,5);
  if(hits)skillFx.push({type:'elementalSplash',x:primary.x,y:primary.y,life:.22,max:.22,radius,color:spec.color});
 }
-function shoot(){const nextShootCd=executeAutoAttack({player,blackHole,enemies,addEnergy,core,CORE_TARGET_RANGE,getPrimaryAttackTarget,mouse,sfx,pick,ELEMENTAL_CORE_ELEMENTS,bullets,launchElementalNovaSalvo,natureDrones,withinCoreRange,dist,skillFx,rand,applyDamage,triggerRicochetChain,burst,pointSegmentDistance,W,H,lasers,RICOCHET_LINK_RANGE,addLightningArc,element,energy,firePhaseFlowAttack});if(nextShootCd!==null)shootCd=nextShootCd;}
+function shoot(){
+ if(player?.voidWeaponPassive&&['cinder-oath','stillpoint','eventide-array','thunderclap-protocol','blood-dividend'].includes(player.voidWeaponPassive)){
+  player.voidWeaponAutoCount=(player.voidWeaponAutoCount||0)+1;
+  const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));
+  if(player.voidWeaponPassive==='eventide-array'&&player.voidWeaponAutoCount>=( [5,4,3,3,2][rank-1])){
+   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+  }else if(player.voidWeaponPassive==='thunderclap-protocol'&&player.voidWeaponAutoCount>=( [6,5,4,3,3][rank-1])){
+   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+  }else if(player.voidWeaponPassive==='blood-dividend'&&player.voidWeaponAutoCount>=( [8,7,6,5,4][rank-1])){
+   player.voidWeaponAutoCount=0;player.voidWeaponChargedAttack=true;
+  }else if(player.voidWeaponPassive==='cinder-oath'){
+   const count=rank;const nearest=getPrimaryAttackTarget();
+   if(nearest){
+    for(let n=0;n<count;n++){
+     const angle=Math.atan2(nearest.y-player.y,nearest.x-player.x)+((n-(count-1)/2)*.12);
+     bullets.push({x:player.x+Math.cos(angle)*12,y:player.y+Math.sin(angle)*12,vx:Math.cos(angle)*Math.max(220,player.shotSpeed*.76),vy:Math.sin(angle)*Math.max(220,player.shotSpeed*.76),r:5,life:3.2,rangeLeft:CORE_TARGET_RANGE*2,damage:player.damage*.42,color:'#ff9c65',type:'voidWeaponFireball',pierce:0,hitEnemies:[],homingTarget:nearest,homingTargetLocked:true,homingTargetLost:false,fromVoidWeapon:true});
+    }
+   }
+  }
+ }
+ const nextShootCd=executeAutoAttack({player,blackHole,enemies,addEnergy,core,CORE_TARGET_RANGE,getPrimaryAttackTarget,mouse,sfx,pick,ELEMENTAL_CORE_ELEMENTS,bullets,launchElementalNovaSalvo,natureDrones,withinCoreRange,dist,skillFx,rand,applyDamage,triggerRicochetChain,burst,pointSegmentDistance,W,H,lasers,RICOCHET_LINK_RANGE,addLightningArc,element,energy,firePhaseFlowAttack});
+ if(player?.voidWeaponPassive==='eventide-array'&&player.voidWeaponChargedAttack&&core?.id==='nova'){
+  const nearest=getPrimaryAttackTarget(),angle=nearest?Math.atan2(nearest.y-player.y,nearest.x-player.x):Math.atan2(mouse.y-player.y,mouse.x-player.x);
+  const vx=Math.cos(angle),vy=Math.sin(angle),edgeX=vx>0?(W-player.x)/vx:vx<0?(0-player.x)/vx:Infinity,edgeY=vy>0?(H-player.y)/vy:vy<0?(0-player.y)/vy:Infinity,length=Math.min(CORE_TARGET_RANGE,Math.max(0,Math.min(edgeX>0?edgeX:Infinity,edgeY>0?edgeY:Infinity)));
+  lasers.push({x:player.x,y:player.y,angle,vx,vy,length:Number.isFinite(length)?length:Math.max(W,H),damage:player.damage*([2,2.25,2.5,2.75,3][(player.voidWeaponRank||1)-1]),color:'#f0c8ff',life:.28,maxLife:.28,ticks:1,tickTimer:0,hitRadius:10,ricochetsLeft:0,ricochetChecked:false,voidWeaponEnhanced:true});
+  player.voidWeaponChargedAttack=false;
+ }else if(player?.voidWeaponPassive==='thunderclap-protocol'&&player.voidWeaponChargedAttack&&core?.id==='flash'){
+  const first=getPrimaryAttackTarget();const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1));const maxJumps=[3,4,5,6,7][rank-1],damage=player.damage*([1.5,1.75,2,2.25,2.5][rank-1]);
+  let from=first;const hit=new Set();if(first)hit.add(first);if(first){applyDamage(first,damage,'#fff7b0',true,'OVERLOAD CIRCUIT');burst(first.x,first.y,'#fff7b0',14);}
+  for(let n=0;first&&n<maxJumps;n++){const next=enemies.filter(e=>e.hp>0&&!hit.has(e)&&withinCoreRange(player,e)&&dist(e,from)<RICOCHET_LINK_RANGE).sort((a,b)=>dist(a,from)-dist(b,from))[0]||(!hit.has(blackHole)&&blackHole&&!blackHole.inactive&&blackHole.hp>0&&withinCoreRange(player,blackHole)&&dist(blackHole,from)<RICOCHET_LINK_RANGE?blackHole:null);if(!next)break;addLightningArc(from,next);applyDamage(next,damage*.58,'#ffe875',true,'OVERLOAD CIRCUIT · CHAIN');hit.add(next);if(next!==blackHole)burst(next.x,next.y,'#fff4a8',8);from=next;}
+  player.voidWeaponChargedAttack=false;
+ }else if(player?.voidWeaponPassive==='blood-dividend'&&player.voidWeaponChargedAttack&&core?.id==='vengeance'){
+  const target=getPrimaryAttackTarget();if(target){const rank=Math.max(1,Math.min(5,player.voidWeaponRank||1)),damage=player.damage*([2,2.5,3,3.5,4][rank-1]);applyDamage(target,damage,'#ff304f',true,'CRIMSON REPRISAL');burst(target.x,target.y,'#ff8c9e',14);if(target.hp<=0){for(const e of enemies){if(e!==target&&e.hp>0&&dist(e,target)<90)applyDamage(e,player.damage*([1,1.25,1.5,1.75,2][rank-1]),'#ff526b',false,'CRIMSON REPRISAL SHOCKWAVE');}}}
+  player.voidWeaponChargedAttack=false;
+ }
+ if(nextShootCd!==null)shootCd=nextShootCd;
+}
 function burst(x,y,color,n=8){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),v=rand(25,170);particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.2,.65),max:.65,color,size:Math.random()<.7?2:3})}}
 function supernovaBurst(x,y,r,color='#aabaff',boss=false){const palette=boss?['#ffffff','#aabaff','#bd92ff','#72f6ff','#ff79b8','#ffcf8a']:[color,'#ffffff','#72f6ff','#bd92ff'];const count=boss?150:88;for(let i=0;i<count;i++){const a=Math.random()*Math.PI*2,heavy=Math.random()<.22,speed=heavy?rand(190,420):rand(65,270),life=heavy?rand(.65,1.35):rand(.35,.95),c=palette[Math.floor(Math.random()*palette.length)],start=rand(0,Math.max(4,r*.72));particles.push({x:x+Math.cos(a)*start,y:y+Math.sin(a)*start,vx:Math.cos(a)*speed+rand(-24,24),vy:Math.sin(a)*speed+rand(-24,24),life,max:life,color:c,size:heavy?rand(2.5,5.5):rand(1,3.4),drag:.94});}for(let i=0;i<(boss?3:2);i++)ultFx.push({type:'shockwave',x,y,r:Math.max(8,r*.25),maxR:r*(boss?5.5:4),life:.75+i*.16,max:.75+i*.16,color:palette[i%palette.length]});burst(x,y,'#ffffff',boss?35:20);}
 function floatDamage(x,y,amount,color,crit=false,tag=''){const value=Math.max(1,Math.round(amount));damageTexts.push({x:x+rand(-5,5),y:y-7,vx:rand(-10,10),vy:crit?-42:-28,life:crit?1.05:.78,max:crit?1.05:.78,text:(crit?'CRIT ':'')+value,color,crit});}
