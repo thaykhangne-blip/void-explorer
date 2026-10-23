@@ -102,6 +102,29 @@ test('equipping a weapon exposes its stats and only its signature passive on the
   assert.equal(getVoidWeaponBonuses(removed.saveData, 'ember').weapon, null);
 });
 
+test('equipping a weapon to another core automatically unequips it from the previous core', () => {
+  const owned = {
+    ...baseSave(),
+    voidWeaponInventory: { 'cinder-oath': 1, stillpoint: 1 },
+    equippedVoidWeapons: { ember: 'cinder-oath' }
+  };
+  const moved = equipVoidWeapon(owned, 'frost', 'cinder-oath');
+  assert.equal(moved.equipped, true);
+  assert.deepEqual(moved.saveData.equippedVoidWeapons, { frost: 'cinder-oath' });
+  assert.equal(getVoidWeaponBonuses(moved.saveData, 'ember').weapon, null);
+  assert.equal(getVoidWeaponBonuses(moved.saveData, 'frost').weapon.id, 'cinder-oath');
+});
+
+test('normalization removes duplicate equipment assignments from legacy saves', () => {
+  const normalized = normalizeVoidWeaponSave({
+    ...baseSave(),
+    voidWeaponInventory: { 'cinder-oath': 1, stillpoint: 1 },
+    equippedVoidWeapons: { ember: 'cinder-oath', frost: 'cinder-oath', nova: 'stillpoint' }
+  });
+  assert.equal(Object.values(normalized.equippedVoidWeapons).filter(id => id === 'cinder-oath').length, 1);
+  assert.equal(normalized.equippedVoidWeapons.nova, 'stillpoint');
+});
+
 test('weapon bonuses reject unowned weapons and invalid core equipment', () => {
   const empty = baseSave();
   assert.equal(equipVoidWeapon(empty, 'ember', 'cinder-oath').reason, 'not-owned');
