@@ -12,6 +12,8 @@ import { executeAutoAttack } from './abilities/autoAttacks/execute.js';
 import { getVoidWeapon, getOwnedVoidWeapons, equipVoidWeapon, unequipVoidWeapon, getVoidWeaponBonuses, normalizeVoidWeaponSave, refineVoidWeapon, MAX_VOID_WEAPON_REFINEMENT, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
 import { voidWeapons } from './data/voidWeapons.js';
 
+const highlightVoidWeaponNumbers = value => String(value ?? '').replace(/(\\d+(?:\\.\\d+)?%?)/g, '<span class="void-weapon-number">$1</span>');
+
 // Wait until the startup loader has preloaded the local app resources before booting the game.
 await window.__voidPreloadPromise;
 
@@ -203,7 +205,7 @@ function showVoidWeaponCodex(){
     (hidden?'<p class="void-weapon-codex-secret">Weapon identity and signature data remain classified until the weapon is recovered.</p><div class="void-weapon-codex-lock">◇ UNDISCOVERED</div>':
      '<p class="void-weapon-codex-description">'+weapon.description+'</p>'+
      '<div class="void-weapon-codex-stats"><span>ATK <b>+'+Math.round(weapon.stats.atkPct*100+rank*2*(weapon.stats.atkPct>0?1:0))+'%</b></span><span>HULL <b>+'+Math.round(weapon.stats.hpPct*100+rank*2*(weapon.stats.hpPct>0?1:0))+'%</b></span><span>ARMOR <b>+'+Math.round(weapon.stats.armorPct*100+rank*2*(weapon.stats.armorPct>0?1:0))+'%</b></span></div>'+
-     '<div class="void-weapon-codex-passive"><small>'+weapon.passive.name+'</small><p>'+weapon.passive.description+'</p></div>'+
+     '<div class="void-weapon-codex-passive"><small>'+weapon.passive.name+'</small><p>'+highlightVoidWeaponNumbers(weapon.passive.description)+'</p></div>'+
      '<div class="void-weapon-codex-footer"><span>OWNED ×'+owned.copies+'</span><span>'+(rank>=MAX_VOID_WEAPON_REFINEMENT?'MAX REFINEMENT':(MAX_VOID_WEAPON_REFINEMENT-rank)+' RANKS TO MAX')+'</span></div>'+
      '<div class="void-weapon-codex-equipment">'+(equippedCores.length?'EQUIPPED · '+equippedCores.join(', '):'NOT CURRENTLY EQUIPPED')+'</div>')+
     '</article>';
@@ -362,7 +364,7 @@ if(statGrid){
   if(weaponBonus.signaturePassive){
    rows.push(['WEAPON REFINEMENT','RANK '+['I','II','III','IV','V'][Math.max(1,weaponBonus.signaturePassive.rank||1)-1],weaponBonus.weapon.color]);
    rows.push(['SIGNATURE PASSIVE',weaponBonus.signaturePassive.name,weaponBonus.weapon.color]);
-   rows.push(['PASSIVE EFFECT',weaponBonus.signaturePassive.description,weaponBonus.weapon.color]);
+   rows.push(['PASSIVE EFFECT',highlightVoidWeaponNumbers(weaponBonus.signaturePassive.description),weaponBonus.weapon.color]);
   } else rows.push(['PASSIVE','Signature passive is active only on its matching core.','#9aaac7']);
  }
  statGrid.innerHTML=rows.map(([label,value,color])=>'<div style="min-width:0;padding:8px 9px;background:#10182a;border:1px solid #263550;border-radius:5px"><div style="font-size:9px;letter-spacing:.7px;color:#9aaac7;margin-bottom:5px">'+label+'</div><strong style="font-size:13px;color:'+color+';overflow-wrap:anywhere;white-space:normal">'+value+'</strong></div>').join('');
