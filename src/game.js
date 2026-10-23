@@ -3,7 +3,7 @@ import { cores, elements } from './data/cores.js';
 import { PERKCODEXDATA, PERK_MAX_RANK, PERK_RARITY } from './data/perks.js';
 import { pointSegmentDistance } from './utils/geometry.js';
 import { createRicochetSystem } from './systems/ricochet.js';
-import { worldIntroScenes, worldOutroScenes, inRunCommsScenes, allStoryScenes, corporateMemos, campaignConvergenceScene } from './data/story.js';
+import { worldIntroScenes, worldOutroScenes, inRunCommsScenes, allStoryScenes, corporateMemos, campaignInterludes, campaignConvergenceScene } from './data/story.js';
 import { createNarrativeSystem } from './systems/narrative.js';
 import { getElementalSummonCount, getUltimateMasteryRank } from './abilities/ultimateScaling.js';
 import { getPrimaryAttackTarget as selectPrimaryAttackTarget } from './abilities/targeting.js';
@@ -223,6 +223,8 @@ function completeWorld(){
     ?'All four investigations connected. The evidence chain is complete.'
     :'The record is incomplete, but the pattern is clear. The remaining evidence stays in the archive.';
    narrative.play(campaignConvergenceScene,{force:true,markSeen:true,onComplete:showWorldResult});
+  }else if(campaignInterludes[completedIndex]){
+   narrative.play(campaignInterludes[completedIndex],{force:true,markSeen:true,onComplete:showWorldResult});
   }else showWorldResult();
  };
  if(outro)narrative.play(outro,{force:true,markSeen:true,onComplete:showFinalEvidenceTransmission});else showFinalEvidenceTransmission();
