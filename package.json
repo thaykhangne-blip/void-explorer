@@ -4,8 +4,9 @@
   "private": true,
   "description": "Void Protocol, a cosmic action roguelike",
   "scripts": {
-    "check": "node --check src/game.js && node --check src/data/story.js && node --check src/systems/narrative.js && node --check src/data/worlds.js && node --check src/data/cores.js && node --check src/data/perks.js && node --check src/data/voidWeapons.js && node --check src/systems/voidWeaponInventory.js && node --check src/utils/geometry.js && node --check src/systems/ricochet.js",
-    "serve": "python3 -m http.server 8000"
+    "check": "node --check src/game.js && node --check src/data/story.js && node --check src/systems/narrative.js && node --check src/data/worlds.js && node --check src/data/cores.js && node --check src/data/perks.js && node --check src/data/voidWeapons.js && node --check src/systems/voidWeaponInventory.js && node --check src/utils/geometry.js && node --check src/systems/ricochet.js && node --check src/systems/voidWeaponCombat.js",
+    "serve": "python3 -m http.server 8000",
+    "test": "node --test tests/*.test.js"
   },
   "type": "module"
 }
