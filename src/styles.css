@@ -2249,3 +2249,18 @@ button.global-back-button { transition: opacity .18s ease; }
 /* Place the signature marker on the selected core's first ability glyph, not the bottom navigation node. */
 .core-holo-mini-icon{position:relative}
 .core-holo-mini-icon>.signature-weapon-badge{top:-5px;right:-5px;width:16px;height:16px;font-size:10px;pointer-events:none}
+
+/* Keep the signature star optically centered inside its circular badge. */
+.core-holo-mini-icon>.signature-weapon-badge{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ box-sizing:border-box;
+ padding:0;
+ line-height:1;
+ text-align:center;
+ font-family:Arial,sans-serif;
+ font-size:10px;
+ font-weight:700;
+ transform:translate(0,0);
+}
