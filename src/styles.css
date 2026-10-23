@@ -1930,3 +1930,11 @@ button.global-back-button { transition: opacity .18s ease; }
 @keyframes signatureCoreOrbit{to{transform:rotate(360deg)}}
 @keyframes signatureGlyphPulse{0%,100%{transform:scale(1);box-shadow:0 0 7px color-mix(in srgb,var(--weapon-accent) 30%,transparent)}50%{transform:scale(1.06);box-shadow:0 0 15px color-mix(in srgb,var(--weapon-accent) 60%,transparent)}}
 @media(prefers-reduced-motion:reduce){#modal.core-hologram-modal .core-holo-planet.has-signature-weapon,.void-weapon-slot.is-signature-active .void-weapon-slot-glyph{animation:none}.void-weapon-slot.is-signature-active .void-weapon-slot-glyph{transform:none}}
+
+
+/* Shared navigation for the unified Codex. */
+.unified-codex-tabs{display:flex;gap:8px;position:sticky;top:-1px;z-index:20;margin:0 0 18px;padding:10px 0 12px;background:linear-gradient(180deg,#101b2d 78%,rgba(16,27,45,0));border-bottom:1px solid rgba(114,246,255,.18)}
+.unified-codex-tabs button{flex:1;min-width:0;padding:11px 8px;border:1px solid #304966;border-radius:4px;background:#0b1525;color:#9fb5d0;font:inherit;font-size:10px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.unified-codex-tabs button:hover{border-color:#72f6ff;color:#eafaff}
+.unified-codex-tabs button[aria-current="page"]{border-color:#72f6ff;background:linear-gradient(120deg,rgba(114,246,255,.18),rgba(126,113,255,.14));color:#eafaff;box-shadow:inset 0 -2px #72f6ff,0 0 14px rgba(114,246,255,.08)}
+@media(max-width:520px){.unified-codex-tabs{gap:5px}.unified-codex-tabs button{padding:10px 4px;font-size:8px;letter-spacing:.4px}}
