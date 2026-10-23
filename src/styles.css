@@ -2218,3 +2218,16 @@ button.global-back-button { transition: opacity .18s ease; }
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
 }
+
+
+/* Compact Codex back control, aligned with the modal's top edge. */
+.unified-codex-back{
+  top:5vh!important;
+  width:44px!important;
+  height:44px!important;
+  border-radius:11px!important;
+  font-size:22px!important;
+}
+@media(max-width:600px){
+  .unified-codex-back{top:10px!important;width:40px!important;height:40px!important}
+}
