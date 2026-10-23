@@ -1295,7 +1295,6 @@ inRunCommsScenes.push(
 export const allStoryScenes = [...worldIntroScenes, ...worldOutroScenes, ...inRunCommsScenes];
 
 export const corporateMemos = [
-[
   {
     "id": "memo-ashen-incident",
     "worldIndex": 0,
