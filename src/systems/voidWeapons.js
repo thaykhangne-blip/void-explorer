@@ -4,7 +4,8 @@ import { voidWeapons, VOID_WEAPON_BY_ID } from '../data/voidWeapons.js';
 export const VOID_WEAPON_SAVE_DEFAULTS = Object.freeze({
   voidWeaponInventory: {},
   equippedVoidWeapons: {},
-  voidWeaponClaims: []
+  voidWeaponClaims: [],
+  pendingVoidWeaponRewards: []
 });
 
 const CORE_IDS = new Set(VOID_WEAPON_SIGNATURE_CORE_IDS_SAFE());
@@ -42,6 +43,15 @@ export function normalizeVoidWeaponSave(saveData = {}) {
   normalized.voidWeaponClaims = [...new Set(
     claims.filter(key => typeof key === 'string' && /^\d+:(5|10|15|20)$/.test(key))
   )];
+  const pendingRewards = Array.isArray(normalized.pendingVoidWeaponRewards) ? normalized.pendingVoidWeaponRewards : [];
+  normalized.pendingVoidWeaponRewards = pendingRewards.filter(reward => {
+    if (!isRecord(reward) || typeof reward.claimKey !== 'string' || !normalized.voidWeaponClaims.includes(reward.claimKey)) return false;
+    if (reward.type === 'weapon') return Object.prototype.hasOwnProperty.call(VOID_WEAPON_BY_ID, reward.weaponId);
+    return reward.type === 'nexus-fragments' && Number.isFinite(Number(reward.amount)) && Number(reward.amount) > 0;
+  }).map(reward => reward.type === 'weapon'
+    ? { type: 'weapon', weaponId: reward.weaponId, worldId: Number(reward.worldId), roomNumber: Number(reward.roomNumber), claimKey: reward.claimKey }
+    : { type: 'nexus-fragments', amount: Math.floor(Number(reward.amount)), worldId: Number(reward.worldId), roomNumber: Number(reward.roomNumber), claimKey: reward.claimKey }
+  );
   return normalized;
 }
 
@@ -105,4 +115,33 @@ export function claimVoidWeaponMilestone(saveData, worldId, roomNumber) {
   }
   safe.voidWeaponClaims.push(key);
   return { saveData: safe, claimed: true, key };
+}
+
+
+/** Resolve and persist a campaign milestone reward exactly once. */
+export function resolveVoidWeaponMilestoneReward(saveData, worldId, roomNumber, rng = Math.random) {
+  const claim = claimVoidWeaponMilestone(saveData, worldId, roomNumber);
+  const safe = claim.saveData;
+  if (!claim.claimed) return { saveData: safe, awarded: false, reason: 'already-claimed-or-invalid', claimKey: claim.key };
+
+  const world = Number(worldId);
+  const room = Number(roomNumber);
+  const roll = Number(rng());
+  let reward;
+  if (Number.isFinite(roll) && roll >= 0 && roll < 0.05) {
+    const index = Math.min(voidWeapons.length - 1, Math.floor((roll / 0.05) * voidWeapons.length));
+    const weapon = voidWeapons[index];
+    const granted = grantVoidWeapon(safe, weapon.id, 1);
+    reward = { type: 'weapon', weaponId: weapon.id, worldId: world, roomNumber: room, claimKey: claim.key };
+    safe.voidWeaponInventory = granted.saveData.voidWeaponInventory;
+    safe.equippedVoidWeapons = granted.saveData.equippedVoidWeapons;
+    safe.voidWeaponClaims = granted.saveData.voidWeaponClaims;
+    safe.pendingVoidWeaponRewards = granted.saveData.pendingVoidWeaponRewards || safe.pendingVoidWeaponRewards || [];
+  } else {
+    const amount = 15 + world * 5;
+    safe.coreCurrency = Math.max(0, Number(safe.coreCurrency) || 0) + amount;
+    reward = { type: 'nexus-fragments', amount, worldId: world, roomNumber: room, claimKey: claim.key };
+  }
+  safe.pendingVoidWeaponRewards = [...(safe.pendingVoidWeaponRewards || []), reward];
+  return { saveData: safe, awarded: true, reward, claimKey: claim.key };
 }
