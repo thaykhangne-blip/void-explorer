@@ -35,9 +35,10 @@ test('refinement is capped at five and save normalization clamps invalid ranks',
 });
 
 test('each refinement adds 2% HP and attack plus one armor', () => {
-  assert.deepEqual(getVoidWeaponRefinementBonuses({ hpPercent: 5, attackPercent: 12, armorFlat: 3 }, 2), {
-    attackMultiplier: 1.16, hpMultiplier: 1.09, armorFlat: 5
-  });
+  const result = getVoidWeaponRefinementBonuses({ hpPercent: 5, attackPercent: 12, armorFlat: 3 }, 2);
+  assert.ok(Math.abs(result.attackMultiplier - 1.16) < 1e-10);
+  assert.ok(Math.abs(result.hpMultiplier - 1.09) < 1e-10);
+  assert.equal(result.armorFlat, 5);
 });
 
 test('refinement fails safely when no matching duplicate exists', () => {
