@@ -2183,3 +2183,19 @@ button.global-back-button { transition: opacity .18s ease; }
   background-color:transparent!important;
   box-shadow:none!important;
 }
+
+
+/* Prevent Perk Codex section panels from bleeding past the right edge. */
+#modal.unified-codex-modal .codex-sections,
+#modal.unified-codex-modal .codex-sections>.codex-section{
+  box-sizing:border-box!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+#modal.unified-codex-modal .codex-sections{
+  width:100%!important;
+  overflow-x:clip!important;
+}
+#modal.unified-codex-modal .codex-sections>.codex-section{
+  width:100%!important;
+}
