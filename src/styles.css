@@ -2043,3 +2043,41 @@ button.global-back-button { transition: opacity .18s ease; }
   #modal.unified-codex-modal .unified-codex-tabs button{font-size:8px;letter-spacing:.3px;min-height:38px}
 }
 @media(prefers-reduced-motion:reduce){#modal.unified-codex-modal,#modal.unified-codex-modal .codex-sections,#modal.unified-codex-modal .void-weapon-codex-grid,#modal.unified-codex-modal .story-archive-section{animation:none;transition:none}}
+
+
+/* Codex scrolling fix: keep the tab bar in normal flow at the top of the
+   scroll container; don't use negative sticky offsets that drag the whole
+   modal contents under the header. Keep the back control above the tab row. */
+#modal.unified-codex-modal{
+  height: min(82dvh, 900px)!important;
+  max-height: calc(100dvh - 36px)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:contain!important;
+  scroll-padding-top:72px;
+}
+#modal.unified-codex-modal .unified-codex-tabs{
+  position:sticky!important;
+  top:0!important;
+  z-index:40!important;
+  margin-top:0!important;
+}
+#modal.unified-codex-modal>.world-holo-back{
+  position:sticky!important;
+  top:8px!important;
+  z-index:60!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  margin:0 0 4px!important;
+  transform:none!important;
+}
+#modal.unified-codex-modal .codex-sections,
+#modal.unified-codex-modal .void-weapon-codex-grid,
+#modal.unified-codex-modal .story-archive-section{
+  scroll-margin-top:72px;
+}
+@media(max-width:600px){
+  #modal.unified-codex-modal{height:calc(100dvh - 20px)!important;max-height:calc(100dvh - 20px)!important}
+  #modal.unified-codex-modal .unified-codex-tabs{top:0!important}
+}
