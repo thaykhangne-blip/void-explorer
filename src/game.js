@@ -696,6 +696,7 @@ function coreUpgradeCost(def,rank){return Math.floor(def.base*Math.pow(1.34,rank
 function showVoidWeaponTenPull(rewards,onDone){
  const valid=(rewards||[]).filter(reward=>reward&&reward.claimKey);
  if(!valid.length){onDone?.();return;}
+ const single=valid.length===1;
  const rarityRank=reward=>reward.type!=='weapon'?0:reward.rarity==='legendary'?5:reward.rarity==='unique'?4:3;
  const topRank=Math.max(...valid.map(rarityRank));
  const tier=topRank>=5?'gold':topRank>=4?'purple':'blue';
@@ -707,7 +708,7 @@ function showVoidWeaponTenPull(rewards,onDone){
  modal.className='modal void-delivery-modal void-ten-pull-modal';
  const render=()=>{
   if(phase==='box'){
-   modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(boxOpening?'OPENING MYSTERY BOX':'MYSTERY BOX')+'</h2><p>'+(boxOpening?'The seal is breaking. Preparing the ten-pull reveal.':'Ten rewards are sealed inside. Open the box to reveal the ten-pull sequence.')+'</p><div class="void-delivery-stage '+(boxOpening?'is-opening':'is-sealed')+'" style="--delivery-accent:#c69aff"><div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div><div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div><div class="void-delivery-box"><span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">'+(boxOpening?'✦':'?')+'</span><span class="delivery-box-base"></span></div>'+(boxOpening?'<div class="void-delivery-sparks" aria-hidden="true">✦ · ✧ · ✦</div>':'')+'</div><p class="void-delivery-hint">'+(boxOpening?'OPENING…':'THE BOX CONTAINS 10 REWARDS')+'</p><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" '+(boxOpening?'disabled':'')+'>'+(boxOpening?'OPENING…':'OPEN MYSTERY BOX')+'</button></div>';
+   modal.innerHTML='<div class="eyebrow">VOID SHOP · MYSTERY DELIVERY</div><h2>'+(boxOpening?'OPENING MYSTERY BOX':'MYSTERY BOX')+'</h2><p>'+(boxOpening?'The seal is breaking. Preparing the reveal.':single?'One reward is sealed inside. Open the box to reveal it.':'Ten rewards are sealed inside. Open the box to reveal the ten-pull sequence.')+'</p><div class="void-delivery-stage '+(boxOpening?'is-opening':'is-sealed')+'" style="--delivery-accent:#c69aff"><div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div><div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div><div class="void-delivery-box"><span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">'+(boxOpening?'✦':'?')+'</span><span class="delivery-box-base"></span></div>'+(boxOpening?'<div class="void-delivery-sparks" aria-hidden="true">✦ · ✧ · ✦</div>':'')+'</div><p class="void-delivery-hint">'+(boxOpening?'OPENING…':single?'ONE REWARD SEALED INSIDE':'THE BOX CONTAINS 10 REWARDS')+'</p><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" '+(boxOpening?'disabled':'')+'>'+(boxOpening?'OPENING…':'OPEN MYSTERY BOX')+'</button></div>';
    const beginOpening=()=>{if(boxOpening)return;sfx('ui');boxOpening=true;render();setTimeout(()=>{phase='sequence';render();},820);};
    modal.querySelector('#voidTenPullAction')?.addEventListener('click',beginOpening);
    modal.querySelector('.void-delivery-stage')?.addEventListener('click',beginOpening);
@@ -723,7 +724,7 @@ function showVoidWeaponTenPull(rewards,onDone){
    const detail=weapon?(weapon.rarity==='legendary'?'LEGENDARY ★★★★★':weapon.rarity==='unique'?'UNIQUE ★★★★':'RARE ★★★')+' VOID WEAPON':'+ '+reward.amount+' FRAGMENTS';
    return '<article class="void-ten-pull-card tier-'+cardTier+'" style="--pull-accent:'+color+';animation-delay:'+(index*35)+'ms"><span class="void-ten-pull-index">PULL '+String(index+1).padStart(2,'0')+'</span><div class="void-ten-pull-glyph">'+(revealed?glyph:'?')+'</div><b>'+(revealed?title:'SEALED')+'</b><small>'+(revealed?detail:'MYSTERY REWARD')+'</small></article>';
   }).join('');
-  modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(revealed?'10 RESULTS REVEALED':'TEN-PULL SEQUENCE')+'</h2><p>'+(revealed?'All ten rewards have been revealed together. Highest rarity determines the reveal animation.':'The mystery box opens. Reveal all ten results together.')+'</p><div class="void-ten-pull-stage tier-'+tier+' '+(revealed?'is-revealed':'is-sealed')+'" style="--pull-accent:'+accent+'"><div class="void-ten-pull-rings" aria-hidden="true"></div><div class="void-ten-pull-grid">'+cards+'</div></div><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" style="--delivery-accent:'+accent+'">'+(revealed?'SECURE REWARDS':'REVEAL ALL 10')+'</button></div>';
+  modal.innerHTML='<div class="eyebrow">VOID SHOP · MYSTERY DELIVERY</div><h2>'+(revealed?(single?'REWARD REVEALED':'10 RESULTS REVEALED'):(single?'SINGLE PULL':'TEN-PULL SEQUENCE'))+'</h2><p>'+(revealed?(single?'Your reward has been revealed.':'All ten rewards have been revealed together. Highest rarity determines the reveal animation.'):(single?'Reveal the reward to identify its contents.':'Reveal all ten results together.'))+'</p><div class="void-ten-pull-stage tier-'+tier+' '+(revealed?'is-revealed':'is-sealed')+'" style="--pull-accent:'+accent+'"><div class="void-ten-pull-rings" aria-hidden="true"></div><div class="void-ten-pull-grid '+(single?'is-single':'')+'">'+cards+'</div></div><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" style="--delivery-accent:'+accent+'">'+(revealed?'SECURE '+(single?'REWARD':'REWARDS'):(single?'REVEAL REWARD':'REVEAL ALL 10'))+'</button></div>';
   modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{
    sfx('ui');
    if(!revealed){revealed=true;render();return;}
@@ -759,8 +760,7 @@ function showCoreUpgradeSystem(back=showMainMenu,initialTab='upgrades'){
    saveData.pendingVoidWeaponRewards=[...(saveData.pendingVoidWeaponRewards||[]),...rewards];persist();sfx('ui');
    const finish=()=>showCoreUpgradeSystem(back,'boxes');
    hideModal();
-   if(count===10)showVoidWeaponTenPull(rewards,finish);
-   else showVoidWeaponDelivery(rewards[0],finish);
+   showVoidWeaponTenPull(rewards,finish);
   };
   modal.querySelector('#buyMysteryOne')?.addEventListener('click',()=>buy(1));
   modal.querySelector('#buyMysteryTen')?.addEventListener('click',()=>buy(10));
