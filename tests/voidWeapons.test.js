@@ -321,3 +321,22 @@ test('automatic duplicate conversion is independent of refinement and caps inven
   assert.equal(batch.convertedFragments, 500);
   assert.equal(batch.saveData.coreCurrency, 500);
 });
+
+
+test('general weapon catalog adds 10 rare, 6 unique, and 3 legendary entries', () => {
+  const general = voidWeapons.filter(weapon => weapon.category === 'general');
+  assert.equal(general.filter(weapon => weapon.rarity === 'rare').length, 13);
+  assert.equal(general.filter(weapon => weapon.rarity === 'unique').length, 8);
+  assert.equal(general.filter(weapon => weapon.rarity === 'legendary').length, 3);
+  assert.equal(new Set(general.map(weapon => weapon.id)).size, general.length);
+  assert.ok(general.every(weapon => !/universal|any core|any equipped core/i.test(weapon.passive.description)));
+});
+
+test('legendary pity and signature follow-up defaults normalize safely', () => {
+  const normalized = normalizeVoidWeaponSave({ voidWeaponPity: 88, voidWeaponNextLegendarySignature: 1 });
+  assert.equal(normalized.voidWeaponPity, 59);
+  assert.equal(normalized.voidWeaponNextLegendarySignature, true);
+  const fresh = normalizeVoidWeaponSave({});
+  assert.equal(fresh.voidWeaponPity, 0);
+  assert.equal(fresh.voidWeaponNextLegendarySignature, false);
+});
