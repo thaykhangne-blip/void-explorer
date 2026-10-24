@@ -1,3 +1,8 @@
+## v0.7.2 — Expanded general weapons and legendary pity
+- Removed redundant universal-compatibility sentences from all general weapon passive descriptions.
+- Added 10 Rare, 6 Unique, and 3 Legendary general weapons to the shared weapon catalog and mystery-box rarity pools.
+- Added persistent Legendary pity: the 60th consecutive pull without a Legendary guarantees one. If that pity Legendary is general, the next Legendary is guaranteed to be Signature. Pity resets whenever a Legendary is obtained.
+
 ## v0.7.1 — Nexus Exchange duplicate conversion
 - Added a premium floating −10% badge above the 10-pull button; ten pulls cost 4,500 Nexus Fragments instead of 5,000.
 - Mystery-shop weapon duplicates are tracked by total copies owned, independent of refinement rank. Copies 1–5 are retained; each copy from the sixth onward converts immediately to Nexus Fragments (Rare: 100, Unique: 150, Legendary: 250).
