@@ -1,3 +1,8 @@
+## v0.7.1 — Nexus Exchange duplicate conversion
+- Added a premium floating −10% badge above the 10-pull button; ten pulls cost 4,500 Nexus Fragments instead of 5,000.
+- Mystery-shop weapon duplicates are tracked by total copies owned, independent of refinement rank. Copies 1–5 are retained; each copy from the sixth onward converts immediately to Nexus Fragments (Rare: 100, Unique: 150, Legendary: 250).
+- Applied the same five-copy inventory cap and automatic conversion to system-granted weapons, including milestone deliveries, without changing existing copies or refinement ranks.
+
 ## Core-exclusive perk expansion
 - Audited all eight playable cores and expanded each exclusive pool to ten distinct perks.
 - Added functional stat-focused relics for Ember, Frost, Nova, Flash, Nature, Prism, and Crimson; Auralis already had ten.
