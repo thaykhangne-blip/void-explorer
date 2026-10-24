@@ -110,6 +110,7 @@ function showVoidWeaponDelivery(reward,onDone){
    <p>${phase==='sealed'?'A sealed package has arrived from an unlisted source. Open it to inspect the contents.':phase==='revealed'?description:'Reward secured in the persistent campaign save.'}</p>
    <div class="void-delivery-stage ${phase==='sealed'?'is-sealed':phase==='revealed'?'is-opening':'is-collected'}" style="--delivery-accent:${accent}">
     <div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div>
+    <div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div>
     <div class="void-delivery-box" aria-label="${phase==='sealed'?'Sealed delivery box':title}">
      <span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">${phase==='sealed'?'?':glyph}</span><span class="delivery-box-base"></span>
     </div>
