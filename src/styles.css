@@ -2326,3 +2326,28 @@ button.global-back-button { transition: opacity .18s ease; }
  z-index:20;pointer-events:none;
 }
 #modal.core-hologram-modal .core-orbit-signature-badge{display:none!important}
+
+
+/* Ten-pull batch reveal: all ten rewards share one screen and use the highest pull rarity for the reveal tier. */
+.void-ten-pull-modal{width:min(850px,calc(100vw - 28px))!important;max-height:calc(100dvh - 28px)!important;overflow-y:auto!important}
+.void-ten-pull-stage{position:relative;isolation:isolate;overflow:hidden;padding:16px;border:1px solid color-mix(in srgb,var(--pull-accent) 70%,#263b5c);border-radius:8px;background:radial-gradient(ellipse at 50% 0,color-mix(in srgb,var(--pull-accent) 17%,transparent),#0b1220 75%);box-shadow:inset 0 0 36px color-mix(in srgb,var(--pull-accent) 8%,transparent),0 0 24px color-mix(in srgb,var(--pull-accent) 10%,transparent);transition:background .4s,box-shadow .4s}
+.void-ten-pull-stage.is-sealed{animation:voidTenPullCharge 2.4s ease-in-out infinite}
+.void-ten-pull-stage.is-revealed{animation:voidTenPullBurst .7s ease-out both}
+.void-ten-pull-rings{position:absolute;z-index:-1;left:50%;top:50%;width:260px;height:260px;border:1px dashed color-mix(in srgb,var(--pull-accent) 60%,transparent);border-radius:50%;transform:translate(-50%,-50%);opacity:.25;animation:voidDeliveryOrbit 12s linear infinite;pointer-events:none}
+.void-ten-pull-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.void-ten-pull-card{min-width:0;min-height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:10px 6px;border:1px solid color-mix(in srgb,var(--pull-accent) 48%,#263b5c);border-radius:5px;background:linear-gradient(160deg,color-mix(in srgb,var(--pull-accent) 10%,#18243a),#0a1120 80%);text-align:center;box-shadow:inset 0 0 18px color-mix(in srgb,var(--pull-accent) 6%,transparent)}
+.void-ten-pull-card .void-ten-pull-index{font-size:8px;letter-spacing:1px;color:#9fb5d0}
+.void-ten-pull-glyph{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--pull-accent);border-radius:5px;color:var(--pull-accent);font-size:26px;text-shadow:0 0 14px var(--pull-accent);background:#090f1d}
+.void-ten-pull-card b{max-width:100%;font-size:9px;line-height:1.4;color:#f2f7ff;overflow-wrap:anywhere}
+.void-ten-pull-card small{font-size:8px;line-height:1.4;color:var(--pull-accent)}
+.void-ten-pull-card.tier-gold{--pull-accent:#ffd66b!important;border-color:#b38b38;box-shadow:inset 0 0 20px #ffd66b12,0 0 12px #ffd66b12}
+.void-ten-pull-card.tier-purple{--pull-accent:#c69aff!important;border-color:#8060b4;box-shadow:inset 0 0 20px #c69aff12,0 0 12px #c69aff12}
+.void-ten-pull-card.tier-blue{--pull-accent:#72dfff!important}
+.void-ten-pull-stage.is-revealed .void-ten-pull-card{animation:voidTenPullCardReveal .55s cubic-bezier(.15,.8,.25,1) both}
+.void-ten-pull-stage.is-revealed .void-ten-pull-card.tier-gold{box-shadow:inset 0 0 26px #ffd66b20,0 0 18px #ffd66b24}
+.void-ten-pull-stage.is-revealed .void-ten-pull-card.tier-purple{box-shadow:inset 0 0 26px #c69aff20,0 0 15px #c69aff20}
+@keyframes voidTenPullCharge{0%,100%{box-shadow:inset 0 0 24px color-mix(in srgb,var(--pull-accent) 7%,transparent)}50%{box-shadow:inset 0 0 46px color-mix(in srgb,var(--pull-accent) 20%,transparent)}}
+@keyframes voidTenPullBurst{0%{filter:brightness(2.2);transform:scale(.99)}100%{filter:brightness(1);transform:scale(1)}}
+@keyframes voidTenPullCardReveal{0%{opacity:.15;transform:translateY(10px) scale(.92);filter:brightness(2)}65%{opacity:1;transform:translateY(-3px) scale(1.03)}100%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}}
+@media(max-width:560px){.void-ten-pull-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.void-ten-pull-card{min-height:112px}.void-ten-pull-card:last-child{grid-column:1/-1}.void-ten-pull-modal{padding:14px!important}.void-ten-pull-stage{padding:9px}}
+@media(prefers-reduced-motion:reduce){.void-ten-pull-stage,.void-ten-pull-card{animation:none!important}}
