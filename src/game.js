@@ -694,6 +694,40 @@ function applyCoreDefaults(o){
 const coreUpgradeDefs=[{id:'atk',name:'ATTACK MATRIX',glyph:'⚔',desc:'+5% core attack damage per rank.',base:40,max:20},{id:'crit',name:'CRITICAL LENS',glyph:'✹',desc:'+2 % critical chance per rank.',base:55,max:15},{id:'rate',name:'FIRE CONTROL',glyph:'ϟ',desc:'+4% fire rate per rank.',base:50,max:20},{id:'hull',name:'HULL REINFORCEMENT',glyph:'⬡',desc:'+5 maximum hull per rank.',base:35,max:20},{id:'armor',name:'ARMOR LATTICE',glyph:'▦',desc:'+2 armor per rank.',base:45,max:15},{id:'speed',name:'PHASE DRIVE',glyph:'➤',desc:'+3% movement speed per rank.',base:45,max:15}];
 function coreUpgradeRank(coreId,id){const upgrades=saveData.coreUpgrades||{};if(Number.isFinite(Number(upgrades[id])))return Number(upgrades[id]);let best=0;for(const value of Object.values(upgrades)){if(value&&typeof value==='object')best=Math.max(best,Number(value[id])||0)}return best}
 function coreUpgradeCost(def,rank){return Math.floor(def.base*Math.pow(1.34,rank))}
+function showVoidWeaponTenPull(rewards,onDone){
+ const valid=(rewards||[]).filter(reward=>reward&&reward.claimKey);
+ if(!valid.length){onDone?.();return;}
+ const rarityRank=reward=>reward.type!=='weapon'?0:reward.rarity==='legendary'?5:reward.rarity==='unique'?4:3;
+ const topRank=Math.max(...valid.map(rarityRank));
+ const tier=topRank>=5?'gold':topRank>=4?'purple':'blue';
+ const accent=tier==='gold'?'#ffd66b':tier==='purple'?'#c69aff':'#72dfff';
+ let revealed=false;
+ state='voidWeaponDelivery';
+ const overlay=$('overlay'),modal=$('modal');
+ overlay.classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
+ modal.className='modal void-delivery-modal void-ten-pull-modal';
+ const render=()=>{
+  const cards=valid.map((reward,index)=>{
+   const weapon=reward.type==='weapon'?getVoidWeapon(reward.weaponId):null;
+   const rank=rarityRank(reward);
+   const cardTier=rank>=5?'gold':rank>=4?'purple':'blue';
+   const color=rank>=5?'#ffd66b':rank>=4?'#c69aff':'#72dfff';
+   const glyph=weapon?.glyph||'✧';
+   const title=weapon?.name||'NEXUS FRAGMENTS';
+   const detail=weapon?(weapon.rarity==='legendary'?'LEGENDARY ★★★★★':weapon.rarity==='unique'?'UNIQUE ★★★★':'RARE ★★★')+' VOID WEAPON':'+ '+reward.amount+' FRAGMENTS';
+   return '<article class="void-ten-pull-card tier-'+cardTier+'" style="--pull-accent:'+color+';animation-delay:'+(index*35)+'ms"><span class="void-ten-pull-index">PULL '+String(index+1).padStart(2,'0')+'</span><div class="void-ten-pull-glyph">'+(revealed?glyph:'?')+'</div><b>'+(revealed?title:'SEALED')+'</b><small>'+(revealed?detail:'MYSTERY REWARD')+'</small></article>';
+  }).join('');
+  modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(revealed?'10 RESULTS REVEALED':'TEN-PULL SEQUENCE')+'</h2><p>'+(revealed?'All ten rewards have been revealed together. Highest rarity determines the reveal animation.':'One reveal, ten results. Open the batch to see everything at once.')+'</p><div class="void-ten-pull-stage tier-'+tier+' '+(revealed?'is-revealed':'is-sealed')+'" style="--pull-accent:'+accent+'"><div class="void-ten-pull-rings" aria-hidden="true"></div><div class="void-ten-pull-grid">'+cards+'</div></div><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" style="--delivery-accent:'+accent+'">'+(revealed?'COLLECT ALL 10':'REVEAL ALL 10')+'</button></div>';
+  modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{
+   sfx('ui');
+   if(!revealed){revealed=true;render();return;}
+   const claims=new Set(valid.map(reward=>reward.claimKey));
+   saveData.pendingVoidWeaponRewards=(saveData.pendingVoidWeaponRewards||[]).filter(item=>!claims.has(item.claimKey));
+   persist();hideModal();setTimeout(()=>onDone?.(),340);
+  });
+ };
+ render();
+}
 function showCoreUpgradeSystem(back=showMainMenu,initialTab='upgrades'){
  let activeTab=initialTab;
  state='voidShop';$('overlay').classList.remove('hidden','closing');const modal=$('modal');
@@ -717,8 +751,10 @@ function showCoreUpgradeSystem(back=showMainMenu,initialTab='upgrades'){
     else{const amount=50;saveData.coreCurrency+=amount;rewards.push({type:'nexus-fragments',amount,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});}
    }
    saveData.pendingVoidWeaponRewards=[...(saveData.pendingVoidWeaponRewards||[]),...rewards];persist();sfx('ui');
-   const playAt=index=>{if(index>=rewards.length){showCoreUpgradeSystem(back,'boxes');return;}showVoidWeaponDelivery(rewards[index],()=>playAt(index+1));};
-   hideModal();playAt(0);
+   const finish=()=>showCoreUpgradeSystem(back,'boxes');
+   hideModal();
+   if(count===10)showVoidWeaponTenPull(rewards,finish);
+   else showVoidWeaponDelivery(rewards[0],finish);
   };
   modal.querySelector('#buyMysteryOne')?.addEventListener('click',()=>buy(1));
   modal.querySelector('#buyMysteryTen')?.addEventListener('click',()=>buy(10));
