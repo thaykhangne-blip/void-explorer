@@ -304,7 +304,7 @@ test('automatic duplicate conversion is independent of refinement and caps inven
   for (const [weaponId, rate] of [
     ['fracture-drive', 100],
     ['cinder-oath', 250],
-    ['prism-paradox', 150]
+    ['prism-paradox', 250]
   ]) {
     const starting = { ...baseSave(), coreCurrency: 10, voidWeaponInventory: { [weaponId]: 5 }, voidWeaponRefinements: { [weaponId]: 0 } };
     const grant = grantVoidWeapon(starting, weaponId, 1);
