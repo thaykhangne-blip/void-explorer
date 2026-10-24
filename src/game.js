@@ -189,7 +189,7 @@ function showStoryArchive(){
 }
 function showVoidWeaponCodex(){
  state='voidweapon-codex';
- let filter='all',category='all';
+ let category='all';
  const modal=$('modal');
  const render=()=>{
   const ownedMap=Object.fromEntries(getOwnedVoidWeapons(saveData).map(weapon=>[weapon.id,weapon]));
@@ -198,7 +198,7 @@ function showVoidWeaponCodex(){
   const categoryWeapons=voidWeapons.filter(weapon=>category==='all'||(weapon.category||'signature')===category);
   const categoryOwnedCount=categoryWeapons.filter(weapon=>ownedMap[weapon.id]).length;
   const equippedEntries=Object.entries(saveData.equippedVoidWeapons||{});
-  const entries=categoryWeapons.filter(weapon=>(filter==='all'||(filter==='owned'?!!ownedMap[weapon.id]:!ownedMap[weapon.id])));
+  const entries=categoryWeapons;
   const cards=entries.map(weapon=>{
    const owned=ownedMap[weapon.id],rank=owned?.refinementLevel||0;
    const equippedCores=equippedEntries.filter(([,id])=>id===weapon.id).map(([id])=>cores.find(c=>c.id===id)?.name||id.toUpperCase());
@@ -223,7 +223,6 @@ function showVoidWeaponCodex(){
    '';
   
   
-  modal.querySelectorAll('[data-weapon-filter]').forEach(button=>button.onclick=()=>{filter=button.dataset.weaponFilter;render();});
   modal.querySelectorAll('[data-weapon-category]').forEach(button=>button.onclick=()=>{category=button.dataset.weaponCategory;render();});
   addUnifiedCodexTabs('weapons');
  };
