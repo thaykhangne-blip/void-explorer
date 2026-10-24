@@ -326,7 +326,7 @@ test('automatic duplicate conversion is independent of refinement and caps inven
 test('general weapon catalog adds 10 rare, 6 unique, and 3 legendary entries', () => {
   const general = voidWeapons.filter(weapon => weapon.category === 'general');
   assert.equal(general.filter(weapon => weapon.rarity === 'rare').length, 13);
-  assert.equal(general.filter(weapon => weapon.rarity === 'unique').length, 8);
+  assert.equal(general.filter(weapon => weapon.rarity === 'unique').length, 9);
   assert.equal(general.filter(weapon => weapon.rarity === 'legendary').length, 3);
   assert.equal(new Set(general.map(weapon => weapon.id)).size, general.length);
   assert.ok(general.every(weapon => !/universal|any core|any equipped core/i.test(weapon.passive.description)));
