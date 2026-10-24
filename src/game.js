@@ -700,16 +700,17 @@ function showVoidWeaponTenPull(rewards,onDone){
  const topRank=Math.max(...valid.map(rarityRank));
  const tier=topRank>=5?'gold':topRank>=4?'purple':'blue';
  const accent=tier==='gold'?'#ffd66b':tier==='purple'?'#c69aff':'#72dfff';
- let phase='box',revealed=false;
+ let phase='box',revealed=false,boxOpening=false;
  state='voidWeaponDelivery';
  const overlay=$('overlay'),modal=$('modal');
  overlay.classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
  modal.className='modal void-delivery-modal void-ten-pull-modal';
  const render=()=>{
   if(phase==='box'){
-   modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>MYSTERY BOX</h2><p>Ten rewards are sealed inside. Open the box to reveal the ten-pull sequence.</p><div class="void-delivery-stage is-sealed" style="--delivery-accent:#c69aff"><div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div><div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div><div class="void-delivery-box"><span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">?</span><span class="delivery-box-base"></span></div></div><p class="void-delivery-hint">THE BOX CONTAINS 10 REWARDS</p><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction">OPEN MYSTERY BOX</button></div>';
-   modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{sfx('ui');phase='sequence';render();});
-   modal.querySelector('.void-delivery-stage')?.addEventListener('click',()=>{sfx('ui');phase='sequence';render();});
+   modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(boxOpening?'OPENING MYSTERY BOX':'MYSTERY BOX')+'</h2><p>'+(boxOpening?'The seal is breaking. Preparing the ten-pull reveal.':'Ten rewards are sealed inside. Open the box to reveal the ten-pull sequence.')+'</p><div class="void-delivery-stage '+(boxOpening?'is-opening':'is-sealed')+'" style="--delivery-accent:#c69aff"><div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div><div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div><div class="void-delivery-box"><span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">'+(boxOpening?'✦':'?')+'</span><span class="delivery-box-base"></span></div>'+(boxOpening?'<div class="void-delivery-sparks" aria-hidden="true">✦ · ✧ · ✦</div>':'')+'</div><p class="void-delivery-hint">'+(boxOpening?'OPENING…':'THE BOX CONTAINS 10 REWARDS')+'</p><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" '+(boxOpening?'disabled':'')+'>'+(boxOpening?'OPENING…':'OPEN MYSTERY BOX')+'</button></div>';
+   const beginOpening=()=>{if(boxOpening)return;sfx('ui');boxOpening=true;render();setTimeout(()=>{phase='sequence';render();},820);};
+   modal.querySelector('#voidTenPullAction')?.addEventListener('click',beginOpening);
+   modal.querySelector('.void-delivery-stage')?.addEventListener('click',beginOpening);
    return;
   }
   const cards=valid.map((reward,index)=>{
