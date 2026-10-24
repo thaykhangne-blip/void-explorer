@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { voidWeapons } from '../src/data/voidWeapons.js';
 import assert from 'node:assert/strict';
 import {
   claimVoidWeaponMilestone,
@@ -22,17 +23,18 @@ const baseSave = () => ({
   pendingVoidWeaponRewards: []
 });
 
-test('milestone reward grants and queues a weapon on a 5% roll', () => {
+test('milestone reward grants a legendary weapon on a 5% roll', () => {
   const result = resolveVoidWeaponMilestoneReward(baseSave(), 0, 5, () => 0);
   assert.equal(result.awarded, true);
   assert.equal(result.reward.type, 'weapon');
+  assert.equal(result.reward.rarity, 'legendary');
   assert.equal(result.saveData.voidWeaponInventory[result.reward.weaponId], 1);
   assert.equal(result.saveData.voidWeaponClaims.includes('0:5'), true);
   assert.equal(result.saveData.pendingVoidWeaponRewards.length, 1);
 });
 
 test('milestone reward grants Nexus Fragments outside the weapon roll', () => {
-  const result = resolveVoidWeaponMilestoneReward(baseSave(), 2, 10, () => 0.05);
+  const result = resolveVoidWeaponMilestoneReward(baseSave(), 2, 10, () => 0.50);
   assert.equal(result.awarded, true);
   assert.deepEqual(result.reward, {
     type: 'nexus-fragments',
@@ -244,4 +246,37 @@ test('Void Weapon descriptions show only values for the current rank', () => {
     getRankedVoidWeaponDescription('Test 1 / 2 / 3 / 4 / 5 and 10% / 20% / 30% / 40% / 50%', 5),
     'Test 5 and 50%'
   );
+});
+
+test('mystery box rarity bands award unique and rare weapons at their requested thresholds', () => {
+  const unique = resolveVoidWeaponMilestoneReward(baseSave(), 0, 5, () => 0.05);
+  assert.equal(unique.reward.type, 'weapon');
+  assert.equal(unique.reward.rarity, 'unique');
+  assert.equal(unique.saveData.voidWeaponInventory[unique.reward.weaponId], 1);
+
+  const rare = resolveVoidWeaponMilestoneReward(baseSave(), 0, 5, () => 0.17);
+  assert.equal(rare.reward.type, 'weapon');
+  assert.equal(rare.reward.rarity, 'rare');
+  assert.equal(rare.saveData.voidWeaponInventory[rare.reward.weaponId], 1);
+
+  const fragments = resolveVoidWeaponMilestoneReward(baseSave(), 0, 5, () => 0.50);
+  assert.equal(fragments.reward.type, 'nexus-fragments');
+});
+
+test('general weapons expose their passive stats on any equipped core', () => {
+  const save = { ...baseSave(), voidWeaponInventory: { 'fracture-drive': 1, 'bastion-weave': 1 } };
+  const ember = equipVoidWeapon(save, 'ember', 'fracture-drive');
+  assert.equal(ember.equipped, true);
+  assert.equal(getVoidWeaponBonuses(ember.saveData, 'ember').signaturePassive.effectId, 'general-fracture-drive');
+  assert.equal(getVoidWeaponBonuses(ember.saveData, 'ember').stats.damage, 0.08);
+
+  const nature = equipVoidWeapon(ember.saveData, 'nature', 'bastion-weave');
+  assert.equal(nature.equipped, true);
+  assert.equal(getVoidWeaponBonuses(nature.saveData, 'nature').stats.hpPct, 0.12);
+  assert.equal(getVoidWeaponBonuses(nature.saveData, 'nature').signaturePassive.effectId, 'general-bastion-weave');
+});
+
+test('general weapon catalog contains three rare and three unique stat sticks', () => {
+  assert.equal(voidWeapons.filter(weapon => weapon.category === 'general' && weapon.rarity === 'rare').length, 3);
+  assert.equal(voidWeapons.filter(weapon => weapon.category === 'general' && weapon.rarity === 'unique').length, 3);
 });
