@@ -340,3 +340,33 @@ test('legendary pity and signature follow-up defaults normalize safely', () => {
   assert.equal(fresh.voidWeaponPity, 0);
   assert.equal(fresh.voidWeaponNextLegendarySignature, false);
 });
+
+test('R5 weapons convert every new duplicate even when inventory only has one or two copies', () => {
+  for (const copies of [1, 2]) {
+    const starting = {
+      ...baseSave(),
+      coreCurrency: 0,
+      voidWeaponInventory: { 'cinder-oath': copies },
+      voidWeaponRefinements: { 'cinder-oath': 5 }
+    };
+    const grant = grantVoidWeapon(starting, 'cinder-oath', 1);
+    assert.equal(grant.totalCopies, copies);
+    assert.equal(grant.convertedCopies, 1);
+    assert.equal(grant.convertedFragments, 250);
+    assert.equal(grant.saveData.coreCurrency, 250);
+  }
+});
+
+test('refinement ranks count toward the duplicate conversion threshold', () => {
+  const starting = {
+    ...baseSave(),
+    coreCurrency: 0,
+    voidWeaponInventory: { 'cinder-oath': 2 },
+    voidWeaponRefinements: { 'cinder-oath': 3 }
+  };
+  const grant = grantVoidWeapon(starting, 'cinder-oath', 1);
+  assert.equal(grant.totalCopies, 3);
+  assert.equal(grant.convertedCopies, 0);
+  assert.equal(grant.saveData.voidWeaponInventory['cinder-oath'], 3);
+  assert.equal(grant.saveData.coreCurrency, 0);
+});
