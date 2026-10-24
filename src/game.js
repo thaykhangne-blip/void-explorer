@@ -9,7 +9,7 @@ import { getElementalSummonCount, getUltimateMasteryRank } from './abilities/ult
 import { getPrimaryAttackTarget as selectPrimaryAttackTarget } from './abilities/targeting.js';
 import { getProjectileDamageMultiplier } from './abilities/autoAttacks/projectiles.js';
 import { executeAutoAttack } from './abilities/autoAttacks/execute.js';
-import { getVoidWeapon, getOwnedVoidWeapons, equipVoidWeapon, unequipVoidWeapon, getVoidWeaponBonuses, normalizeVoidWeaponSave, refineVoidWeapon, grantVoidWeapon as grantVoidWeaponToSave, MAX_VOID_WEAPON_REFINEMENT, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
+import { getVoidWeapon, getOwnedVoidWeapons, equipVoidWeapon, unequipVoidWeapon, getVoidWeaponBonuses, normalizeVoidWeaponSave, refineVoidWeapon, MAX_VOID_WEAPON_REFINEMENT, resolveVoidWeaponMilestoneReward } from './systems/voidWeapons.js';
 import { voidWeapons } from './data/voidWeapons.js';
 
 const highlightVoidWeaponNumbers = value => String(value ?? '').replace(/(\d+(?:\.\d+)?%?)/g, '<span style="color:#5de8ff;font-weight:700;text-shadow:0 0 8px rgba(93,232,255,.18)">$1</span>');
