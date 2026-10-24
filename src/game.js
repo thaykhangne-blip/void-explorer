@@ -195,8 +195,10 @@ function showVoidWeaponCodex(){
   const ownedMap=Object.fromEntries(getOwnedVoidWeapons(saveData).map(weapon=>[weapon.id,weapon]));
   const ownedCount=voidWeapons.filter(weapon=>ownedMap[weapon.id]).length;
   const refinedCount=voidWeapons.filter(weapon=>(saveData.voidWeaponRefinements?.[weapon.id]||0)>0).length;
+  const categoryWeapons=voidWeapons.filter(weapon=>category==='all'||(weapon.category||'signature')===category);
+  const categoryOwnedCount=categoryWeapons.filter(weapon=>ownedMap[weapon.id]).length;
   const equippedEntries=Object.entries(saveData.equippedVoidWeapons||{});
-  const entries=voidWeapons.filter(weapon=>(category==='all'||(weapon.category||'signature')===category)&&(filter==='all'||(filter==='owned'?!!ownedMap[weapon.id]:!ownedMap[weapon.id])));
+  const entries=categoryWeapons.filter(weapon=>(filter==='all'||(filter==='owned'?!!ownedMap[weapon.id]:!ownedMap[weapon.id])));
   const cards=entries.map(weapon=>{
    const owned=ownedMap[weapon.id],rank=owned?.refinementLevel||0;
    const equippedCores=equippedEntries.filter(([,id])=>id===weapon.id).map(([id])=>cores.find(c=>c.id===id)?.name||id.toUpperCase());
@@ -216,7 +218,7 @@ function showVoidWeaponCodex(){
    '<div class="eyebrow">ARCHIVE / WEAPON REGISTRY</div><h2>VOID WEAPON CODEX</h2>'+
    '<p>Recovered weapons reveal their identity, signature passive, and refinement record. Duplicate copies are consumed to refine a weapon, up to Rank V.</p>'+
    '<div class="void-weapon-codex-summary"><div><b>'+ownedCount+' / '+voidWeapons.length+'</b><small>WEAPONS DISCOVERED</small></div><div><b>'+refinedCount+'</b><small>WEAPONS REFINED</small></div><div><b>'+Object.keys(saveData.voidWeaponRefinements||{}).filter(id=>(saveData.voidWeaponRefinements[id]||0)>=MAX_VOID_WEAPON_REFINEMENT).length+'</b><small>MAX RANK</small></div></div>'+
-   '<div class="void-weapon-codex-filters"><button type="button" data-weapon-category="all" class="'+(category==='all'?'active':'')+'">ALL CATEGORIES</button><button type="button" data-weapon-category="general" class="'+(category==='general'?'active':'')+'">GENERAL · '+voidWeapons.filter(w=>w.category==='general').length+'</button><button type="button" data-weapon-category="signature" class="'+(category==='signature'?'active':'')+'">SIGNATURE · '+voidWeapons.filter(w=>w.category!=='general').length+'</button></div><div class="void-weapon-codex-filters"><button type="button" data-weapon-filter="all" class="'+(filter==='all'?'active':'')+'">ALL SIGNALS · '+voidWeapons.length+'</button><button type="button" data-weapon-filter="owned" class="'+(filter==='owned'?'active':'')+'">DISCOVERED · '+ownedCount+'</button><button type="button" data-weapon-filter="undiscovered" class="'+(filter==='undiscovered'?'active':'')+'">UNKNOWN · '+(voidWeapons.length-ownedCount)+'</button></div>'+
+   '<div class="void-weapon-codex-filters"><button type="button" data-weapon-category="all" class="'+(category==='all'?'active':'')+'">ALL CATEGORIES</button><button type="button" data-weapon-category="general" class="'+(category==='general'?'active':'')+'">GENERAL · '+voidWeapons.filter(w=>w.category==='general').length+'</button><button type="button" data-weapon-category="signature" class="'+(category==='signature'?'active':'')+'">SIGNATURE · '+voidWeapons.filter(w=>w.category!=='general').length+'</button></div><div class="void-weapon-codex-filters"><button type="button" data-weapon-filter="all" class="'+(filter==='all'?'active':'')+'">ALL SIGNALS · '+categoryWeapons.length+'</button><button type="button" data-weapon-filter="owned" class="'+(filter==='owned'?'active':'')+'">DISCOVERED · '+categoryOwnedCount+'</button><button type="button" data-weapon-filter="undiscovered" class="'+(filter==='undiscovered'?'active':'')+'">UNKNOWN · '+(categoryWeapons.length-categoryOwnedCount)+'</button></div>'+
    '<div class="void-weapon-codex-grid">'+(cards||'<div class="void-weapon-empty">NO ENTRIES IN THIS FILTER.</div>')+'</div>'+
    '';
   
