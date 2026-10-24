@@ -280,3 +280,20 @@ test('general weapon catalog contains three rare and three unique stat sticks', 
   assert.equal(voidWeapons.filter(weapon => weapon.category === 'general' && weapon.rarity === 'rare').length, 3);
   assert.equal(voidWeapons.filter(weapon => weapon.category === 'general' && weapon.rarity === 'unique').length, 3);
 });
+
+test('every world grants exactly one milestone delivery at rooms 5, 10, 15, and 20', () => {
+  for (let worldId = 0; worldId < 4; worldId++) {
+    for (const roomNumber of [5, 10, 15, 20]) {
+      const result = resolveVoidWeaponMilestoneReward(baseSave(), worldId, roomNumber, () => 0.50);
+      assert.equal(result.awarded, true, `world ${worldId + 1}, room ${roomNumber} should award a delivery`);
+      assert.equal(result.reward.worldId, worldId);
+      assert.equal(result.reward.roomNumber, roomNumber);
+      assert.equal(result.reward.claimKey, `${worldId}:${roomNumber}`);
+      assert.equal(result.saveData.pendingVoidWeaponRewards.some(item =>
+        item.worldId === worldId && item.roomNumber === roomNumber && item.claimKey === result.reward.claimKey
+      ), true);
+      const duplicate = resolveVoidWeaponMilestoneReward(result.saveData, worldId, roomNumber, () => 0.50);
+      assert.equal(duplicate.awarded, false, `world ${worldId + 1}, room ${roomNumber} must not award twice`);
+    }
+  }
+});
