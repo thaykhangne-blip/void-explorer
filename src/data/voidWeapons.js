@@ -3,6 +3,7 @@ export const voidWeapons = [
   {
     id: 'cinder-oath',
     name: 'Cinder Oath',
+    category: 'signature',
     signatureCoreId: 'ember',
     rarity: 'legendary',
     color: '#ff9c65',
@@ -20,6 +21,7 @@ export const voidWeapons = [
   {
     id: 'stillpoint',
     name: 'Stillpoint',
+    category: 'signature',
     signatureCoreId: 'frost',
     rarity: 'legendary',
     color: '#8cecff',
@@ -37,6 +39,7 @@ export const voidWeapons = [
   {
     id: 'eventide-array',
     name: 'Eventide Array',
+    category: 'signature',
     signatureCoreId: 'nova',
     rarity: 'legendary',
     color: '#d2a0ff',
@@ -54,6 +57,7 @@ export const voidWeapons = [
   {
     id: 'thunderclap-protocol',
     name: 'Thunderclap Protocol',
+    category: 'signature',
     signatureCoreId: 'flash',
     rarity: 'legendary',
     color: '#ffe875',
@@ -71,6 +75,7 @@ export const voidWeapons = [
   {
     id: 'verdant-covenant',
     name: 'Verdant Covenant',
+    category: 'signature',
     signatureCoreId: 'nature',
     rarity: 'legendary',
     color: '#70e58a',
@@ -88,6 +93,7 @@ export const voidWeapons = [
   {
     id: 'prism-paradox',
     name: 'Prism Paradox',
+    category: 'signature',
     signatureCoreId: 'elemental',
     rarity: 'legendary',
     color: '#ff71cd',
@@ -105,6 +111,7 @@ export const voidWeapons = [
   {
     id: 'blood-dividend',
     name: 'Blood Dividend',
+    category: 'signature',
     signatureCoreId: 'vengeance',
     rarity: 'legendary',
     color: '#ff304f',
@@ -122,6 +129,7 @@ export const voidWeapons = [
   {
     id: 'last-light-first-dawn',
     name: 'Last Light, First Dawn',
+    category: 'signature',
     signatureCoreId: 'remielle',
     rarity: 'legendary',
     color: '#ff9ed8',
@@ -135,7 +143,80 @@ export const voidWeapons = [
       values: [0.10, 0.12, 0.14, 0.16, 0.18],
       description: 'Critical Rate: +10% / 12% / 14% / 16% / 18%. Luminous Afterimage: Each Light Crystal increases Void Burst damage by 8% / 10% / 12% / 14% / 16%, up to five stacks. Dawn’s Echo: Triggering Lumox at four stacks launches 2 / 3 / 4 / 5 / 6 luminous feathers. Each feather deals 75% / 90% / 105% / 120% / 135% ATK and pierces one additional enemy per refinement rank. Each activation has a 25% / 30% / 35% / 40% / 45% chance to generate one Light Crystal.'
     }
-  }
+  },
+  {
+    id: 'fracture-drive',
+    name: 'Fracture Drive',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'rare',
+    color: '#67d6ff',
+    glyph: '⌁',
+    description: 'GENERAL · RAW DAMAGE',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Kinetic Overdrive', effectId: 'general-fracture-drive', statKey: 'damage', values: [0.08, 0.10, 0.12, 0.14, 0.16], description: 'Damage: +8% / 10% / 12% / 14% / 16%. A universal weapon calibration that increases all damage dealt, regardless of equipped core.' }
+  },
+  {
+    id: 'pale-orbit',
+    name: 'Pale Orbit',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'rare',
+    color: '#c8d6ff',
+    glyph: '◌',
+    description: 'GENERAL · CRITICAL PRECISION',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Deadeye Alignment', effectId: 'general-pale-orbit', statKey: 'critChance', values: [0.06, 0.08, 0.10, 0.12, 0.14], description: 'Critical Rate: +6% / 8% / 10% / 12% / 14%. A universal targeting array that improves critical chance for any core.' }
+  },
+  {
+    id: 'bastion-weave',
+    name: 'Bastion Weave',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'rare',
+    color: '#75e0bd',
+    glyph: '⬡',
+    description: 'GENERAL · HULL REINFORCEMENT',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Layered Integrity', effectId: 'general-bastion-weave', statKey: 'hpPct', values: [0.12, 0.14, 0.16, 0.18, 0.20], description: 'Max HP: +12% / 14% / 16% / 18% / 20%. A universal hull reinforcement system compatible with every core.' }
+  },
+  {
+    id: 'parallax-crown',
+    name: 'Parallax Crown',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'unique',
+    color: '#d6a4ff',
+    glyph: '✥',
+    description: 'GENERAL · CRITICAL AMPLIFICATION',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Critical Mass', effectId: 'general-parallax-crown', statKey: 'critDamage', values: [0.16, 0.19, 0.22, 0.25, 0.28], description: 'Critical Damage: +16% / 19% / 22% / 25% / 28%. Amplifies critical hits from any core without requiring a matching signature.' }
+  },
+  {
+    id: 'chrono-spindle',
+    name: 'Chrono Spindle',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'unique',
+    color: '#ffe28b',
+    glyph: '⧖',
+    description: 'GENERAL · ATTACK TEMPO',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Accelerated Cycle', effectId: 'general-chrono-spindle', statKey: 'fireRate', values: [0.10, 0.12, 0.14, 0.16, 0.18], description: 'Attack Speed: +10% / 12% / 14% / 16% / 18%. Compresses the firing cycle for any equipped core.' }
+  },
+  {
+    id: 'singularity-compass',
+    name: 'Singularity Compass',
+    signatureCoreId: null,
+    category: 'general',
+    rarity: 'unique',
+    color: '#ff9eb2',
+    glyph: '⊙',
+    description: 'GENERAL · DAMAGE CALIBRATION',
+    stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
+    passive: { name: 'Convergence Index', effectId: 'general-singularity-compass', statKey: 'damage', values: [0.14, 0.16, 0.18, 0.20, 0.22], description: 'Damage: +14% / 16% / 18% / 20% / 22%. A universal calibration that increases all damage dealt by any core.' }
+  },
+
 ];
 
 export const VOID_WEAPON_BY_ID = Object.freeze(
@@ -143,5 +224,5 @@ export const VOID_WEAPON_BY_ID = Object.freeze(
 );
 
 export const VOID_WEAPON_SIGNATURE_CORE_IDS = Object.freeze(
-  voidWeapons.map(weapon => weapon.signatureCoreId)
+  voidWeapons.filter(weapon => weapon.category === 'signature').map(weapon => weapon.signatureCoreId)
 );
