@@ -116,7 +116,7 @@ export const voidWeapons = [
       effectId: 'blood-dividend',
       statKey: 'hpPct',
       values: [0.25, 0.30, 0.35, 0.40, 0.45],
-      description: 'Max HP: +25% / 30% / 35% / 40% / 45%. Debt Collection: While above 50% HP, each 1% of Max HP above that threshold increases final damage by 0.5% / 0.6% / 0.7% / 0.8% / 0.9%, capped at 50% / 60% / 70% / 80% / 90% bonus damage.'
+      description: 'Max HP: +25% / 30% / 35% / 40% / 45%. Debt Collection: Below 50% HP, deal 20% / 25% / 30% / 35% / 40% more damage. Crimson Reprisal: While above 50% HP, each 1% of Max HP above that threshold increases final damage by 0.5% / 0.6% / 0.7% / 0.8% / 0.9%, capped at 50% / 60% / 70% / 80% / 90% bonus damage.'
     }
   },
   {
