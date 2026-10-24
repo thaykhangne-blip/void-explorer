@@ -2368,5 +2368,8 @@ button.global-back-button { transition: opacity .18s ease; }
 
 
 /* Special discount tag for the ten-pull purchase button. */
-.void-shop-purchase-row #buyMysteryTen{position:relative;overflow:visible;}
+.void-shop-purchase-row #buyMysteryTen{position:relative;overflow:visible;isolation:isolate;}
+.void-shop-purchase-row #buyMysteryTen .void-pull-discount-tag{top:-14px;right:10px;padding:5px 10px;border-radius:5px;background:linear-gradient(135deg,#fff6c7 0%,#ffd76b 48%,#ffad35 100%);color:#261700;font-size:12px;font-weight:950;letter-spacing:.08em;text-shadow:0 1px 0 rgba(255,255,255,.35);box-shadow:0 0 0 2px rgba(7,13,25,.9),0 0 12px rgba(255,214,107,.78),0 0 24px rgba(255,184,69,.38);transform:rotate(4deg);}
+.void-shop-purchase-row #buyMysteryTen:hover .void-pull-discount-tag{transform:translateY(-2px) rotate(2deg);box-shadow:0 0 0 2px rgba(7,13,25,.9),0 0 16px rgba(255,214,107,.95),0 0 30px rgba(255,184,69,.5);}
+@media(prefers-reduced-motion:reduce){.void-shop-purchase-row #buyMysteryTen .void-pull-discount-tag{transition:none;}}
 .void-pull-discount-tag{position:absolute;top:-11px;right:8px;z-index:2;display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid #ffe38a;border-radius:4px;background:linear-gradient(135deg,#fff0a8,#ffbf55);color:#241600;font-size:11px;font-weight:900;letter-spacing:.06em;line-height:1;box-shadow:0 0 10px #ffd66b88,0 0 22px #ffd66b44;transform:rotate(3deg);}
