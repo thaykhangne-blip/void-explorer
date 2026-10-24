@@ -1,6 +1,6 @@
 {
   "name": "void-protocol",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": true,
   "description": "Void Protocol, a cosmic action roguelike",
   "scripts": {
