@@ -2365,3 +2365,8 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-duplicate-conversion{display:block;margin-top:7px;color:#9fffe3;font-size:10px;font-style:normal;font-weight:800;letter-spacing:.08em;text-shadow:0 0 7px #62ffd977,0 0 16px #62ffd944;animation:voidFragmentGlow 1.8s ease-in-out infinite alternate;}
 @keyframes voidFragmentGlow{from{text-shadow:0 0 5px #62ffd955,0 0 10px #62ffd922}to{text-shadow:0 0 9px #62ffd9cc,0 0 19px #62ffd966}}
 @media(prefers-reduced-motion:reduce){.void-duplicate-conversion{animation:none}}
+
+
+/* Special discount tag for the ten-pull purchase button. */
+.void-shop-purchase-row #buyMysteryTen{position:relative;overflow:visible;}
+.void-pull-discount-tag{position:absolute;top:-11px;right:8px;z-index:2;display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid #ffe38a;border-radius:4px;background:linear-gradient(135deg,#fff0a8,#ffbf55);color:#241600;font-size:11px;font-weight:900;letter-spacing:.06em;line-height:1;box-shadow:0 0 10px #ffd66b88,0 0 22px #ffd66b44;transform:rotate(3deg);}
