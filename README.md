@@ -32,7 +32,7 @@ The game is still in beta. Things will break, balance will change, and some idea
 
 - Reworked Cinder Oath to fire fewer, smaller homing fireballs at higher refinement ranks.
 - Changed Verdant Covenant's signature stat to Critical Damage.
-- Reworked Blood Dividend to grant Max HP and reward staying above 50% HP with rank-scaled final damage.
+- Reworked Blood Dividend to grant Max HP, increase damage below 50% HP, and scale final damage with health above that threshold.
 - Updated Void Weapon data and refinement tests to match the revised passives.
 
 ## v0.6 — Campaign and interface update
