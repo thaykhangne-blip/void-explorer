@@ -6,7 +6,9 @@ export const VOID_WEAPON_SAVE_DEFAULTS = Object.freeze({
   voidWeaponRefinements: {},
   equippedVoidWeapons: {},
   voidWeaponClaims: [],
-  pendingVoidWeaponRewards: []
+  pendingVoidWeaponRewards: [],
+  voidWeaponPity: 0,
+  voidWeaponNextLegendarySignature: false
 });
 
 const CORE_IDS = new Set(VOID_WEAPON_SIGNATURE_CORE_IDS_SAFE().filter(Boolean));
@@ -56,6 +58,8 @@ export function normalizeVoidWeaponSave(saveData = {}) {
   normalized.voidWeaponClaims = [...new Set(
     claims.filter(key => typeof key === 'string' && /^\d+:(5|10|15|20)$/.test(key))
   )];
+  normalized.voidWeaponPity = Math.max(0, Math.min(59, Math.floor(Number(normalized.voidWeaponPity) || 0)));
+  normalized.voidWeaponNextLegendarySignature = Boolean(normalized.voidWeaponNextLegendarySignature);
   const pendingRewards = Array.isArray(normalized.pendingVoidWeaponRewards) ? normalized.pendingVoidWeaponRewards : [];
   normalized.pendingVoidWeaponRewards = pendingRewards.filter(reward => {
     if (!isRecord(reward) || typeof reward.claimKey !== 'string' || !normalized.voidWeaponClaims.includes(reward.claimKey)) return false;
