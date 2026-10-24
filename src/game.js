@@ -91,7 +91,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 function showModal(eyebrow,title,desc,choices){$('overlay').classList.remove('hidden','closing');let m=$('modal');m.classList.toggle('upgrade-modal',/EXPERIENCE THRESHOLD|EVOLVE YOUR ORB|EVOLUTION/i.test(eyebrow+' '+title));m.innerHTML=`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2><p>${desc}</p><div class="choices">${choices.map((x,i)=>{const rare=PERK_RARITY[String(x.title||'').trim().toUpperCase()]==='rare';return `<button class="choice ${rare?'rare-choice':''}" data-i="${i}"><span class="orb" style="color:${x.color||'#72f6ff'}">${x.glyph||'✦'}</span><span class="choice-copy"><b>${x.title}${rare?'<em class="rare-tag">RARE</em>':''}</b><small>${String(x.desc||'').replace(/^RARE ·\s*/,'')}</small></span></button>`}).join('')}</div>`;m.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{sfx('ui');choices[i].action()});}
 function showVoidWeaponDelivery(reward,onDone){
  if(!reward||!reward.claimKey||typeof onDone!=='function'){if(onDone)onDone();return;}
- // Use the same animated single-pull sequence as the Void Shop gacha, including the opening transition.
  showVoidWeaponTenPull([reward],onDone);
 }
 
