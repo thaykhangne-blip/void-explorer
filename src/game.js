@@ -751,12 +751,27 @@ function showCoreUpgradeSystem(back=showMainMenu,initialTab='upgrades'){
    if(!developerMode)saveData.coreCurrency-=cost;
    const rewards=[];
    for(let i=0;i<count;i++){
-    const roll=Math.random();let pool=null;
-    if(roll<.05)pool=voidWeapons.filter(w=>w.rarity==='legendary');
-    else if(roll<.17)pool=voidWeapons.filter(w=>w.rarity==='unique');
-    else if(roll<.50)pool=voidWeapons.filter(w=>w.rarity==='rare');
-    if(pool?.length){const weapon=pool[Math.floor(Math.random()*pool.length)];const grant=grantVoidWeaponToSave(saveData,weapon.id,1);saveData=grant.saveData;const convertedFragments=grant.convertedFragments||0;rewards.push({type:'weapon',weaponId:weapon.id,rarity:weapon.rarity,convertedFragments,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});}
-    else{const amount=50;saveData.coreCurrency+=amount;rewards.push({type:'nexus-fragments',amount,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});}
+    const nextPity=Math.min(60,Math.max(0,Number(saveData.voidWeaponPity)||0)+1);
+    const guaranteedLegendary=nextPity>=60;
+    const roll=Math.random();let pool=null;let rarity=null;
+    if(guaranteedLegendary||roll<.05){rarity='legendary';pool=voidWeapons.filter(w=>w.rarity==='legendary');}
+    else if(roll<.17){rarity='unique';pool=voidWeapons.filter(w=>w.rarity==='unique');}
+    else if(roll<.50){rarity='rare';pool=voidWeapons.filter(w=>w.rarity==='rare');}
+    if(rarity==='legendary'){
+      const mustBeSignature=Boolean(saveData.voidWeaponNextLegendarySignature);
+      const eligible=mustBeSignature?pool.filter(w=>w.category==='signature'):pool;
+      const weapon=eligible[Math.floor(Math.random()*eligible.length)];
+      saveData.voidWeaponPity=0;
+      if(mustBeSignature)saveData.voidWeaponNextLegendarySignature=false;
+      else if(guaranteedLegendary&&weapon.category==='general')saveData.voidWeaponNextLegendarySignature=true;
+      const grant=grantVoidWeaponToSave(saveData,weapon.id,1);saveData=grant.saveData;
+      const convertedFragments=grant.convertedFragments||0;
+      rewards.push({type:'weapon',weaponId:weapon.id,rarity:weapon.rarity,convertedFragments,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});
+    }else{
+      saveData.voidWeaponPity=nextPity;
+      if(pool?.length){const weapon=pool[Math.floor(Math.random()*pool.length)];const grant=grantVoidWeaponToSave(saveData,weapon.id,1);saveData=grant.saveData;const convertedFragments=grant.convertedFragments||0;rewards.push({type:'weapon',weaponId:weapon.id,rarity:weapon.rarity,convertedFragments,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});}
+      else{const amount=50;saveData.coreCurrency+=amount;rewards.push({type:'nexus-fragments',amount,worldId:-1,roomNumber:i+1,claimKey:'shop:'+Date.now()+':'+i});}
+    }
    }
    saveData.pendingVoidWeaponRewards=[...(saveData.pendingVoidWeaponRewards||[]),...rewards];persist();sfx('ui');
    const finish=()=>showCoreUpgradeSystem(back,'boxes');
