@@ -1258,7 +1258,7 @@ function shoot(){
 }
 // Bound transient visual work and compact live-effect arrays without per-frame filter allocations.
 const MAX_PARTICLES=900;
-function pushParticle(p){if(particles.length<MAX_PARTICLES)pushParticle(p);}
+function pushParticle(p){if(particles.length<MAX_PARTICLES)particles.push(p);}
 function compactEffectsByLife(list){let write=0;for(let read=0;read<list.length;read++){const item=list[read];if(item.life>0)list[write++]=item;}list.length=write;return list;}
 function burst(x,y,color,n=8){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),v=rand(25,170);pushParticle({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.2,.65),max:.65,color,size:Math.random()<.7?2:3})}}
 function supernovaBurst(x,y,r,color='#aabaff',boss=false){const palette=boss?['#ffffff','#aabaff','#bd92ff','#72f6ff','#ff79b8','#ffcf8a']:[color,'#ffffff','#72f6ff','#bd92ff'];const count=boss?150:88;for(let i=0;i<count;i++){const a=Math.random()*Math.PI*2,heavy=Math.random()<.22,speed=heavy?rand(190,420):rand(65,270),life=heavy?rand(.65,1.35):rand(.35,.95),c=palette[Math.floor(Math.random()*palette.length)],start=rand(0,Math.max(4,r*.72));pushParticle({x:x+Math.cos(a)*start,y:y+Math.sin(a)*start,vx:Math.cos(a)*speed+rand(-24,24),vy:Math.sin(a)*speed+rand(-24,24),life,max:life,color:c,size:heavy?rand(2.5,5.5):rand(1,3.4),drag:.94});}for(let i=0;i<(boss?3:2);i++)ultFx.push({type:'shockwave',x,y,r:Math.max(8,r*.25),maxR:r*(boss?5.5:4),life:.75+i*.16,max:.75+i*.16,color:palette[i%palette.length]});burst(x,y,'#ffffff',boss?35:20);}
