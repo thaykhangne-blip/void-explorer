@@ -103,7 +103,8 @@ function showVoidWeaponDelivery(reward,onDone){
   const title=isWeapon?weapon.name:'NEXUS FRAGMENTS';
   const glyph=isWeapon?weapon.glyph:'✧';
   const description=isWeapon?weapon.description:'A cache of recovered Nexus Fragment currency.';
-  const detail=isWeapon?'LEGENDARY VOID WEAPON · '+weapon.passive.name:'+'+reward.amount+' NEXUS FRAGMENTS';
+  const rarityLabel=weapon?.rarity==='unique'?'UNIQUE ★★★★':weapon?.rarity==='rare'?'RARE ★★★':'LEGENDARY ★★★★★';
+  const detail=isWeapon?rarityLabel+' VOID WEAPON · '+weapon.passive.name:'+'+reward.amount+' NEXUS FRAGMENTS';
   modal.innerHTML=`<div class="eyebrow">MYSTERY DELIVERY · WORLD ${Number(reward.worldId)+1} / ROOM ${reward.roomNumber}</div>
    <h2>${phase==='sealed'?'UNIDENTIFIED DELIVERY':phase==='revealed'?'DELIVERY IDENTIFIED':'DELIVERY COMPLETE'}</h2>
    <p>${phase==='sealed'?'A sealed package has arrived from an unlisted source. Open it to inspect the contents.':phase==='revealed'?description:'Reward secured in the persistent campaign save.'}</p>
@@ -188,20 +189,20 @@ function showStoryArchive(){
 }
 function showVoidWeaponCodex(){
  state='voidweapon-codex';
- let filter='all';
+ let filter='all',category='all';
  const modal=$('modal');
  const render=()=>{
   const ownedMap=Object.fromEntries(getOwnedVoidWeapons(saveData).map(weapon=>[weapon.id,weapon]));
   const ownedCount=voidWeapons.filter(weapon=>ownedMap[weapon.id]).length;
   const refinedCount=voidWeapons.filter(weapon=>(saveData.voidWeaponRefinements?.[weapon.id]||0)>0).length;
   const equippedEntries=Object.entries(saveData.equippedVoidWeapons||{});
-  const entries=voidWeapons.filter(weapon=>filter==='all'||(filter==='owned'?!!ownedMap[weapon.id]:!ownedMap[weapon.id]));
+  const entries=voidWeapons.filter(weapon=>(category==='all'||(weapon.category||'signature')===category)&&(filter==='all'||(filter==='owned'?!!ownedMap[weapon.id]:!ownedMap[weapon.id])));
   const cards=entries.map(weapon=>{
    const owned=ownedMap[weapon.id],rank=owned?.refinementLevel||0;
    const equippedCores=equippedEntries.filter(([,id])=>id===weapon.id).map(([id])=>cores.find(c=>c.id===id)?.name||id.toUpperCase());
    const hidden=!owned;
    return '<article class="void-weapon-codex-card '+(hidden?'is-undiscovered':'is-discovered')+'" style="--weapon-accent:'+(hidden?'#60718a':weapon.color)+'">'+
-    '<div class="void-weapon-codex-card-head"><span class="void-weapon-codex-glyph">'+(hidden?'?':weapon.glyph)+'</span><div><small>'+(hidden?'SIGNAL UNRESOLVED':'LEGENDARY WEAPON')+'</small><h3>'+(hidden?'UNKNOWN VOID WEAPON':weapon.name)+'</h3></div><span class="void-weapon-codex-rank">'+(hidden?'LOCKED':'R'+rank+'/'+MAX_VOID_WEAPON_REFINEMENT)+'</span></div>'+
+    '<div class="void-weapon-codex-card-head"><span class="void-weapon-codex-glyph">'+(hidden?'?':weapon.glyph)+'</span><div><small>'+(hidden?'SIGNAL UNRESOLVED':(weapon.rarity||'legendary').toUpperCase()+' · '+(weapon.category==='general'?'GENERAL':'SIGNATURE')+' · '+(weapon.rarity==='legendary'?'★★★★★':weapon.rarity==='unique'?'★★★★':'★★★'))+'</small><h3>'+(hidden?'UNKNOWN VOID WEAPON':weapon.name)+'</h3></div><span class="void-weapon-codex-rank">'+(hidden?'LOCKED':'R'+rank+'/'+MAX_VOID_WEAPON_REFINEMENT)+'</span></div>'+
     (hidden?'<p class="void-weapon-codex-secret">Weapon identity and signature data remain classified until the weapon is recovered.</p><div class="void-weapon-codex-lock">◇ UNDISCOVERED</div>':
      '<p class="void-weapon-codex-description">'+weapon.description+'</p>'+
      '<div class="void-weapon-codex-stats"><span>ATK <b>+'+Math.round(weapon.stats.atkPct*100+rank*2*(weapon.stats.atkPct>0?1:0))+'%</b></span><span>HULL <b>+'+Math.round(weapon.stats.hpPct*100+rank*2*(weapon.stats.hpPct>0?1:0))+'%</b></span><span>ARMOR <b>+'+Math.round(weapon.stats.armorPct*100+rank*2*(weapon.stats.armorPct>0?1:0))+'%</b></span></div>'+
@@ -215,12 +216,13 @@ function showVoidWeaponCodex(){
    '<div class="eyebrow">ARCHIVE / WEAPON REGISTRY</div><h2>VOID WEAPON CODEX</h2>'+
    '<p>Recovered weapons reveal their identity, signature passive, and refinement record. Duplicate copies are consumed to refine a weapon, up to Rank V.</p>'+
    '<div class="void-weapon-codex-summary"><div><b>'+ownedCount+' / '+voidWeapons.length+'</b><small>WEAPONS DISCOVERED</small></div><div><b>'+refinedCount+'</b><small>WEAPONS REFINED</small></div><div><b>'+Object.keys(saveData.voidWeaponRefinements||{}).filter(id=>(saveData.voidWeaponRefinements[id]||0)>=MAX_VOID_WEAPON_REFINEMENT).length+'</b><small>MAX RANK</small></div></div>'+
-   '<div class="void-weapon-codex-filters"><button type="button" data-weapon-filter="all" class="'+(filter==='all'?'active':'')+'">ALL SIGNALS · '+voidWeapons.length+'</button><button type="button" data-weapon-filter="owned" class="'+(filter==='owned'?'active':'')+'">DISCOVERED · '+ownedCount+'</button><button type="button" data-weapon-filter="undiscovered" class="'+(filter==='undiscovered'?'active':'')+'">UNKNOWN · '+(voidWeapons.length-ownedCount)+'</button></div>'+
+   '<div class="void-weapon-codex-filters"><button type="button" data-weapon-category="all" class="'+(category==='all'?'active':'')+'">ALL CATEGORIES</button><button type="button" data-weapon-category="general" class="'+(category==='general'?'active':'')+'">GENERAL · '+voidWeapons.filter(w=>w.category==='general').length+'</button><button type="button" data-weapon-category="signature" class="'+(category==='signature'?'active':'')+'">SIGNATURE · '+voidWeapons.filter(w=>w.category!=='general').length+'</button></div><div class="void-weapon-codex-filters"><button type="button" data-weapon-filter="all" class="'+(filter==='all'?'active':'')+'">ALL SIGNALS · '+voidWeapons.length+'</button><button type="button" data-weapon-filter="owned" class="'+(filter==='owned'?'active':'')+'">DISCOVERED · '+ownedCount+'</button><button type="button" data-weapon-filter="undiscovered" class="'+(filter==='undiscovered'?'active':'')+'">UNKNOWN · '+(voidWeapons.length-ownedCount)+'</button></div>'+
    '<div class="void-weapon-codex-grid">'+(cards||'<div class="void-weapon-empty">NO ENTRIES IN THIS FILTER.</div>')+'</div>'+
    '';
   
   
   modal.querySelectorAll('[data-weapon-filter]').forEach(button=>button.onclick=()=>{filter=button.dataset.weaponFilter;render();});
+  modal.querySelectorAll('[data-weapon-category]').forEach(button=>button.onclick=()=>{category=button.dataset.weaponCategory;render();});
   addUnifiedCodexTabs('weapons');
  };
  $('overlay').classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
