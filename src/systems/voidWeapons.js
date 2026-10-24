@@ -136,8 +136,11 @@ export function grantVoidWeapon(saveData, weaponId, copies = 1) {
     return { saveData: safe, granted: false, reason: 'invalid-weapon-or-count' };
   }
   const existingCopies = safe.voidWeaponInventory[weaponId] || 0;
+  const refinementLevel = safe.voidWeaponRefinements[weaponId] || 0;
+  const totalCopyProgress = existingCopies + refinementLevel;
   const conversionRate = VOID_WEAPON_BY_ID[weaponId].rarity === 'legendary' ? 250 : VOID_WEAPON_BY_ID[weaponId].rarity === 'unique' ? 150 : 100;
-  const remainingCapacity = Math.max(0, 5 - existingCopies);
+  // Refinement consumes duplicate copies, so include refinement ranks in the five-copy threshold.
+  const remainingCapacity = Math.max(0, 5 - totalCopyProgress);
   const storedCopies = Math.min(amount, remainingCapacity);
   const convertedCopies = Math.max(0, amount - storedCopies);
   safe.voidWeaponInventory[weaponId] = existingCopies + storedCopies;
