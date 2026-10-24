@@ -114,9 +114,9 @@ test('signature weapon passives expose the requested rank I-V stat progression',
     ['stillpoint', 'frost', 'critChance', [0.08, 0.10, 0.12, 0.14, 0.16]],
     ['eventide-array', 'nova', 'fireRate', [0.10, 0.12, 0.14, 0.16, 0.18]],
     ['thunderclap-protocol', 'flash', 'fireRate', [0.12, 0.14, 0.16, 0.18, 0.20]],
-    ['verdant-covenant', 'nature', 'damage', [0.10, 0.12, 0.14, 0.16, 0.18]],
+    ['verdant-covenant', 'nature', 'critDamage', [0.20, 0.24, 0.28, 0.32, 0.36]],
     ['prism-paradox', 'elemental', 'critDamage', [0.20, 0.25, 0.30, 0.35, 0.40]],
-    ['blood-dividend', 'vengeance', 'critDamage', [0.25, 0.30, 0.35, 0.40, 0.45]],
+    ['blood-dividend', 'vengeance', 'hpPct', [0.25, 0.30, 0.35, 0.40, 0.45]],
     ['last-light-first-dawn', 'remielle', 'critChance', [0.10, 0.12, 0.14, 0.16, 0.18]]
   ];
   for (const [weaponId, coreId, statKey, values] of cases) {
@@ -221,13 +221,13 @@ test('Void Weapon descriptions show only values for the current rank', () => {
   const cinder = getVoidWeapon('cinder-oath');
   assert.match(cinder.passive.description, /Critical Rate: \\+12%\\./);
   assert.match(cinder.passive.description, /Burning enemies take 25% more damage/);
-  assert.match(cinder.passive.description, /spawn 1 additional homing fireball/);
+  assert.match(cinder.passive.description, /spawn 1 additional smaller homing fireball/);
   assert.doesNotMatch(cinder.passive.description, /12% \\/ 14%|25% \\/ 30%|1 \\/ 2 \\/ 3/);
 
   const rankThree = getVoidWeapon('cinder-oath', 2);
   assert.match(rankThree.passive.description, /Critical Rate: \\+16%\\./);
   assert.match(rankThree.passive.description, /Burning enemies take 35% more damage/);
-  assert.match(rankThree.passive.description, /spawn 3 additional homing fireballs/);
+  assert.match(rankThree.passive.description, /spawn 2 additional smaller homing fireballs/);
 
   const owned = {
     ...baseSave(),
