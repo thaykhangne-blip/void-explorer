@@ -25,14 +25,16 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
 .void-loader-percent{font-size:18px;color:#a29aff;margin-left:3px}
 .void-loader-phase{margin-top:3px;font-size:12px;letter-spacing:.18em;color:#b5bfd9}
 .void-loader-details{min-height:15px;font-size:10px;letter-spacing:.08em;color:#667492}
-.void-loader-manifest{width:min(330px,82vw);max-height:112px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:2px;text-align:left;font-size:9px;letter-spacing:.05em;color:#52617e}
-.void-loader-item{display:flex;align-items:center;gap:6px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.void-loader-manifest{width:min(300px,82vw);min-height:20px;overflow:hidden;margin-top:2px;text-align:center;font-size:10px;letter-spacing:.12em;color:#8c9bb8}
+.void-loader-item{display:none;align-items:center;justify-content:center;gap:7px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:voidComponentIn .22s ease-out both}
+.void-loader-item.is-current{display:flex}
 .void-loader-item:before{content:'○';flex:0 0 auto;color:#586581}
 .void-loader-item.is-loaded{color:#8c9bb8}
 .void-loader-item.is-loaded:before{content:'✓';color:#72f6ff;text-shadow:0 0 8px #72f6ff55}
 .void-loader-item.is-failed{color:#ff9baf}
 .void-loader-item.is-failed:before{content:'×';color:#ff718f}
 .void-loader-item.is-loading:before{content:'◌';color:#c2b8ff}
+@keyframes voidComponentIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .void-loader-track{width:min(260px,78vw);height:2px;background:#1a2036;overflow:hidden;margin-top:4px}
 #voidLoaderBar{height:100%;width:0;background:linear-gradient(90deg,#6d5eff,#8cecff);box-shadow:0 0 10px #8c82ff;transition:width .22s ease}
 .void-loader-retry{display:none;margin-top:7px;padding:9px 14px;background:#0b1021;color:#e8edff;border:1px solid #6560bd;border-radius:3px;font:800 11px monospace;letter-spacing:.12em;cursor:pointer}
@@ -126,33 +128,43 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
   if(label)phase.textContent=label;
   if(detail)details.textContent=detail;
  }
- function renderManifest(statuses){
-  manifest.innerHTML=resources.map(([path,label],i)=>{
-   const status=statuses[i]||'pending';
-   const safeLabel=label.replace(/[&<>"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
-   return '<div class="void-loader-item is-'+status+'" title="'+safeLabel+'">'+safeLabel+'</div>';
-  }).join('');
+ let manifestCursor=0;
+ function renderManifest(statuses,activeIndex=-1){
+  const failedIndex=statuses.findIndex(status=>status==='failed');
+  const currentIndex=failedIndex>=0?failedIndex:(activeIndex>=0?activeIndex:manifestCursor%resources.length);
+  manifest.innerHTML='';
+  const [path,label]=resources[currentIndex];
+  const status=statuses[currentIndex]||'pending';
+  const safeLabel=label.replace(/[&<>"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+  const item=document.createElement('div');
+  item.className='void-loader-item is-current is-'+status;
+  item.textContent=label;
+  item.title=path;
+  manifest.appendChild(item);
+  manifest.setAttribute('aria-label','Loading component '+(currentIndex+1)+' of '+resources.length+': '+label);
+  manifestCursor=(currentIndex+1)%resources.length;
  }
  async function preload(){
   loader.classList.remove('has-error');
   retry.disabled=true;
   setProgress(0,'PRELOADING LOCAL SYSTEMS','VERIFYING GAME FILES');
   const statuses=resources.map(()=> 'pending');
-  renderManifest(statuses);
+  renderManifest(statuses,0);
   let complete=0;
   const results=await Promise.allSettled(resources.map(async (resource,index)=>{
    const [path,label]=resource;
-   statuses[index]='loading';renderManifest(statuses);
+   statuses[index]='loading';renderManifest(statuses,index);
    try{
     const response=await fetch(new URL(path,document.baseURI).href,{cache:'force-cache'});
     if(!response.ok)throw new Error(path+' · HTTP '+response.status);
     await response.arrayBuffer();
     statuses[index]='loaded';
+    renderManifest(statuses,index);
     complete++;
     setProgress(complete/resources.length*85,'PRELOADING LOCAL SYSTEMS',String(complete).padStart(2,'0')+' / '+resources.length+' FILES · '+label);
     renderManifest(statuses);
    }catch(error){
-    statuses[index]='failed';renderManifest(statuses);throw error;
+    statuses[index]='failed';renderManifest(statuses,index);throw error;
    }
   }));
   const failed=results.map((result,i)=>result.status==='rejected'?resources[i][0]+': '+String(result.reason?.message||result.reason):null).filter(Boolean);
@@ -179,6 +191,6 @@ html,body{margin:0!important;width:100%;height:100%;overflow:hidden!important;ba
  preload();
 })();
 </script>
-<script type="module" src="src/game.js?v=421"></script>
+<script type="module" src="src/game.js?v=422"></script>
 
 </body></html>
