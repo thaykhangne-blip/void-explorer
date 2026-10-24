@@ -700,12 +700,18 @@ function showVoidWeaponTenPull(rewards,onDone){
  const topRank=Math.max(...valid.map(rarityRank));
  const tier=topRank>=5?'gold':topRank>=4?'purple':'blue';
  const accent=tier==='gold'?'#ffd66b':tier==='purple'?'#c69aff':'#72dfff';
- let revealed=false;
+ let phase='box',revealed=false;
  state='voidWeaponDelivery';
  const overlay=$('overlay'),modal=$('modal');
  overlay.classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
  modal.className='modal void-delivery-modal void-ten-pull-modal';
  const render=()=>{
+  if(phase==='box'){
+   modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>MYSTERY BOX</h2><p>Ten rewards are sealed inside. Open the box to reveal the ten-pull sequence.</p><div class="void-delivery-stage is-sealed" style="--delivery-accent:#c69aff"><div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div><div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div><div class="void-delivery-box"><span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">?</span><span class="delivery-box-base"></span></div></div><p class="void-delivery-hint">THE BOX CONTAINS 10 REWARDS</p><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction">OPEN MYSTERY BOX</button></div>';
+   modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{sfx('ui');phase='sequence';render();});
+   modal.querySelector('.void-delivery-stage')?.addEventListener('click',()=>{sfx('ui');phase='sequence';render();});
+   return;
+  }
   const cards=valid.map((reward,index)=>{
    const weapon=reward.type==='weapon'?getVoidWeapon(reward.weaponId):null;
    const rank=rarityRank(reward);
@@ -716,7 +722,7 @@ function showVoidWeaponTenPull(rewards,onDone){
    const detail=weapon?(weapon.rarity==='legendary'?'LEGENDARY ★★★★★':weapon.rarity==='unique'?'UNIQUE ★★★★':'RARE ★★★')+' VOID WEAPON':'+ '+reward.amount+' FRAGMENTS';
    return '<article class="void-ten-pull-card tier-'+cardTier+'" style="--pull-accent:'+color+';animation-delay:'+(index*35)+'ms"><span class="void-ten-pull-index">PULL '+String(index+1).padStart(2,'0')+'</span><div class="void-ten-pull-glyph">'+(revealed?glyph:'?')+'</div><b>'+(revealed?title:'SEALED')+'</b><small>'+(revealed?detail:'MYSTERY REWARD')+'</small></article>';
   }).join('');
-  modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(revealed?'10 RESULTS REVEALED':'TEN-PULL SEQUENCE')+'</h2><p>'+(revealed?'All ten rewards have been revealed together. Highest rarity determines the reveal animation.':'One reveal, ten results. Open the batch to see everything at once.')+'</p><div class="void-ten-pull-stage tier-'+tier+' '+(revealed?'is-revealed':'is-sealed')+'" style="--pull-accent:'+accent+'"><div class="void-ten-pull-rings" aria-hidden="true"></div><div class="void-ten-pull-grid">'+cards+'</div></div><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" style="--delivery-accent:'+accent+'">'+(revealed?'COLLECT ALL 10':'REVEAL ALL 10')+'</button></div>';
+  modal.innerHTML='<div class="eyebrow">VOID SHOP · TEN-PULL DELIVERY</div><h2>'+(revealed?'10 RESULTS REVEALED':'TEN-PULL SEQUENCE')+'</h2><p>'+(revealed?'All ten rewards have been revealed together. Highest rarity determines the reveal animation.':'The mystery box opens. Reveal all ten results together.')+'</p><div class="void-ten-pull-stage tier-'+tier+' '+(revealed?'is-revealed':'is-sealed')+'" style="--pull-accent:'+accent+'"><div class="void-ten-pull-rings" aria-hidden="true"></div><div class="void-ten-pull-grid">'+cards+'</div></div><div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidTenPullAction" style="--delivery-accent:'+accent+'">'+(revealed?'SECURE REWARDS':'REVEAL ALL 10')+'</button></div>';
   modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{
    sfx('ui');
    if(!revealed){revealed=true;render();return;}
