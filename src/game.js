@@ -63,7 +63,7 @@ function startMusic(){
 function updateMusicVolume(){if(musicBus&&audioCtx&&musicEnabled)musicBus.gain.setTargetAtTime(musicVolume,audioCtx.currentTime,.04)}
 function sfx(type){if(!sfxEnabled)return;const now=performance.now();const minGap=type==='shoot'?95:type==='hit'?35:type==='text'?28:0;if(minGap&&now-(sfxLast[type]||0)<minGap)return;sfxLast[type]=now;const ac=ensureAudio();if(!ac)return;const presets={shoot:[560,230,.055,'square',.035],shoot_ember:[260,105,.095,'sawtooth',.045],shoot_frost:[760,420,.085,'triangle',.04],shoot_nova:[920,130,.19,'sawtooth',.035],hit:[220,95,.075,'triangle',.045],kill:[390,690,.12,'sine',.055],xp:[720,1080,.09,'sine',.035],damage:[155,70,.16,'sawtooth',.055],ultimate:[120,520,.38,'sawtooth',.075],portal:[330,880,.22,'sine',.05],ui:[520,660,.045,'sine',.025],text:[840,520,.025,'square',.012],dash:[260,720,.1,'triangle',.04],level:[660,990,.16,'sine',.045]};const q=presets[type]||presets.ui;try{const osc=ac.createOscillator(),gain=ac.createGain();osc.type=q[3];osc.frequency.setValueAtTime(q[0],ac.currentTime);osc.frequency.exponentialRampToValueAtTime(Math.max(35,q[1]),ac.currentTime+q[2]);gain.gain.setValueAtTime(q[4],ac.currentTime);gain.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+q[2]);osc.connect(gain);gain.connect(ac.destination);osc.start();osc.stop(ac.currentTime+q[2]+.01)}catch(e){}}
 const narrative=createNarrativeSystem({overlay:$('overlay'),modal:$('modal'),getProgress:()=>saveData.storyProgress,saveProgress:()=>persist(),getCoreId:()=>core?.id,onStart:()=>{state='cutscene';last=performance.now()},onEnd:()=>{last=performance.now()},onSound:()=>sfx('ui'),onType:()=>sfx('text')});
-let roomDialogueShown=new Set();
+let roomDialogueShown=new Set();const milestoneDeliveriesPresented=new Set();
 function world(){return currentWorld===-1?tutorialWorld:(worlds[currentWorld]||worlds[0])}
 
 function nativeElementForCore(id){return elements.find(e=>e.name===({ember:'FIRE',frost:'FROST',nova:'NOVA',remielle:'LUMINE',nature:'NATURE',flash:'LIGHTNING','elemental':'PRISM',vengeance:'CRIMSON'}[id]||'NOVA'))||elements[2]}
@@ -90,7 +90,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 function showModal(eyebrow,title,desc,choices){$('overlay').classList.remove('hidden','closing');let m=$('modal');m.classList.toggle('upgrade-modal',/EXPERIENCE THRESHOLD|EVOLVE YOUR ORB|EVOLUTION/i.test(eyebrow+' '+title));m.innerHTML=`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2><p>${desc}</p><div class="choices">${choices.map((x,i)=>{const rare=PERK_RARITY[String(x.title||'').trim().toUpperCase()]==='rare';return `<button class="choice ${rare?'rare-choice':''}" data-i="${i}"><span class="orb" style="color:${x.color||'#72f6ff'}">${x.glyph||'✦'}</span><span class="choice-copy"><b>${x.title}${rare?'<em class="rare-tag">RARE</em>':''}</b><small>${String(x.desc||'').replace(/^RARE ·\s*/,'')}</small></span></button>`}).join('')}</div>`;m.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{sfx('ui');choices[i].action()});}
 function showVoidWeaponDelivery(reward,onDone){
- if(!reward||!reward.claimKey||typeof onDone!=='function'){if(onDone)onDone();return;}
+ if(typeof onDone!=='function')return;
+ const milestoneKey=reward&&Number.isInteger(Number(reward.worldId))&&Number.isInteger(Number(reward.roomNumber))?`${Number(reward.worldId)}:${Number(reward.roomNumber)}`:null;
+ if(!reward||!reward.claimKey){if(milestoneKey)milestoneDeliveriesPresented.add(milestoneKey);onDone();return;}
+ if(milestoneKey)milestoneDeliveriesPresented.add(milestoneKey);
  showVoidWeaponTenPull([reward],onDone);
 }
 
@@ -682,8 +685,8 @@ function showVoidWeaponTenPull(rewards,onDone){
    const cardTier=rank>=5?'gold':rank>=4?'purple':'blue';
    const color=rank>=5?'#ffd66b':rank>=4?'#c69aff':'#72dfff';
    const glyph=weapon?.glyph||'✧';
-   const title=weapon?.name||'NEXUS FRAGMENTS';
-   const detail=weapon?(weapon.rarity==='legendary'?'LEGENDARY ★★★★★':weapon.rarity==='unique'?'UNIQUE ★★★★':'RARE ★★★')+' VOID WEAPON':'+ '+reward.amount+' FRAGMENTS';
+   const title=reward.presentationOnly?'MILESTONE REWARD SECURED':(weapon?.name||'NEXUS FRAGMENTS');
+   const detail=reward.presentationOnly?'ALREADY GRANTED · NO DUPLICATE PAYOUT':(weapon?(weapon.rarity==='legendary'?'LEGENDARY ★★★★★':weapon.rarity==='unique'?'UNIQUE ★★★★':'RARE ★★★')+' VOID WEAPON':'+ '+reward.amount+' FRAGMENTS');
    const conversion=reward.convertedFragments?'<em class="void-duplicate-conversion">✦ CONVERTED TO '+reward.convertedFragments.toLocaleString()+' FRAGMENTS</em>':'';
    return '<article class="void-ten-pull-card tier-'+cardTier+'" style="--pull-accent:'+color+';animation-delay:'+(index*35)+'ms"><span class="void-ten-pull-index">PULL '+String(index+1).padStart(2,'0')+'</span><div class="void-ten-pull-glyph">'+(revealed?glyph:'?')+'</div><b>'+(revealed?title:'SEALED')+'</b><small>'+(revealed?detail:'MYSTERY REWARD')+'</small>'+(revealed?conversion:'')+'</article>';
   }).join('');
@@ -691,9 +694,9 @@ function showVoidWeaponTenPull(rewards,onDone){
   modal.querySelector('#voidTenPullAction')?.addEventListener('click',()=>{
    sfx('ui');
    if(!revealed){revealed=true;render();return;}
-   const claims=new Set(valid.map(reward=>reward.claimKey));
-   saveData.pendingVoidWeaponRewards=(saveData.pendingVoidWeaponRewards||[]).filter(item=>!claims.has(item.claimKey));
-   persist();hideModal();setTimeout(()=>onDone?.(),340);
+   const claims=new Set(valid.filter(reward=>!reward.presentationOnly).map(reward=>reward.claimKey));
+   if(claims.size){saveData.pendingVoidWeaponRewards=(saveData.pendingVoidWeaponRewards||[]).filter(item=>!claims.has(item.claimKey));persist();}
+   hideModal();setTimeout(()=>onDone?.(),340);
   });
  };
  render();
@@ -1356,6 +1359,17 @@ function continueAfterRoomClear(){
  if(pendingTutorialAdvance){pendingTutorialAdvance=false;if(room>=world().rooms){state='tutorialcomplete';tutorialTipVisible=false;$('tutorialTip').hidden=true;showModal('TRAINING SIMULATION · COMPLETE','YOU ARE READY','', [{title:'RETURN TO WORLD SELECT',glyph:'⌂',color:'#72f6ff',desc:'Confirm to return to campaign select.',action:()=>{if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);hideModal();state='worldselect';showWorldSelect();}}]);const modal=$('modal'),message='MOVEMENT CALIBRATED. DASH PROTOCOL VERIFIED. CORE SKILL ONLINE. ULTIMATE DISCHARGED. TRAINING COMPLETE. YOUR CAMPAIGN BEGINS NOW.';const desc=modal.querySelector('p');desc.classList.add('tutorial-typewriter');desc.textContent='';if(window.__voidTutorialTypeTimer)clearInterval(window.__voidTutorialTypeTimer);let typeIndex=0;window.__voidTutorialTypeTimer=setInterval(()=>{if(state!=='tutorialcomplete'||!desc.isConnected){clearInterval(window.__voidTutorialTypeTimer);return;}desc.textContent=message.slice(0,++typeIndex);if(typeIndex%3===0)sfx('text');if(typeIndex>=message.length)clearInterval(window.__voidTutorialTypeTimer);},28);return;}room++;enterRoom();state='playing';hideModal();last=performance.now();updateUI();}
 }
 function showPortals(){
+ // Safety net: every campaign milestone must present its delivery before room dialogue.
+ if(currentWorld>=0&&[5,10,15,20].includes(room)){
+  const milestoneKey=`${currentWorld}:${room}`;
+  if(!milestoneDeliveriesPresented.has(milestoneKey)){
+   const pending=(saveData.pendingVoidWeaponRewards||[]).find(item=>Number(item.worldId)===Number(currentWorld)&&Number(item.roomNumber)===Number(room));
+   const delivery=pending||{type:'nexus-fragments',amount:0,worldId:currentWorld,roomNumber:room,claimKey:`presentation-only:${milestoneKey}`,presentationOnly:true};
+   milestoneDeliveriesPresented.add(milestoneKey);
+   showVoidWeaponDelivery(delivery,()=>showPortals());
+   return;
+  }
+ }
  // Portal selection is an in-run canvas state, not a menu. Remove any stale menu back controls.
  document.querySelectorAll('#worldHoloBack,.world-holo-back').forEach(button=>button.remove());
  const dialogueScene=currentWorld>=0?inRunCommsScenes.find(scene=>scene.worldIndex===currentWorld&&scene.room===room):null;
