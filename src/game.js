@@ -91,47 +91,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 function showModal(eyebrow,title,desc,choices){$('overlay').classList.remove('hidden','closing');let m=$('modal');m.classList.toggle('upgrade-modal',/EXPERIENCE THRESHOLD|EVOLVE YOUR ORB|EVOLUTION/i.test(eyebrow+' '+title));m.innerHTML=`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2><p>${desc}</p><div class="choices">${choices.map((x,i)=>{const rare=PERK_RARITY[String(x.title||'').trim().toUpperCase()]==='rare';return `<button class="choice ${rare?'rare-choice':''}" data-i="${i}"><span class="orb" style="color:${x.color||'#72f6ff'}">${x.glyph||'✦'}</span><span class="choice-copy"><b>${x.title}${rare?'<em class="rare-tag">RARE</em>':''}</b><small>${String(x.desc||'').replace(/^RARE ·\s*/,'')}</small></span></button>`}).join('')}</div>`;m.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{sfx('ui');choices[i].action()});}
 function showVoidWeaponDelivery(reward,onDone){
  if(!reward||!reward.claimKey||typeof onDone!=='function'){if(onDone)onDone();return;}
- const weapon=reward.type==='weapon'?getVoidWeapon(reward.weaponId):null;
- let phase='sealed';
- state='voidWeaponDelivery';
- const overlay=$('overlay'),modal=$('modal');
- overlay.classList.remove('hidden','closing','story-overlay','dialogue-field-overlay');
- modal.className='modal void-delivery-modal';
- const render=()=>{
-  const isWeapon=reward.type==='weapon'&&!!weapon;
-  const accent=isWeapon?weapon.color:'#83ffc5';
-  const title=isWeapon?weapon.name:'NEXUS FRAGMENTS';
-  const glyph=isWeapon?weapon.glyph:'✧';
-  const description=isWeapon?weapon.description:'A cache of recovered Nexus Fragment currency.';
-  const rarityLabel=weapon?.rarity==='unique'?'UNIQUE ★★★★':weapon?.rarity==='rare'?'RARE ★★★':'LEGENDARY ★★★★★';
-  const detail=isWeapon?rarityLabel+' VOID WEAPON · '+weapon.passive.name:'+'+reward.amount+' NEXUS FRAGMENTS';
-  modal.innerHTML=`<div class="eyebrow">MYSTERY DELIVERY · WORLD ${Number(reward.worldId)+1} / ROOM ${reward.roomNumber}</div>
-   <h2>${phase==='sealed'?'UNIDENTIFIED DELIVERY':phase==='revealed'?'DELIVERY IDENTIFIED':'DELIVERY COMPLETE'}</h2>
-   <p>${phase==='sealed'?'A sealed package has arrived from an unlisted source. Open it to inspect the contents.':phase==='revealed'?description:'Reward secured in the persistent campaign save.'}</p>
-   <div class="void-delivery-stage ${phase==='sealed'?'is-sealed':phase==='revealed'?'is-opening':'is-collected'}" style="--delivery-accent:${accent}">
-    <div class="void-delivery-orbit orbit-one"></div><div class="void-delivery-orbit orbit-two"></div>
-    <div class="void-delivery-scan" aria-hidden="true"></div><div class="void-delivery-rune-ring" aria-hidden="true">◇ · ✦ · ◇ · ✧ · ◇ · ✦ · ◇ · ✧</div>
-    <div class="void-delivery-box" aria-label="${phase==='sealed'?'Sealed delivery box':title}">
-     <span class="delivery-box-glow"></span><span class="delivery-box-lid"></span><span class="delivery-box-mark">${phase==='sealed'?'?':glyph}</span><span class="delivery-box-base"></span>
-    </div>
-    ${phase==='revealed'?'<div class="void-delivery-sparks" aria-hidden="true">✦ · ✧ · ✦</div>':''}
-   </div>
-   ${phase==='sealed'?'<p class="void-delivery-hint">CLICK TO OPEN THE BOX</p>':`<div class="void-delivery-reward"><div class="void-delivery-glyph" style="color:${accent}">${glyph}</div><div><b>${title}</b><small>${detail}</small></div></div>`}
-   <div class="void-delivery-actions"><button class="btn void-delivery-primary" id="voidDeliveryAction">${phase==='sealed'?'OPEN PACKAGE':phase==='revealed'?'SECURE REWARD':'CONTINUE'}</button></div>`;
-  modal.querySelector('#voidDeliveryAction')?.addEventListener('click',()=>{
-   sfx('ui');
-   if(phase==='sealed'){phase='revealed';render();return;}
-   saveData.pendingVoidWeaponRewards=(saveData.pendingVoidWeaponRewards||[]).filter(item=>item.claimKey!==reward.claimKey);
-   persist();
-   hideModal();
-   setTimeout(()=>{onDone();},340);
-  });
-  modal.querySelector('.void-delivery-stage')?.addEventListener('click',()=>{
-   if(phase==='sealed'){phase='revealed';render();}
-  });
- };
- render();
+ // Use the same animated single-pull sequence as the Void Shop gacha, including the opening transition.
+ showVoidWeaponTenPull([reward],onDone);
 }
+
 function confirmInGame(title,desc,confirmTitle,onConfirm,onCancel,cancelTitle='CANCEL'){
  showModal('SYSTEM CONFIRMATION',title,desc,[
   {glyph:'⚠',color:'#ffe38a',title:confirmTitle,desc:'This action cannot be undone for the current checkpoint.',action:onConfirm},
