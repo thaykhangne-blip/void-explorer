@@ -176,7 +176,7 @@ export const voidWeapons = [
     rarity: 'rare',
     color: '#72dfff',
     glyph: '⬡',
-    description: 'GENERAL · HULL REINFORCEMENT',
+    description: 'GENERAL · MAX HP REINFORCEMENT',
     stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: { name: 'Layered Integrity', effectId: 'general-bastion-weave', statKey: 'hpPct', values: [0.12, 0.14, 0.16, 0.18, 0.20], description: 'Max HP: +12% / 14% / 16% / 18% / 20%.' }
   },
@@ -249,9 +249,9 @@ export const voidWeapons = [
     rarity: 'rare',
     color: '#78dfff',
     glyph: '⬡',
-    description: 'GENERAL · ARMOR',
+    description: 'GENERAL · DEFENSE',
     stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
-    passive: { name: 'Fortified Chassis', effectId: 'general-iron-psalm', statKey: 'armorPct', values: [0.08, 0.1, 0.12, 0.14, 0.16], description: 'Armor: +8% / 10% / 12% / 14% / 16%.' }
+    passive: { name: 'Fortified Chassis', effectId: 'general-iron-psalm', statKey: 'armorPct', values: [0.08, 0.1, 0.12, 0.14, 0.16], description: 'DEF: +8% / 10% / 12% / 14% / 16%.' }
   },
   {
     id: 'afterburn-coil',
@@ -321,9 +321,9 @@ export const voidWeapons = [
     rarity: 'rare',
     color: '#78dfff',
     glyph: '◇',
-    description: 'GENERAL · ARMOR',
+    description: 'GENERAL · DEFENSE',
     stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
-    passive: { name: 'Null Guard', effectId: 'general-nullstone-heart', statKey: 'armorPct', values: [0.1, 0.12, 0.14, 0.16, 0.18], description: 'Armor: +10% / 12% / 14% / 16% / 18%.' }
+    passive: { name: 'Null Guard', effectId: 'general-nullstone-heart', statKey: 'armorPct', values: [0.1, 0.12, 0.14, 0.16, 0.18], description: 'DEF: +10% / 12% / 14% / 16% / 18%.' }
   },
   {
     id: 'redline-prism',
@@ -441,7 +441,7 @@ export const voidWeapons = [
     rarity: 'legendary',
     color: '#ffcb70',
     glyph: '⬡',
-    description: 'GENERAL · HULL AND ARMOR',
+    description: 'GENERAL · MAX HP AND DEFENSE',
     stats: { atkPct: 0, hpPct: 0, armorPct: 0 },
     passive: { name: 'Keystone Protocol', effectId: 'general-eternal-keystone', statKey: 'hpPct', values: [0.28, 0.32, 0.36, 0.4, 0.44], description: 'Max HP: +28% / 32% / 36% / 40% / 44%.' }
   }
