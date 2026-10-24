@@ -1789,21 +1789,33 @@ button.global-back-button { transition: opacity .18s ease; }
 /* Mystery delivery box reward reveal */
 .void-delivery-modal{width:min(540px,100%);padding:clamp(18px,4vw,30px);border:1px solid #3d5579;background:radial-gradient(ellipse at 50% 36%,#172743 0,#0b1222 65%);box-shadow:0 0 36px #72f6ff22,0 18px 60px #000b;overflow:hidden}
 .void-delivery-modal h2{letter-spacing:2.5px;font-size:clamp(20px,4vw,29px)}
-.void-delivery-stage{height:210px;position:relative;display:grid;place-items:center;isolation:isolate;overflow:hidden;border:1px solid #263b5c;border-radius:8px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--delivery-accent) 12%,transparent),transparent 62%)}
+.void-delivery-stage{height:210px;position:relative;display:grid;place-items:center;isolation:isolate;overflow:hidden;border:1px solid #263b5c;border-radius:8px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--delivery-accent) 12%,transparent),transparent 62%);transition:background .45s,border-color .45s}
+.void-delivery-stage:before{content:"";position:absolute;width:112px;height:112px;border:1px solid color-mix(in srgb,var(--delivery-accent) 65%,transparent);border-radius:50%;opacity:0;transform:scale(.25);pointer-events:none}
+.void-delivery-stage.is-opening:before{animation:voidDeliveryShockwave .85s cubic-bezier(.12,.7,.25,1) both}
+.void-delivery-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--delivery-accent) 18%,transparent) 48%,transparent 52%);opacity:0;pointer-events:none}
+.void-delivery-stage.is-opening:after{animation:voidDeliveryScan .75s ease-out both}
+.void-delivery-scan{position:absolute;inset:0;opacity:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 17px,color-mix(in srgb,var(--delivery-accent) 13%,transparent) 18px 19px);mask-image:linear-gradient(transparent,#000,transparent)}
+.void-delivery-stage.is-sealed .void-delivery-scan{opacity:.28;animation:voidDeliveryScanLine 4s linear infinite}
+.void-delivery-rune-ring{position:absolute;width:190px;height:190px;display:grid;place-items:center;border:1px dashed color-mix(in srgb,var(--delivery-accent) 38%,transparent);border-radius:50%;font-size:11px;letter-spacing:7px;color:var(--delivery-accent);opacity:.25;animation:voidDeliveryOrbit 18s linear infinite;pointer-events:none}
+.void-delivery-stage.is-opening{background:radial-gradient(ellipse at center,color-mix(in srgb,var(--delivery-accent) 32%,transparent),transparent 68%);border-color:color-mix(in srgb,var(--delivery-accent) 70%,#263b5c)}
 .void-delivery-orbit{position:absolute;width:170px;height:170px;border:1px solid color-mix(in srgb,var(--delivery-accent) 55%,transparent);border-radius:50%;transform:rotateX(67deg);animation:voidDeliveryOrbit 7s linear infinite}
 .void-delivery-orbit.orbit-two{width:130px;height:130px;transform:rotateY(67deg);animation-duration:5s;animation-direction:reverse;opacity:.55}
-.void-delivery-box{position:relative;width:108px;height:90px;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--delivery-accent) 40%,transparent));transition:transform .45s cubic-bezier(.2,.85,.25,1)}
+.void-delivery-box{position:relative;width:108px;height:90px;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--delivery-accent) 40%,transparent));transition:transform .45s cubic-bezier(.2,.85,.25,1);z-index:1}
 .delivery-box-base{position:absolute;left:7px;right:7px;bottom:0;height:58px;border:2px solid var(--delivery-accent);background:linear-gradient(135deg,#243651,#111a2d 65%);clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);box-shadow:inset 0 0 20px color-mix(in srgb,var(--delivery-accent) 16%,transparent)}
 .delivery-box-lid{position:absolute;z-index:2;left:0;right:0;top:16px;height:20px;border:2px solid var(--delivery-accent);background:linear-gradient(135deg,#3a4d68,#17243a);transform-origin:8% 100%;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .delivery-box-mark{position:absolute;z-index:3;top:37px;left:0;right:0;text-align:center;color:var(--delivery-accent);font-size:32px;font-weight:800;text-shadow:0 0 12px var(--delivery-accent)}
 .delivery-box-glow{position:absolute;inset:0;border-radius:50%;background:var(--delivery-accent);filter:blur(24px);opacity:.12;transform:scale(.6);transition:opacity .5s,transform .5s}
 .void-delivery-stage.is-sealed{cursor:pointer}
 .void-delivery-stage.is-sealed .void-delivery-box{animation:voidDeliveryHover 2.2s ease-in-out infinite}
-.void-delivery-stage.is-opening .delivery-box-lid{transform:translate(-13px,-30px) rotate(-32deg)}
-.void-delivery-stage.is-opening .delivery-box-glow,.void-delivery-stage.is-collected .delivery-box-glow{opacity:.48;transform:scale(1.4)}
-.void-delivery-stage.is-opening .void-delivery-box{transform:translateY(-8px) scale(1.08)}
+.void-delivery-stage.is-opening .delivery-box-lid{transform:translate(-17px,-38px) rotate(-42deg)}
+.void-delivery-stage.is-opening .delivery-box-glow,.void-delivery-stage.is-collected .delivery-box-glow{opacity:.72;transform:scale(1.65)}
+.void-delivery-stage.is-opening .void-delivery-box{transform:translateY(-10px) scale(1.12);animation:voidDeliveryReveal .7s cubic-bezier(.15,.8,.25,1) both}
+.void-delivery-stage.is-opening .void-delivery-orbit{animation-duration:1.8s;opacity:.9}
+.void-delivery-stage.is-opening .orbit-two{animation-duration:1.25s}
+.void-delivery-stage.is-opening .void-delivery-rune-ring{opacity:.7;animation-duration:2.2s}
 .void-delivery-stage.is-collected .void-delivery-box{transform:translateY(20px) scale(.72);opacity:.3}
-.void-delivery-sparks{position:absolute;top:22px;color:var(--delivery-accent);font-size:24px;letter-spacing:14px;text-shadow:0 0 14px var(--delivery-accent);animation:voidDeliverySpark 1s ease-in-out infinite alternate}
+.void-delivery-stage.is-collected .void-delivery-rune-ring{opacity:0;transition:opacity .3s}
+.void-delivery-sparks{position:absolute;inset:0;display:grid;place-items:center;color:var(--delivery-accent);font-size:24px;letter-spacing:14px;text-shadow:0 0 14px var(--delivery-accent);animation:voidDeliverySpark 1s ease-in-out infinite alternate;pointer-events:none}
 .void-delivery-hint{font-size:10px!important;letter-spacing:2px;color:#c7d7f0!important}
 .void-delivery-reward{display:flex;align-items:center;gap:14px;text-align:left;padding:14px;margin-top:14px;border:1px solid color-mix(in srgb,var(--delivery-accent) 55%,#263b5c);border-radius:6px;background:color-mix(in srgb,var(--delivery-accent) 8%,#0c1425);animation:voidDeliveryRewardIn .35s ease-out both}
 .void-delivery-glyph{flex:0 0 48px;height:48px;display:grid;place-items:center;font-size:34px;border:1px solid currentColor;border-radius:6px;background:#090f1d}
@@ -1814,7 +1826,11 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-delivery-primary{min-width:190px;border-color:var(--delivery-accent,#72f6ff)!important;box-shadow:0 0 18px color-mix(in srgb,var(--delivery-accent,#72f6ff) 18%,transparent)}
 @keyframes voidDeliveryOrbit{to{transform:rotateX(67deg) rotateZ(360deg)}}
 @keyframes voidDeliveryHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes voidDeliverySpark{from{opacity:.45;transform:translateY(4px) scale(.9)}to{opacity:1;transform:translateY(-5px) scale(1.1)}}
+@keyframes voidDeliverySpark{from{opacity:.45;transform:scale(.9)}to{opacity:1;transform:scale(1.1)}}
+@keyframes voidDeliveryShockwave{0%{opacity:.9;transform:scale(.25)}75%{opacity:.45}100%{opacity:0;transform:scale(2.5)}}
+@keyframes voidDeliveryScan{0%{opacity:0;transform:translateY(-35%)}25%{opacity:.8}100%{opacity:0;transform:translateY(35%)}}
+@keyframes voidDeliveryScanLine{0%{transform:translateY(-35%)}100%{transform:translateY(35%)}}
+@keyframes voidDeliveryReveal{0%{filter:brightness(1);transform:translateY(0) scale(.94)}35%{filter:brightness(1.8);transform:translateY(-15px) scale(1.17)}70%{filter:brightness(1.25);transform:translateY(-7px) scale(1.09)}100%{filter:brightness(1);transform:translateY(-10px) scale(1.12)}}
 @keyframes voidDeliveryRewardIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:520px){.void-delivery-stage{height:175px}.void-delivery-modal{padding:16px}.void-delivery-reward{padding:10px;gap:10px}.void-delivery-glyph{flex-basis:40px;height:40px;font-size:28px}}
 @media(prefers-reduced-motion:reduce){.void-delivery-orbit,.void-delivery-stage.is-sealed .void-delivery-box,.void-delivery-sparks,.void-delivery-reward{animation:none}.delivery-box-lid,.void-delivery-box,.delivery-box-glow{transition:none}}
