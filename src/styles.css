@@ -2351,3 +2351,11 @@ button.global-back-button { transition: opacity .18s ease; }
 @keyframes voidTenPullCardReveal{0%{opacity:.15;transform:translateY(10px) scale(.92);filter:brightness(2)}65%{opacity:1;transform:translateY(-3px) scale(1.03)}100%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}}
 @media(max-width:560px){.void-ten-pull-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.void-ten-pull-card{min-height:112px}.void-ten-pull-card:last-child{grid-column:1/-1}.void-ten-pull-modal{padding:14px!important}.void-ten-pull-stage{padding:9px}}
 @media(prefers-reduced-motion:reduce){.void-ten-pull-stage,.void-ten-pull-card{animation:none!important}}
+
+
+/* Single pulls share the mystery-box flow and use one centered result card. */
+.void-ten-pull-grid.is-single{grid-template-columns:minmax(180px,260px);justify-content:center}
+.void-ten-pull-grid.is-single .void-ten-pull-card{min-height:190px;padding:18px}
+.void-ten-pull-grid.is-single .void-ten-pull-glyph{width:64px;height:64px;font-size:38px}
+.void-ten-pull-grid.is-single .void-ten-pull-card b{font-size:12px}
+.void-ten-pull-grid.is-single .void-ten-pull-card small{font-size:10px}
