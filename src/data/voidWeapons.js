@@ -14,7 +14,7 @@ export const voidWeapons = [
       effectId: 'cinder-oath',
       statKey: 'critChance',
       values: [0.12, 0.14, 0.16, 0.18, 0.20],
-      description: 'Critical Rate: +12% / 14% / 16% / 18% / 20%. Ashen Verdict: Burning enemies take 25% / 30% / 35% / 40% / 45% more damage. Infernal Barrage: Auto-attacks spawn 1 / 2 / 3 / 4 / 5 additional homing fireballs. Each fireball damages nearby enemies and applies Burn. Fireballs inherit player damage bonuses but cannot spawn more fireballs.'
+      description: 'Critical Rate: +12% / 14% / 16% / 18% / 20%. Ashen Verdict: Burning enemies take 25% / 30% / 35% / 40% / 45% more damage. Infernal Barrage: Auto-attacks spawn 1 / 1 / 2 / 2 / 2 additional smaller homing fireballs. Each fireball damages nearby enemies and applies Burn. Fireballs inherit player damage bonuses but cannot spawn more fireballs.'
     }
   },
   {
@@ -80,9 +80,9 @@ export const voidWeapons = [
     passive: {
       name: 'Verdant Covenant',
       effectId: 'verdant-covenant',
-      statKey: 'damage',
-      values: [0.10, 0.12, 0.14, 0.16, 0.18],
-      description: 'Attack Damage: +10% / 12% / 14% / 16% / 18%. Symbiotic Engine: Each active summoned drone increases all damage dealt by 5% / 6% / 7% / 8% / 9%, stacking up to five times. Predatory Bloom: Every 5 / 4 / 4 / 3 / 3 seconds, each active drone launches a homing seed dealing 80% / 100% / 120% / 140% / 160% ATK. With at least three drones, seeds explode on impact for 50% of their damage to nearby enemies.'
+      statKey: 'critDamage',
+      values: [0.20, 0.24, 0.28, 0.32, 0.36],
+      description: 'Critical Damage: +20% / 24% / 28% / 32% / 36%. Symbiotic Engine: Each active summoned drone increases all damage dealt by 5% / 6% / 7% / 8% / 9%, stacking up to five times. Predatory Bloom: Every 5 / 4 / 4 / 3 / 3 seconds, each active drone launches a homing seed dealing 80% / 100% / 120% / 140% / 160% ATK. With at least three drones, seeds explode on impact for 50% of their damage to nearby enemies.'
     }
   },
   {
@@ -114,9 +114,9 @@ export const voidWeapons = [
     passive: {
       name: 'Blood Dividend',
       effectId: 'blood-dividend',
-      statKey: 'critDamage',
+      statKey: 'hpPct',
       values: [0.25, 0.30, 0.35, 0.40, 0.45],
-      description: 'Critical Damage: +25% / 30% / 35% / 40% / 45%. Debt Collection: Below 50% HP, deal 20% / 25% / 30% / 35% / 40% more damage; below 25% HP, gain another 10%. Crimson Reprisal: Every 8 / 7 / 6 / 5 / 4 auto-attacks, the next hit deals 200% / 250% / 300% / 350% / 400% ATK as bonus damage. A kill with this strike releases a shockwave for 100% / 125% / 150% / 175% / 200% ATK to nearby enemies.'
+      description: 'Max HP: +25% / 30% / 35% / 40% / 45%. Debt Collection: While above 50% HP, each 1% of Max HP above that threshold increases final damage by 0.5% / 0.6% / 0.7% / 0.8% / 0.9%, capped at 50% / 60% / 70% / 80% / 90% bonus damage.'
     }
   },
   {
