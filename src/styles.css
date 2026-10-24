@@ -2359,3 +2359,9 @@ button.global-back-button { transition: opacity .18s ease; }
 .void-ten-pull-grid.is-single .void-ten-pull-glyph{width:64px;height:64px;font-size:38px}
 .void-ten-pull-grid.is-single .void-ten-pull-card b{font-size:12px}
 .void-ten-pull-grid.is-single .void-ten-pull-card small{font-size:10px}
+
+
+/* Duplicate overflow conversion reward indicator. */
+.void-duplicate-conversion{display:block;margin-top:7px;color:#9fffe3;font-size:10px;font-style:normal;font-weight:800;letter-spacing:.08em;text-shadow:0 0 7px #62ffd977,0 0 16px #62ffd944;animation:voidFragmentGlow 1.8s ease-in-out infinite alternate;}
+@keyframes voidFragmentGlow{from{text-shadow:0 0 5px #62ffd955,0 0 10px #62ffd922}to{text-shadow:0 0 9px #62ffd9cc,0 0 19px #62ffd966}}
+@media(prefers-reduced-motion:reduce){.void-duplicate-conversion{animation:none}}
