@@ -131,8 +131,15 @@ export function grantVoidWeapon(saveData, weaponId, copies = 1) {
   if (!VOID_WEAPON_BY_ID[weaponId] || !Number.isFinite(amount) || amount < 1) {
     return { saveData: safe, granted: false, reason: 'invalid-weapon-or-count' };
   }
-  safe.voidWeaponInventory[weaponId] = (safe.voidWeaponInventory[weaponId] || 0) + amount;
-  return { saveData: safe, granted: true, weaponId, copies: amount, totalCopies: safe.voidWeaponInventory[weaponId] };
+  const existingCopies = safe.voidWeaponInventory[weaponId] || 0;
+  const conversionRate = VOID_WEAPON_BY_ID[weaponId].rarity === 'legendary' ? 250 : VOID_WEAPON_BY_ID[weaponId].rarity === 'unique' ? 150 : 100;
+  const remainingCapacity = Math.max(0, 5 - existingCopies);
+  const storedCopies = Math.min(amount, remainingCapacity);
+  const convertedCopies = Math.max(0, amount - storedCopies);
+  safe.voidWeaponInventory[weaponId] = existingCopies + storedCopies;
+  const convertedFragments = convertedCopies * conversionRate;
+  if (convertedFragments > 0) safe.coreCurrency = Math.max(0, Number(safe.coreCurrency) || 0) + convertedFragments;
+  return { saveData: safe, granted: true, weaponId, copies: storedCopies, convertedCopies, convertedFragments, totalCopies: safe.voidWeaponInventory[weaponId] };
 }
 
 export function equipVoidWeapon(saveData, coreId, weaponId) {
