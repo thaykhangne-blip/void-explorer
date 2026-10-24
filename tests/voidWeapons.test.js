@@ -10,6 +10,7 @@ import {
   getVoidWeapon,
   normalizeVoidWeaponSave,
   refineVoidWeapon,
+  grantVoidWeapon,
   resolveVoidWeaponMilestoneReward,
   unequipVoidWeapon
 } from '../src/systems/voidWeapons.js';
@@ -296,4 +297,27 @@ test('every world grants exactly one milestone delivery at rooms 5, 10, 15, and 
       assert.equal(duplicate.awarded, false, `world ${worldId + 1}, room ${roomNumber} must not award twice`);
     }
   }
+});
+
+
+test('automatic duplicate conversion is independent of refinement and caps inventory at five', () => {
+  for (const [weaponId, rate] of [
+    ['fracture-drive', 100],
+    ['cinder-oath', 250],
+    ['prism-paradox', 150]
+  ]) {
+    const starting = { ...baseSave(), coreCurrency: 10, voidWeaponInventory: { [weaponId]: 5 }, voidWeaponRefinements: { [weaponId]: 0 } };
+    const grant = grantVoidWeapon(starting, weaponId, 1);
+    assert.equal(grant.granted, true);
+    assert.equal(grant.totalCopies, 5);
+    assert.equal(grant.convertedCopies, 1);
+    assert.equal(grant.convertedFragments, rate);
+    assert.equal(grant.saveData.coreCurrency, 10 + rate);
+    assert.equal(grant.saveData.voidWeaponRefinements[weaponId], undefined);
+  }
+  const batch = grantVoidWeapon({ ...baseSave(), coreCurrency: 0, voidWeaponInventory: { 'cinder-oath': 4 } }, 'cinder-oath', 3);
+  assert.equal(batch.totalCopies, 5);
+  assert.equal(batch.convertedCopies, 2);
+  assert.equal(batch.convertedFragments, 500);
+  assert.equal(batch.saveData.coreCurrency, 500);
 });
