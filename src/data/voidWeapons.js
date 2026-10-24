@@ -448,7 +448,7 @@ export const voidWeapons = [
 ];
 
 export const VOID_WEAPON_BY_ID = Object.freeze(
-  Object.fromEntries(voidWeapons.map(weapon => [weapon.id, weapon]))
+  Object.fromEntries(voidWeapons.filter(weapon => weapon && typeof weapon.id === 'string').map(weapon => [weapon.id, weapon]))
 );
 
 export const VOID_WEAPON_SIGNATURE_CORE_IDS = Object.freeze(
