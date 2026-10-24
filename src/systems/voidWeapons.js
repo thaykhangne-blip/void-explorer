@@ -9,9 +9,9 @@ export const VOID_WEAPON_SAVE_DEFAULTS = Object.freeze({
   pendingVoidWeaponRewards: []
 });
 
-const CORE_IDS = new Set(VOID_WEAPON_SIGNATURE_CORE_IDS_SAFE());
+const CORE_IDS = new Set(VOID_WEAPON_SIGNATURE_CORE_IDS_SAFE().filter(Boolean));
 function VOID_WEAPON_SIGNATURE_CORE_IDS_SAFE() {
-  return voidWeapons.map(weapon => weapon.signatureCoreId);
+  return voidWeapons.filter(weapon => weapon.category === 'signature').map(weapon => weapon.signatureCoreId);
 }
 
 function isRecord(value) {
@@ -180,7 +180,7 @@ export function getVoidWeaponBonuses(saveData, coreId) {
   if (!weapon) return { weapon: null, stats: { atkPct: 0, hpPct: 0, armorPct: 0, critChance: 0, critDamage: 0, fireRate: 0, damage: 0 }, signaturePassive: null, refinementLevel: 0 };
   const refinementLevel = safe.voidWeaponRefinements[weaponId] || 0;
   const refinementBonus = refinementLevel * 0.02;
-  const passive = weapon.signatureCoreId === coreId ? weapon.passive : null;
+  const passive = weapon.category === 'general' || weapon.signatureCoreId === coreId ? weapon.passive : null;
   const passiveRank = Math.max(1, Math.min(5, refinementLevel || 1));
   const passiveStatBonus = passive?.values?.[passiveRank - 1] || 0;
   return {
@@ -223,11 +223,25 @@ export function resolveVoidWeaponMilestoneReward(saveData, worldId, roomNumber, 
   const room = Number(roomNumber);
   const roll = Number(rng());
   let reward;
+  let weaponPool = null;
+  let poolStart = 0;
+  let poolWidth = 0;
   if (Number.isFinite(roll) && roll >= 0 && roll < 0.05) {
-    const index = Math.min(voidWeapons.length - 1, Math.floor((roll / 0.05) * voidWeapons.length));
-    const weapon = voidWeapons[index];
+    weaponPool = voidWeapons.filter(weapon => weapon.rarity === 'legendary');
+    poolStart = 0; poolWidth = 0.05;
+  } else if (Number.isFinite(roll) && roll >= 0.05 && roll < 0.17) {
+    weaponPool = voidWeapons.filter(weapon => weapon.rarity === 'unique');
+    poolStart = 0.05; poolWidth = 0.12;
+  } else if (Number.isFinite(roll) && roll >= 0.17 && roll < 0.50) {
+    weaponPool = voidWeapons.filter(weapon => weapon.rarity === 'rare');
+    poolStart = 0.17; poolWidth = 0.33;
+  }
+  if (weaponPool?.length) {
+    const poolRoll = Math.max(0, Math.min(0.999999999, (roll - poolStart) / poolWidth));
+    const index = Math.min(weaponPool.length - 1, Math.floor(poolRoll * weaponPool.length));
+    const weapon = weaponPool[index];
     const granted = grantVoidWeapon(safe, weapon.id, 1);
-    reward = { type: 'weapon', weaponId: weapon.id, worldId: world, roomNumber: room, claimKey: claim.key };
+    reward = { type: 'weapon', weaponId: weapon.id, rarity: weapon.rarity, worldId: world, roomNumber: room, claimKey: claim.key };
     safe.voidWeaponInventory = granted.saveData.voidWeaponInventory;
     safe.equippedVoidWeapons = granted.saveData.equippedVoidWeapons;
     safe.voidWeaponClaims = granted.saveData.voidWeaponClaims;
